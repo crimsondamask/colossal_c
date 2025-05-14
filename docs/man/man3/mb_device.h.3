@@ -1,0 +1,144 @@
+.TH "colossal_cpp/mb_device.h" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/mb_device.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBcl_mb_channel\fP"
+.br
+.RI "A type to hold address, type and data of a Modbus register\&. "
+.ti -1c
+.RI "struct \fBcl_mb_device\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct cl_mb_channel \fBcl_mb_channel\fP"
+.br
+.RI "A type to hold address, type and data of a Modbus register\&. "
+.ti -1c
+.RI "typedef struct cl_mb_device \fBcl_mb_device\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcl_mb_device_baudrate\fP { \fBBaud9600\fP = 9600, \fBBaud38400\fP = 38400 }"
+.br
+.RI "Standard baudrate values\&. "
+.ti -1c
+.RI "enum \fBcl_mb_device_parity\fP { \fBNone\fP = 0, \fBOdd\fP = 1, \fBEven\fP = 2 }"
+.br
+.RI "Parity types\&. "
+.ti -1c
+.RI "enum \fBcl_mb_channel_type\fP { \fBCoil\fP, \fBInt\fP, \fBReal\fP }"
+.br
+.RI "A Modbus register can hold 3 types of data\&. "
+.ti -1c
+.RI "enum \fBcl_mb_device_type\fP { \fBTcp\fP, \fBSerial\fP }"
+.br
+.RI "Modbus device type: TCP/Serial\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcl_mb_device\fP * \fBcl_device_init\fP (char const *name, size_t n_channels)"
+.br
+.ti -1c
+.RI "int \fBcl_device_destroy\fP (\fBcl_mb_device\fP *device)"
+.br
+.RI "Clear the device and free its memory including channel memory\&. "
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct cl_mb_channel cl_mb_channel"
+
+.PP
+A type to hold address, type and data of a Modbus register\&. 
+.SS "typedef struct cl_mb_device cl_mb_device"
+\fBcl_mb_device\fP is the root type for the Modbus device\&. It holds all device configuration and channels data\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBcl_mb_channel_type\fP"
+
+.PP
+A Modbus register can hold 3 types of data\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BICoil \fP
+A boolean value\&. 
+.TP
+\f(BIInt \fP
+16bit value\&. 
+.TP
+\f(BIReal \fP
+Needs 2 congruent 16bit registers\&. 
+.SS "enum \fBcl_mb_device_baudrate\fP"
+
+.PP
+Standard baudrate values\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIBaud9600 \fP
+Default\&. 
+.TP
+\f(BIBaud38400 \fP
+.SS "enum \fBcl_mb_device_parity\fP"
+
+.PP
+Parity types\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BINone \fP
+Default\&. 
+.TP
+\f(BIOdd \fP
+.TP
+\f(BIEven \fP
+.SS "enum \fBcl_mb_device_type\fP"
+
+.PP
+Modbus device type: TCP/Serial\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BITcp \fP
+Connect over a socket using IP address and a port\&. 
+.TP
+\f(BISerial \fP
+Connect over a serial port using the COM identifier\&. 
+.SH "Function Documentation"
+.PP 
+.SS "int cl_device_destroy (\fBcl_mb_device\fP * device)"
+
+.PP
+Clear the device and free its memory including channel memory\&. 
+.SS "\fBcl_mb_device\fP * cl_device_init (char const * name, size_t n_channels)"
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIn_channels\fP Initial number of channels in the device\&. The functions should allocate enough space for all the channel data\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

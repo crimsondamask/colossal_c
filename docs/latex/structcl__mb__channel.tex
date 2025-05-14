@@ -1,0 +1,61 @@
+\doxysection{cl\+\_\+mb\+\_\+channel Struct Reference}
+\hypertarget{structcl__mb__channel}{}\label{structcl__mb__channel}\index{cl\_mb\_channel@{cl\_mb\_channel}}
+
+
+A type to hold address, type and data of a Modbus register.  
+
+
+
+
+{\ttfamily \#include $<$mb\+\_\+device.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structcl__mb__channel_a7441ef0865bcb3db9b8064dd7375c1ea}{id}}
+\item 
+char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__channel_a5f1de76dd5d451949e12c0fbc966ca70}{name}}
+\item 
+enum \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\+\_\+mb\+\_\+channel\+\_\+type}} \mbox{\hyperlink{structcl__mb__channel_a97dffd00a410ee90350256a832efcc51}{value\+\_\+type}}
+\item 
+float \mbox{\hyperlink{structcl__mb__channel_a17956fe0129d3d4c94ebc06cfef2ad82}{value}}
+\begin{DoxyCompactList}\small\item\em A channel can only hold float values even when its type is Int or Coil. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A type to hold address, type and data of a Modbus register. 
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structcl__mb__channel_a7441ef0865bcb3db9b8064dd7375c1ea}\index{cl\_mb\_channel@{cl\_mb\_channel}!id@{id}}
+\index{id@{id}!cl\_mb\_channel@{cl\_mb\_channel}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{structcl__mb__channel_a7441ef0865bcb3db9b8064dd7375c1ea} 
+int id}
+
+\Hypertarget{structcl__mb__channel_a5f1de76dd5d451949e12c0fbc966ca70}\index{cl\_mb\_channel@{cl\_mb\_channel}!name@{name}}
+\index{name@{name}!cl\_mb\_channel@{cl\_mb\_channel}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structcl__mb__channel_a5f1de76dd5d451949e12c0fbc966ca70} 
+char const\texorpdfstring{$\ast$}{*} name}
+
+\Hypertarget{structcl__mb__channel_a17956fe0129d3d4c94ebc06cfef2ad82}\index{cl\_mb\_channel@{cl\_mb\_channel}!value@{value}}
+\index{value@{value}!cl\_mb\_channel@{cl\_mb\_channel}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \label{structcl__mb__channel_a17956fe0129d3d4c94ebc06cfef2ad82} 
+float value}
+
+
+
+A channel can only hold float values even when its type is Int or Coil. 
+
+\Hypertarget{structcl__mb__channel_a97dffd00a410ee90350256a832efcc51}\index{cl\_mb\_channel@{cl\_mb\_channel}!value\_type@{value\_type}}
+\index{value\_type@{value\_type}!cl\_mb\_channel@{cl\_mb\_channel}}
+\doxysubsubsection{\texorpdfstring{value\_type}{value\_type}}
+{\footnotesize\ttfamily \label{structcl__mb__channel_a97dffd00a410ee90350256a832efcc51} 
+enum \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\+\_\+mb\+\_\+channel\+\_\+type}} value\+\_\+type}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+colossal\+\_\+cpp/\mbox{\hyperlink{mb__device_8h}{mb\+\_\+device.\+h}}\end{DoxyCompactItemize}

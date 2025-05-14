@@ -1,0 +1,47 @@
+.TH "cl_mb_channel" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+cl_mb_channel \- A type to hold address, type and data of a Modbus register\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <mb_device\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBid\fP"
+.br
+.ti -1c
+.RI "char const  * \fBname\fP"
+.br
+.ti -1c
+.RI "enum \fBcl_mb_channel_type\fP \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "float \fBvalue\fP"
+.br
+.RI "A channel can only hold float values even when its type is Int or Coil\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+A type to hold address, type and data of a Modbus register\&. 
+.SH "Field Documentation"
+.PP 
+.SS "int id"
+
+.SS "char const* name"
+
+.SS "float value"
+
+.PP
+A channel can only hold float values even when its type is Int or Coil\&. 
+.SS "enum \fBcl_mb_channel_type\fP value_type"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

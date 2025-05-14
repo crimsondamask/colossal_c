@@ -1,0 +1,178 @@
+\doxysection{colossal\+\_\+cpp/mb\+\_\+device.h File Reference}
+\hypertarget{mb__device_8h}{}\label{mb__device_8h}\index{colossal\_cpp/mb\_device.h@{colossal\_cpp/mb\_device.h}}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcl__mb__channel}{cl\+\_\+mb\+\_\+channel}}
+\begin{DoxyCompactList}\small\item\em A type to hold address, type and data of a Modbus register. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct cl\+\_\+mb\+\_\+channel \mbox{\hyperlink{mb__device_8h_ab1b386391a95240adbdcdb8636c633a0}{cl\+\_\+mb\+\_\+channel}}
+\begin{DoxyCompactList}\small\item\em A type to hold address, type and data of a Modbus register. \end{DoxyCompactList}\item 
+typedef struct cl\+\_\+mb\+\_\+device \mbox{\hyperlink{mb__device_8h_a5a7fc065437f6d89ca35a019566a15c5}{cl\+\_\+mb\+\_\+device}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\+\_\+mb\+\_\+device\+\_\+baudrate}} \{ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8daaa8e455fa0d7f79ae72ce1befbf8fbb6}{Baud9600}} = 9600
+, \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8daa5f272942b5da434be7aef6c767de244}{Baud38400}} = 38400
+ \}
+\begin{DoxyCompactList}\small\item\em Standard baudrate values. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\+\_\+mb\+\_\+device\+\_\+parity}} \{ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ac9d3e887722f2bc482bcca9d41c512af}{None}} = 0
+, \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95a0749d9166d40372cdffcaa92a8c89671}{Odd}} = 1
+, \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ad5bd90b93310ca9658c5d7235521c77b}{Even}} = 2
+ \}
+\begin{DoxyCompactList}\small\item\em Parity types. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\+\_\+mb\+\_\+channel\+\_\+type}} \{ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba4676c81a01a434ffb1cd3537e3c3faaa}{Coil}}
+, \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba637b69dea56f804278aa50e975337e01}{Int}}
+, \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857bae47767a8fd75c3f527962d1c194cc19c}{Real}}
+ \}
+\begin{DoxyCompactList}\small\item\em A Modbus register can hold 3 types of data. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+mb\+\_\+device\+\_\+type}} \{ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8a34e764a95b583cea7ab13c28bddc7bab}{Tcp}}
+, \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94}{Serial}}
+ \}
+\begin{DoxyCompactList}\small\item\em Modbus device type\+: TCP/\+Serial. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093}{cl\+\_\+device\+\_\+init}} (char const \texorpdfstring{$\ast$}{*}name, size\+\_\+t n\+\_\+channels)
+\item 
+int \mbox{\hyperlink{mb__device_8h_ab1eaebe32ce52dc83625cf2d20d12351}{cl\+\_\+device\+\_\+destroy}} (\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*}device)
+\begin{DoxyCompactList}\small\item\em Clear the device and free its memory including channel memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{mb__device_8h_ab1b386391a95240adbdcdb8636c633a0}\index{mb\_device.h@{mb\_device.h}!cl\_mb\_channel@{cl\_mb\_channel}}
+\index{cl\_mb\_channel@{cl\_mb\_channel}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_mb\_channel}{cl\_mb\_channel}}
+{\footnotesize\ttfamily \label{mb__device_8h_ab1b386391a95240adbdcdb8636c633a0} 
+typedef struct cl\+\_\+mb\+\_\+channel cl\+\_\+mb\+\_\+channel}
+
+
+
+A type to hold address, type and data of a Modbus register. 
+
+\Hypertarget{mb__device_8h_a5a7fc065437f6d89ca35a019566a15c5}\index{mb\_device.h@{mb\_device.h}!cl\_mb\_device@{cl\_mb\_device}}
+\index{cl\_mb\_device@{cl\_mb\_device}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_mb\_device}{cl\_mb\_device}}
+{\footnotesize\ttfamily \label{mb__device_8h_a5a7fc065437f6d89ca35a019566a15c5} 
+typedef struct cl\+\_\+mb\+\_\+device cl\+\_\+mb\+\_\+device}
+
+\doxylink{structcl__mb__device}{cl\+\_\+mb\+\_\+device} is the root type for the Modbus device. It holds all device configuration and channels data. 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}\index{mb\_device.h@{mb\_device.h}!cl\_mb\_channel\_type@{cl\_mb\_channel\_type}}
+\index{cl\_mb\_channel\_type@{cl\_mb\_channel\_type}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_mb\_channel\_type}{cl\_mb\_channel\_type}}
+{\footnotesize\ttfamily \label{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b} 
+enum \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\+\_\+mb\+\_\+channel\+\_\+type}}}
+
+
+
+A Modbus register can hold 3 types of data. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Coil@{Coil}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Coil@{Coil}}}\Hypertarget{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba4676c81a01a434ffb1cd3537e3c3faaa}\label{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba4676c81a01a434ffb1cd3537e3c3faaa} 
+Coil&A boolean value. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Int@{Int}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Int@{Int}}}\Hypertarget{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba637b69dea56f804278aa50e975337e01}\label{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba637b69dea56f804278aa50e975337e01} 
+Int&16bit value. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Real@{Real}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Real@{Real}}}\Hypertarget{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857bae47767a8fd75c3f527962d1c194cc19c}\label{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857bae47767a8fd75c3f527962d1c194cc19c} 
+Real&Needs 2 congruent 16bit registers. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}\index{mb\_device.h@{mb\_device.h}!cl\_mb\_device\_baudrate@{cl\_mb\_device\_baudrate}}
+\index{cl\_mb\_device\_baudrate@{cl\_mb\_device\_baudrate}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_mb\_device\_baudrate}{cl\_mb\_device\_baudrate}}
+{\footnotesize\ttfamily \label{mb__device_8h_a7a4812884a392b4382e25063f455fe8d} 
+enum \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\+\_\+mb\+\_\+device\+\_\+baudrate}}}
+
+
+
+Standard baudrate values. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Baud9600@{Baud9600}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Baud9600@{Baud9600}}}\Hypertarget{mb__device_8h_a7a4812884a392b4382e25063f455fe8daaa8e455fa0d7f79ae72ce1befbf8fbb6}\label{mb__device_8h_a7a4812884a392b4382e25063f455fe8daaa8e455fa0d7f79ae72ce1befbf8fbb6} 
+Baud9600&Default. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Baud38400@{Baud38400}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Baud38400@{Baud38400}}}\Hypertarget{mb__device_8h_a7a4812884a392b4382e25063f455fe8daa5f272942b5da434be7aef6c767de244}\label{mb__device_8h_a7a4812884a392b4382e25063f455fe8daa5f272942b5da434be7aef6c767de244} 
+Baud38400&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}\index{mb\_device.h@{mb\_device.h}!cl\_mb\_device\_parity@{cl\_mb\_device\_parity}}
+\index{cl\_mb\_device\_parity@{cl\_mb\_device\_parity}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_mb\_device\_parity}{cl\_mb\_device\_parity}}
+{\footnotesize\ttfamily \label{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95} 
+enum \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\+\_\+mb\+\_\+device\+\_\+parity}}}
+
+
+
+Parity types. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!None@{None}}}\Hypertarget{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ac9d3e887722f2bc482bcca9d41c512af}\label{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ac9d3e887722f2bc482bcca9d41c512af} 
+None&Default. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Odd@{Odd}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Odd@{Odd}}}\Hypertarget{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95a0749d9166d40372cdffcaa92a8c89671}\label{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95a0749d9166d40372cdffcaa92a8c89671} 
+Odd&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Even@{Even}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Even@{Even}}}\Hypertarget{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ad5bd90b93310ca9658c5d7235521c77b}\label{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ad5bd90b93310ca9658c5d7235521c77b} 
+Even&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}\index{mb\_device.h@{mb\_device.h}!cl\_mb\_device\_type@{cl\_mb\_device\_type}}
+\index{cl\_mb\_device\_type@{cl\_mb\_device\_type}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_mb\_device\_type}{cl\_mb\_device\_type}}
+{\footnotesize\ttfamily \label{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8} 
+enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+mb\+\_\+device\+\_\+type}}}
+
+
+
+Modbus device type\+: TCP/\+Serial. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Tcp@{Tcp}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Tcp@{Tcp}}}\Hypertarget{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8a34e764a95b583cea7ab13c28bddc7bab}\label{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8a34e764a95b583cea7ab13c28bddc7bab} 
+Tcp&Connect over a socket using IP address and a port. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Serial@{Serial}!mb\_device.h@{mb\_device.h}}\index{mb\_device.h@{mb\_device.h}!Serial@{Serial}}}\Hypertarget{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94}\label{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94} 
+Serial&Connect over a serial port using the COM identifier. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mb__device_8h_ab1eaebe32ce52dc83625cf2d20d12351}\index{mb\_device.h@{mb\_device.h}!cl\_device\_destroy@{cl\_device\_destroy}}
+\index{cl\_device\_destroy@{cl\_device\_destroy}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_device\_destroy()}{cl\_device\_destroy()}}
+{\footnotesize\ttfamily \label{mb__device_8h_ab1eaebe32ce52dc83625cf2d20d12351} 
+int cl\+\_\+device\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*}}]{device}{}\end{DoxyParamCaption})}
+
+
+
+Clear the device and free its memory including channel memory. 
+
+\Hypertarget{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093}\index{mb\_device.h@{mb\_device.h}!cl\_device\_init@{cl\_device\_init}}
+\index{cl\_device\_init@{cl\_device\_init}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_device\_init()}{cl\_device\_init()}}
+{\footnotesize\ttfamily \label{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093} 
+\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} cl\+\_\+device\+\_\+init (\begin{DoxyParamCaption}\item[{char const \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{n\+\_\+channels}{}\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+channels} & Initial number of channels in the device. The functions should allocate enough space for all the channel data. \\
+\hline
+\end{DoxyParams}
