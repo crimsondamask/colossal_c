@@ -1,4 +1,5 @@
 #pragma once
+#include "data_buffer.h"
 #include "imgui/imgui.h"
 #include "mb_device.h"
 #include <stdbool.h>
@@ -9,6 +10,11 @@ typedef struct ThreadData
 {
     MbDevice device;
 } ThreadData;
+
+typedef struct ThreadArg
+{
+    Buffer *buf_ptr;
+} ThreadArg;
 
 /**
 ** The colossal type is a singleton that holds all the imgui data.
