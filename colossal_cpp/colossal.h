@@ -1,14 +1,25 @@
-
 #pragma once
+#include "imgui/imgui.h"
+#include "mb_device.h"
 #include <stdbool.h>
+
+/// Special struct to hold data shared between threads.
+/// This will be protected by a mutex.
+typedef struct ThreadData
+{
+    MbDevice device;
+} ThreadData;
 
 /**
 ** The colossal type is a singleton that holds all the imgui data.
 **/
-typedef struct colossal {
-    int id;
-
+typedef struct Colossal
+{
     /// This is used as a switch to run some code at startup.
-    bool is_first_scan;
+    bool is_first_scan = true;
+    bool show_demo_window = false;
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.0f);
+    /// Protected data coming from the thread.
+    ThreadData device_data;
 
-} colossal_t;
+} Colossal;
