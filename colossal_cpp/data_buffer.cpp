@@ -42,6 +42,7 @@ bool buf_put(Buffer *buf_ptr, MbDevice data)
     {
         if (cnd_wait(&buf_ptr->cnd_put, &buf_ptr->mtx) != thrd_success)
         {
+            mtx_unlock(&buf_ptr->mtx);
             return false;
         }
     }
@@ -53,9 +54,8 @@ bool buf_put(Buffer *buf_ptr, MbDevice data)
 
     ++buf_ptr->count;
 
-    const char *hello = "hello";
     mtx_unlock(&buf_ptr->mtx);
-    cnd_signal(&buf_ptr->cnd_get);
+    // cnd_signal(&buf_ptr->cnd_get);
 
     return true;
 }
@@ -72,15 +72,19 @@ bool buf_get(Buffer *buf_ptr, MbDevice *data_ptr, int sec)
 
     while (buf_ptr->count == 0)
     {
-        if (cnd_timedwait(&buf_ptr->cnd_get, &buf_ptr->mtx, &ts) != thrd_success)
-        {
-            return false;
-        }
+        // if (cnd_timedwait(&buf_ptr->cnd_get, &buf_ptr->mtx, &ts) != thrd_success)
+        // {
+        // }
+        mtx_unlock(&buf_ptr->mtx);
+        return false;
     }
 
     *data_ptr = buf_ptr->device_data[buf_ptr->tail];
     buf_ptr->tail = (buf_ptr->tail + 1) % buf_ptr->size;
     --buf_ptr->count;
+
+    mtx_unlock(&buf_ptr->mtx);
+    cnd_signal(&buf_ptr->cnd_put);
 
     return true;
 }

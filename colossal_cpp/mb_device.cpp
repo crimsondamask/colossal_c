@@ -1,4 +1,5 @@
 #include "mb_device.h"
+
 #include <stdlib.h>
 
 /// @file
@@ -29,8 +30,10 @@ MbDevice cl_device_init_tcp(char const *name,
     for (int i = 0; i < n_channels; i++)
     {
         device.channels[i].id = i;
+        device.timestamp = 0;
         device.channels[i].name = "CH";
-        device.channels[i].value_type = Int;
+        device.channels[i].address = i * 2;
+        device.channels[i].value_type = Real;
         device.channels[i].value = (float)i;
         device.channel_count++;
     }
@@ -41,8 +44,5 @@ MbDevice cl_device_init_tcp(char const *name,
 int cl_device_destroy(MbDevice *device)
 {
     free(device->channels);
-
-    free(device);
-
     return EXIT_SUCCESS;
 }

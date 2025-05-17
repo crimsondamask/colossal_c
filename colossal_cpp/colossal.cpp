@@ -7,13 +7,18 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include "libmodbus/modbus.h"
 #include "mb_device.h"
+#include <cstdint>
 #include <stdio.h>
 #include <stdlib.h>
 #include <threads.h>
+#include <time.h>
 #include <windows.h>
 
-#define N_CHANNELS 100
+#define N_CHANNELS 20
+#define N_DEVICES 1
+#define N_FRAMES_UNTIL_CONS 60
 
 // Win32 Thread function to keep polling the device;
 // DWORD WINAPI polling_thread(LPVOID lpParam);
@@ -109,9 +114,44 @@ int main(int, char **)
 
     // Our state:
     Colossal app;
-    app.device_data.device = cl_device_init_tcp("PLC_1", N_CHANNELS);
-    // Thread handle.
-    thrd_t th;
+    // app.device_data.device = cl_device_init_tcp("PLC_1", N_CHANNELS);
+    // Thread handles.
+    thrd_t th[N_DEVICES];
+    // Ring buffer for each device.
+    Buffer buf[N_DEVICES];
+    // Arguments to pass to each thread.
+    ThreadArg thread_arg[N_DEVICES];
+    // Device list
+    MbDevice mb_devices[N_DEVICES];
+    bool data_ready = false;
+
+    size_t frame_count = 0;
+    // Initialize each buffer for 10 products.
+    // Can only keep 10 products at a time.
+    // This is enough as the main thread will
+    // keep consuming the products.
+    // If the products are not consumed and the buffer is full,
+    // the polling thread will stop polling the device.
+    // This will probably change once we implement the logging functionality.
+    for (int i = 0; i < N_DEVICES; i++)
+    {
+        buf_init(&buf[i], 10);
+    }
+
+    for (int i = 0; i < N_DEVICES; i++)
+    {
+        thread_arg[i].id = i + 1;
+        thread_arg[i].buf_ptr = &buf[i];
+
+        if (thrd_create(&th[i], polling_thread, (void *)&thread_arg[i]) != thrd_success)
+        {
+            fprintf(stderr, "Could not spawn thread.\n");
+            return EXIT_FAILURE;
+        }
+
+        // We don't have to wait for the thread to finish.
+        thrd_detach(th[i]);
+    }
 
     // The main loop
     while (!glfwWindowShouldClose(window))
@@ -131,19 +171,20 @@ int main(int, char **)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        // We run code in the first frame.
-        if (app.is_first_scan)
-        {
+        ++frame_count;
+        // Consume the data in the buffer
 
-            if (thrd_create(&th, polling_thread, (void *)&app.device_data) != thrd_success)
+        if (frame_count >= N_FRAMES_UNTIL_CONS)
+        {
+            for (size_t i = 0; i < N_DEVICES; i++)
             {
-                fprintf(stderr, "Could not spawn thread.\n");
-                return EXIT_FAILURE;
+                while (buf_get(&buf[i], &mb_devices[i], 1))
+                {
+                }
+                data_ready = true;
             }
 
-            // We don't have to wait for the thread to finish.
-            thrd_detach(th);
-            app.is_first_scan = false;
+            frame_count = 0;
         }
         // Show demo window for tests.
         if (app.show_demo_window)
@@ -169,6 +210,18 @@ int main(int, char **)
             }
             ImGui::SameLine();
             ImGui::Text("Counter: %d", count);
+
+            if (data_ready)
+            {
+                for (size_t i = 0; i < N_DEVICES; i++)
+                {
+                    for (size_t j = 0; j < mb_devices[i].channel_count; j++)
+                    {
+                        ImGui::Text("Device ID: %d. CH%d: %f", mb_devices[i].id, mb_devices[i].channels[j].id,
+                                    mb_devices[i].channels[j].value);
+                    }
+                }
+            }
 
             ImGui::End();
         }
@@ -223,24 +276,50 @@ int polling_thread(void *arg)
         fprintf(stderr, "Error: Null pointer passed to the thread function.\n");
         return EXIT_FAILURE;
     }
-    ThreadData *t_data = (ThreadData *)arg;
+    ThreadArg *arg_ptr = (ThreadArg *)arg;
+    int id = arg_ptr->id;
+    Buffer *buf_ptr = arg_ptr->buf_ptr;
+    unsigned long timestamp = (unsigned long)time(nullptr);
+    int rc;
 
-    for (;;)
+    modbus_t *ctx;
+    MbDevice device = cl_device_init_tcp("PLC_1", N_CHANNELS);
+    device.id = id;
+
+    ctx = modbus_new_tcp(device.ip, device.port);
+
+    if (modbus_connect(ctx) == -1)
     {
-        // Loop forever.
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        modbus_free(ctx);
+        return EXIT_FAILURE;
+    }
 
-        for (int i = 0; i < t_data->device.channel_count; i++)
+    for (;;) // Loop forever
+    {
+        for (int i = 0; i < device.channel_count; i++)
         {
-            printf("%d: %s %f\n", t_data->device.channels[i].id, t_data->device.channels[i].name,
-                   t_data->device.channels[i].value);
+            uint16_t read_buf[2];
+            int read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
+            if (read_rc == -1)
+            {
+                fprintf(stderr, "Read failed: %s\n", modbus_strerror(errno));
+                modbus_free(ctx);
+                return EXIT_FAILURE;
+            }
+
+            device.channels[i].value = modbus_get_float_abcd(read_buf);
+            printf("CH%d: %f\n", device.channels[i].id, device.channels[i].value);
+        }
+        device.timestamp = timestamp;
+
+        if (buf_put(buf_ptr, device))
+        {
+            // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
         }
         Sleep(1000);
     }
+    modbus_free(ctx);
+    cl_device_destroy(&device);
     return EXIT_SUCCESS;
 }
-
-// DWORD WINAPI polling_thread(LPVOID lpParam)
-// {
-
-//     return EXIT_SUCCESS;
-// }

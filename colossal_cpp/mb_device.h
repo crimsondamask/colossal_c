@@ -39,6 +39,7 @@ typedef struct MbChannel
 {
     int id;
     char const *name;
+    int address;
 
     enum MbChannelType value_type;
     /// A channel can only hold float values even when its type is Int or Coil.
@@ -72,6 +73,7 @@ typedef struct MbDevice
     MbChannel *channels;
     /// Keeps count of the number of channels.
     size_t channel_count;
+    unsigned long timestamp;
 } MbDevice;
 
 MbDevice cl_device_init_tcp(char const *name, size_t n_channels);

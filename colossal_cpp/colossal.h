@@ -13,6 +13,7 @@ typedef struct ThreadData
 
 typedef struct ThreadArg
 {
+    int id;
     Buffer *buf_ptr;
 } ThreadArg;
 
