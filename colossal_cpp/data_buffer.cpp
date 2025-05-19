@@ -88,3 +88,57 @@ bool buf_get(Buffer *buf_ptr, MbDevice *data_ptr, int sec)
 
     return true;
 }
+
+bool config_update_init(ConfigUpdate *config_update)
+{
+    config_update->pending_update = false;
+
+    return (mtx_init(&config_update->mtx, mtx_plain) == thrd_success);
+}
+
+/// Get the new device config (including channels config) from GUI (main)
+/// and put it in ConfigUpdate pointer to be read from the thread.
+bool config_update_put(ConfigUpdate *config_update_ptr, MbDevice *config_src, bool reconnect_required)
+{
+    mtx_lock(&config_update_ptr->mtx);
+
+    if (config_src == NULL)
+    {
+        mtx_unlock(&config_update_ptr->mtx);
+        return false;
+    }
+    config_update_ptr->new_device_config = config_src;
+
+    // Indication that there is a configuration update
+    // otherwise the thread can't know when to update the config.
+    config_update_ptr->pending_update = true;
+    if (reconnect_required)
+    {
+        config_update_ptr->reconnect_required = true;
+    }
+
+    mtx_unlock(&config_update_ptr->mtx);
+
+    return true;
+}
+
+bool config_update_get(ConfigUpdate *config_update_ptr, MbDevice *config_dst, bool *reconnect_required)
+{
+    mtx_lock(&config_update_ptr->mtx);
+
+    if (!config_update_ptr->pending_update || config_dst == NULL)
+    {
+        mtx_unlock(&config_update_ptr->mtx);
+        return false;
+    }
+
+    *config_dst = *config_update_ptr->new_device_config;
+    // Reset the flag
+    config_update_ptr->pending_update = false;
+
+    *reconnect_required = config_update_ptr->reconnect_required;
+
+    mtx_unlock(&config_update_ptr->mtx);
+
+    return true;
+}

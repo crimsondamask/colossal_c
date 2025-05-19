@@ -15,6 +15,7 @@ typedef struct ThreadArg
 {
     int id;
     Buffer *buf_ptr;
+    ConfigUpdate *config_update_ptr;
 } ThreadArg;
 
 /**

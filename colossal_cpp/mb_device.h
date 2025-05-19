@@ -1,5 +1,9 @@
 #pragma once
 
+enum ClDeviceError
+{
+    MbSocketError,
+};
 /// Standard baudrate values
 enum DeviceBaudRate
 {
@@ -73,7 +77,12 @@ typedef struct MbDevice
     MbChannel *channels;
     /// Keeps count of the number of channels.
     size_t channel_count;
+    /// Timestamp of the data acquired.
     unsigned long timestamp;
+    /// Error flag. This is set in case of error.
+    bool is_error;
+    /// Error message.
+    const char *error_msg;
 } MbDevice;
 
 MbDevice cl_device_init_tcp(char const *name, size_t n_channels);

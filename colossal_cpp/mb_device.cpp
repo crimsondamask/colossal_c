@@ -22,6 +22,7 @@ MbDevice cl_device_init_tcp(char const *name,
 
     device.ip = "127.0.0.1";
     device.port = 5502;
+    device.is_error = false;
 
     MbChannel *channels = (MbChannel *)malloc(n_channels * sizeof(MbChannel));
 

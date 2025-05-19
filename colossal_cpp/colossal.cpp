@@ -10,14 +10,15 @@
 #include "libmodbus/modbus.h"
 #include "mb_device.h"
 #include <cstdint>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <threads.h>
 #include <time.h>
 #include <windows.h>
 
-#define N_CHANNELS 20
-#define N_DEVICES 1
+#define N_CHANNELS 10
+#define N_DEVICES 3
 #define N_FRAMES_UNTIL_CONS 60
 
 // Win32 Thread function to keep polling the device;
@@ -119,11 +120,14 @@ int main(int, char **)
     thrd_t th[N_DEVICES];
     // Ring buffer for each device.
     Buffer buf[N_DEVICES];
+    // Config update buffer
+    ConfigUpdate config_update[N_DEVICES];
     // Arguments to pass to each thread.
     ThreadArg thread_arg[N_DEVICES];
     // Device list
     MbDevice mb_devices[N_DEVICES];
-    bool data_ready = false;
+
+    bool frames_exceeded = false;
 
     size_t frame_count = 0;
     // Initialize each buffer for 10 products.
@@ -135,13 +139,21 @@ int main(int, char **)
     // This will probably change once we implement the logging functionality.
     for (int i = 0; i < N_DEVICES; i++)
     {
+        // Initialize all the devices.
+        // This is needed to allocate the required memory for channels
+        // so that the GUI can access them.
+        mb_devices[i] = cl_device_init_tcp("PLC", N_CHANNELS);
+        // Initialize the buffers
         buf_init(&buf[i], 10);
+        config_update_init(&config_update[i]);
     }
 
     for (int i = 0; i < N_DEVICES; i++)
     {
+
         thread_arg[i].id = i + 1;
         thread_arg[i].buf_ptr = &buf[i];
+        thread_arg[i].config_update_ptr = &config_update[i];
 
         if (thrd_create(&th[i], polling_thread, (void *)&thread_arg[i]) != thrd_success)
         {
@@ -178,10 +190,12 @@ int main(int, char **)
         {
             for (size_t i = 0; i < N_DEVICES; i++)
             {
+                // Get the device data from the threads buffers and put it in the
+                // mb_devices[] for display
                 while (buf_get(&buf[i], &mb_devices[i], 1))
                 {
                 }
-                data_ready = true;
+                frames_exceeded = true;
             }
 
             frame_count = 0;
@@ -204,27 +218,54 @@ int main(int, char **)
             ImGui::SliderFloat("float", &f, 0.0f, 100.0f);
             ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
 
-            if (ImGui::Button("Increment"))
+            for (int i = 0; i < N_DEVICES; i++)
             {
-                count++;
-            }
-            ImGui::SameLine();
-            ImGui::Text("Counter: %d", count);
 
-            if (data_ready)
-            {
-                for (size_t i = 0; i < N_DEVICES; i++)
+                char button_buf[20];
+                sprintf_s(button_buf, "Device %d", i);
+                ImGui::Text("Device %d", i + 1);
+                ImGui::SameLine();
+                if (ImGui::Button(button_buf))
                 {
-                    for (size_t j = 0; j < mb_devices[i].channel_count; j++)
+                    if (config_update_put(&config_update[i], &mb_devices[i], true))
                     {
-                        ImGui::Text("Device ID: %d. CH%d: %f", mb_devices[i].id, mb_devices[i].channels[j].id,
-                                    mb_devices[i].channels[j].value);
                     }
                 }
             }
+            ImGui::Text("Counter: %d", count);
 
-            ImGui::End();
+            for (size_t i = 0; i < N_DEVICES; i++)
+            {
+                if (mb_devices[i].is_error)
+                {
+                    ImGui::Text("Device ID: %d. ERROR: %s", mb_devices[i].id, mb_devices[i].error_msg);
+                }
+                else
+                {
+                    if (ImGui::BeginTable("Device Data", 2,
+                                          ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings |
+                                              ImGuiTableFlags_Borders))
+                    {
+                        MbDevice device = mb_devices[i];
+
+                        ImGui::TableSetupColumn("Channel");
+                        ImGui::TableSetupColumn("Value");
+                        ImGui::TableHeadersRow();
+                        for (int j = 0; j < device.channel_count; j++)
+                        {
+                            ImGui::TableNextRow();
+                            ImGui::TableNextColumn();
+                            ImGui::Text("CH%d", device.channels[j].id);
+                            ImGui::TableNextColumn();
+                            ImGui::Text("%f", device.channels[j].value);
+                        }
+                        ImGui::EndTable();
+                    }
+                }
+            }
         }
+
+        ImGui::End();
 
         // Rendering
         ImGui::Render();
@@ -279,6 +320,7 @@ int polling_thread(void *arg)
     ThreadArg *arg_ptr = (ThreadArg *)arg;
     int id = arg_ptr->id;
     Buffer *buf_ptr = arg_ptr->buf_ptr;
+    ConfigUpdate *config_update_ptr = arg_ptr->config_update_ptr;
     unsigned long timestamp = (unsigned long)time(nullptr);
     int rc;
 
@@ -286,39 +328,76 @@ int polling_thread(void *arg)
     MbDevice device = cl_device_init_tcp("PLC_1", N_CHANNELS);
     device.id = id;
 
-    ctx = modbus_new_tcp(device.ip, device.port);
+    bool reconnect_flag = false;
 
-    if (modbus_connect(ctx) == -1)
+    for (;;)
     {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-        modbus_free(ctx);
-        return EXIT_FAILURE;
-    }
-
-    for (;;) // Loop forever
-    {
-        for (int i = 0; i < device.channel_count; i++)
+        ctx = modbus_new_tcp(device.ip, device.port);
+        if (modbus_connect(ctx) == -1)
         {
-            uint16_t read_buf[2];
-            int read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
-            if (read_rc == -1)
+
+            // Hack to get Windows error message.
+            wchar_t *s = NULL;
+            char err_buffer[60];
+            FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                           NULL, WSAGetLastError(), MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_UK), (LPWSTR)&s, 0, NULL);
+            fprintf(stderr, "Connection failed: %S\n", s);
+
+            device.timestamp = timestamp;
+            device.is_error = true;
+            sprintf_s(err_buffer, "Error while trying to connect to device: %S", s);
+            device.error_msg = err_buffer;
+            // Make sure to put the data in the buffer so that main can get the error message.
+            if (buf_put(buf_ptr, device))
             {
-                fprintf(stderr, "Read failed: %s\n", modbus_strerror(errno));
-                modbus_free(ctx);
-                return EXIT_FAILURE;
+                // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
+            }
+            Sleep(2000);
+            continue; // Restart
+        }
+        reconnect_flag = false;
+        device.is_error = false;
+        for (;;) // Loop until error
+        {
+            // Check if there is a configuration update and if we need to reconnect the device.
+            if (config_update_get(config_update_ptr, &device, &reconnect_flag))
+            {
+                printf("Config updated: Device %d\n", device.id);
+            }
+            for (int i = 0; i < device.channel_count; i++)
+            {
+                uint16_t read_buf[2];
+                int read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
+                if (read_rc == -1)
+                {
+                    fprintf(stderr, "Read failed: %s\n", modbus_strerror(errno));
+                    // Try to reconnect.
+                    // Temporary. TODO: we should check errno and only try to reconnect if it is a socket error.
+                    reconnect_flag = true;
+                    device.is_error = true;
+                    device.error_msg = modbus_strerror(errno);
+                    break;
+                }
+
+                device.channels[i].value = modbus_get_float_abcd(read_buf);
+            }
+            device.timestamp = timestamp;
+            if (buf_put(buf_ptr, device))
+            {
+                // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
             }
 
-            device.channels[i].value = modbus_get_float_abcd(read_buf);
-            printf("CH%d: %f\n", device.channels[i].id, device.channels[i].value);
-        }
-        device.timestamp = timestamp;
+            if (reconnect_flag) // In case of an error, break out of the loop and reconnect.
+            {
+                printf("Reconnect requested\n");
 
-        if (buf_put(buf_ptr, device))
-        {
-            // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
+                break;
+            }
+
+            Sleep(1000);
         }
-        Sleep(1000);
     }
+
     modbus_free(ctx);
     cl_device_destroy(&device);
     return EXIT_SUCCESS;
