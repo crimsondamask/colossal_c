@@ -31,3 +31,12 @@ typedef struct Colossal
     ThreadData device_data;
 
 } Colossal;
+
+// typedef struct UiMbDeviceBuffer
+// {
+//     char const *name;
+//     char const *ip;
+//     int port;
+//     char const *com_port;
+
+// } UiMbDeviceBuffer;

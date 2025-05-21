@@ -10,6 +10,7 @@
 #include "libmodbus/modbus.h"
 #include "mb_device.h"
 #include <cstdint>
+#include <cstring>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,9 +22,6 @@
 #define N_DEVICES 3
 #define N_FRAMES_UNTIL_CONS 60
 
-// Win32 Thread function to keep polling the device;
-// DWORD WINAPI polling_thread(LPVOID lpParam);
-// C11 thread function.
 int polling_thread(void *arg);
 static void glfw_error_callback(int error, const char *description);
 
@@ -126,10 +124,16 @@ int main(int, char **)
     ThreadArg thread_arg[N_DEVICES];
     // Device list
     MbDevice mb_devices[N_DEVICES];
+    // UI buffers to hold the GUI data
+    MbDevice ui_device_buffers[N_DEVICES];
 
+    // We use this so we don't lock the mutex each frame.
     bool frames_exceeded = false;
-
     size_t frame_count = 0;
+
+    bool selected_channel[N_DEVICES][N_CHANNELS] = {};
+    int config_edit_flags[N_DEVICES] = {};
+
     // Initialize each buffer for 10 products.
     // Can only keep 10 products at a time.
     // This is enough as the main thread will
@@ -142,9 +146,12 @@ int main(int, char **)
         // Initialize all the devices.
         // This is needed to allocate the required memory for channels
         // so that the GUI can access them.
-        mb_devices[i] = cl_device_init_tcp("PLC", N_CHANNELS);
+        mb_devices[i] = cl_device_init_tcp("PLC", i + 1, N_CHANNELS);
+
+        ui_device_buffers[i] = cl_device_init_tcp("PLC", i + 1, N_CHANNELS);
         // Initialize the buffers
         buf_init(&buf[i], 10);
+        // and the config update so we can send updates to the threads.
         config_update_init(&config_update[i]);
     }
 
@@ -184,8 +191,8 @@ int main(int, char **)
         ImGui::NewFrame();
 
         ++frame_count;
-        // Consume the data in the buffer
 
+        // Consume the data in the buffer each N_FRAMES...
         if (frame_count >= N_FRAMES_UNTIL_CONS)
         {
             for (size_t i = 0; i < N_DEVICES; i++)
@@ -194,6 +201,7 @@ int main(int, char **)
                 // mb_devices[] for display
                 while (buf_get(&buf[i], &mb_devices[i], 1))
                 {
+                    // do something
                 }
                 frames_exceeded = true;
             }
@@ -207,61 +215,120 @@ int main(int, char **)
         }
 
         {
-            static float f = 0.0f;
-            static int count = 0;
 
-            ImGui::Begin("Main Window");
+            ImGui::Begin("Devices");
 
-            ImGui::Text("Sample text...");
             ImGui::Checkbox("Show Demo", &app.show_demo_window);
 
-            ImGui::SliderFloat("float", &f, 0.0f, 100.0f);
             ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
 
-            for (int i = 0; i < N_DEVICES; i++)
+            for (int i = 0; i < IM_ARRAYSIZE(mb_devices); i++)
             {
 
-                char button_buf[20];
-                sprintf_s(button_buf, "Device %d", i);
-                ImGui::Text("Device %d", i + 1);
-                ImGui::SameLine();
-                if (ImGui::Button(button_buf))
-                {
-                    if (config_update_put(&config_update[i], &mb_devices[i], true))
-                    {
-                    }
-                }
-            }
-            ImGui::Text("Counter: %d", count);
+                ImGui::PushID(i);
 
-            for (size_t i = 0; i < N_DEVICES; i++)
-            {
-                if (mb_devices[i].is_error)
+                MbDevice *device = &mb_devices[i];
+                // Used to hold UI data and persist it across frames.
+                // The use of pointers here is important as we don't want
+                // to just copy the buffer. We want to mutate the buffer state outside of
+                // the event loop.
+                MbDevice *ui_device_buffer = &ui_device_buffers[i];
+
+                // A little hack to show an asterics when the config is edited.
+                char collapsing_header_title[32];
+                if (config_edit_flags[i])
                 {
-                    ImGui::Text("Device ID: %d. ERROR: %s", mb_devices[i].id, mb_devices[i].error_msg);
+                    sprintf_s(collapsing_header_title, "Device Config *");
                 }
                 else
                 {
-                    if (ImGui::BeginTable("Device Data", 2,
-                                          ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings |
-                                              ImGuiTableFlags_Borders))
+                    sprintf_s(collapsing_header_title, "Device Config");
+                }
+
+                if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
+                {
+                    if (ImGui::InputText("Name", ui_device_buffer->name, IM_ARRAYSIZE(ui_device_buffer->ip),
+                                         ImGuiInputTextFlags_CharsNoBlank)
+
+                    )
                     {
-                        MbDevice device = mb_devices[i];
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+                    if (ImGui::InputText("IP Address", ui_device_buffer->ip, IM_ARRAYSIZE(ui_device_buffer->ip)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+
+                    if (ImGui::InputInt("Port", &ui_device_buffer->port))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+                }
+                // Button to send config update to the threads
+                if (ImGui::Button("Update Config"))
+                {
+                    device = ui_device_buffer;
+                    if (config_update_put(&config_update[i], device, true))
+                    {
+                        // Reset the config change indication flags.
+                        config_edit_flags[i] = 0;
+                    }
+                }
+                if (device->is_error)
+                {
+                    ImGui::Text("Device ID: %d. ERROR: %s", device->id, device->error_msg);
+                }
+                else
+                {
+                    ImVec2 outer_size = ImVec2(0.0f, 200.0f);
+                    if (ImGui::BeginTable("Device Data", 5,
+                                          ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders |
+                                              ImGuiTableFlags_HighlightHoveredColumn | ImGuiTableFlags_ScrollY |
+                                              ImGuiTableFlags_ScrollX | ImGuiTableFlags_RowBg,
+                                          outer_size))
+
+                    {
 
                         ImGui::TableSetupColumn("Channel");
                         ImGui::TableSetupColumn("Value");
+                        ImGui::TableSetupColumn("Type");
+                        ImGui::TableSetupColumn("Address");
+                        ImGui::TableSetupColumn("Description");
+                        ImGui::TableSetupScrollFreeze(0, 1);
                         ImGui::TableHeadersRow();
-                        for (int j = 0; j < device.channel_count; j++)
+                        for (int j = 0; j < device->channel_count; j++)
                         {
+                            char selectable_label[32];
+                            sprintf_s(selectable_label, "%s:CH%d", device->name, j);
                             ImGui::TableNextRow();
                             ImGui::TableNextColumn();
-                            ImGui::Text("CH%d", device.channels[j].id);
+                            ImGui::Selectable(selectable_label, &selected_channel[i][j],
+                                              ImGuiSelectableFlags_SpanAllColumns);
+                            // ImGui::Text("CH%d", device->channels[j].id);
                             ImGui::TableNextColumn();
-                            ImGui::Text("%f", device.channels[j].value);
+                            ImGui::Text("%0.3f", device->channels[j].value);
+                            ImGui::TableNextColumn();
+                            switch (device->channels[j].value_type)
+                            {
+                            case MbChannelType::Int:
+                                ImGui::Text("INT");
+                                break;
+                            case MbChannelType::Real:
+                                ImGui::Text("REAL");
+                                break;
+                            default:
+                                ImGui::Text("INT");
+                            }
+                            ImGui::TableNextColumn();
+                            ImGui::Text("%d", device->channels[j].address);
+                            ImGui::TableNextColumn();
+                            ImGui::Text("%s", device->channels[j].description);
                         }
                         ImGui::EndTable();
                     }
                 }
+
+                ImGui::PopID();
             }
         }
 
@@ -318,20 +385,22 @@ int polling_thread(void *arg)
         return EXIT_FAILURE;
     }
     ThreadArg *arg_ptr = (ThreadArg *)arg;
-    int id = arg_ptr->id;
     Buffer *buf_ptr = arg_ptr->buf_ptr;
     ConfigUpdate *config_update_ptr = arg_ptr->config_update_ptr;
     unsigned long timestamp = (unsigned long)time(nullptr);
     int rc;
 
     modbus_t *ctx;
-    MbDevice device = cl_device_init_tcp("PLC_1", N_CHANNELS);
-    device.id = id;
+    MbDevice device = cl_device_init_tcp("PLC_1", arg_ptr->id, N_CHANNELS);
 
     bool reconnect_flag = false;
 
     for (;;)
     {
+        if (config_update_get(config_update_ptr, &device, &reconnect_flag))
+        {
+            printf("Config updated: Device %d\n", arg_ptr->id);
+        }
         ctx = modbus_new_tcp(device.ip, device.port);
         if (modbus_connect(ctx) == -1)
         {
@@ -362,12 +431,27 @@ int polling_thread(void *arg)
             // Check if there is a configuration update and if we need to reconnect the device.
             if (config_update_get(config_update_ptr, &device, &reconnect_flag))
             {
-                printf("Config updated: Device %d\n", device.id);
+                printf("Config updated: Device %d\n", arg_ptr->id);
             }
             for (int i = 0; i < device.channel_count; i++)
             {
-                uint16_t read_buf[2];
-                int read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
+                uint16_t read_buf[2] = {};
+                int read_rc;
+                switch (device.channels[i].value_type)
+                {
+                case MbChannelType::Real:
+                    read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
+                    device.channels[i].value = modbus_get_float_abcd(read_buf);
+                    break;
+                case MbChannelType::Int:
+                    read_rc = modbus_read_registers(ctx, device.channels[i].address, 1, read_buf);
+                    device.channels[i].value = (read_buf[0]);
+                    break;
+                default:
+                    read_rc = modbus_read_registers(ctx, device.channels[i].address, 1, read_buf);
+                    device.channels[i].value = (read_buf[0]);
+                    break;
+                }
                 if (read_rc == -1)
                 {
                     fprintf(stderr, "Read failed: %s\n", modbus_strerror(errno));
@@ -378,8 +462,6 @@ int polling_thread(void *arg)
                     device.error_msg = modbus_strerror(errno);
                     break;
                 }
-
-                device.channels[i].value = modbus_get_float_abcd(read_buf);
             }
             device.timestamp = timestamp;
             if (buf_put(buf_ptr, device))

@@ -1,10 +1,11 @@
 #include "mb_device.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 /// @file
 /// Initialize the Modbus device.
-MbDevice cl_device_init_tcp(char const *name,
+MbDevice cl_device_init_tcp(char const *name, int id,
                             /// Initial number of channels in the device.
                             /// The functions should allocate enough space
                             /// for all the channel data.
@@ -15,13 +16,14 @@ MbDevice cl_device_init_tcp(char const *name,
 
     // device = (cl_mb_device *)malloc(sizeof(*device));
 
-    device.name = name;
-    device.id = 0;
+    device.id = id;
     device.channel_count = 0;
     device.name_identifier = "AI";
 
-    device.ip = "127.0.0.1";
     device.port = 5502;
+    strcpy_s(device.ip, "127.0.0.1");
+    strcpy_s(device.name, name);
+
     device.is_error = false;
 
     MbChannel *channels = (MbChannel *)malloc(n_channels * sizeof(MbChannel));
@@ -33,8 +35,9 @@ MbDevice cl_device_init_tcp(char const *name,
         device.channels[i].id = i;
         device.timestamp = 0;
         device.channels[i].name = "CH";
+        strcpy_s(device.channels[i].description, "Example channel. No description.");
         device.channels[i].address = i * 2;
-        device.channels[i].value_type = Real;
+        device.channels[i].value_type = MbChannelType::Real;
         device.channels[i].value = (float)i;
         device.channel_count++;
     }

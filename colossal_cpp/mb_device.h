@@ -1,5 +1,8 @@
 #pragma once
 
+#define CONFIG_EDIT_DEVICE_CONFIG 1
+#define CONFIG_EDIT_CHANNEL_CONFIG 2
+
 enum ClDeviceError
 {
     MbSocketError,
@@ -48,6 +51,7 @@ typedef struct MbChannel
     enum MbChannelType value_type;
     /// A channel can only hold float values even when its type is Int or Coil.
     float value;
+    char description[48];
 } MbChannel;
 
 /**
@@ -57,9 +61,9 @@ typedef struct MbChannel
 typedef struct MbDevice
 {
     int id;
-    char const *name;
+    char name[32];
     /// Used for TCP device.
-    char const *ip;
+    char ip[32];
     /// Used for TCP device.
     int port;
     /// Used for serial device.
@@ -85,6 +89,6 @@ typedef struct MbDevice
     const char *error_msg;
 } MbDevice;
 
-MbDevice cl_device_init_tcp(char const *name, size_t n_channels);
+MbDevice cl_device_init_tcp(char const *name, int id, size_t n_channels);
 MbDevice *cl_device_init_rtu(char const *name, size_t n_channels);
 int cl_device_destroy(MbDevice *device);
