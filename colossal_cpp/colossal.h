@@ -4,6 +4,8 @@
 #include "mb_device.h"
 #include <stdbool.h>
 
+#define CURL_STATICLIB
+
 /// Special struct to hold data shared between threads.
 /// This will be protected by a mutex.
 typedef struct ThreadData
@@ -31,6 +33,14 @@ typedef struct Colossal
     ThreadData device_data;
 
 } Colossal;
+
+typedef struct UiMenuState
+{
+    bool devices_menu;
+    bool tag_menu;
+    bool help_menu;
+    bool logging_menu;
+} UiMenuState;
 
 // typedef struct UiMbDeviceBuffer
 // {

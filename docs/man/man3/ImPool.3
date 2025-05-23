@@ -1,0 +1,128 @@
+.TH "ImPool< T >" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPool< T >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImPool\fP ()"
+.br
+.ti -1c
+.RI "\fB~ImPool\fP ()"
+.br
+.ti -1c
+.RI "T * \fBGetByKey\fP (\fBImGuiID\fP key)"
+.br
+.ti -1c
+.RI "T * \fBGetByIndex\fP (\fBImPoolIdx\fP n)"
+.br
+.ti -1c
+.RI "\fBImPoolIdx\fP \fBGetIndex\fP (const T *p) const"
+.br
+.ti -1c
+.RI "T * \fBGetOrAddByKey\fP (\fBImGuiID\fP key)"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const T *p) const"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "T * \fBAdd\fP ()"
+.br
+.ti -1c
+.RI "void \fBRemove\fP (\fBImGuiID\fP key, const T *p)"
+.br
+.ti -1c
+.RI "void \fBRemove\fP (\fBImGuiID\fP key, \fBImPoolIdx\fP idx)"
+.br
+.ti -1c
+.RI "void \fBReserve\fP (int capacity)"
+.br
+.ti -1c
+.RI "int \fBGetAliveCount\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetBufSize\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetMapSize\fP () const"
+.br
+.ti -1c
+.RI "T * \fBTryGetMapData\fP (\fBImPoolIdx\fP n)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< T > \fBBuf\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fBMap\fP"
+.br
+.ti -1c
+.RI "\fBImPoolIdx\fP \fBFreeIdx\fP"
+.br
+.ti -1c
+.RI "\fBImPoolIdx\fP \fBAliveCount\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<typename T> \fBImPool\fP< T >\fB::ImPool\fP ()\fR [inline]\fP"
+
+.SS "template<typename T> \fBImPool\fP< T >::~\fBImPool\fP ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename T> T * \fBImPool\fP< T >::Add ()\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImPool\fP< T >::Clear ()\fR [inline]\fP"
+
+.SS "template<typename T> bool \fBImPool\fP< T >::Contains (const T * p) const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImPool\fP< T >::GetAliveCount () const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImPool\fP< T >::GetBufSize () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImPool\fP< T >::GetByIndex (\fBImPoolIdx\fP n)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImPool\fP< T >::GetByKey (\fBImGuiID\fP key)\fR [inline]\fP"
+
+.SS "template<typename T> \fBImPoolIdx\fP \fBImPool\fP< T >::GetIndex (const T * p) const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImPool\fP< T >::GetMapSize () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImPool\fP< T >::GetOrAddByKey (\fBImGuiID\fP key)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImPool\fP< T >::Remove (\fBImGuiID\fP key, const T * p)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImPool\fP< T >::Remove (\fBImGuiID\fP key, \fBImPoolIdx\fP idx)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImPool\fP< T >::Reserve (int capacity)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImPool\fP< T >::TryGetMapData (\fBImPoolIdx\fP n)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<typename T> \fBImPoolIdx\fP \fBImPool\fP< T >::AliveCount"
+
+.SS "template<typename T> \fBImVector\fP<T> \fBImPool\fP< T >::Buf"
+
+.SS "template<typename T> \fBImPoolIdx\fP \fBImPool\fP< T >::FreeIdx"
+
+.SS "template<typename T> \fBImGuiStorage\fP \fBImPool\fP< T >::Map"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

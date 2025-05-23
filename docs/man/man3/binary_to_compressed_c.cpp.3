@@ -1,0 +1,162 @@
+.TH "colossal_cpp/imgui/fonts/binary_to_compressed_c.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/fonts/binary_to_compressed_c.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <string\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <assert\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_CRT_SECURE_NO_WARNINGS\fP"
+.br
+.ti -1c
+.RI "#define \fBstb_out\fP(v)"
+.br
+.ti -1c
+.RI "#define \fBstb__hc\fP(q,  h,  c)"
+.br
+.ti -1c
+.RI "#define \fBstb__hc2\fP(q,  h,  c,  d)"
+.br
+.ti -1c
+.RI "#define \fBstb__hc3\fP(q,  c,  d,  e)"
+.br
+.ti -1c
+.RI "#define \fBSTB__SCRAMBLE\fP(h)"
+.br
+.ti -1c
+.RI "#define \fBstb__nc\fP(b,  d)"
+.br
+.ti -1c
+.RI "#define \fBSTB__TRY\fP(t,  p)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef unsigned int \fBstb_uint\fP"
+.br
+.ti -1c
+.RI "typedef unsigned char \fBstb_uchar\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBSourceEncoding\fP { \fBSourceEncoding_U8\fP, \fBSourceEncoding_U32\fP, \fBSourceEncoding_Base85\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBstb_uint\fP \fBstb_compress\fP (\fBstb_uchar\fP *out, \fBstb_uchar\fP *in, \fBstb_uint\fP len)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.ti -1c
+.RI "char \fBEncode85Byte\fP (unsigned int x)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define _CRT_SECURE_NO_WARNINGS"
+
+.SS "#define stb__hc( q,  h,  c)"
+\fBValue:\fP
+.nf
+(((h) << 7) + ((h) >> 25) + q[c])
+.PP
+.fi
+
+.SS "#define stb__hc2( q,  h,  c,  d)"
+\fBValue:\fP
+.nf
+(((h) << 14) + ((h) >> 18) + (q[c] << 7) + q[d])
+.PP
+.fi
+
+.SS "#define stb__hc3( q,  c,  d,  e)"
+\fBValue:\fP
+.nf
+((q[c] << 14) + (q[d] << 7) + q[e])
+.PP
+.fi
+
+.SS "#define stb__nc( b,  d)"
+\fBValue:\fP
+.nf
+((d) <= window && ((b) > 9 || stb_not_crap((int)(b),(int)(d))))
+.PP
+.fi
+
+.SS "#define STB__SCRAMBLE( h)"
+\fBValue:\fP
+.nf
+(((h) + ((h) >> 16)) & mask)
+.PP
+.fi
+
+.SS "#define STB__TRY( t,  p)"
+\fBValue:\fP
+.nf
+    /* avoid retrying a match we already tried */ \\
+    if (p ? dist != (int)(q\-t) : 1)                             \\
+    if ((m = stb_matchlen(t, q, match_max)) > best)     \\
+    if (stb__nc(m,q\-(t)))                                \\
+    best = m, dist = (int)(q \- (t))
+.PP
+.fi
+
+.SS "#define stb_out( v)"
+\fBValue:\fP
+.nf
+do { if (stb__out) *stb__out++ = (stb_uchar) (v); else stb__write((stb_uchar) (v)); } while (0)
+.PP
+.fi
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef unsigned char \fBstb_uchar\fP"
+
+.SS "typedef unsigned int \fBstb_uint\fP"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBSourceEncoding\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISourceEncoding_U8 \fP
+.TP
+\f(BISourceEncoding_U32 \fP
+.TP
+\f(BISourceEncoding_Base85 \fP
+.SH "Function Documentation"
+.PP 
+.SS "char Encode85Byte (unsigned int x)"
+
+.SS "int main (int argc, char ** argv)"
+
+.SS "\fBstb_uint\fP stb_compress (\fBstb_uchar\fP * out, \fBstb_uchar\fP * in, \fBstb_uint\fP len)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

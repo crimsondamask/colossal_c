@@ -1,0 +1,98 @@
+.TH "ImDrawData" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImDrawData
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImDrawData\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddDrawList\fP (\fBImDrawList\fP *draw_list)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBDeIndexAllBuffers\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBScaleClipRects\fP (const \fBImVec2\fP &fb_scale)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "bool \fBValid\fP"
+.br
+.ti -1c
+.RI "int \fBCmdListsCount\fP"
+.br
+.ti -1c
+.RI "int \fBTotalIdxCount\fP"
+.br
+.ti -1c
+.RI "int \fBTotalVtxCount\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImDrawList\fP * > \fBCmdLists\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplayPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplaySize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBFramebufferScale\fP"
+.br
+.ti -1c
+.RI "\fBImGuiViewport\fP * \fBOwnerViewport\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImDrawData::ImDrawData ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImDrawData::AddDrawList (\fBImDrawList\fP * draw_list)"
+
+.SS "void ImDrawData::Clear ()"
+
+.SS "void ImDrawData::DeIndexAllBuffers ()"
+
+.SS "void ImDrawData::ScaleClipRects (const \fBImVec2\fP & fb_scale)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImDrawList\fP*> ImDrawData::CmdLists"
+
+.SS "int ImDrawData::CmdListsCount"
+
+.SS "\fBImVec2\fP ImDrawData::DisplayPos"
+
+.SS "\fBImVec2\fP ImDrawData::DisplaySize"
+
+.SS "\fBImVec2\fP ImDrawData::FramebufferScale"
+
+.SS "\fBImGuiViewport\fP* ImDrawData::OwnerViewport"
+
+.SS "int ImDrawData::TotalIdxCount"
+
+.SS "int ImDrawData::TotalVtxCount"
+
+.SS "bool ImDrawData::Valid"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

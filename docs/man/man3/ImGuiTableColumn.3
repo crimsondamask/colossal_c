@@ -1,0 +1,241 @@
+.TH "ImGuiTableColumn" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTableColumn
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiTableColumn\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiTableColumnFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "float \fBWidthGiven\fP"
+.br
+.ti -1c
+.RI "float \fBMinX\fP"
+.br
+.ti -1c
+.RI "float \fBMaxX\fP"
+.br
+.ti -1c
+.RI "float \fBWidthRequest\fP"
+.br
+.ti -1c
+.RI "float \fBWidthAuto\fP"
+.br
+.ti -1c
+.RI "float \fBWidthMax\fP"
+.br
+.ti -1c
+.RI "float \fBStretchWeight\fP"
+.br
+.ti -1c
+.RI "float \fBInitStretchWeightOrWidth\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBUserID\fP"
+.br
+.ti -1c
+.RI "float \fBWorkMinX\fP"
+.br
+.ti -1c
+.RI "float \fBWorkMaxX\fP"
+.br
+.ti -1c
+.RI "float \fBItemWidth\fP"
+.br
+.ti -1c
+.RI "float \fBContentMaxXFrozen\fP"
+.br
+.ti -1c
+.RI "float \fBContentMaxXUnfrozen\fP"
+.br
+.ti -1c
+.RI "float \fBContentMaxXHeadersUsed\fP"
+.br
+.ti -1c
+.RI "float \fBContentMaxXHeadersIdeal\fP"
+.br
+.ti -1c
+.RI "\fBImS16\fP \fBNameOffset\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBDisplayOrder\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBIndexWithinEnabledSet\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBPrevEnabledColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBNextEnabledColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBSortOrder\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableDrawChannelIdx\fP \fBDrawChannelCurrent\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableDrawChannelIdx\fP \fBDrawChannelFrozen\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableDrawChannelIdx\fP \fBDrawChannelUnfrozen\fP"
+.br
+.ti -1c
+.RI "bool \fBIsEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBIsUserEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBIsUserEnabledNextFrame\fP"
+.br
+.ti -1c
+.RI "bool \fBIsVisibleX\fP"
+.br
+.ti -1c
+.RI "bool \fBIsVisibleY\fP"
+.br
+.ti -1c
+.RI "bool \fBIsRequestOutput\fP"
+.br
+.ti -1c
+.RI "bool \fBIsSkipItems\fP"
+.br
+.ti -1c
+.RI "bool \fBIsPreserveWidthAuto\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBNavLayerCurrent\fP"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBAutoFitQueue\fP"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBCannotSkipItemsQueue\fP"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBSortDirection\fP: 2"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBSortDirectionsAvailCount\fP: 2"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBSortDirectionsAvailMask\fP: 4"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBSortDirectionsAvailList\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiTableColumn::ImGuiTableColumn ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImU8\fP ImGuiTableColumn::AutoFitQueue"
+
+.SS "\fBImU8\fP ImGuiTableColumn::CannotSkipItemsQueue"
+
+.SS "\fBImRect\fP ImGuiTableColumn::ClipRect"
+
+.SS "float ImGuiTableColumn::ContentMaxXFrozen"
+
+.SS "float ImGuiTableColumn::ContentMaxXHeadersIdeal"
+
+.SS "float ImGuiTableColumn::ContentMaxXHeadersUsed"
+
+.SS "float ImGuiTableColumn::ContentMaxXUnfrozen"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTableColumn::DisplayOrder"
+
+.SS "\fBImGuiTableDrawChannelIdx\fP ImGuiTableColumn::DrawChannelCurrent"
+
+.SS "\fBImGuiTableDrawChannelIdx\fP ImGuiTableColumn::DrawChannelFrozen"
+
+.SS "\fBImGuiTableDrawChannelIdx\fP ImGuiTableColumn::DrawChannelUnfrozen"
+
+.SS "\fBImGuiTableColumnFlags\fP ImGuiTableColumn::Flags"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTableColumn::IndexWithinEnabledSet"
+
+.SS "float ImGuiTableColumn::InitStretchWeightOrWidth"
+
+.SS "bool ImGuiTableColumn::IsEnabled"
+
+.SS "bool ImGuiTableColumn::IsPreserveWidthAuto"
+
+.SS "bool ImGuiTableColumn::IsRequestOutput"
+
+.SS "bool ImGuiTableColumn::IsSkipItems"
+
+.SS "bool ImGuiTableColumn::IsUserEnabled"
+
+.SS "bool ImGuiTableColumn::IsUserEnabledNextFrame"
+
+.SS "bool ImGuiTableColumn::IsVisibleX"
+
+.SS "bool ImGuiTableColumn::IsVisibleY"
+
+.SS "float ImGuiTableColumn::ItemWidth"
+
+.SS "float ImGuiTableColumn::MaxX"
+
+.SS "float ImGuiTableColumn::MinX"
+
+.SS "\fBImS16\fP ImGuiTableColumn::NameOffset"
+
+.SS "\fBImS8\fP ImGuiTableColumn::NavLayerCurrent"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTableColumn::NextEnabledColumn"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTableColumn::PrevEnabledColumn"
+
+.SS "\fBImU8\fP ImGuiTableColumn::SortDirection"
+
+.SS "\fBImU8\fP ImGuiTableColumn::SortDirectionsAvailCount"
+
+.SS "\fBImU8\fP ImGuiTableColumn::SortDirectionsAvailList"
+
+.SS "\fBImU8\fP ImGuiTableColumn::SortDirectionsAvailMask"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTableColumn::SortOrder"
+
+.SS "float ImGuiTableColumn::StretchWeight"
+
+.SS "\fBImGuiID\fP ImGuiTableColumn::UserID"
+
+.SS "float ImGuiTableColumn::WidthAuto"
+
+.SS "float ImGuiTableColumn::WidthGiven"
+
+.SS "float ImGuiTableColumn::WidthMax"
+
+.SS "float ImGuiTableColumn::WidthRequest"
+
+.SS "float ImGuiTableColumn::WorkMaxX"
+
+.SS "float ImGuiTableColumn::WorkMinX"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

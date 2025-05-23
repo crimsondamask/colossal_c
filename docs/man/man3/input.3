@@ -1,0 +1,1695 @@
+.TH "input" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+input \- Input reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Topics"
+
+.in +1c
+.ti -1c
+.RI "\fBKeyboard keys\fP"
+.br
+.ti -1c
+.RI "\fBModifier key flags\fP"
+.br
+.ti -1c
+.RI "\fBMouse buttons\fP"
+.br
+.ti -1c
+.RI "\fBJoysticks\fP"
+.br
+.ti -1c
+.RI "\fBStandard cursor shapes\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBGLFWmousebuttonfun\fP) (\fBGLFWwindow\fP *, int, int, int)"
+.br
+.RI "The function signature for mouse button callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWcursorposfun\fP) (\fBGLFWwindow\fP *, double, double)"
+.br
+.RI "The function signature for cursor position callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWcursorenterfun\fP) (\fBGLFWwindow\fP *, int)"
+.br
+.RI "The function signature for cursor enter/leave callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWscrollfun\fP) (\fBGLFWwindow\fP *, double, double)"
+.br
+.RI "The function signature for scroll callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWkeyfun\fP) (\fBGLFWwindow\fP *, int, int, int, int)"
+.br
+.RI "The function signature for keyboard key callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWcharfun\fP) (\fBGLFWwindow\fP *, unsigned int)"
+.br
+.RI "The function signature for Unicode character callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWcharmodsfun\fP) (\fBGLFWwindow\fP *, unsigned int, int)"
+.br
+.RI "The function signature for Unicode character with modifiers callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWdropfun\fP) (\fBGLFWwindow\fP *, int, const char **)"
+.br
+.RI "The function signature for file drop callbacks\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWjoystickfun\fP) (int, int)"
+.br
+.RI "The function signature for joystick configuration callbacks\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwGetInputMode\fP (\fBGLFWwindow\fP *window, int mode)"
+.br
+.RI "Returns the value of an input option for the specified window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetInputMode\fP (\fBGLFWwindow\fP *window, int mode, int value)"
+.br
+.RI "Sets an input option for the specified window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const char * \fBglfwGetKeyName\fP (int key, int scancode)"
+.br
+.RI "Returns the localized name of the specified printable key\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwGetKey\fP (\fBGLFWwindow\fP *window, int key)"
+.br
+.RI "Returns the last reported state of a keyboard key for the specified window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwGetMouseButton\fP (\fBGLFWwindow\fP *window, int button)"
+.br
+.RI "Returns the last reported state of a mouse button for the specified window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwGetCursorPos\fP (\fBGLFWwindow\fP *window, double *xpos, double *ypos)"
+.br
+.RI "Retrieves the position of the cursor relative to the client area of the window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetCursorPos\fP (\fBGLFWwindow\fP *window, double xpos, double ypos)"
+.br
+.RI "Sets the position of the cursor, relative to the client area of the window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWcursor\fP * \fBglfwCreateCursor\fP (const \fBGLFWimage\fP *image, int xhot, int yhot)"
+.br
+.RI "Creates a custom cursor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWcursor\fP * \fBglfwCreateStandardCursor\fP (int shape)"
+.br
+.RI "Creates a cursor with a standard shape\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwDestroyCursor\fP (\fBGLFWcursor\fP *cursor)"
+.br
+.RI "Destroys a cursor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetCursor\fP (\fBGLFWwindow\fP *window, \fBGLFWcursor\fP *cursor)"
+.br
+.RI "Sets the cursor for the window\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWkeyfun\fP \fBglfwSetKeyCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWkeyfun\fP cbfun)"
+.br
+.RI "Sets the key callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWcharfun\fP \fBglfwSetCharCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWcharfun\fP cbfun)"
+.br
+.RI "Sets the Unicode character callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWcharmodsfun\fP \fBglfwSetCharModsCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWcharmodsfun\fP cbfun)"
+.br
+.RI "Sets the Unicode character with modifiers callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWmousebuttonfun\fP \fBglfwSetMouseButtonCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWmousebuttonfun\fP cbfun)"
+.br
+.RI "Sets the mouse button callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWcursorposfun\fP \fBglfwSetCursorPosCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWcursorposfun\fP cbfun)"
+.br
+.RI "Sets the cursor position callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWcursorenterfun\fP \fBglfwSetCursorEnterCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWcursorenterfun\fP cbfun)"
+.br
+.RI "Sets the cursor enter/exit callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWscrollfun\fP \fBglfwSetScrollCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWscrollfun\fP cbfun)"
+.br
+.RI "Sets the scroll callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWdropfun\fP \fBglfwSetDropCallback\fP (\fBGLFWwindow\fP *window, \fBGLFWdropfun\fP cbfun)"
+.br
+.RI "Sets the file drop callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwJoystickPresent\fP (int joy)"
+.br
+.RI "Returns whether the specified joystick is present\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const float * \fBglfwGetJoystickAxes\fP (int joy, int *count)"
+.br
+.RI "Returns the values of all axes of the specified joystick\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const unsigned char * \fBglfwGetJoystickButtons\fP (int joy, int *count)"
+.br
+.RI "Returns the state of all buttons of the specified joystick\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const char * \fBglfwGetJoystickName\fP (int joy)"
+.br
+.RI "Returns the name of the specified joystick\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWjoystickfun\fP \fBglfwSetJoystickCallback\fP (\fBGLFWjoystickfun\fP cbfun)"
+.br
+.RI "Sets the joystick configuration callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetClipboardString\fP (\fBGLFWwindow\fP *window, const char *string)"
+.br
+.RI "Sets the clipboard to the specified string\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const char * \fBglfwGetClipboardString\fP (\fBGLFWwindow\fP *window)"
+.br
+.RI "Returns the contents of the clipboard as a string\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP double \fBglfwGetTime\fP (void)"
+.br
+.RI "Returns the value of the GLFW timer\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetTime\fP (double time)"
+.br
+.RI "Sets the GLFW timer\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP uint64_t \fBglfwGetTimerValue\fP (void)"
+.br
+.RI "Returns the current value of the raw timer\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP uint64_t \fBglfwGetTimerFrequency\fP (void)"
+.br
+.RI "Returns the frequency, in Hz, of the raw timer\&. "
+.in -1c
+.SS "Key and button actions"
+
+.in +1c
+.ti -1c
+.RI "#define \fBGLFW_RELEASE\fP   0"
+.br
+.RI "The key or mouse button was released\&. "
+.ti -1c
+.RI "#define \fBGLFW_PRESS\fP   1"
+.br
+.RI "The key or mouse button was pressed\&. "
+.ti -1c
+.RI "#define \fBGLFW_REPEAT\fP   2"
+.br
+.RI "The key was held down until it repeated\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is the reference documentation for input related functions and types\&. For more task-oriented information, see the \fBinput_guide\fP\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define GLFW_PRESS   1"
+
+.PP
+The key or mouse button was pressed\&. The key or mouse button was pressed\&. 
+.SS "#define GLFW_RELEASE   0"
+
+.PP
+The key or mouse button was released\&. The key or mouse button was released\&. 
+.SS "#define GLFW_REPEAT   2"
+
+.PP
+The key was held down until it repeated\&. The key was held down until it repeated\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* GLFWcharfun) (\fBGLFWwindow\fP *, unsigned int)"
+
+.PP
+The function signature for Unicode character callbacks\&. This is the function signature for Unicode character callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIcodepoint\fP The Unicode code point of the character\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_char\fP 
+
+.PP
+\fBglfwSetCharCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 2\&.4\&. @glfw3 Added window handle parameter\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWcharmodsfun) (\fBGLFWwindow\fP *, unsigned int, int)"
+
+.PP
+The function signature for Unicode character with modifiers callbacks\&. This is the function signature for Unicode character with modifiers callback functions\&. It is called for each input character, regardless of what modifier keys are held down\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIcodepoint\fP The Unicode code point of the character\&. 
+.br
+\fImods\fP Bit field describing which \fBmodifier keys\fP were held down\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_char\fP 
+
+.PP
+\fBglfwSetCharModsCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWcursorenterfun) (\fBGLFWwindow\fP *, int)"
+
+.PP
+The function signature for cursor enter/leave callbacks\&. This is the function signature for cursor enter/leave callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIentered\fP \fRGLFW_TRUE\fP if the cursor entered the window's client area, or \fRGLFW_FALSE\fP if it left it\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_enter\fP 
+
+.PP
+\fBglfwSetCursorEnterCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWcursorposfun) (\fBGLFWwindow\fP *, double, double)"
+
+.PP
+The function signature for cursor position callbacks\&. This is the function signature for cursor position callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIxpos\fP The new cursor x-coordinate, relative to the left edge of the client area\&. 
+.br
+\fIypos\fP The new cursor y-coordinate, relative to the top edge of the client area\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_pos\fP 
+
+.PP
+\fBglfwSetCursorPosCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRGLFWmouseposfun\fP\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWdropfun) (\fBGLFWwindow\fP *, int, const char **)"
+
+.PP
+The function signature for file drop callbacks\&. This is the function signature for file drop callbacks\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIcount\fP The number of dropped files\&. 
+.br
+\fIpaths\fP The UTF-8 encoded file and/or directory path names\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBpath_drop\fP 
+
+.PP
+\fBglfwSetDropCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWjoystickfun) (int, int)"
+
+.PP
+The function signature for joystick configuration callbacks\&. This is the function signature for joystick configuration callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIjoy\fP The joystick that was connected or disconnected\&. 
+.br
+\fIevent\fP One of \fRGLFW_CONNECTED\fP or \fRGLFW_DISCONNECTED\fP\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBjoystick_event\fP 
+
+.PP
+\fBglfwSetJoystickCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWkeyfun) (\fBGLFWwindow\fP *, int, int, int, int)"
+
+.PP
+The function signature for keyboard key callbacks\&. This is the function signature for keyboard key callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIkey\fP The \fBkeyboard key\fP that was pressed or released\&. 
+.br
+\fIscancode\fP The system-specific scancode of the key\&. 
+.br
+\fIaction\fP \fRGLFW_PRESS\fP, \fRGLFW_RELEASE\fP or \fRGLFW_REPEAT\fP\&. 
+.br
+\fImods\fP Bit field describing which \fBmodifier keys\fP were held down\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_key\fP 
+
+.PP
+\fBglfwSetKeyCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added window handle, scancode and modifier mask parameters\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWmousebuttonfun) (\fBGLFWwindow\fP *, int, int, int)"
+
+.PP
+The function signature for mouse button callbacks\&. This is the function signature for mouse button callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIbutton\fP The \fBmouse button\fP that was pressed or released\&. 
+.br
+\fIaction\fP One of \fRGLFW_PRESS\fP or \fRGLFW_RELEASE\fP\&. 
+.br
+\fImods\fP Bit field describing which \fBmodifier keys\fP were held down\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_mouse_button\fP 
+
+.PP
+\fBglfwSetMouseButtonCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added window handle and modifier mask parameters\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWscrollfun) (\fBGLFWwindow\fP *, double, double)"
+
+.PP
+The function signature for scroll callbacks\&. This is the function signature for scroll callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that received the event\&. 
+.br
+\fIxoffset\fP The scroll offset along the x-axis\&. 
+.br
+\fIyoffset\fP The scroll offset along the y-axis\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBscrolling\fP 
+
+.PP
+\fBglfwSetScrollCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRGLFWmousewheelfun\fP\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBGLFWAPI\fP \fBGLFWcursor\fP * glfwCreateCursor (const \fBGLFWimage\fP * image, int xhot, int yhot)"
+
+.PP
+Creates a custom cursor\&. Creates a new custom cursor image that can be set for a window with \fBglfwSetCursor\fP\&. The cursor can be destroyed with \fBglfwDestroyCursor\fP\&. Any remaining cursors are destroyed by \fBglfwTerminate\fP\&.
+
+.PP
+The pixels are 32-bit, little-endian, non-premultiplied RGBA, i\&.e\&. eight bits per channel\&. They are arranged canonically as packed sequential rows, starting from the top-left corner\&.
+
+.PP
+The cursor hotspot is specified in pixels, relative to the upper-left corner of the cursor image\&. Like all other coordinate systems in GLFW, the X-axis points to the right and the Y-axis points down\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIimage\fP The desired cursor image\&. 
+.br
+\fIxhot\fP The desired x-coordinate, in pixels, of the cursor hotspot\&. 
+.br
+\fIyhot\fP The desired y-coordinate, in pixels, of the cursor hotspot\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The handle of the created cursor, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The specified image data is copied before this function returns\&.
+
+.PP
+@reentrancy This function must not be called from a callback\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_object\fP 
+
+.PP
+\fBglfwDestroyCursor\fP 
+
+.PP
+\fBglfwCreateStandardCursor\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWcursor\fP * glfwCreateStandardCursor (int shape)"
+
+.PP
+Creates a cursor with a standard shape\&. Returns a cursor with a \fBstandard shape\fP, that can be set for a window with \fBglfwSetCursor\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIshape\fP One of the \fBstandard shapes\fP\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A new cursor ready to use or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_ENUM\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@reentrancy This function must not be called from a callback\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_object\fP 
+
+.PP
+\fBglfwCreateCursor\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwDestroyCursor (\fBGLFWcursor\fP * cursor)"
+
+.PP
+Destroys a cursor\&. This function destroys a cursor previously created with \fBglfwCreateCursor\fP\&. Any remaining cursors will be destroyed by \fBglfwTerminate\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcursor\fP The cursor object to destroy\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@reentrancy This function must not be called from a callback\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_object\fP 
+
+.PP
+\fBglfwCreateCursor\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const char * glfwGetClipboardString (\fBGLFWwindow\fP * window)"
+
+.PP
+Returns the contents of the clipboard as a string\&. This function returns the contents of the system clipboard, if it contains or is convertible to a UTF-8 encoded string\&. If the clipboard is empty or if its contents cannot be converted, \fRNULL\fP is returned and a \fBGLFW_FORMAT_UNAVAILABLE\fP error is generated\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that will request the clipboard contents\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The contents of the clipboard as a UTF-8 encoded string, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned string is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the next call to \fBglfwGetClipboardString\fP or \fBglfwSetClipboardString\fP, or until the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBclipboard\fP 
+
+.PP
+\fBglfwSetClipboardString\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwGetCursorPos (\fBGLFWwindow\fP * window, double * xpos, double * ypos)"
+
+.PP
+Retrieves the position of the cursor relative to the client area of the window\&. This function returns the position of the cursor, in screen coordinates, relative to the upper-left corner of the client area of the specified window\&.
+
+.PP
+If the cursor is disabled (with \fRGLFW_CURSOR_DISABLED\fP) then the cursor position is unbounded and limited only by the minimum and maximum values of a \fRdouble\fP\&.
+
+.PP
+The coordinate can be converted to their integer equivalents with the \fRfloor\fP function\&. Casting directly to an integer type works for positive coordinates, but fails for negative ones\&.
+
+.PP
+Any or all of the position arguments may be \fRNULL\fP\&. If an error occurs, all non-\fRNULL\fP position arguments will be set to zero\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The desired window\&. 
+.br
+\fIxpos\fP Where to store the cursor x-coordinate, relative to the left edge of the client area, or \fRNULL\fP\&. 
+.br
+\fIypos\fP Where to store the cursor y-coordinate, relative to the to top edge of the client area, or \fRNULL\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_pos\fP 
+
+.PP
+\fBglfwSetCursorPos\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwGetMousePos\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP int glfwGetInputMode (\fBGLFWwindow\fP * window, int mode)"
+
+.PP
+Returns the value of an input option for the specified window\&. This function returns the value of an input option for the specified window\&. The mode must be one of \fRGLFW_CURSOR\fP, \fRGLFW_STICKY_KEYS\fP or \fRGLFW_STICKY_MOUSE_BUTTONS\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window to query\&. 
+.br
+\fImode\fP One of \fRGLFW_CURSOR\fP, \fRGLFW_STICKY_KEYS\fP or \fRGLFW_STICKY_MOUSE_BUTTONS\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_INVALID_ENUM\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBglfwSetInputMode\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const float * glfwGetJoystickAxes (int joy, int * count)"
+
+.PP
+Returns the values of all axes of the specified joystick\&. This function returns the values of all axes of the specified joystick\&. Each element in the array is a value between -1\&.0 and 1\&.0\&.
+
+.PP
+Querying a joystick slot with no device present is not an error, but will cause this function to return \fRNULL\fP\&. Call \fBglfwJoystickPresent\fP to check device presence\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIjoy\fP The \fBjoystick\fP to query\&. 
+.br
+\fIcount\fP Where to store the number of axis values in the returned array\&. This is set to zero if an error occurred\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An array of axis values, or \fRNULL\fP if the joystick is not present\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_ENUM\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned array is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the specified joystick is disconnected, this function is called again for that joystick or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBjoystick_axis\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwGetJoystickPos\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const unsigned char * glfwGetJoystickButtons (int joy, int * count)"
+
+.PP
+Returns the state of all buttons of the specified joystick\&. This function returns the state of all buttons of the specified joystick\&. Each element in the array is either \fRGLFW_PRESS\fP or \fRGLFW_RELEASE\fP\&.
+
+.PP
+Querying a joystick slot with no device present is not an error, but will cause this function to return \fRNULL\fP\&. Call \fBglfwJoystickPresent\fP to check device presence\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIjoy\fP The \fBjoystick\fP to query\&. 
+.br
+\fIcount\fP Where to store the number of button states in the returned array\&. This is set to zero if an error occurred\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An array of button states, or \fRNULL\fP if the joystick is not present\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_ENUM\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned array is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the specified joystick is disconnected, this function is called again for that joystick or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBjoystick_button\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 2\&.2\&. @glfw3 Changed to return a dynamic array\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const char * glfwGetJoystickName (int joy)"
+
+.PP
+Returns the name of the specified joystick\&. This function returns the name, encoded as UTF-8, of the specified joystick\&. The returned string is allocated and freed by GLFW\&. You should not free it yourself\&.
+
+.PP
+Querying a joystick slot with no device present is not an error, but will cause this function to return \fRNULL\fP\&. Call \fBglfwJoystickPresent\fP to check device presence\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIjoy\fP The \fBjoystick\fP to query\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The UTF-8 encoded name of the joystick, or \fRNULL\fP if the joystick is not present\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_ENUM\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned string is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the specified joystick is disconnected, this function is called again for that joystick or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBjoystick_name\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP int glfwGetKey (\fBGLFWwindow\fP * window, int key)"
+
+.PP
+Returns the last reported state of a keyboard key for the specified window\&. This function returns the last state reported for the specified key to the specified window\&. The returned state is one of \fRGLFW_PRESS\fP or \fRGLFW_RELEASE\fP\&. The higher-level action \fRGLFW_REPEAT\fP is only reported to the key callback\&.
+
+.PP
+If the \fRGLFW_STICKY_KEYS\fP input mode is enabled, this function returns \fRGLFW_PRESS\fP the first time you call it for a key that was pressed, even if that key has already been released\&.
+
+.PP
+The key functions deal with physical keys, with \fBkey tokens\fP named after their use on the standard US keyboard layout\&. If you want to input text, use the Unicode character callback instead\&.
+
+.PP
+The \fBmodifier key bit masks\fP are not key tokens and cannot be used with this function\&.
+
+.PP
+\fBDo not use this function\fP to implement \fBtext input\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The desired window\&. 
+.br
+\fIkey\fP The desired \fBkeyboard key\fP\&. \fRGLFW_KEY_UNKNOWN\fP is not a valid key for this function\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+One of \fRGLFW_PRESS\fP or \fRGLFW_RELEASE\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_INVALID_ENUM\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_key\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added window handle parameter\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const char * glfwGetKeyName (int key, int scancode)"
+
+.PP
+Returns the localized name of the specified printable key\&. This function returns the localized name of the specified printable key\&. This is intended for displaying key bindings to the user\&.
+
+.PP
+If the key is \fRGLFW_KEY_UNKNOWN\fP, the scancode is used instead, otherwise the scancode is ignored\&. If a non-printable key or (if the key is \fRGLFW_KEY_UNKNOWN\fP) a scancode that maps to a non-printable key is specified, this function returns \fRNULL\fP\&. 
+.br
+
+.PP
+This behavior allows you to pass in the arguments passed to the \fBkey callback\fP without modification\&.
+
+.PP
+The printable keys are:
+.IP "\(bu" 2
+\fRGLFW_KEY_APOSTROPHE\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_COMMA\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_MINUS\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_PERIOD\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_SLASH\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_SEMICOLON\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_EQUAL\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_LEFT_BRACKET\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_RIGHT_BRACKET\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_BACKSLASH\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_WORLD_1\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_WORLD_2\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_0\fP to \fRGLFW_KEY_9\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_A\fP to \fRGLFW_KEY_Z\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_0\fP to \fRGLFW_KEY_KP_9\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_DECIMAL\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_DIVIDE\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_MULTIPLY\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_SUBTRACT\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_ADD\fP
+.IP "\(bu" 2
+\fRGLFW_KEY_KP_EQUAL\fP
+.PP
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey\fP The key to query, or \fRGLFW_KEY_UNKNOWN\fP\&. 
+.br
+\fIscancode\fP The scancode of the key to query\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The localized name of the key, or \fRNULL\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned string is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the next call to \fBglfwGetKeyName\fP, or until the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_key_name\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP int glfwGetMouseButton (\fBGLFWwindow\fP * window, int button)"
+
+.PP
+Returns the last reported state of a mouse button for the specified window\&. This function returns the last state reported for the specified mouse button to the specified window\&. The returned state is one of \fRGLFW_PRESS\fP or \fRGLFW_RELEASE\fP\&.
+
+.PP
+If the \fRGLFW_STICKY_MOUSE_BUTTONS\fP input mode is enabled, this function \fRGLFW_PRESS\fP the first time you call it for a mouse button that was pressed, even if that mouse button has already been released\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The desired window\&. 
+.br
+\fIbutton\fP The desired \fBmouse button\fP\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+One of \fRGLFW_PRESS\fP or \fRGLFW_RELEASE\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_INVALID_ENUM\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_mouse_button\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added window handle parameter\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP double glfwGetTime (void )"
+
+.PP
+Returns the value of the GLFW timer\&. This function returns the value of the GLFW timer\&. Unless the timer has been set using \fBglfwSetTime\fP, the timer measures time elapsed since GLFW was initialized\&.
+
+.PP
+The resolution of the timer is system dependent, but is usually on the order of a few micro- or nanoseconds\&. It uses the highest-resolution monotonic time source on each supported platform\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+The current value, in seconds, or zero if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&. Reading of the internal timer offset is not atomic\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBtime\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP uint64_t glfwGetTimerFrequency (void )"
+
+.PP
+Returns the frequency, in Hz, of the raw timer\&. This function returns the frequency, in Hz, of the raw timer\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+The frequency of the timer, in Hz, or zero if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBtime\fP 
+
+.PP
+\fBglfwGetTimerValue\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP uint64_t glfwGetTimerValue (void )"
+
+.PP
+Returns the current value of the raw timer\&. This function returns the current value of the raw timer, measured in 1 / frequency seconds\&. To get the frequency, call \fBglfwGetTimerFrequency\fP\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+The value of the timer, or zero if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBtime\fP 
+
+.PP
+\fBglfwGetTimerFrequency\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP int glfwJoystickPresent (int joy)"
+
+.PP
+Returns whether the specified joystick is present\&. This function returns whether the specified joystick is present\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIjoy\fP The \fBjoystick\fP to query\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fRGLFW_TRUE\fP if the joystick is present, or \fRGLFW_FALSE\fP otherwise\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_ENUM\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBjoystick\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwGetJoystickParam\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWcharfun\fP glfwSetCharCallback (\fBGLFWwindow\fP * window, \fBGLFWcharfun\fP cbfun)"
+
+.PP
+Sets the Unicode character callback\&. This function sets the character callback of the specified window, which is called when a Unicode character is input\&.
+
+.PP
+The character callback is intended for Unicode text input\&. As it deals with characters, it is keyboard layout dependent, whereas the \fBkey callback\fP is not\&. Characters do not map 1:1 to physical keys, as a key may produce zero, one or more characters\&. If you want to know whether a specific physical key was pressed or released, see the key callback instead\&.
+
+.PP
+The character callback behaves as system text input normally does and will not be called if modifier keys are held down that would prevent normal text input on that platform, for example a Super (Command) key on OS X or Alt key on Windows\&. There is a \fBcharacter with modifiers callback\fP that receives these events\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_char\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 2\&.4\&. @glfw3 Added window handle parameter and return value\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWcharmodsfun\fP glfwSetCharModsCallback (\fBGLFWwindow\fP * window, \fBGLFWcharmodsfun\fP cbfun)"
+
+.PP
+Sets the Unicode character with modifiers callback\&. This function sets the character with modifiers callback of the specified window, which is called when a Unicode character is input regardless of what modifier keys are used\&.
+
+.PP
+The character with modifiers callback is intended for implementing custom Unicode character input\&. For regular Unicode text input, see the \fBcharacter callback\fP\&. Like the character callback, the character with modifiers callback deals with characters and is keyboard layout dependent\&. Characters do not map 1:1 to physical keys, as a key may produce zero, one or more characters\&. If you want to know whether a specific physical key was pressed or released, see the \fBkey callback\fP instead\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or an error occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_char\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetClipboardString (\fBGLFWwindow\fP * window, const char * string)"
+
+.PP
+Sets the clipboard to the specified string\&. This function sets the system clipboard to the specified, UTF-8 encoded string\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window that will own the clipboard contents\&. 
+.br
+\fIstring\fP A UTF-8 encoded string\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The specified string is copied before this function returns\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBclipboard\fP 
+
+.PP
+\fBglfwGetClipboardString\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetCursor (\fBGLFWwindow\fP * window, \fBGLFWcursor\fP * cursor)"
+
+.PP
+Sets the cursor for the window\&. This function sets the cursor image to be used when the cursor is over the client area of the specified window\&. The set cursor will only be visible when the \fBcursor mode\fP of the window is \fRGLFW_CURSOR_NORMAL\fP\&.
+
+.PP
+On some platforms, the set cursor may not be visible unless the window also has input focus\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window to set the cursor for\&. 
+.br
+\fIcursor\fP The cursor to set, or \fRNULL\fP to switch back to the default arrow cursor\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_object\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWcursorenterfun\fP glfwSetCursorEnterCallback (\fBGLFWwindow\fP * window, \fBGLFWcursorenterfun\fP cbfun)"
+
+.PP
+Sets the cursor enter/exit callback\&. This function sets the cursor boundary crossing callback of the specified window, which is called when the cursor enters or leaves the client area of the window\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_enter\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetCursorPos (\fBGLFWwindow\fP * window, double xpos, double ypos)"
+
+.PP
+Sets the position of the cursor, relative to the client area of the window\&. This function sets the position, in screen coordinates, of the cursor relative to the upper-left corner of the client area of the specified window\&. The window must have input focus\&. If the window does not have input focus when this function is called, it fails silently\&.
+
+.PP
+\fBDo not use this function\fP to implement things like camera controls\&. GLFW already provides the \fRGLFW_CURSOR_DISABLED\fP cursor mode that hides the cursor, transparently re-centers it and provides unconstrained cursor motion\&. See \fBglfwSetInputMode\fP for more information\&.
+
+.PP
+If the cursor mode is \fRGLFW_CURSOR_DISABLED\fP then the cursor position is unconstrained and limited only by the minimum and maximum values of a \fRdouble\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The desired window\&. 
+.br
+\fIxpos\fP The desired x-coordinate, relative to the left edge of the client area\&. 
+.br
+\fIypos\fP The desired y-coordinate, relative to the top edge of the client area\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+@x11 Due to the asynchronous nature of X11, it may take a moment for the window focus event to arrive\&. This means you may not be able to set the cursor position directly after window creation\&.
+.RE
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_pos\fP 
+
+.PP
+\fBglfwGetCursorPos\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwSetMousePos\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWcursorposfun\fP glfwSetCursorPosCallback (\fBGLFWwindow\fP * window, \fBGLFWcursorposfun\fP cbfun)"
+
+.PP
+Sets the cursor position callback\&. This function sets the cursor position callback of the specified window, which is called when the cursor is moved\&. The callback is provided with the position, in screen coordinates, relative to the upper-left corner of the client area of the window\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcursor_pos\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwSetMousePosCallback\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWdropfun\fP glfwSetDropCallback (\fBGLFWwindow\fP * window, \fBGLFWdropfun\fP cbfun)"
+
+.PP
+Sets the file drop callback\&. This function sets the file drop callback of the specified window, which is called when one or more dragged files are dropped on the window\&.
+
+.PP
+Because the path array and its strings may have been generated specifically for that event, they are not guaranteed to be valid after the callback has returned\&. If you wish to use them after the callback returns, you need to make a deep copy\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new file drop callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBpath_drop\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.1\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetInputMode (\fBGLFWwindow\fP * window, int mode, int value)"
+
+.PP
+Sets an input option for the specified window\&. This function sets an input mode option for the specified window\&. The mode must be one of \fRGLFW_CURSOR\fP, \fRGLFW_STICKY_KEYS\fP or \fRGLFW_STICKY_MOUSE_BUTTONS\fP\&.
+
+.PP
+If the mode is \fRGLFW_CURSOR\fP, the value must be one of the following cursor modes:
+.IP "\(bu" 2
+\fRGLFW_CURSOR_NORMAL\fP makes the cursor visible and behaving normally\&.
+.IP "\(bu" 2
+\fRGLFW_CURSOR_HIDDEN\fP makes the cursor invisible when it is over the client area of the window but does not restrict the cursor from leaving\&.
+.IP "\(bu" 2
+\fRGLFW_CURSOR_DISABLED\fP hides and grabs the cursor, providing virtual and unlimited cursor movement\&. This is useful for implementing for example 3D camera controls\&.
+.PP
+
+.PP
+If the mode is \fRGLFW_STICKY_KEYS\fP, the value must be either \fRGLFW_TRUE\fP to enable sticky keys, or \fRGLFW_FALSE\fP to disable it\&. If sticky keys are enabled, a key press will ensure that \fBglfwGetKey\fP returns \fRGLFW_PRESS\fP the next time it is called even if the key had been released before the call\&. This is useful when you are only interested in whether keys have been pressed but not when or in which order\&.
+
+.PP
+If the mode is \fRGLFW_STICKY_MOUSE_BUTTONS\fP, the value must be either \fRGLFW_TRUE\fP to enable sticky mouse buttons, or \fRGLFW_FALSE\fP to disable it\&. If sticky mouse buttons are enabled, a mouse button press will ensure that \fBglfwGetMouseButton\fP returns \fRGLFW_PRESS\fP the next time it is called even if the mouse button had been released before the call\&. This is useful when you are only interested in whether mouse buttons have been pressed but not when or in which order\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose input mode to set\&. 
+.br
+\fImode\fP One of \fRGLFW_CURSOR\fP, \fRGLFW_STICKY_KEYS\fP or \fRGLFW_STICKY_MOUSE_BUTTONS\fP\&. 
+.br
+\fIvalue\fP The new value of the specified input mode\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_ENUM\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBglfwGetInputMode\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwEnable\fP and \fRglfwDisable\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWjoystickfun\fP glfwSetJoystickCallback (\fBGLFWjoystickfun\fP cbfun)"
+
+.PP
+Sets the joystick configuration callback\&. This function sets the joystick configuration callback, or removes the currently set callback\&. This is called when a joystick is connected to or disconnected from the system\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBjoystick_event\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWkeyfun\fP glfwSetKeyCallback (\fBGLFWwindow\fP * window, \fBGLFWkeyfun\fP cbfun)"
+
+.PP
+Sets the key callback\&. This function sets the key callback of the specified window, which is called when a key is pressed, repeated or released\&.
+
+.PP
+The key functions deal with physical keys, with layout independent \fBkey tokens\fP named after their values in the standard US keyboard layout\&. If you want to input text, use the \fBcharacter callback\fP instead\&.
+
+.PP
+When a window loses input focus, it will generate synthetic key release events for all pressed keys\&. You can tell these events from user-generated events by the fact that the synthetic ones are generated after the focus loss event has been processed, i\&.e\&. after the \fBwindow focus callback\fP has been called\&.
+
+.PP
+The scancode of a key is specific to that platform or sometimes even to that machine\&. Scancodes are intended to allow users to bind keys that don't have a GLFW key token\&. Such keys have \fRkey\fP set to \fRGLFW_KEY_UNKNOWN\fP, their state is not saved and so it cannot be queried with \fBglfwGetKey\fP\&.
+
+.PP
+Sometimes GLFW needs to generate synthetic key events, in which case the scancode may be zero\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new key callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_key\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added window handle parameter and return value\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWmousebuttonfun\fP glfwSetMouseButtonCallback (\fBGLFWwindow\fP * window, \fBGLFWmousebuttonfun\fP cbfun)"
+
+.PP
+Sets the mouse button callback\&. This function sets the mouse button callback of the specified window, which is called when a mouse button is pressed or released\&.
+
+.PP
+When a window loses input focus, it will generate synthetic mouse button release events for all pressed mouse buttons\&. You can tell these events from user-generated events by the fact that the synthetic ones are generated after the focus loss event has been processed, i\&.e\&. after the \fBwindow focus callback\fP has been called\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBinput_mouse_button\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added window handle parameter and return value\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWscrollfun\fP glfwSetScrollCallback (\fBGLFWwindow\fP * window, \fBGLFWscrollfun\fP cbfun)"
+
+.PP
+Sets the scroll callback\&. This function sets the scroll callback of the specified window, which is called when a scrolling device is used, such as a mouse wheel or scrolling area of a touchpad\&.
+
+.PP
+The scroll callback receives all scrolling input, like that from a mouse wheel or a touchpad scrolling area\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose callback to set\&. 
+.br
+\fIcbfun\fP The new scroll callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBscrolling\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwSetMouseWheelCallback\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetTime (double time)"
+
+.PP
+Sets the GLFW timer\&. This function sets the value of the GLFW timer\&. It then continues to count up from that value\&. The value must be a positive finite number less than or equal to 18446744073\&.0, which is approximately 584\&.5 years\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fItime\fP The new value, in seconds\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_INVALID_VALUE\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+The upper limit of the timer is calculated as floor((2\*{64\*}  - 1) / 10\*{9\*} ) and is due to implementations storing nanoseconds in 64 bits\&. The limit may be increased in the future\&.
+.RE
+.PP
+@thread_safety This function may be called from any thread\&. Writing of the internal timer offset is not atomic\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBtime\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 2\&.2\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,0 +1,3400 @@
+.TH "colossal_cpp/imgui/imgui_internal.h" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui_internal.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <math\&.h>\fP
+.br
+\fR#include <limits\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImVec1\fP"
+.br
+.ti -1c
+.RI "struct \fBImVec2ih\fP"
+.br
+.ti -1c
+.RI "struct \fBImRect\fP"
+.br
+.ti -1c
+.RI "struct \fBImBitArray< BITCOUNT, OFFSET >\fP"
+.br
+.ti -1c
+.RI "struct \fBImBitVector\fP"
+.br
+.ti -1c
+.RI "struct \fBImSpan< T >\fP"
+.br
+.ti -1c
+.RI "struct \fBImSpanAllocator< CHUNKS >\fP"
+.br
+.ti -1c
+.RI "struct \fBImPool< T >\fP"
+.br
+.ti -1c
+.RI "struct \fBImChunkStream< T >\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTextIndex\fP"
+.br
+.ti -1c
+.RI "struct \fBImDrawListSharedData\fP"
+.br
+.ti -1c
+.RI "struct \fBImDrawDataBuilder\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiStyleVarInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiColorMod\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiStyleMod\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiDataTypeStorage\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiDataTypeInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiComboPreviewData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiGroupData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiMenuColumns\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputTextDeactivatedState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputTextState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiNextWindowData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiNextItemData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiLastItemData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTreeNodeStackData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiErrorRecoveryState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiWindowStackData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiShrinkWidthItem\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiPtrOrIndex\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiDeactivatedItemData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiPopupData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEventMousePos\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEventMouseWheel\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEventMouseButton\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEventKey\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEventText\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEventAppFocused\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInputEvent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiKeyRoutingData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiKeyRoutingTable\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiKeyOwnerData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiListClipperRange\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiListClipperData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiNavItemData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiFocusScopeData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTypingSelectRequest\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTypingSelectState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiOldColumnData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiOldColumns\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiBoxSelectState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiMultiSelectTempData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiMultiSelectState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiViewportP\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiWindowSettings\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiSettingsHandler\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiLocEntry\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiDebugAllocEntry\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiDebugAllocInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiMetricsConfig\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiStackLevelInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiIDStackTool\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiContextHook\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiContext\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiWindowTempData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiWindow\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTabItem\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTabBar\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableColumn\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableCellData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableHeaderData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableInstanceData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTable\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableTempData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableColumnSettings\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTableSettings\fP"
+.br
+.ti -1c
+.RI "struct \fBImFontBuilderIO\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBImStb\fP"
+.br
+.ti -1c
+.RI "namespace \fBImGui\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIMGUI_ENABLE_STB_TRUETYPE\fP"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_PRINTF\fP(_FMT, \&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_ERROR\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_ACTIVEID\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_FOCUS\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_POPUP\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_NAV\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_SELECTION\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_CLIPPER\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_IO\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_FONT\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_LOG_INPUTROUTING\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBIM_STATIC_ASSERT\fP(_COND)"
+.br
+.ti -1c
+.RI "#define \fBIM_ASSERT_PARANOID\fP(_EXPR)"
+.br
+.ti -1c
+.RI "#define \fBIM_PI\fP   3\&.14159265358979323846f"
+.br
+.ti -1c
+.RI "#define \fBIM_NEWLINE\fP   '\\n'"
+.br
+.ti -1c
+.RI "#define \fBIM_TABSIZE\fP   (4)"
+.br
+.ti -1c
+.RI "#define \fBIM_MEMALIGN\fP(_OFF,  _ALIGN)"
+.br
+.ti -1c
+.RI "#define \fBIM_F32_TO_INT8_UNBOUND\fP(_VAL)"
+.br
+.ti -1c
+.RI "#define \fBIM_F32_TO_INT8_SAT\fP(_VAL)"
+.br
+.ti -1c
+.RI "#define \fBIM_TRUNC\fP(_VAL)"
+.br
+.ti -1c
+.RI "#define \fBIM_ROUND\fP(_VAL)"
+.br
+.ti -1c
+.RI "#define \fBIM_STRINGIFY_HELPER\fP(_X)"
+.br
+.ti -1c
+.RI "#define \fBIM_STRINGIFY\fP(_X)"
+.br
+.ti -1c
+.RI "#define \fBIM_FLOOR\fP   \fBIM_TRUNC\fP"
+.br
+.ti -1c
+.RI "#define \fBIM_LIKELY\fP"
+.br
+.ti -1c
+.RI "#define \fBIM_UNLIKELY\fP"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_CDECL\fP"
+.br
+.ti -1c
+.RI "#define \fBIM_MSVC_WARNING_SUPPRESS\fP(XXXX)"
+.br
+.ti -1c
+.RI "#define \fBIM_DEBUG_BREAK\fP()"
+.br
+.ti -1c
+.RI "#define \fBIM_PRId64\fP   'lld'"
+.br
+.ti -1c
+.RI "#define \fBIM_PRIu64\fP   'llu'"
+.br
+.ti -1c
+.RI "#define \fBIM_PRIX64\fP   'llX'"
+.br
+.ti -1c
+.RI "#define \fBImStrlen\fP   strlen"
+.br
+.ti -1c
+.RI "#define \fBImMemchr\fP   memchr"
+.br
+.ti -1c
+.RI "#define \fBImFabs\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBImSqrt\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBImFmod\fP(X,  Y)"
+.br
+.ti -1c
+.RI "#define \fBImCos\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBImSin\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBImAcos\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBImAtan2\fP(Y,  X)"
+.br
+.ti -1c
+.RI "#define \fBImAtof\fP(STR)"
+.br
+.ti -1c
+.RI "#define \fBImCeil\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBIM_BITARRAY_TESTBIT\fP(_ARRAY,  _N)"
+.br
+.ti -1c
+.RI "#define \fBIM_BITARRAY_CLEARBIT\fP(_ARRAY,  _N)"
+.br
+.ti -1c
+.RI "#define \fBIM_ROUNDUP_TO_EVEN\fP(_V)"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_CIRCLE_AUTO_SEGMENT_MIN\fP   4"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_CIRCLE_AUTO_SEGMENT_MAX\fP   512"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_CIRCLE_AUTO_SEGMENT_CALC\fP(_RAD,  _MAXERROR)"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_CIRCLE_AUTO_SEGMENT_CALC_R\fP(_N,  _MAXERROR)"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_CIRCLE_AUTO_SEGMENT_CALC_ERROR\fP(_N,  _RAD)"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_ARCFAST_TABLE_SIZE\fP   48"
+.br
+.ti -1c
+.RI "#define \fBIM_DRAWLIST_ARCFAST_SAMPLE_MAX\fP   \fBIM_DRAWLIST_ARCFAST_TABLE_SIZE\fP"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_STRING\fP   \fBImGuiInputTextState\fP"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_CHARTYPE\fP   char"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_GETWIDTH_NEWLINE\fP   (\-1\&.0f)"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_UNDOSTATECOUNT\fP   99"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_UNDOCHARCOUNT\fP   999"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_LegacyNativeKey_BEGIN\fP   0"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_LegacyNativeKey_END\fP   512"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Keyboard_BEGIN\fP   (\fBImGuiKey_NamedKey_BEGIN\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Keyboard_END\fP   (\fBImGuiKey_GamepadStart\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Gamepad_BEGIN\fP   (\fBImGuiKey_GamepadStart\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Gamepad_END\fP   (\fBImGuiKey_GamepadRStickDown\fP + 1)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Mouse_BEGIN\fP   (\fBImGuiKey_MouseLeft\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Mouse_END\fP   (\fBImGuiKey_MouseWheelY\fP + 1)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Aliases_BEGIN\fP   (\fBImGuiKey_Mouse_BEGIN\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_Aliases_END\fP   (\fBImGuiKey_Mouse_END\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavKeyboardTweakSlow\fP   \fBImGuiMod_Ctrl\fP"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavKeyboardTweakFast\fP   \fBImGuiMod_Shift\fP"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavGamepadTweakSlow\fP   \fBImGuiKey_GamepadL1\fP"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavGamepadTweakFast\fP   \fBImGuiKey_GamepadR1\fP"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavGamepadActivate\fP   (g\&.IO\&.ConfigNavSwapGamepadButtons ? \fBImGuiKey_GamepadFaceRight\fP : \fBImGuiKey_GamepadFaceDown\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavGamepadCancel\fP   (g\&.IO\&.ConfigNavSwapGamepadButtons ? \fBImGuiKey_GamepadFaceDown\fP : \fBImGuiKey_GamepadFaceRight\fP)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavGamepadMenu\fP   \fBImGuiKey_GamepadFaceLeft\fP"
+.br
+.ti -1c
+.RI "#define \fBImGuiKey_NavGamepadInput\fP   \fBImGuiKey_GamepadFaceUp\fP"
+.br
+.ti -1c
+.RI "#define \fBImGuiKeyOwner_Any\fP   ((\fBImGuiID\fP)0)"
+.br
+.ti -1c
+.RI "#define \fBImGuiKeyOwner_NoOwner\fP   ((\fBImGuiID\fP)\-1)"
+.br
+.ti -1c
+.RI "#define \fBImGuiSelectionUserData_Invalid\fP   ((\fBImGuiSelectionUserData\fP)\-1)"
+.br
+.ti -1c
+.RI "#define \fBIM_ASSERT_USER_ERROR\fP(_EXPR,  _MSG)"
+.br
+.ti -1c
+.RI "#define \fBIM_COL32_DISABLE\fP   \fBIM_COL32\fP(0,0,0,1)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_TABLE_MAX_COLUMNS\fP   512"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_TEST_ENGINE_ITEM_ADD\fP(_BB,  _ID)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_TEST_ENGINE_ITEM_INFO\fP(_ID,  _LABEL,  _FLAGS)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef int \fBImGuiLayoutType\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiActivateFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiDebugLogFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiFocusRequestFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiItemStatusFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiOldColumnFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiLogFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiNavRenderCursorFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiNavMoveFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiNextItemDataFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiNextWindowDataFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiScrollFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiSeparatorFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiTextFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiTooltipFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiTypingSelectFlags\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImGuiWindowRefreshFlags\fP"
+.br
+.ti -1c
+.RI "typedef \fBImS16\fP \fBImGuiTableColumnIdx\fP"
+.br
+.ti -1c
+.RI "typedef \fBImU16\fP \fBImGuiTableDrawChannelIdx\fP"
+.br
+.ti -1c
+.RI "typedef FILE * \fBImFileHandle\fP"
+.br
+.ti -1c
+.RI "typedef \fBImU32\fP * \fBImBitArrayPtr\fP"
+.br
+.ti -1c
+.RI "typedef int \fBImPoolIdx\fP"
+.br
+.ti -1c
+.RI "typedef \fBImStb::STB_TexteditState\fP \fBImStbTexteditState\fP"
+.br
+.ti -1c
+.RI "typedef \fBImBitArray\fP< \fBImGuiKey_NamedKey_COUNT\fP, \-\fBImGuiKey_NamedKey_BEGIN\fP > \fBImBitArrayForNamedKeys\fP"
+.br
+.ti -1c
+.RI "typedef \fBImS16\fP \fBImGuiKeyRoutingIndex\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBImGuiErrorCallback\fP) (\fBImGuiContext\fP *ctx, void *user_data, const char *msg)"
+.br
+.ti -1c
+.RI "typedef void(* \fBImGuiContextHookCallback\fP) (\fBImGuiContext\fP *ctx, \fBImGuiContextHook\fP *hook)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBImGuiDataTypePrivate_\fP { \fBImGuiDataType_Pointer\fP = ImGuiDataType_COUNT, \fBImGuiDataType_ID\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiItemFlagsPrivate_\fP { \fBImGuiItemFlags_Disabled\fP = 1 << 10, \fBImGuiItemFlags_ReadOnly\fP = 1 << 11, \fBImGuiItemFlags_MixedValue\fP = 1 << 12, \fBImGuiItemFlags_NoWindowHoverableCheck\fP = 1 << 13, \fBImGuiItemFlags_AllowOverlap\fP = 1 << 14, \fBImGuiItemFlags_NoNavDisableMouseHover\fP = 1 << 15, \fBImGuiItemFlags_NoMarkEdited\fP = 1 << 16, \fBImGuiItemFlags_Inputable\fP = 1 << 20, \fBImGuiItemFlags_HasSelectionUserData\fP = 1 << 21, \fBImGuiItemFlags_IsMultiSelect\fP = 1 << 22, \fBImGuiItemFlags_Default_\fP = ImGuiItemFlags_AutoClosePopups }"
+.br
+.ti -1c
+.RI "enum \fBImGuiItemStatusFlags_\fP { \fBImGuiItemStatusFlags_None\fP = 0, \fBImGuiItemStatusFlags_HoveredRect\fP = 1 << 0, \fBImGuiItemStatusFlags_HasDisplayRect\fP = 1 << 1, \fBImGuiItemStatusFlags_Edited\fP = 1 << 2, \fBImGuiItemStatusFlags_ToggledSelection\fP = 1 << 3, \fBImGuiItemStatusFlags_ToggledOpen\fP = 1 << 4, \fBImGuiItemStatusFlags_HasDeactivated\fP = 1 << 5, \fBImGuiItemStatusFlags_Deactivated\fP = 1 << 6, \fBImGuiItemStatusFlags_HoveredWindow\fP = 1 << 7, \fBImGuiItemStatusFlags_Visible\fP = 1 << 8, \fBImGuiItemStatusFlags_HasClipRect\fP = 1 << 9, \fBImGuiItemStatusFlags_HasShortcut\fP = 1 << 10 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiHoveredFlagsPrivate_\fP { \fBImGuiHoveredFlags_DelayMask_\fP = ImGuiHoveredFlags_DelayNone | ImGuiHoveredFlags_DelayShort | ImGuiHoveredFlags_DelayNormal | ImGuiHoveredFlags_NoSharedDelay, \fBImGuiHoveredFlags_AllowedMaskForIsWindowHovered\fP = ImGuiHoveredFlags_ChildWindows | ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_NoPopupHierarchy | ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary, \fBImGuiHoveredFlags_AllowedMaskForIsItemHovered\fP = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped | ImGuiHoveredFlags_AllowWhenDisabled | ImGuiHoveredFlags_NoNavOverride | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary | ImGuiHoveredFlags_DelayMask_ }"
+.br
+.ti -1c
+.RI "enum \fBImGuiInputTextFlagsPrivate_\fP { \fBImGuiInputTextFlags_Multiline\fP = 1 << 26, \fBImGuiInputTextFlags_MergedItem\fP = 1 << 27, \fBImGuiInputTextFlags_LocalizeDecimalPoint\fP = 1 << 28 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiButtonFlagsPrivate_\fP { \fBImGuiButtonFlags_PressedOnClick\fP = 1 << 4, \fBImGuiButtonFlags_PressedOnClickRelease\fP = 1 << 5, \fBImGuiButtonFlags_PressedOnClickReleaseAnywhere\fP = 1 << 6, \fBImGuiButtonFlags_PressedOnRelease\fP = 1 << 7, \fBImGuiButtonFlags_PressedOnDoubleClick\fP = 1 << 8, \fBImGuiButtonFlags_PressedOnDragDropHold\fP = 1 << 9, \fBImGuiButtonFlags_FlattenChildren\fP = 1 << 11, \fBImGuiButtonFlags_AllowOverlap\fP = 1 << 12, \fBImGuiButtonFlags_AlignTextBaseLine\fP = 1 << 15, \fBImGuiButtonFlags_NoKeyModsAllowed\fP = 1 << 16, \fBImGuiButtonFlags_NoHoldingActiveId\fP = 1 << 17, \fBImGuiButtonFlags_NoNavFocus\fP = 1 << 18, \fBImGuiButtonFlags_NoHoveredOnFocus\fP = 1 << 19, \fBImGuiButtonFlags_NoSetKeyOwner\fP = 1 << 20, \fBImGuiButtonFlags_NoTestKeyOwner\fP = 1 << 21, \fBImGuiButtonFlags_PressedOnMask_\fP = ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold, \fBImGuiButtonFlags_PressedOnDefault_\fP = ImGuiButtonFlags_PressedOnClickRelease }"
+.br
+.ti -1c
+.RI "enum \fBImGuiComboFlagsPrivate_\fP { \fBImGuiComboFlags_CustomPreview\fP = 1 << 20 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiSliderFlagsPrivate_\fP { \fBImGuiSliderFlags_Vertical\fP = 1 << 20, \fBImGuiSliderFlags_ReadOnly\fP = 1 << 21 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiSelectableFlagsPrivate_\fP { \fBImGuiSelectableFlags_NoHoldingActiveID\fP = 1 << 20, \fBImGuiSelectableFlags_SelectOnNav\fP = 1 << 21, \fBImGuiSelectableFlags_SelectOnClick\fP = 1 << 22, \fBImGuiSelectableFlags_SelectOnRelease\fP = 1 << 23, \fBImGuiSelectableFlags_SpanAvailWidth\fP = 1 << 24, \fBImGuiSelectableFlags_SetNavIdOnHover\fP = 1 << 25, \fBImGuiSelectableFlags_NoPadWithHalfSpacing\fP = 1 << 26, \fBImGuiSelectableFlags_NoSetKeyOwner\fP = 1 << 27 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiTreeNodeFlagsPrivate_\fP { \fBImGuiTreeNodeFlags_NoNavFocus\fP = 1 << 27, \fBImGuiTreeNodeFlags_ClipLabelForTrailingButton\fP = 1 << 28, \fBImGuiTreeNodeFlags_UpsideDownArrow\fP = 1 << 29, \fBImGuiTreeNodeFlags_OpenOnMask_\fP = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow, \fBImGuiTreeNodeFlags_DrawLinesMask_\fP = ImGuiTreeNodeFlags_DrawLinesNone | ImGuiTreeNodeFlags_DrawLinesFull | ImGuiTreeNodeFlags_DrawLinesToNodes }"
+.br
+.ti -1c
+.RI "enum \fBImGuiSeparatorFlags_\fP { \fBImGuiSeparatorFlags_None\fP = 0, \fBImGuiSeparatorFlags_Horizontal\fP = 1 << 0, \fBImGuiSeparatorFlags_Vertical\fP = 1 << 1, \fBImGuiSeparatorFlags_SpanAllColumns\fP = 1 << 2 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiFocusRequestFlags_\fP { \fBImGuiFocusRequestFlags_None\fP = 0, \fBImGuiFocusRequestFlags_RestoreFocusedChild\fP = 1 << 0, \fBImGuiFocusRequestFlags_UnlessBelowModal\fP = 1 << 1 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiTextFlags_\fP { \fBImGuiTextFlags_None\fP = 0, \fBImGuiTextFlags_NoWidthForLargeClippedText\fP = 1 << 0 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiTooltipFlags_\fP { \fBImGuiTooltipFlags_None\fP = 0, \fBImGuiTooltipFlags_OverridePrevious\fP = 1 << 1 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiLayoutType_\fP { \fBImGuiLayoutType_Horizontal\fP = 0, \fBImGuiLayoutType_Vertical\fP = 1 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiLogFlags_\fP { \fBImGuiLogFlags_None\fP = 0, \fBImGuiLogFlags_OutputTTY\fP = 1 << 0, \fBImGuiLogFlags_OutputFile\fP = 1 << 1, \fBImGuiLogFlags_OutputBuffer\fP = 1 << 2, \fBImGuiLogFlags_OutputClipboard\fP = 1 << 3, \fBImGuiLogFlags_OutputMask_\fP = ImGuiLogFlags_OutputTTY | ImGuiLogFlags_OutputFile | ImGuiLogFlags_OutputBuffer | ImGuiLogFlags_OutputClipboard }"
+.br
+.ti -1c
+.RI "enum \fBImGuiAxis\fP { \fBImGuiAxis_None\fP = -1, \fBImGuiAxis_X\fP = 0, \fBImGuiAxis_Y\fP = 1 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiPlotType\fP { \fBImGuiPlotType_Lines\fP, \fBImGuiPlotType_Histogram\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiWindowRefreshFlags_\fP { \fBImGuiWindowRefreshFlags_None\fP = 0, \fBImGuiWindowRefreshFlags_TryToAvoidRefresh\fP = 1 << 0, \fBImGuiWindowRefreshFlags_RefreshOnHover\fP = 1 << 1, \fBImGuiWindowRefreshFlags_RefreshOnFocus\fP = 1 << 2 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiNextWindowDataFlags_\fP { \fBImGuiNextWindowDataFlags_None\fP = 0, \fBImGuiNextWindowDataFlags_HasPos\fP = 1 << 0, \fBImGuiNextWindowDataFlags_HasSize\fP = 1 << 1, \fBImGuiNextWindowDataFlags_HasContentSize\fP = 1 << 2, \fBImGuiNextWindowDataFlags_HasCollapsed\fP = 1 << 3, \fBImGuiNextWindowDataFlags_HasSizeConstraint\fP = 1 << 4, \fBImGuiNextWindowDataFlags_HasFocus\fP = 1 << 5, \fBImGuiNextWindowDataFlags_HasBgAlpha\fP = 1 << 6, \fBImGuiNextWindowDataFlags_HasScroll\fP = 1 << 7, \fBImGuiNextWindowDataFlags_HasWindowFlags\fP = 1 << 8, \fBImGuiNextWindowDataFlags_HasChildFlags\fP = 1 << 9, \fBImGuiNextWindowDataFlags_HasRefreshPolicy\fP = 1 << 10 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiNextItemDataFlags_\fP { \fBImGuiNextItemDataFlags_None\fP = 0, \fBImGuiNextItemDataFlags_HasWidth\fP = 1 << 0, \fBImGuiNextItemDataFlags_HasOpen\fP = 1 << 1, \fBImGuiNextItemDataFlags_HasShortcut\fP = 1 << 2, \fBImGuiNextItemDataFlags_HasRefVal\fP = 1 << 3, \fBImGuiNextItemDataFlags_HasStorageID\fP = 1 << 4 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiPopupPositionPolicy\fP { \fBImGuiPopupPositionPolicy_Default\fP, \fBImGuiPopupPositionPolicy_ComboBox\fP, \fBImGuiPopupPositionPolicy_Tooltip\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiInputEventType\fP { \fBImGuiInputEventType_None\fP = 0, \fBImGuiInputEventType_MousePos\fP, \fBImGuiInputEventType_MouseWheel\fP, \fBImGuiInputEventType_MouseButton\fP, \fBImGuiInputEventType_Key\fP, \fBImGuiInputEventType_Text\fP, \fBImGuiInputEventType_Focus\fP, \fBImGuiInputEventType_COUNT\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiInputSource\fP { \fBImGuiInputSource_None\fP = 0, \fBImGuiInputSource_Mouse\fP, \fBImGuiInputSource_Keyboard\fP, \fBImGuiInputSource_Gamepad\fP, \fBImGuiInputSource_COUNT\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiInputFlagsPrivate_\fP { \fBImGuiInputFlags_RepeatRateDefault\fP = 1 << 1, \fBImGuiInputFlags_RepeatRateNavMove\fP = 1 << 2, \fBImGuiInputFlags_RepeatRateNavTweak\fP = 1 << 3, \fBImGuiInputFlags_RepeatUntilRelease\fP = 1 << 4, \fBImGuiInputFlags_RepeatUntilKeyModsChange\fP = 1 << 5, \fBImGuiInputFlags_RepeatUntilKeyModsChangeFromNone\fP = 1 << 6, \fBImGuiInputFlags_RepeatUntilOtherKeyPress\fP = 1 << 7, \fBImGuiInputFlags_LockThisFrame\fP = 1 << 20, \fBImGuiInputFlags_LockUntilRelease\fP = 1 << 21, \fBImGuiInputFlags_CondHovered\fP = 1 << 22, \fBImGuiInputFlags_CondActive\fP = 1 << 23, \fBImGuiInputFlags_CondDefault_\fP = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive, \fBImGuiInputFlags_RepeatRateMask_\fP = ImGuiInputFlags_RepeatRateDefault | ImGuiInputFlags_RepeatRateNavMove | ImGuiInputFlags_RepeatRateNavTweak, \fBImGuiInputFlags_RepeatUntilMask_\fP = ImGuiInputFlags_RepeatUntilRelease | ImGuiInputFlags_RepeatUntilKeyModsChange | ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone | ImGuiInputFlags_RepeatUntilOtherKeyPress, \fBImGuiInputFlags_RepeatMask_\fP = ImGuiInputFlags_Repeat | ImGuiInputFlags_RepeatRateMask_ | ImGuiInputFlags_RepeatUntilMask_, \fBImGuiInputFlags_CondMask_\fP = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive, \fBImGuiInputFlags_RouteTypeMask_\fP = ImGuiInputFlags_RouteActive | ImGuiInputFlags_RouteFocused | ImGuiInputFlags_RouteGlobal | ImGuiInputFlags_RouteAlways, \fBImGuiInputFlags_RouteOptionsMask_\fP = ImGuiInputFlags_RouteOverFocused | ImGuiInputFlags_RouteOverActive | ImGuiInputFlags_RouteUnlessBgFocused | ImGuiInputFlags_RouteFromRootWindow, \fBImGuiInputFlags_SupportedByIsKeyPressed\fP = ImGuiInputFlags_RepeatMask_, \fBImGuiInputFlags_SupportedByIsMouseClicked\fP = ImGuiInputFlags_Repeat, \fBImGuiInputFlags_SupportedByShortcut\fP = ImGuiInputFlags_RepeatMask_ | ImGuiInputFlags_RouteTypeMask_ | ImGuiInputFlags_RouteOptionsMask_, \fBImGuiInputFlags_SupportedBySetNextItemShortcut\fP = ImGuiInputFlags_RepeatMask_ | ImGuiInputFlags_RouteTypeMask_ | ImGuiInputFlags_RouteOptionsMask_ | ImGuiInputFlags_Tooltip, \fBImGuiInputFlags_SupportedBySetKeyOwner\fP = ImGuiInputFlags_LockThisFrame | ImGuiInputFlags_LockUntilRelease, \fBImGuiInputFlags_SupportedBySetItemKeyOwner\fP = ImGuiInputFlags_SupportedBySetKeyOwner | ImGuiInputFlags_CondMask_ }"
+.br
+.ti -1c
+.RI "enum \fBImGuiActivateFlags_\fP { \fBImGuiActivateFlags_None\fP = 0, \fBImGuiActivateFlags_PreferInput\fP = 1 << 0, \fBImGuiActivateFlags_PreferTweak\fP = 1 << 1, \fBImGuiActivateFlags_TryToPreserveState\fP = 1 << 2, \fBImGuiActivateFlags_FromTabbing\fP = 1 << 3, \fBImGuiActivateFlags_FromShortcut\fP = 1 << 4 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiScrollFlags_\fP { \fBImGuiScrollFlags_None\fP = 0, \fBImGuiScrollFlags_KeepVisibleEdgeX\fP = 1 << 0, \fBImGuiScrollFlags_KeepVisibleEdgeY\fP = 1 << 1, \fBImGuiScrollFlags_KeepVisibleCenterX\fP = 1 << 2, \fBImGuiScrollFlags_KeepVisibleCenterY\fP = 1 << 3, \fBImGuiScrollFlags_AlwaysCenterX\fP = 1 << 4, \fBImGuiScrollFlags_AlwaysCenterY\fP = 1 << 5, \fBImGuiScrollFlags_NoScrollParent\fP = 1 << 6, \fBImGuiScrollFlags_MaskX_\fP = ImGuiScrollFlags_KeepVisibleEdgeX | ImGuiScrollFlags_KeepVisibleCenterX | ImGuiScrollFlags_AlwaysCenterX, \fBImGuiScrollFlags_MaskY_\fP = ImGuiScrollFlags_KeepVisibleEdgeY | ImGuiScrollFlags_KeepVisibleCenterY | ImGuiScrollFlags_AlwaysCenterY }"
+.br
+.ti -1c
+.RI "enum \fBImGuiNavRenderCursorFlags_\fP { \fBImGuiNavRenderCursorFlags_None\fP = 0, \fBImGuiNavRenderCursorFlags_Compact\fP = 1 << 1, \fBImGuiNavRenderCursorFlags_AlwaysDraw\fP = 1 << 2, \fBImGuiNavRenderCursorFlags_NoRounding\fP = 1 << 3, \fBImGuiNavHighlightFlags_None\fP = ImGuiNavRenderCursorFlags_None, \fBImGuiNavHighlightFlags_Compact\fP = ImGuiNavRenderCursorFlags_Compact, \fBImGuiNavHighlightFlags_AlwaysDraw\fP = ImGuiNavRenderCursorFlags_AlwaysDraw, \fBImGuiNavHighlightFlags_NoRounding\fP = ImGuiNavRenderCursorFlags_NoRounding }"
+.br
+.ti -1c
+.RI "enum \fBImGuiNavMoveFlags_\fP { \fBImGuiNavMoveFlags_None\fP = 0, \fBImGuiNavMoveFlags_LoopX\fP = 1 << 0, \fBImGuiNavMoveFlags_LoopY\fP = 1 << 1, \fBImGuiNavMoveFlags_WrapX\fP = 1 << 2, \fBImGuiNavMoveFlags_WrapY\fP = 1 << 3, \fBImGuiNavMoveFlags_WrapMask_\fP = ImGuiNavMoveFlags_LoopX | ImGuiNavMoveFlags_LoopY | ImGuiNavMoveFlags_WrapX | ImGuiNavMoveFlags_WrapY, \fBImGuiNavMoveFlags_AllowCurrentNavId\fP = 1 << 4, \fBImGuiNavMoveFlags_AlsoScoreVisibleSet\fP = 1 << 5, \fBImGuiNavMoveFlags_ScrollToEdgeY\fP = 1 << 6, \fBImGuiNavMoveFlags_Forwarded\fP = 1 << 7, \fBImGuiNavMoveFlags_DebugNoResult\fP = 1 << 8, \fBImGuiNavMoveFlags_FocusApi\fP = 1 << 9, \fBImGuiNavMoveFlags_IsTabbing\fP = 1 << 10, \fBImGuiNavMoveFlags_IsPageMove\fP = 1 << 11, \fBImGuiNavMoveFlags_Activate\fP = 1 << 12, \fBImGuiNavMoveFlags_NoSelect\fP = 1 << 13, \fBImGuiNavMoveFlags_NoSetNavCursorVisible\fP = 1 << 14, \fBImGuiNavMoveFlags_NoClearActiveId\fP = 1 << 15 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiNavLayer\fP { \fBImGuiNavLayer_Main\fP = 0, \fBImGuiNavLayer_Menu\fP = 1, \fBImGuiNavLayer_COUNT\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiTypingSelectFlags_\fP { \fBImGuiTypingSelectFlags_None\fP = 0, \fBImGuiTypingSelectFlags_AllowBackspace\fP = 1 << 0, \fBImGuiTypingSelectFlags_AllowSingleCharMode\fP = 1 << 1 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiOldColumnFlags_\fP { \fBImGuiOldColumnFlags_None\fP = 0, \fBImGuiOldColumnFlags_NoBorder\fP = 1 << 0, \fBImGuiOldColumnFlags_NoResize\fP = 1 << 1, \fBImGuiOldColumnFlags_NoPreserveWidths\fP = 1 << 2, \fBImGuiOldColumnFlags_NoForceWithinWindow\fP = 1 << 3, \fBImGuiOldColumnFlags_GrowParentContentsSize\fP = 1 << 4 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiLocKey\fP : int { \fBImGuiLocKey_VersionStr\fP, \fBImGuiLocKey_TableSizeOne\fP, \fBImGuiLocKey_TableSizeAllFit\fP, \fBImGuiLocKey_TableSizeAllDefault\fP, \fBImGuiLocKey_TableResetOrder\fP, \fBImGuiLocKey_WindowingMainMenuBar\fP, \fBImGuiLocKey_WindowingPopup\fP, \fBImGuiLocKey_WindowingUntitled\fP, \fBImGuiLocKey_OpenLink_s\fP, \fBImGuiLocKey_CopyLink\fP, \fBImGuiLocKey_COUNT\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiDebugLogFlags_\fP { \fBImGuiDebugLogFlags_None\fP = 0, \fBImGuiDebugLogFlags_EventError\fP = 1 << 0, \fBImGuiDebugLogFlags_EventActiveId\fP = 1 << 1, \fBImGuiDebugLogFlags_EventFocus\fP = 1 << 2, \fBImGuiDebugLogFlags_EventPopup\fP = 1 << 3, \fBImGuiDebugLogFlags_EventNav\fP = 1 << 4, \fBImGuiDebugLogFlags_EventClipper\fP = 1 << 5, \fBImGuiDebugLogFlags_EventSelection\fP = 1 << 6, \fBImGuiDebugLogFlags_EventIO\fP = 1 << 7, \fBImGuiDebugLogFlags_EventFont\fP = 1 << 8, \fBImGuiDebugLogFlags_EventInputRouting\fP = 1 << 9, \fBImGuiDebugLogFlags_EventDocking\fP = 1 << 10, \fBImGuiDebugLogFlags_EventViewport\fP = 1 << 11, \fBImGuiDebugLogFlags_EventMask_\fP = ImGuiDebugLogFlags_EventError | ImGuiDebugLogFlags_EventActiveId | ImGuiDebugLogFlags_EventFocus | ImGuiDebugLogFlags_EventPopup | ImGuiDebugLogFlags_EventNav | ImGuiDebugLogFlags_EventClipper | ImGuiDebugLogFlags_EventSelection | ImGuiDebugLogFlags_EventIO | ImGuiDebugLogFlags_EventFont | ImGuiDebugLogFlags_EventInputRouting | ImGuiDebugLogFlags_EventDocking | ImGuiDebugLogFlags_EventViewport, \fBImGuiDebugLogFlags_OutputToTTY\fP = 1 << 20, \fBImGuiDebugLogFlags_OutputToTestEngine\fP = 1 << 21 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiContextHookType\fP { \fBImGuiContextHookType_NewFramePre\fP, \fBImGuiContextHookType_NewFramePost\fP, \fBImGuiContextHookType_EndFramePre\fP, \fBImGuiContextHookType_EndFramePost\fP, \fBImGuiContextHookType_RenderPre\fP, \fBImGuiContextHookType_RenderPost\fP, \fBImGuiContextHookType_Shutdown\fP, \fBImGuiContextHookType_PendingRemoval_\fP }"
+.br
+.ti -1c
+.RI "enum \fBImGuiTabBarFlagsPrivate_\fP { \fBImGuiTabBarFlags_DockNode\fP = 1 << 20, \fBImGuiTabBarFlags_IsFocused\fP = 1 << 21, \fBImGuiTabBarFlags_SaveSettings\fP = 1 << 22 }"
+.br
+.ti -1c
+.RI "enum \fBImGuiTabItemFlagsPrivate_\fP { \fBImGuiTabItemFlags_SectionMask_\fP = ImGuiTabItemFlags_Leading | ImGuiTabItemFlags_Trailing, \fBImGuiTabItemFlags_NoCloseButton\fP = 1 << 20, \fBImGuiTabItemFlags_Button\fP = 1 << 21, \fBImGuiTabItemFlags_Invisible\fP = 1 << 22 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImHashData\fP (const void *data, size_t data_size, \fBImGuiID\fP seed=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImHashStr\fP (const char *data, size_t data_size=0, \fBImGuiID\fP seed=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImU32\fP \fBImAlphaBlendColors\fP (\fBImU32\fP col_a, \fBImU32\fP col_b)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImStricmp\fP (const char *str1, const char *str2)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImStrnicmp\fP (const char *str1, const char *str2, size_t count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImStrncpy\fP (char *dst, const char *src, size_t count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP char * \fBImStrdup\fP (const char *str)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP char * \fBImStrdupcpy\fP (char *dst, size_t *p_dst_size, const char *str)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImStrchrRange\fP (const char *str_begin, const char *str_end, char c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImStreolRange\fP (const char *str, const char *str_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImStristr\fP (const char *haystack, const char *haystack_end, const char *needle, const char *needle_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImStrTrimBlanks\fP (char *str)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImStrSkipBlank\fP (const char *str)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImStrlenW\fP (const \fBImWchar\fP *str)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImStrbol\fP (const char *buf_mid_line, const char *buf_begin)"
+.br
+.ti -1c
+.RI "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP \fBIMGUI_API\fP int \fBImFormatString\fP (char *buf, size_t buf_size, const char *fmt,\&.\&.\&.) \fBIM_FMTARGS\fP(3)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImFormatStringV\fP (char *buf, size_t buf_size, const char *fmt, va_list args) \fBIM_FMTLIST\fP(3)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFormatStringToTempBuffer\fP (const char **out_buf, const char **out_buf_end, const char *fmt,\&.\&.\&.) \fBIM_FMTARGS\fP(3)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFormatStringToTempBufferV\fP (const char **out_buf, const char **out_buf_end, const char *fmt, va_list args) \fBIM_FMTLIST\fP(3)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImParseFormatFindStart\fP (const char *format)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImParseFormatFindEnd\fP (const char *format)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImParseFormatTrimDecorations\fP (const char *format, char *buf, size_t buf_size)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImParseFormatSanitizeForPrinting\fP (const char *fmt_in, char *fmt_out, size_t fmt_out_size)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImParseFormatSanitizeForScanning\fP (const char *fmt_in, char *fmt_out, size_t fmt_out_size)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImParseFormatPrecision\fP (const char *format, int default_value)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImTextCharToUtf8\fP (char out_buf[5], unsigned int c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextStrToUtf8\fP (char *out_buf, int out_buf_size, const \fBImWchar\fP *in_text, const \fBImWchar\fP *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextCharFromUtf8\fP (unsigned int *out_char, const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextStrFromUtf8\fP (\fBImWchar\fP *out_buf, int out_buf_size, const char *in_text, const char *in_text_end, const char **in_remaining=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextCountCharsFromUtf8\fP (const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextCountUtf8BytesFromChar\fP (const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextCountUtf8BytesFromStr\fP (const \fBImWchar\fP *in_text, const \fBImWchar\fP *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImTextFindPreviousUtf8Codepoint\fP (const char *in_text_start, const char *in_text_curr)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImTextCountLines\fP (const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFileHandle\fP \fBImFileOpen\fP (const char *filename, const char *mode)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImFileClose\fP (\fBImFileHandle\fP file)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImU64\fP \fBImFileGetSize\fP (\fBImFileHandle\fP file)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImU64\fP \fBImFileRead\fP (void *data, \fBImU64\fP size, \fBImU64\fP count, \fBImFileHandle\fP file)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImU64\fP \fBImFileWrite\fP (const void *data, \fBImU64\fP size, \fBImU64\fP count, \fBImFileHandle\fP file)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void * \fBImFileLoadToMemory\fP (const char *filename, const char *mode, size_t *out_file_size=NULL, int padding_bytes=0)"
+.br
+.ti -1c
+.RI "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP \fBIMGUI_API\fP \fBImVec2\fP \fBImBezierCubicCalc\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, float t)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImBezierCubicClosestPoint\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, const \fBImVec2\fP &p, int num_segments)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImBezierCubicClosestPointCasteljau\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, const \fBImVec2\fP &p, float tess_tol)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImBezierQuadraticCalc\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, float t)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImLineClosestPoint\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImTriangleContainsPoint\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImTriangleClosestPoint\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImTriangleBarycentricCoords\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &p, float &out_u, float &out_v, float &out_w)"
+.br
+.ti -1c
+.RI "float \fBImTriangleArea\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c)"
+.br
+.ti -1c
+.RI "bool \fBImTriangleIsClockwise\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c)"
+.br
+.ti -1c
+.RI "size_t \fBImBitArrayGetStorageSizeInBytes\fP (int bitcount)"
+.br
+.ti -1c
+.RI "void \fBImBitArrayClearAllBits\fP (\fBImU32\fP *arr, int bitcount)"
+.br
+.ti -1c
+.RI "bool \fBImBitArrayTestBit\fP (const \fBImU32\fP *arr, int n)"
+.br
+.ti -1c
+.RI "void \fBImBitArrayClearBit\fP (\fBImU32\fP *arr, int n)"
+.br
+.ti -1c
+.RI "void \fBImBitArraySetBit\fP (\fBImU32\fP *arr, int n)"
+.br
+.ti -1c
+.RI "void \fBImBitArraySetBitRange\fP (\fBImU32\fP *arr, int n, int n2)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiStoragePair\fP * \fBImLowerBound\fP (\fBImGuiStoragePair\fP *in_begin, \fBImGuiStoragePair\fP *in_end, \fBImGuiID\fP key)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiIO\fP & \fBImGui::GetIO\fP (\fBImGuiContext\fP *ctx)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiPlatformIO\fP & \fBImGui::GetPlatformIO\fP (\fBImGuiContext\fP *ctx)"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBImGui::GetCurrentWindowRead\fP ()"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBImGui::GetCurrentWindow\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindow\fP * \fBImGui::FindWindowByID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindow\fP * \fBImGui::FindWindowByName\fP (const char *name)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::UpdateWindowParentAndRootLinks\fP (\fBImGuiWindow\fP *window, \fBImGuiWindowFlags\fP flags, \fBImGuiWindow\fP *parent_window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::UpdateWindowSkipRefresh\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::CalcWindowNextAutoFitSize\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsWindowChildOf\fP (\fBImGuiWindow\fP *window, \fBImGuiWindow\fP *potential_parent, bool popup_hierarchy)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsWindowWithinBeginStackOf\fP (\fBImGuiWindow\fP *window, \fBImGuiWindow\fP *potential_parent)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsWindowAbove\fP (\fBImGuiWindow\fP *potential_above, \fBImGuiWindow\fP *potential_below)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsWindowNavFocusable\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowPos\fP (\fBImGuiWindow\fP *window, const \fBImVec2\fP &pos, \fBImGuiCond\fP cond=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowSize\fP (\fBImGuiWindow\fP *window, const \fBImVec2\fP &size, \fBImGuiCond\fP cond=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowCollapsed\fP (\fBImGuiWindow\fP *window, bool collapsed, \fBImGuiCond\fP cond=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowHitTestHole\fP (\fBImGuiWindow\fP *window, const \fBImVec2\fP &pos, const \fBImVec2\fP &size)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowHiddenAndSkipItemsForCurrentFrame\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "void \fBImGui::SetWindowParentWindowForFocusRoute\fP (\fBImGuiWindow\fP *window, \fBImGuiWindow\fP *parent_window)"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBImGui::WindowRectAbsToRel\fP (\fBImGuiWindow\fP *window, const \fBImRect\fP &r)"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBImGui::WindowRectRelToAbs\fP (\fBImGuiWindow\fP *window, const \fBImRect\fP &r)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBImGui::WindowPosAbsToRel\fP (\fBImGuiWindow\fP *window, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBImGui::WindowPosRelToAbs\fP (\fBImGuiWindow\fP *window, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::FocusWindow\fP (\fBImGuiWindow\fP *window, \fBImGuiFocusRequestFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::FocusTopMostWindowUnderOne\fP (\fBImGuiWindow\fP *under_this_window, \fBImGuiWindow\fP *ignore_window, \fBImGuiViewport\fP *filter_viewport, \fBImGuiFocusRequestFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::BringWindowToFocusFront\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::BringWindowToDisplayFront\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::BringWindowToDisplayBack\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::BringWindowToDisplayBehind\fP (\fBImGuiWindow\fP *window, \fBImGuiWindow\fP *above_window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::FindWindowDisplayIndex\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindow\fP * \fBImGui::FindBottomMostVisibleWindowWithinBeginStack\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetNextWindowRefreshPolicy\fP (\fBImGuiWindowRefreshFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetCurrentFont\fP (\fBImFont\fP *font)"
+.br
+.ti -1c
+.RI "\fBImFont\fP * \fBImGui::GetDefaultFont\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PushPasswordFont\fP ()"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP * \fBImGui::GetForegroundDrawList\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImDrawList\fP * \fBImGui::GetBackgroundDrawList\fP (\fBImGuiViewport\fP *viewport)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImDrawList\fP * \fBImGui::GetForegroundDrawList\fP (\fBImGuiViewport\fP *viewport)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::AddDrawListToDrawDataEx\fP (\fBImDrawData\fP *draw_data, \fBImVector\fP< \fBImDrawList\fP * > *out_list, \fBImDrawList\fP *draw_list)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::Initialize\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::Shutdown\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::UpdateInputEvents\fP (bool trickle_fast_inputs)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::UpdateHoveredWindowAndCaptureFlags\fP (const \fBImVec2\fP &mouse_pos)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::FindHoveredWindowEx\fP (const \fBImVec2\fP &pos, bool find_first_and_in_any_viewport, \fBImGuiWindow\fP **out_hovered_window, \fBImGuiWindow\fP **out_hovered_window_under_moving_window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::StartMouseMovingWindow\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::UpdateMouseMovingWindowNewFrame\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::UpdateMouseMovingWindowEndFrame\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::AddContextHook\fP (\fBImGuiContext\fP *context, const \fBImGuiContextHook\fP *hook)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RemoveContextHook\fP (\fBImGuiContext\fP *context, \fBImGuiID\fP hook_to_remove)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::CallContextHooks\fP (\fBImGuiContext\fP *context, \fBImGuiContextHookType\fP type)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ScaleWindowsInViewport\fP (\fBImGuiViewportP\fP *viewport, float scale)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowViewport\fP (\fBImGuiWindow\fP *window, \fBImGuiViewportP\fP *viewport)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MarkIniSettingsDirty\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MarkIniSettingsDirty\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClearIniSettings\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::AddSettingsHandler\fP (const \fBImGuiSettingsHandler\fP *handler)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RemoveSettingsHandler\fP (const char *type_name)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiSettingsHandler\fP * \fBImGui::FindSettingsHandler\fP (const char *type_name)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindowSettings\fP * \fBImGui::CreateNewWindowSettings\fP (const char *name)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindowSettings\fP * \fBImGui::FindWindowSettingsByID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindowSettings\fP * \fBImGui::FindWindowSettingsByWindow\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClearWindowSettings\fP (const char *name)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::LocalizeRegisterEntries\fP (const \fBImGuiLocEntry\fP *entries, int count)"
+.br
+.ti -1c
+.RI "const char * \fBImGui::LocalizeGetMsg\fP (\fBImGuiLocKey\fP key)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetScrollX\fP (\fBImGuiWindow\fP *window, float scroll_x)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetScrollY\fP (\fBImGuiWindow\fP *window, float scroll_y)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetScrollFromPosX\fP (\fBImGuiWindow\fP *window, float local_x, float center_x_ratio)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetScrollFromPosY\fP (\fBImGuiWindow\fP *window, float local_y, float center_y_ratio)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ScrollToItem\fP (\fBImGuiScrollFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ScrollToRect\fP (\fBImGuiWindow\fP *window, const \fBImRect\fP &rect, \fBImGuiScrollFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::ScrollToRectEx\fP (\fBImGuiWindow\fP *window, const \fBImRect\fP &rect, \fBImGuiScrollFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "void \fBImGui::ScrollToBringRectIntoView\fP (\fBImGuiWindow\fP *window, const \fBImRect\fP &rect)"
+.br
+.ti -1c
+.RI "\fBImGuiItemStatusFlags\fP \fBImGui::GetItemStatusFlags\fP ()"
+.br
+.ti -1c
+.RI "\fBImGuiItemFlags\fP \fBImGui::GetItemFlags\fP ()"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBImGui::GetActiveID\fP ()"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBImGui::GetFocusID\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetActiveID\fP (\fBImGuiID\fP id, \fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetFocusID\fP (\fBImGuiID\fP id, \fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClearActiveID\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetHoveredID\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetHoveredID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::KeepAliveID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MarkItemEdited\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PushOverrideID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetIDWithSeed\fP (const char *str_id_begin, const char *str_id_end, \fBImGuiID\fP seed)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetIDWithSeed\fP (int n, \fBImGuiID\fP seed)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ItemSize\fP (const \fBImVec2\fP &size, float text_baseline_y=\-1\&.0f)"
+.br
+.ti -1c
+.RI "void \fBImGui::ItemSize\fP (const \fBImRect\fP &bb, float text_baseline_y=\-1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ItemAdd\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, const \fBImRect\fP *nav_bb=NULL, \fBImGuiItemFlags\fP extra_flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ItemHoverable\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiItemFlags\fP item_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsWindowContentHoverable\fP (\fBImGuiWindow\fP *window, \fBImGuiHoveredFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsClippedEx\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetLastItemData\fP (\fBImGuiID\fP item_id, \fBImGuiItemFlags\fP item_flags, \fBImGuiItemStatusFlags\fP status_flags, const \fBImRect\fP &item_rect)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::CalcItemSize\fP (\fBImVec2\fP size, float default_w, float default_h)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::CalcWrapWidthForPos\fP (const \fBImVec2\fP &pos, float wrap_pos_x)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PushMultiItemsWidths\fP (int components, float width_full)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ShrinkWidths\fP (\fBImGuiShrinkWidthItem\fP *items, int count, float width_excess)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImGuiStyleVarInfo\fP * \fBImGui::GetStyleVarInfo\fP (\fBImGuiStyleVar\fP idx)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::BeginDisabledOverrideReenable\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::EndDisabledOverrideReenable\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::LogBegin\fP (\fBImGuiLogFlags\fP flags, int auto_open_depth)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::LogToBuffer\fP (int auto_open_depth=\-1)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::LogRenderedText\fP (const \fBImVec2\fP *ref_pos, const char *text, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::LogSetNextTextDecoration\fP (const char *prefix, const char *suffix)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginChildEx\fP (const char *name, \fBImGuiID\fP id, const \fBImVec2\fP &size_arg, \fBImGuiChildFlags\fP child_flags, \fBImGuiWindowFlags\fP window_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginPopupEx\fP (\fBImGuiID\fP id, \fBImGuiWindowFlags\fP extra_window_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginPopupMenuEx\fP (\fBImGuiID\fP id, const char *label, \fBImGuiWindowFlags\fP extra_window_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::OpenPopupEx\fP (\fBImGuiID\fP id, \fBImGuiPopupFlags\fP popup_flags=\fBImGuiPopupFlags_None\fP)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClosePopupToLevel\fP (int remaining, bool restore_focus_to_window_under_popup)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClosePopupsOverWindow\fP (\fBImGuiWindow\fP *ref_window, bool restore_focus_to_window_under_popup)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClosePopupsExceptModals\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsPopupOpen\fP (\fBImGuiID\fP id, \fBImGuiPopupFlags\fP popup_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImRect\fP \fBImGui::GetPopupAllowedExtentRect\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindow\fP * \fBImGui::GetTopMostPopupModal\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindow\fP * \fBImGui::GetTopMostAndVisiblePopupModal\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiWindow\fP * \fBImGui::FindBlockingModal\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::FindBestWindowPosForPopup\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::FindBestWindowPosForPopupEx\fP (const \fBImVec2\fP &ref_pos, const \fBImVec2\fP &size, \fBImGuiDir\fP *last_dir, const \fBImRect\fP &r_outer, const \fBImRect\fP &r_avoid, \fBImGuiPopupPositionPolicy\fP policy)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginTooltipEx\fP (\fBImGuiTooltipFlags\fP tooltip_flags, \fBImGuiWindowFlags\fP extra_window_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginTooltipHidden\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginViewportSideBar\fP (const char *name, \fBImGuiViewport\fP *viewport, \fBImGuiDir\fP dir, float size, \fBImGuiWindowFlags\fP window_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginMenuEx\fP (const char *label, const char *icon, bool enabled=true)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::MenuItemEx\fP (const char *label, const char *icon, const char *shortcut=NULL, bool selected=false, bool enabled=true)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginComboPopup\fP (\fBImGuiID\fP popup_id, const \fBImRect\fP &bb, \fBImGuiComboFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginComboPreview\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::EndComboPreview\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavInitWindow\fP (\fBImGuiWindow\fP *window, bool force_reinit)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavInitRequestApplyResult\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::NavMoveRequestButNoResultYet\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestSubmit\fP (\fBImGuiDir\fP move_dir, \fBImGuiDir\fP clip_dir, \fBImGuiNavMoveFlags\fP move_flags, \fBImGuiScrollFlags\fP scroll_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestForward\fP (\fBImGuiDir\fP move_dir, \fBImGuiDir\fP clip_dir, \fBImGuiNavMoveFlags\fP move_flags, \fBImGuiScrollFlags\fP scroll_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestResolveWithLastItem\fP (\fBImGuiNavItemData\fP *result)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestResolveWithPastTreeNode\fP (\fBImGuiNavItemData\fP *result, const \fBImGuiTreeNodeStackData\fP *tree_node_data)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestCancel\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestApplyResult\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavMoveRequestTryWrapping\fP (\fBImGuiWindow\fP *window, \fBImGuiNavMoveFlags\fP move_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavHighlightActivated\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavClearPreferredPosForAxis\fP (\fBImGuiAxis\fP axis)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetNavCursorVisibleAfterMove\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::NavUpdateCurrentWindowIsScrollPushableX\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetNavWindow\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetNavID\fP (\fBImGuiID\fP id, \fBImGuiNavLayer\fP nav_layer, \fBImGuiID\fP focus_scope_id, const \fBImRect\fP &rect_rel)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetNavFocusScope\fP (\fBImGuiID\fP focus_scope_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::FocusItem\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ActivateItemByID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsNamedKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsNamedKeyOrMod\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsLegacyKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsKeyboardKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsGamepadKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsMouseKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsAliasKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsLRModKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "\fBImGuiKeyChord\fP \fBImGui::FixupKeyChord\fP (\fBImGuiKeyChord\fP key_chord)"
+.br
+.ti -1c
+.RI "\fBImGuiKey\fP \fBImGui::ConvertSingleModFlagToKey\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiKeyData\fP * \fBImGui::GetKeyData\fP (\fBImGuiContext\fP *ctx, \fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "\fBImGuiKeyData\fP * \fBImGui::GetKeyData\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImGui::GetKeyChordName\fP (\fBImGuiKeyChord\fP key_chord)"
+.br
+.ti -1c
+.RI "\fBImGuiKey\fP \fBImGui::MouseButtonToKey\fP (\fBImGuiMouseButton\fP button)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsMouseDragPastThreshold\fP (\fBImGuiMouseButton\fP button, float lock_threshold=\-1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::GetKeyMagnitude2d\fP (\fBImGuiKey\fP key_left, \fBImGuiKey\fP key_right, \fBImGuiKey\fP key_up, \fBImGuiKey\fP key_down)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::GetNavTweakPressedAmount\fP (\fBImGuiAxis\fP axis)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::CalcTypematicRepeatAmount\fP (float t0, float t1, float repeat_delay, float repeat_rate)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::GetTypematicRepeatRate\fP (\fBImGuiInputFlags\fP flags, float *repeat_delay, float *repeat_rate)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TeleportMousePos\fP (const \fBImVec2\fP &pos)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetActiveIdUsingAllKeyboardKeys\fP ()"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsActiveIdUsingNavDir\fP (\fBImGuiDir\fP dir)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetKeyOwner\fP (\fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetKeyOwner\fP (\fBImGuiKey\fP key, \fBImGuiID\fP owner_id, \fBImGuiInputFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetKeyOwnersForKeyChord\fP (\fBImGuiKeyChord\fP key, \fBImGuiID\fP owner_id, \fBImGuiInputFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetItemKeyOwner\fP (\fBImGuiKey\fP key, \fBImGuiInputFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TestKeyOwner\fP (\fBImGuiKey\fP key, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBImGuiKeyOwnerData\fP * \fBImGui::GetKeyOwnerData\fP (\fBImGuiContext\fP *ctx, \fBImGuiKey\fP key)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsKeyDown\fP (\fBImGuiKey\fP key, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsKeyPressed\fP (\fBImGuiKey\fP key, \fBImGuiInputFlags\fP flags, \fBImGuiID\fP owner_id=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsKeyReleased\fP (\fBImGuiKey\fP key, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsKeyChordPressed\fP (\fBImGuiKeyChord\fP key_chord, \fBImGuiInputFlags\fP flags, \fBImGuiID\fP owner_id=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsMouseDown\fP (\fBImGuiMouseButton\fP button, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsMouseClicked\fP (\fBImGuiMouseButton\fP button, \fBImGuiInputFlags\fP flags, \fBImGuiID\fP owner_id=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsMouseReleased\fP (\fBImGuiMouseButton\fP button, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsMouseDoubleClicked\fP (\fBImGuiMouseButton\fP button, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::Shortcut\fP (\fBImGuiKeyChord\fP key_chord, \fBImGuiInputFlags\fP flags, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::SetShortcutRouting\fP (\fBImGuiKeyChord\fP key_chord, \fBImGuiInputFlags\fP flags, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TestShortcutRouting\fP (\fBImGuiKeyChord\fP key_chord, \fBImGuiID\fP owner_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiKeyRoutingData\fP * \fBImGui::GetShortcutRoutingData\fP (\fBImGuiKeyChord\fP key_chord)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PushFocusScope\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PopFocusScope\fP ()"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBImGui::GetCurrentFocusScope\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsDragDropActive\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginDragDropTargetCustom\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ClearDragDrop\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::IsDragDropPayloadBeingAccepted\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderDragDropTargetRect\fP (const \fBImRect\fP &bb, const \fBImRect\fP &item_clip_rect)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTypingSelectRequest\fP * \fBImGui::GetTypingSelectRequest\fP (\fBImGuiTypingSelectFlags\fP flags=\fBImGuiTypingSelectFlags_None\fP)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::TypingSelectFindMatch\fP (\fBImGuiTypingSelectRequest\fP *req, int items_count, const char *(*get_item_name_func)(void *, int), void *user_data, int nav_item_idx)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::TypingSelectFindNextSingleCharMatch\fP (\fBImGuiTypingSelectRequest\fP *req, int items_count, const char *(*get_item_name_func)(void *, int), void *user_data, int nav_item_idx)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::TypingSelectFindBestLeadingMatch\fP (\fBImGuiTypingSelectRequest\fP *req, int items_count, const char *(*get_item_name_func)(void *, int), void *user_data)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginBoxSelect\fP (const \fBImRect\fP &scope_rect, \fBImGuiWindow\fP *window, \fBImGuiID\fP box_select_id, \fBImGuiMultiSelectFlags\fP ms_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::EndBoxSelect\fP (const \fBImRect\fP &scope_rect, \fBImGuiMultiSelectFlags\fP ms_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MultiSelectItemHeader\fP (\fBImGuiID\fP id, bool *p_selected, \fBImGuiButtonFlags\fP *p_button_flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MultiSelectItemFooter\fP (\fBImGuiID\fP id, bool *p_selected, bool *p_pressed)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MultiSelectAddSetAll\fP (\fBImGuiMultiSelectTempData\fP *ms, bool selected)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::MultiSelectAddSetRange\fP (\fBImGuiMultiSelectTempData\fP *ms, bool selected, int range_dir, \fBImGuiSelectionUserData\fP first_item, \fBImGuiSelectionUserData\fP last_item)"
+.br
+.ti -1c
+.RI "\fBImGuiBoxSelectState\fP * \fBImGui::GetBoxSelectState\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBImGuiMultiSelectState\fP * \fBImGui::GetMultiSelectState\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetWindowClipRectBeforeSetChannel\fP (\fBImGuiWindow\fP *window, const \fBImRect\fP &clip_rect)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::BeginColumns\fP (const char *str_id, int count, \fBImGuiOldColumnFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::EndColumns\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PushColumnClipRect\fP (int column_index)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PushColumnsBackground\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::PopColumnsBackground\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetColumnsID\fP (const char *str_id, int count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiOldColumns\fP * \fBImGui::FindOrCreateColumns\fP (\fBImGuiWindow\fP *window, \fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::GetColumnOffsetFromNorm\fP (const \fBImGuiOldColumns\fP *columns, float offset_norm)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::GetColumnNormFromOffset\fP (const \fBImGuiOldColumns\fP *columns, float offset)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableOpenContextMenu\fP (int column_n=\-1)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSetColumnWidth\fP (int column_n, float width)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSetColumnSortDirection\fP (int column_n, \fBImGuiSortDirection\fP sort_direction, bool append_to_sort_specs)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::TableGetHoveredRow\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::TableGetHeaderRowHeight\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::TableGetHeaderAngledMaxLabelWidth\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TablePushBackgroundChannel\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TablePopBackgroundChannel\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TablePushColumnChannel\fP (int column_n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TablePopColumnChannel\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableAngledHeadersRowEx\fP (\fBImGuiID\fP row_id, float angle, float max_label_width, const \fBImGuiTableHeaderData\fP *data, int data_count)"
+.br
+.ti -1c
+.RI "\fBImGuiTable\fP * \fBImGui::GetCurrentTable\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTable\fP * \fBImGui::TableFindByID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginTableEx\fP (const char *name, \fBImGuiID\fP id, int columns_count, \fBImGuiTableFlags\fP flags=0, const \fBImVec2\fP &outer_size=\fBImVec2\fP(0, 0), float inner_width=0\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableBeginInitMemory\fP (\fBImGuiTable\fP *table, int columns_count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableBeginApplyRequests\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSetupDrawChannels\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableUpdateLayout\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableUpdateBorders\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableUpdateColumnsWeightFromWidth\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableDrawBorders\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableDrawDefaultContextMenu\fP (\fBImGuiTable\fP *table, \fBImGuiTableFlags\fP flags_for_section_to_display)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TableBeginContextMenuPopup\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableMergeDrawChannels\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBImGuiTableInstanceData\fP * \fBImGui::TableGetInstanceData\fP (\fBImGuiTable\fP *table, int instance_no)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBImGui::TableGetInstanceID\fP (\fBImGuiTable\fP *table, int instance_no)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSortSpecsSanitize\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSortSpecsBuild\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiSortDirection\fP \fBImGui::TableGetColumnNextSortDirection\fP (\fBImGuiTableColumn\fP *column)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableFixColumnSortDirection\fP (\fBImGuiTable\fP *table, \fBImGuiTableColumn\fP *column)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::TableGetColumnWidthAuto\fP (\fBImGuiTable\fP *table, \fBImGuiTableColumn\fP *column)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableBeginRow\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableEndRow\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableBeginCell\fP (\fBImGuiTable\fP *table, int column_n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableEndCell\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImRect\fP \fBImGui::TableGetCellBgRect\fP (const \fBImGuiTable\fP *table, int column_n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImGui::TableGetColumnName\fP (const \fBImGuiTable\fP *table, int column_n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::TableGetColumnResizeID\fP (\fBImGuiTable\fP *table, int column_n, int instance_no=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBImGui::TableCalcMaxColumnWidth\fP (const \fBImGuiTable\fP *table, int column_n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSetColumnWidthAutoSingle\fP (\fBImGuiTable\fP *table, int column_n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSetColumnWidthAutoAll\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableRemove\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableGcCompactTransientBuffers\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableGcCompactTransientBuffers\fP (\fBImGuiTableTempData\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableGcCompactSettings\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableLoadSettings\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSaveSettings\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableResetSettings\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTableSettings\fP * \fBImGui::TableGetBoundSettings\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TableSettingsAddSettingsHandler\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTableSettings\fP * \fBImGui::TableSettingsCreate\fP (\fBImGuiID\fP id, int columns_count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTableSettings\fP * \fBImGui::TableSettingsFindByID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBImGuiTabBar\fP * \fBImGui::GetCurrentTabBar\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginTabBarEx\fP (\fBImGuiTabBar\fP *tab_bar, const \fBImRect\fP &bb, \fBImGuiTabBarFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTabItem\fP * \fBImGui::TabBarFindTabByID\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiID\fP tab_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTabItem\fP * \fBImGui::TabBarFindTabByOrder\fP (\fBImGuiTabBar\fP *tab_bar, int order)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTabItem\fP * \fBImGui::TabBarGetCurrentTab\fP (\fBImGuiTabBar\fP *tab_bar)"
+.br
+.ti -1c
+.RI "int \fBImGui::TabBarGetTabOrder\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiTabItem\fP *tab)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImGui::TabBarGetTabName\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiTabItem\fP *tab)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabBarRemoveTab\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiID\fP tab_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabBarCloseTab\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiTabItem\fP *tab)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabBarQueueFocus\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiTabItem\fP *tab)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabBarQueueFocus\fP (\fBImGuiTabBar\fP *tab_bar, const char *tab_name)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabBarQueueReorder\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiTabItem\fP *tab, int offset)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabBarQueueReorderFromMousePos\fP (\fBImGuiTabBar\fP *tab_bar, \fBImGuiTabItem\fP *tab, \fBImVec2\fP mouse_pos)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TabBarProcessReorder\fP (\fBImGuiTabBar\fP *tab_bar)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TabItemEx\fP (\fBImGuiTabBar\fP *tab_bar, const char *label, bool *p_open, \fBImGuiTabItemFlags\fP flags, \fBImGuiWindow\fP *docked_window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabItemSpacing\fP (const char *str_id, \fBImGuiTabItemFlags\fP flags, float width)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::TabItemCalcSize\fP (const char *label, bool has_close_button_or_unsaved_marker)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBImGui::TabItemCalcSize\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabItemBackground\fP (\fBImDrawList\fP *draw_list, const \fBImRect\fP &bb, \fBImGuiTabItemFlags\fP flags, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TabItemLabelAndCloseButton\fP (\fBImDrawList\fP *draw_list, const \fBImRect\fP &bb, \fBImGuiTabItemFlags\fP flags, \fBImVec2\fP frame_padding, const char *label, \fBImGuiID\fP tab_id, \fBImGuiID\fP close_button_id, bool is_contents_visible, bool *out_just_closed, bool *out_text_clipped)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderText\fP (\fBImVec2\fP pos, const char *text, const char *text_end=NULL, bool hide_text_after_hash=true)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderTextWrapped\fP (\fBImVec2\fP pos, const char *text, const char *text_end, float wrap_width)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderTextClipped\fP (const \fBImVec2\fP &pos_min, const \fBImVec2\fP &pos_max, const char *text, const char *text_end, const \fBImVec2\fP *text_size_if_known, const \fBImVec2\fP &align=\fBImVec2\fP(0, 0), const \fBImRect\fP *clip_rect=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderTextClippedEx\fP (\fBImDrawList\fP *draw_list, const \fBImVec2\fP &pos_min, const \fBImVec2\fP &pos_max, const char *text, const char *text_end, const \fBImVec2\fP *text_size_if_known, const \fBImVec2\fP &align=\fBImVec2\fP(0, 0), const \fBImRect\fP *clip_rect=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderTextEllipsis\fP (\fBImDrawList\fP *draw_list, const \fBImVec2\fP &pos_min, const \fBImVec2\fP &pos_max, float ellipsis_max_x, const char *text, const char *text_end, const \fBImVec2\fP *text_size_if_known)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderFrame\fP (\fBImVec2\fP p_min, \fBImVec2\fP p_max, \fBImU32\fP fill_col, bool borders=true, float rounding=0\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderFrameBorder\fP (\fBImVec2\fP p_min, \fBImVec2\fP p_max, float rounding=0\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderColorRectWithAlphaCheckerboard\fP (\fBImDrawList\fP *draw_list, \fBImVec2\fP p_min, \fBImVec2\fP p_max, \fBImU32\fP fill_col, float grid_step, \fBImVec2\fP grid_off, float rounding=0\&.0f, \fBImDrawFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderNavCursor\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiNavRenderCursorFlags\fP flags=\fBImGuiNavRenderCursorFlags_None\fP)"
+.br
+.ti -1c
+.RI "void \fBImGui::RenderNavHighlight\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiNavRenderCursorFlags\fP flags=\fBImGuiNavRenderCursorFlags_None\fP)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBImGui::FindRenderedTextEnd\fP (const char *text, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderMouseCursor\fP (\fBImVec2\fP pos, float scale, \fBImGuiMouseCursor\fP mouse_cursor, \fBImU32\fP col_fill, \fBImU32\fP col_border, \fBImU32\fP col_shadow)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderArrow\fP (\fBImDrawList\fP *draw_list, \fBImVec2\fP pos, \fBImU32\fP col, \fBImGuiDir\fP dir, float scale=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderBullet\fP (\fBImDrawList\fP *draw_list, \fBImVec2\fP pos, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderCheckMark\fP (\fBImDrawList\fP *draw_list, \fBImVec2\fP pos, \fBImU32\fP col, float sz)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderArrowPointingAt\fP (\fBImDrawList\fP *draw_list, \fBImVec2\fP pos, \fBImVec2\fP half_sz, \fBImGuiDir\fP direction, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderRectFilledRangeH\fP (\fBImDrawList\fP *draw_list, const \fBImRect\fP &rect, \fBImU32\fP col, float x_start_norm, float x_end_norm, float rounding)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::RenderRectFilledWithHole\fP (\fBImDrawList\fP *draw_list, const \fBImRect\fP &outer, const \fBImRect\fP &inner, \fBImU32\fP col, float rounding)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TextEx\fP (const char *text, const char *text_end=NULL, \fBImGuiTextFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TextAligned\fP (float align_x, float size_x, const char *fmt,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TextAlignedV\fP (float align_x, float size_x, const char *fmt, va_list args)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ButtonEx\fP (const char *label, const \fBImVec2\fP &size_arg=\fBImVec2\fP(0, 0), \fBImGuiButtonFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ArrowButtonEx\fP (const char *str_id, \fBImGuiDir\fP dir, \fBImVec2\fP size_arg, \fBImGuiButtonFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ImageButtonEx\fP (\fBImGuiID\fP id, \fBImTextureID\fP user_texture_id, const \fBImVec2\fP &image_size, const \fBImVec2\fP &uv0, const \fBImVec2\fP &uv1, const \fBImVec4\fP &bg_col, const \fBImVec4\fP &tint_col, \fBImGuiButtonFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SeparatorEx\fP (\fBImGuiSeparatorFlags\fP flags, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SeparatorTextEx\fP (\fBImGuiID\fP id, const char *label, const char *label_end, float extra_width)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::CheckboxFlags\fP (const char *label, \fBImS64\fP *flags, \fBImS64\fP flags_value)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::CheckboxFlags\fP (const char *label, \fBImU64\fP *flags, \fBImU64\fP flags_value)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::CloseButton\fP (\fBImGuiID\fP id, const \fBImVec2\fP &pos)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::CollapseButton\fP (\fBImGuiID\fP id, const \fBImVec2\fP &pos)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::Scrollbar\fP (\fBImGuiAxis\fP axis)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ScrollbarEx\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiAxis\fP axis, \fBImS64\fP *p_scroll_v, \fBImS64\fP avail_v, \fBImS64\fP contents_v, \fBImDrawFlags\fP draw_rounding_flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImRect\fP \fBImGui::GetWindowScrollbarRect\fP (\fBImGuiWindow\fP *window, \fBImGuiAxis\fP axis)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetWindowScrollbarID\fP (\fBImGuiWindow\fP *window, \fBImGuiAxis\fP axis)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetWindowResizeCornerID\fP (\fBImGuiWindow\fP *window, int n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiID\fP \fBImGui::GetWindowResizeBorderID\fP (\fBImGuiWindow\fP *window, \fBImGuiDir\fP dir)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ButtonBehavior\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, bool *out_hovered, bool *out_held, \fBImGuiButtonFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::DragBehavior\fP (\fBImGuiID\fP id, \fBImGuiDataType\fP data_type, void *p_v, float v_speed, const void *p_min, const void *p_max, const char *format, \fBImGuiSliderFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::SliderBehavior\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiDataType\fP data_type, void *p_v, const void *p_min, const void *p_max, const char *format, \fBImGuiSliderFlags\fP flags, \fBImRect\fP *out_grab_bb)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::SplitterBehavior\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiAxis\fP axis, float *size1, float *size2, float min_size1, float min_size2, float hover_extend=0\&.0f, float hover_visibility_delay=0\&.0f, \fBImU32\fP bg_col=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TreeNodeBehavior\fP (\fBImGuiID\fP id, \fBImGuiTreeNodeFlags\fP flags, const char *label, const char *label_end=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TreeNodeDrawLineToChildNode\fP (const \fBImVec2\fP &target_pos)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TreeNodeDrawLineToTreePop\fP (const \fBImGuiTreeNodeStackData\fP *data)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TreePushOverrideID\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TreeNodeGetOpen\fP (\fBImGuiID\fP storage_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::TreeNodeSetOpen\fP (\fBImGuiID\fP storage_id, bool open)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TreeNodeUpdateNextOpen\fP (\fBImGuiID\fP storage_id, \fBImGuiTreeNodeFlags\fP flags)"
+.br
+.ti -1c
+.RI "template<typename T, typename SIGNED_T, typename FLOAT_T> \fBIMGUI_API\fP float \fBImGui::ScaleRatioFromValueT\fP (\fBImGuiDataType\fP data_type, T v, T v_min, T v_max, bool is_logarithmic, float logarithmic_zero_epsilon, float zero_deadzone_size)"
+.br
+.ti -1c
+.RI "template<typename T, typename SIGNED_T, typename FLOAT_T> \fBIMGUI_API\fP T \fBImGui::ScaleValueFromRatioT\fP (\fBImGuiDataType\fP data_type, float t, T v_min, T v_max, bool is_logarithmic, float logarithmic_zero_epsilon, float zero_deadzone_size)"
+.br
+.ti -1c
+.RI "template<typename T, typename SIGNED_T, typename FLOAT_T> \fBIMGUI_API\fP bool \fBImGui::DragBehaviorT\fP (\fBImGuiDataType\fP data_type, T *v, float v_speed, T v_min, T v_max, const char *format, \fBImGuiSliderFlags\fP flags)"
+.br
+.ti -1c
+.RI "template<typename T, typename SIGNED_T, typename FLOAT_T> \fBIMGUI_API\fP bool \fBImGui::SliderBehaviorT\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, \fBImGuiDataType\fP data_type, T *v, T v_min, T v_max, const char *format, \fBImGuiSliderFlags\fP flags, \fBImRect\fP *out_grab_bb)"
+.br
+.ti -1c
+.RI "template<typename T> \fBIMGUI_API\fP T \fBImGui::RoundScalarWithFormatT\fP (const char *format, \fBImGuiDataType\fP data_type, T v)"
+.br
+.ti -1c
+.RI "template<typename T> \fBIMGUI_API\fP bool \fBImGui::CheckboxFlagsT\fP (const char *label, T *flags, T flags_value)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImGuiDataTypeInfo\fP * \fBImGui::DataTypeGetInfo\fP (\fBImGuiDataType\fP data_type)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::DataTypeFormatString\fP (char *buf, int buf_size, \fBImGuiDataType\fP data_type, const void *p_data, const char *format)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DataTypeApplyOp\fP (\fBImGuiDataType\fP data_type, int op, void *output, const void *arg_1, const void *arg_2)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::DataTypeApplyFromText\fP (const char *buf, \fBImGuiDataType\fP data_type, void *p_data, const char *format, void *p_data_when_empty=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::DataTypeCompare\fP (\fBImGuiDataType\fP data_type, const void *arg_1, const void *arg_2)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::DataTypeClamp\fP (\fBImGuiDataType\fP data_type, void *p_data, const void *p_min, const void *p_max)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::DataTypeIsZero\fP (\fBImGuiDataType\fP data_type, const void *p_data)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::InputTextEx\fP (const char *label, const char *hint, char *buf, int buf_size, const \fBImVec2\fP &size_arg, \fBImGuiInputTextFlags\fP flags, \fBImGuiInputTextCallback\fP callback=NULL, void *user_data=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::InputTextDeactivateHook\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TempInputText\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, const char *label, char *buf, int buf_size, \fBImGuiInputTextFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::TempInputScalar\fP (const \fBImRect\fP &bb, \fBImGuiID\fP id, const char *label, \fBImGuiDataType\fP data_type, void *p_data, const char *format, const void *p_clamp_min=NULL, const void *p_clamp_max=NULL)"
+.br
+.ti -1c
+.RI "bool \fBImGui::TempInputIsActive\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBImGuiInputTextState\fP * \fBImGui::GetInputTextState\fP (\fBImGuiID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::SetNextItemRefVal\fP (\fBImGuiDataType\fP data_type, void *p_data)"
+.br
+.ti -1c
+.RI "bool \fBImGui::IsItemActiveAsInputText\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ColorTooltip\fP (const char *text, const float *col, \fBImGuiColorEditFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ColorEditOptionsPopup\fP (const float *col, \fBImGuiColorEditFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ColorPickerOptionsPopup\fP (const float *ref_col, \fBImGuiColorEditFlags\fP flags)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBImGui::PlotEx\fP (\fBImGuiPlotType\fP plot_type, const char *label, float(*values_getter)(void *data, int idx), void *data, int values_count, int values_offset, const char *overlay_text, float scale_min, float scale_max, const \fBImVec2\fP &size_arg)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ShadeVertsLinearColorGradientKeepAlpha\fP (\fBImDrawList\fP *draw_list, int vert_start_idx, int vert_end_idx, \fBImVec2\fP gradient_p0, \fBImVec2\fP gradient_p1, \fBImU32\fP col0, \fBImU32\fP col1)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ShadeVertsLinearUV\fP (\fBImDrawList\fP *draw_list, int vert_start_idx, int vert_end_idx, const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &uv_a, const \fBImVec2\fP &uv_b, bool clamp)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ShadeVertsTransformPos\fP (\fBImDrawList\fP *draw_list, int vert_start_idx, int vert_end_idx, const \fBImVec2\fP &pivot_in, float cos_a, float sin_a, const \fBImVec2\fP &pivot_out)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::GcCompactTransientMiscBuffers\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::GcCompactTransientWindowBuffers\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::GcAwakeTransientWindowBuffers\fP (\fBImGuiWindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::ErrorLog\fP (const char *msg)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ErrorRecoveryStoreState\fP (\fBImGuiErrorRecoveryState\fP *state_out)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ErrorRecoveryTryToRecoverState\fP (const \fBImGuiErrorRecoveryState\fP *state_in)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ErrorRecoveryTryToRecoverWindowState\fP (const \fBImGuiErrorRecoveryState\fP *state_in)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ErrorCheckUsingSetCursorPosToExtendParentBoundaries\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ErrorCheckEndFrameFinalizeErrorTooltip\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::BeginErrorTooltip\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::EndErrorTooltip\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugAllocHook\fP (\fBImGuiDebugAllocInfo\fP *info, int frame_count, void *ptr, size_t size)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugDrawCursorPos\fP (\fBImU32\fP col=\fBIM_COL32\fP(255, 0, 0, 255))"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugDrawLineExtents\fP (\fBImU32\fP col=\fBIM_COL32\fP(255, 0, 0, 255))"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugDrawItemRect\fP (\fBImU32\fP col=\fBIM_COL32\fP(255, 0, 0, 255))"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugTextUnformattedWithLocateItem\fP (const char *line_begin, const char *line_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugLocateItem\fP (\fBImGuiID\fP target_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugLocateItemOnHover\fP (\fBImGuiID\fP target_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugLocateItemResolveWithLastItem\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugBreakClearData\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImGui::DebugBreakButton\fP (const char *label, const char *description_of_location)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugBreakButtonTooltip\fP (bool keyboard_only, const char *description_of_location)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ShowFontAtlas\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugHookIdInfo\fP (\fBImGuiID\fP id, \fBImGuiDataType\fP data_type, const void *data_id, const void *data_id_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeColumns\fP (\fBImGuiOldColumns\fP *columns)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeDrawList\fP (\fBImGuiWindow\fP *window, \fBImGuiViewportP\fP *viewport, const \fBImDrawList\fP *draw_list, const char *label)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeDrawCmdShowMeshAndBoundingBox\fP (\fBImDrawList\fP *out_draw_list, const \fBImDrawList\fP *draw_list, const \fBImDrawCmd\fP *draw_cmd, bool show_mesh, bool show_aabb)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeFont\fP (\fBImFont\fP *font)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeFontGlyph\fP (\fBImFont\fP *font, const \fBImFontGlyph\fP *glyph)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeStorage\fP (\fBImGuiStorage\fP *storage, const char *label)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeTabBar\fP (\fBImGuiTabBar\fP *tab_bar, const char *label)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeTable\fP (\fBImGuiTable\fP *table)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeTableSettings\fP (\fBImGuiTableSettings\fP *settings)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeInputTextState\fP (\fBImGuiInputTextState\fP *state)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeTypingSelectState\fP (\fBImGuiTypingSelectState\fP *state)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeMultiSelectState\fP (\fBImGuiMultiSelectState\fP *state)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeWindow\fP (\fBImGuiWindow\fP *window, const char *label)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeWindowSettings\fP (\fBImGuiWindowSettings\fP *settings)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeWindowsList\fP (\fBImVector\fP< \fBImGuiWindow\fP * > *windows, const char *label)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeWindowsListByBeginStackParent\fP (\fBImGuiWindow\fP **windows, int windows_size, \fBImGuiWindow\fP *parent_in_begin_stack)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugNodeViewport\fP (\fBImGuiViewportP\fP *viewport)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugRenderKeyboardPreview\fP (\fBImDrawList\fP *draw_list)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::DebugRenderViewportThumbnail\fP (\fBImDrawList\fP *draw_list, \fBImGuiViewportP\fP *viewport, const \fBImRect\fP &bb)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImFontBuilderIO\fP * \fBImFontAtlasGetBuilderForStbTruetype\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasUpdateSourcesPointers\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildInit\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildSetupFont\fP (\fBImFontAtlas\fP *atlas, \fBImFont\fP *font, \fBImFontConfig\fP *src, float ascent, float descent)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildPackCustomRects\fP (\fBImFontAtlas\fP *atlas, void *stbrp_context_opaque)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildFinish\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildRender8bppRectFromString\fP (\fBImFontAtlas\fP *atlas, int x, int y, int w, int h, const char *in_str, char in_marker_char, unsigned char in_marker_pixel_value)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildRender32bppRectFromString\fP (\fBImFontAtlas\fP *atlas, int x, int y, int w, int h, const char *in_str, char in_marker_char, unsigned int in_marker_pixel_value)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildMultiplyCalcLookupTable\fP (unsigned char out_table[256], float in_multiply_factor)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildMultiplyRectAlpha8\fP (const unsigned char table[256], unsigned char *pixels, int x, int y, int w, int h, int stride)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImFontAtlasBuildGetOversampleFactors\fP (const \fBImFontConfig\fP *src, int *out_oversample_h, int *out_oversample_v)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBImFontAtlasGetMouseCursorTexData\fP (\fBImFontAtlas\fP *atlas, \fBImGuiMouseCursor\fP cursor_type, \fBImVec2\fP *out_offset, \fBImVec2\fP *out_size, \fBImVec2\fP out_uv_border[2], \fBImVec2\fP out_uv_fill[2])"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiContext\fP * \fBGImGui\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define IM_ASSERT_PARANOID( _EXPR)"
+
+.SS "#define IM_ASSERT_USER_ERROR( _EXPR,  _MSG)"
+\fBValue:\fP
+.nf
+do { if (!(_EXPR) && ImGui::ErrorLog(_MSG)) { IM_ASSERT((_EXPR) && _MSG); } } while (0)
+.PP
+.fi
+
+.SS "#define IM_BITARRAY_CLEARBIT( _ARRAY,  _N)"
+\fBValue:\fP
+.nf
+((_ARRAY[(_N) >> 5] &= ~((ImU32)1 << ((_N) & 31))))
+.PP
+.fi
+
+.SS "#define IM_BITARRAY_TESTBIT( _ARRAY,  _N)"
+\fBValue:\fP
+.nf
+((_ARRAY[(_N) >> 5] & ((ImU32)1 << ((_N) & 31))) != 0)
+.PP
+.fi
+
+.SS "#define IM_COL32_DISABLE   \fBIM_COL32\fP(0,0,0,1)"
+
+.SS "#define IM_DEBUG_BREAK()"
+\fBValue:\fP
+.nf
+IM_ASSERT(0)
+.PP
+.fi
+
+.SS "#define IM_DRAWLIST_ARCFAST_SAMPLE_MAX   \fBIM_DRAWLIST_ARCFAST_TABLE_SIZE\fP"
+
+.SS "#define IM_DRAWLIST_ARCFAST_TABLE_SIZE   48"
+
+.SS "#define IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_CALC( _RAD,  _MAXERROR)"
+\fBValue:\fP
+.nf
+ImClamp(IM_ROUNDUP_TO_EVEN((int)ImCeil(IM_PI / ImAcos(1 \- ImMin((_MAXERROR), (_RAD)) / (_RAD)))), IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_MIN, IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_MAX)
+.PP
+.fi
+
+.SS "#define IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_CALC_ERROR( _N,  _RAD)"
+\fBValue:\fP
+.nf
+((1 \- ImCos(IM_PI / ImMax((float)(_N), IM_PI))) / (_RAD))
+.PP
+.fi
+
+.SS "#define IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_CALC_R( _N,  _MAXERROR)"
+\fBValue:\fP
+.nf
+((_MAXERROR) / (1 \- ImCos(IM_PI / ImMax((float)(_N), IM_PI))))
+.PP
+.fi
+
+.SS "#define IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_MAX   512"
+
+.SS "#define IM_DRAWLIST_CIRCLE_AUTO_SEGMENT_MIN   4"
+
+.SS "#define IM_F32_TO_INT8_SAT( _VAL)"
+\fBValue:\fP
+.nf
+((int)(ImSaturate(_VAL) * 255\&.0f + 0\&.5f))
+.PP
+.fi
+
+.SS "#define IM_F32_TO_INT8_UNBOUND( _VAL)"
+\fBValue:\fP
+.nf
+((int)((_VAL) * 255\&.0f + ((_VAL)>=0 ? 0\&.5f : \-0\&.5f)))
+.PP
+.fi
+
+.SS "#define IM_FLOOR   \fBIM_TRUNC\fP"
+
+.SS "#define IM_LIKELY"
+
+.SS "#define IM_MEMALIGN( _OFF,  _ALIGN)"
+\fBValue:\fP
+.nf
+(((_OFF) + ((_ALIGN) \- 1)) & ~((_ALIGN) \- 1))
+.PP
+.fi
+
+.SS "#define IM_MSVC_WARNING_SUPPRESS( XXXX)"
+
+.SS "#define IM_NEWLINE   '\\n'"
+
+.SS "#define IM_PI   3\&.14159265358979323846f"
+
+.SS "#define IM_PRId64   'lld'"
+
+.SS "#define IM_PRIu64   'llu'"
+
+.SS "#define IM_PRIX64   'llX'"
+
+.SS "#define IM_ROUND( _VAL)"
+\fBValue:\fP
+.nf
+((float)(int)((_VAL) + 0\&.5f))
+.PP
+.fi
+
+.SS "#define IM_ROUNDUP_TO_EVEN( _V)"
+\fBValue:\fP
+.nf
+((((_V) + 1) / 2) * 2)
+.PP
+.fi
+
+.SS "#define IM_STATIC_ASSERT( _COND)"
+\fBValue:\fP
+.nf
+static_assert(_COND, "")
+.PP
+.fi
+
+.SS "#define IM_STRINGIFY( _X)"
+\fBValue:\fP
+.nf
+IM_STRINGIFY_HELPER(_X)
+.PP
+.fi
+
+.SS "#define IM_STRINGIFY_HELPER( _X)"
+\fBValue:\fP
+.nf
+#_X
+.PP
+.fi
+
+.SS "#define IM_TABSIZE   (4)"
+
+.SS "#define IM_TRUNC( _VAL)"
+\fBValue:\fP
+.nf
+((float)(int)(_VAL))
+.PP
+.fi
+
+.SS "#define IM_UNLIKELY"
+
+.SS "#define ImAcos( X)"
+\fBValue:\fP
+.nf
+acosf(X)
+.PP
+.fi
+
+.SS "#define ImAtan2( Y,  X)"
+\fBValue:\fP
+.nf
+atan2f((Y), (X))
+.PP
+.fi
+
+.SS "#define ImAtof( STR)"
+\fBValue:\fP
+.nf
+atof(STR)
+.PP
+.fi
+
+.SS "#define ImCeil( X)"
+\fBValue:\fP
+.nf
+ceilf(X)
+.PP
+.fi
+
+.SS "#define ImCos( X)"
+\fBValue:\fP
+.nf
+cosf(X)
+.PP
+.fi
+
+.SS "#define ImFabs( X)"
+\fBValue:\fP
+.nf
+fabsf(X)
+.PP
+.fi
+
+.SS "#define ImFmod( X,  Y)"
+\fBValue:\fP
+.nf
+fmodf((X), (Y))
+.PP
+.fi
+
+.SS "#define IMGUI_CDECL"
+
+.SS "#define IMGUI_DEBUG_LOG_ACTIVEID( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventActiveId)    IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_CLIPPER( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventClipper)     IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_ERROR( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventError)       IMGUI_DEBUG_LOG(__VA_ARGS__); else g\&.DebugLogSkippedErrors++; } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_FOCUS( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventFocus)       IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_FONT( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventFont)        IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_INPUTROUTING( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do{if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventInputRouting)IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_IO( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventIO)          IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_NAV( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventNav)         IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_POPUP( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventPopup)       IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_LOG_SELECTION( \&.\&.\&.)"
+\fBValue:\fP
+.nf
+do { if (g\&.DebugLogFlags & ImGuiDebugLogFlags_EventSelection)   IMGUI_DEBUG_LOG(__VA_ARGS__); } while (0)
+.PP
+.fi
+
+.SS "#define IMGUI_DEBUG_PRINTF( _FMT,  \&.\&.\&.)"
+\fBValue:\fP
+.nf
+printf(_FMT, __VA_ARGS__)
+.PP
+.fi
+
+.SS "#define IMGUI_ENABLE_STB_TRUETYPE"
+
+.SS "#define IMGUI_TABLE_MAX_COLUMNS   512"
+
+.SS "#define IMGUI_TEST_ENGINE_ITEM_ADD( _BB,  _ID)"
+\fBValue:\fP
+.nf
+((void)0)
+.PP
+.fi
+
+.SS "#define IMGUI_TEST_ENGINE_ITEM_INFO( _ID,  _LABEL,  _FLAGS)"
+\fBValue:\fP
+.nf
+((void)g)
+.PP
+.fi
+
+.SS "#define ImGuiKey_Aliases_BEGIN   (\fBImGuiKey_Mouse_BEGIN\fP)"
+
+.SS "#define ImGuiKey_Aliases_END   (\fBImGuiKey_Mouse_END\fP)"
+
+.SS "#define ImGuiKey_Gamepad_BEGIN   (\fBImGuiKey_GamepadStart\fP)"
+
+.SS "#define ImGuiKey_Gamepad_END   (\fBImGuiKey_GamepadRStickDown\fP + 1)"
+
+.SS "#define ImGuiKey_Keyboard_BEGIN   (\fBImGuiKey_NamedKey_BEGIN\fP)"
+
+.SS "#define ImGuiKey_Keyboard_END   (\fBImGuiKey_GamepadStart\fP)"
+
+.SS "#define ImGuiKey_LegacyNativeKey_BEGIN   0"
+
+.SS "#define ImGuiKey_LegacyNativeKey_END   512"
+
+.SS "#define ImGuiKey_Mouse_BEGIN   (\fBImGuiKey_MouseLeft\fP)"
+
+.SS "#define ImGuiKey_Mouse_END   (\fBImGuiKey_MouseWheelY\fP + 1)"
+
+.SS "#define ImGuiKey_NavGamepadActivate   (g\&.IO\&.ConfigNavSwapGamepadButtons ? \fBImGuiKey_GamepadFaceRight\fP : \fBImGuiKey_GamepadFaceDown\fP)"
+
+.SS "#define ImGuiKey_NavGamepadCancel   (g\&.IO\&.ConfigNavSwapGamepadButtons ? \fBImGuiKey_GamepadFaceDown\fP : \fBImGuiKey_GamepadFaceRight\fP)"
+
+.SS "#define ImGuiKey_NavGamepadInput   \fBImGuiKey_GamepadFaceUp\fP"
+
+.SS "#define ImGuiKey_NavGamepadMenu   \fBImGuiKey_GamepadFaceLeft\fP"
+
+.SS "#define ImGuiKey_NavGamepadTweakFast   \fBImGuiKey_GamepadR1\fP"
+
+.SS "#define ImGuiKey_NavGamepadTweakSlow   \fBImGuiKey_GamepadL1\fP"
+
+.SS "#define ImGuiKey_NavKeyboardTweakFast   \fBImGuiMod_Shift\fP"
+
+.SS "#define ImGuiKey_NavKeyboardTweakSlow   \fBImGuiMod_Ctrl\fP"
+
+.SS "#define ImGuiKeyOwner_Any   ((\fBImGuiID\fP)0)"
+
+.SS "#define ImGuiKeyOwner_NoOwner   ((\fBImGuiID\fP)\-1)"
+
+.SS "#define ImGuiSelectionUserData_Invalid   ((\fBImGuiSelectionUserData\fP)\-1)"
+
+.SS "#define ImMemchr   memchr"
+
+.SS "#define ImSin( X)"
+\fBValue:\fP
+.nf
+sinf(X)
+.PP
+.fi
+
+.SS "#define ImSqrt( X)"
+\fBValue:\fP
+.nf
+sqrtf(X)
+.PP
+.fi
+
+.SS "#define IMSTB_TEXTEDIT_CHARTYPE   char"
+
+.SS "#define IMSTB_TEXTEDIT_GETWIDTH_NEWLINE   (\-1\&.0f)"
+
+.SS "#define IMSTB_TEXTEDIT_STRING   \fBImGuiInputTextState\fP"
+
+.SS "#define IMSTB_TEXTEDIT_UNDOCHARCOUNT   999"
+
+.SS "#define IMSTB_TEXTEDIT_UNDOSTATECOUNT   99"
+
+.SS "#define ImStrlen   strlen"
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef \fBImBitArray\fP<\fBImGuiKey_NamedKey_COUNT\fP, \-\fBImGuiKey_NamedKey_BEGIN\fP> \fBImBitArrayForNamedKeys\fP"
+
+.SS "typedef \fBImU32\fP* \fBImBitArrayPtr\fP"
+
+.SS "typedef FILE* \fBImFileHandle\fP"
+
+.SS "typedef int \fBImGuiActivateFlags\fP"
+
+.SS "typedef void(* ImGuiContextHookCallback) (\fBImGuiContext\fP *ctx, \fBImGuiContextHook\fP *hook)"
+
+.SS "typedef int \fBImGuiDebugLogFlags\fP"
+
+.SS "typedef void(* ImGuiErrorCallback) (\fBImGuiContext\fP *ctx, void *user_data, const char *msg)"
+
+.SS "typedef int \fBImGuiFocusRequestFlags\fP"
+
+.SS "typedef int \fBImGuiItemStatusFlags\fP"
+
+.SS "typedef \fBImS16\fP \fBImGuiKeyRoutingIndex\fP"
+
+.SS "typedef int \fBImGuiLayoutType\fP"
+
+.SS "typedef int \fBImGuiLogFlags\fP"
+
+.SS "typedef int \fBImGuiNavMoveFlags\fP"
+
+.SS "typedef int \fBImGuiNavRenderCursorFlags\fP"
+
+.SS "typedef int \fBImGuiNextItemDataFlags\fP"
+
+.SS "typedef int \fBImGuiNextWindowDataFlags\fP"
+
+.SS "typedef int \fBImGuiOldColumnFlags\fP"
+
+.SS "typedef int \fBImGuiScrollFlags\fP"
+
+.SS "typedef int \fBImGuiSeparatorFlags\fP"
+
+.SS "typedef \fBImS16\fP \fBImGuiTableColumnIdx\fP"
+
+.SS "typedef \fBImU16\fP \fBImGuiTableDrawChannelIdx\fP"
+
+.SS "typedef int \fBImGuiTextFlags\fP"
+
+.SS "typedef int \fBImGuiTooltipFlags\fP"
+
+.SS "typedef int \fBImGuiTypingSelectFlags\fP"
+
+.SS "typedef int \fBImGuiWindowRefreshFlags\fP"
+
+.SS "typedef int \fBImPoolIdx\fP"
+
+.SS "typedef \fBImStb::STB_TexteditState\fP \fBImStbTexteditState\fP"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBImGuiActivateFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiActivateFlags_None \fP
+.TP
+\f(BIImGuiActivateFlags_PreferInput \fP
+.TP
+\f(BIImGuiActivateFlags_PreferTweak \fP
+.TP
+\f(BIImGuiActivateFlags_TryToPreserveState \fP
+.TP
+\f(BIImGuiActivateFlags_FromTabbing \fP
+.TP
+\f(BIImGuiActivateFlags_FromShortcut \fP
+.SS "enum \fBImGuiAxis\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiAxis_None \fP
+.TP
+\f(BIImGuiAxis_X \fP
+.TP
+\f(BIImGuiAxis_Y \fP
+.SS "enum \fBImGuiButtonFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiButtonFlags_PressedOnClick \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnClickRelease \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnClickReleaseAnywhere \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnRelease \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnDoubleClick \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnDragDropHold \fP
+.TP
+\f(BIImGuiButtonFlags_FlattenChildren \fP
+.TP
+\f(BIImGuiButtonFlags_AllowOverlap \fP
+.TP
+\f(BIImGuiButtonFlags_AlignTextBaseLine \fP
+.TP
+\f(BIImGuiButtonFlags_NoKeyModsAllowed \fP
+.TP
+\f(BIImGuiButtonFlags_NoHoldingActiveId \fP
+.TP
+\f(BIImGuiButtonFlags_NoNavFocus \fP
+.TP
+\f(BIImGuiButtonFlags_NoHoveredOnFocus \fP
+.TP
+\f(BIImGuiButtonFlags_NoSetKeyOwner \fP
+.TP
+\f(BIImGuiButtonFlags_NoTestKeyOwner \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnMask_ \fP
+.TP
+\f(BIImGuiButtonFlags_PressedOnDefault_ \fP
+.SS "enum \fBImGuiComboFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiComboFlags_CustomPreview \fP
+.SS "enum \fBImGuiContextHookType\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiContextHookType_NewFramePre \fP
+.TP
+\f(BIImGuiContextHookType_NewFramePost \fP
+.TP
+\f(BIImGuiContextHookType_EndFramePre \fP
+.TP
+\f(BIImGuiContextHookType_EndFramePost \fP
+.TP
+\f(BIImGuiContextHookType_RenderPre \fP
+.TP
+\f(BIImGuiContextHookType_RenderPost \fP
+.TP
+\f(BIImGuiContextHookType_Shutdown \fP
+.TP
+\f(BIImGuiContextHookType_PendingRemoval_ \fP
+.SS "enum \fBImGuiDataTypePrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiDataType_Pointer \fP
+.TP
+\f(BIImGuiDataType_ID \fP
+.SS "enum \fBImGuiDebugLogFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiDebugLogFlags_None \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventError \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventActiveId \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventFocus \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventPopup \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventNav \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventClipper \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventSelection \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventIO \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventFont \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventInputRouting \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventDocking \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventViewport \fP
+.TP
+\f(BIImGuiDebugLogFlags_EventMask_ \fP
+.TP
+\f(BIImGuiDebugLogFlags_OutputToTTY \fP
+.TP
+\f(BIImGuiDebugLogFlags_OutputToTestEngine \fP
+.SS "enum \fBImGuiFocusRequestFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiFocusRequestFlags_None \fP
+.TP
+\f(BIImGuiFocusRequestFlags_RestoreFocusedChild \fP
+.TP
+\f(BIImGuiFocusRequestFlags_UnlessBelowModal \fP
+.SS "enum \fBImGuiHoveredFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiHoveredFlags_DelayMask_ \fP
+.TP
+\f(BIImGuiHoveredFlags_AllowedMaskForIsWindowHovered \fP
+.TP
+\f(BIImGuiHoveredFlags_AllowedMaskForIsItemHovered \fP
+.SS "enum \fBImGuiInputEventType\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiInputEventType_None \fP
+.TP
+\f(BIImGuiInputEventType_MousePos \fP
+.TP
+\f(BIImGuiInputEventType_MouseWheel \fP
+.TP
+\f(BIImGuiInputEventType_MouseButton \fP
+.TP
+\f(BIImGuiInputEventType_Key \fP
+.TP
+\f(BIImGuiInputEventType_Text \fP
+.TP
+\f(BIImGuiInputEventType_Focus \fP
+.TP
+\f(BIImGuiInputEventType_COUNT \fP
+.SS "enum \fBImGuiInputFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiInputFlags_RepeatRateDefault \fP
+.TP
+\f(BIImGuiInputFlags_RepeatRateNavMove \fP
+.TP
+\f(BIImGuiInputFlags_RepeatRateNavTweak \fP
+.TP
+\f(BIImGuiInputFlags_RepeatUntilRelease \fP
+.TP
+\f(BIImGuiInputFlags_RepeatUntilKeyModsChange \fP
+.TP
+\f(BIImGuiInputFlags_RepeatUntilKeyModsChangeFromNone \fP
+.TP
+\f(BIImGuiInputFlags_RepeatUntilOtherKeyPress \fP
+.TP
+\f(BIImGuiInputFlags_LockThisFrame \fP
+.TP
+\f(BIImGuiInputFlags_LockUntilRelease \fP
+.TP
+\f(BIImGuiInputFlags_CondHovered \fP
+.TP
+\f(BIImGuiInputFlags_CondActive \fP
+.TP
+\f(BIImGuiInputFlags_CondDefault_ \fP
+.TP
+\f(BIImGuiInputFlags_RepeatRateMask_ \fP
+.TP
+\f(BIImGuiInputFlags_RepeatUntilMask_ \fP
+.TP
+\f(BIImGuiInputFlags_RepeatMask_ \fP
+.TP
+\f(BIImGuiInputFlags_CondMask_ \fP
+.TP
+\f(BIImGuiInputFlags_RouteTypeMask_ \fP
+.TP
+\f(BIImGuiInputFlags_RouteOptionsMask_ \fP
+.TP
+\f(BIImGuiInputFlags_SupportedByIsKeyPressed \fP
+.TP
+\f(BIImGuiInputFlags_SupportedByIsMouseClicked \fP
+.TP
+\f(BIImGuiInputFlags_SupportedByShortcut \fP
+.TP
+\f(BIImGuiInputFlags_SupportedBySetNextItemShortcut \fP
+.TP
+\f(BIImGuiInputFlags_SupportedBySetKeyOwner \fP
+.TP
+\f(BIImGuiInputFlags_SupportedBySetItemKeyOwner \fP
+.SS "enum \fBImGuiInputSource\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiInputSource_None \fP
+.TP
+\f(BIImGuiInputSource_Mouse \fP
+.TP
+\f(BIImGuiInputSource_Keyboard \fP
+.TP
+\f(BIImGuiInputSource_Gamepad \fP
+.TP
+\f(BIImGuiInputSource_COUNT \fP
+.SS "enum \fBImGuiInputTextFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiInputTextFlags_Multiline \fP
+.TP
+\f(BIImGuiInputTextFlags_MergedItem \fP
+.TP
+\f(BIImGuiInputTextFlags_LocalizeDecimalPoint \fP
+.SS "enum \fBImGuiItemFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiItemFlags_Disabled \fP
+.TP
+\f(BIImGuiItemFlags_ReadOnly \fP
+.TP
+\f(BIImGuiItemFlags_MixedValue \fP
+.TP
+\f(BIImGuiItemFlags_NoWindowHoverableCheck \fP
+.TP
+\f(BIImGuiItemFlags_AllowOverlap \fP
+.TP
+\f(BIImGuiItemFlags_NoNavDisableMouseHover \fP
+.TP
+\f(BIImGuiItemFlags_NoMarkEdited \fP
+.TP
+\f(BIImGuiItemFlags_Inputable \fP
+.TP
+\f(BIImGuiItemFlags_HasSelectionUserData \fP
+.TP
+\f(BIImGuiItemFlags_IsMultiSelect \fP
+.TP
+\f(BIImGuiItemFlags_Default_ \fP
+.SS "enum \fBImGuiItemStatusFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiItemStatusFlags_None \fP
+.TP
+\f(BIImGuiItemStatusFlags_HoveredRect \fP
+.TP
+\f(BIImGuiItemStatusFlags_HasDisplayRect \fP
+.TP
+\f(BIImGuiItemStatusFlags_Edited \fP
+.TP
+\f(BIImGuiItemStatusFlags_ToggledSelection \fP
+.TP
+\f(BIImGuiItemStatusFlags_ToggledOpen \fP
+.TP
+\f(BIImGuiItemStatusFlags_HasDeactivated \fP
+.TP
+\f(BIImGuiItemStatusFlags_Deactivated \fP
+.TP
+\f(BIImGuiItemStatusFlags_HoveredWindow \fP
+.TP
+\f(BIImGuiItemStatusFlags_Visible \fP
+.TP
+\f(BIImGuiItemStatusFlags_HasClipRect \fP
+.TP
+\f(BIImGuiItemStatusFlags_HasShortcut \fP
+.SS "enum \fBImGuiLayoutType_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiLayoutType_Horizontal \fP
+.TP
+\f(BIImGuiLayoutType_Vertical \fP
+.SS "enum \fBImGuiLocKey\fP : int"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiLocKey_VersionStr \fP
+.TP
+\f(BIImGuiLocKey_TableSizeOne \fP
+.TP
+\f(BIImGuiLocKey_TableSizeAllFit \fP
+.TP
+\f(BIImGuiLocKey_TableSizeAllDefault \fP
+.TP
+\f(BIImGuiLocKey_TableResetOrder \fP
+.TP
+\f(BIImGuiLocKey_WindowingMainMenuBar \fP
+.TP
+\f(BIImGuiLocKey_WindowingPopup \fP
+.TP
+\f(BIImGuiLocKey_WindowingUntitled \fP
+.TP
+\f(BIImGuiLocKey_OpenLink_s \fP
+.TP
+\f(BIImGuiLocKey_CopyLink \fP
+.TP
+\f(BIImGuiLocKey_COUNT \fP
+.SS "enum \fBImGuiLogFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiLogFlags_None \fP
+.TP
+\f(BIImGuiLogFlags_OutputTTY \fP
+.TP
+\f(BIImGuiLogFlags_OutputFile \fP
+.TP
+\f(BIImGuiLogFlags_OutputBuffer \fP
+.TP
+\f(BIImGuiLogFlags_OutputClipboard \fP
+.TP
+\f(BIImGuiLogFlags_OutputMask_ \fP
+.SS "enum \fBImGuiNavLayer\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiNavLayer_Main \fP
+.TP
+\f(BIImGuiNavLayer_Menu \fP
+.TP
+\f(BIImGuiNavLayer_COUNT \fP
+.SS "enum \fBImGuiNavMoveFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiNavMoveFlags_None \fP
+.TP
+\f(BIImGuiNavMoveFlags_LoopX \fP
+.TP
+\f(BIImGuiNavMoveFlags_LoopY \fP
+.TP
+\f(BIImGuiNavMoveFlags_WrapX \fP
+.TP
+\f(BIImGuiNavMoveFlags_WrapY \fP
+.TP
+\f(BIImGuiNavMoveFlags_WrapMask_ \fP
+.TP
+\f(BIImGuiNavMoveFlags_AllowCurrentNavId \fP
+.TP
+\f(BIImGuiNavMoveFlags_AlsoScoreVisibleSet \fP
+.TP
+\f(BIImGuiNavMoveFlags_ScrollToEdgeY \fP
+.TP
+\f(BIImGuiNavMoveFlags_Forwarded \fP
+.TP
+\f(BIImGuiNavMoveFlags_DebugNoResult \fP
+.TP
+\f(BIImGuiNavMoveFlags_FocusApi \fP
+.TP
+\f(BIImGuiNavMoveFlags_IsTabbing \fP
+.TP
+\f(BIImGuiNavMoveFlags_IsPageMove \fP
+.TP
+\f(BIImGuiNavMoveFlags_Activate \fP
+.TP
+\f(BIImGuiNavMoveFlags_NoSelect \fP
+.TP
+\f(BIImGuiNavMoveFlags_NoSetNavCursorVisible \fP
+.TP
+\f(BIImGuiNavMoveFlags_NoClearActiveId \fP
+.SS "enum \fBImGuiNavRenderCursorFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiNavRenderCursorFlags_None \fP
+.TP
+\f(BIImGuiNavRenderCursorFlags_Compact \fP
+.TP
+\f(BIImGuiNavRenderCursorFlags_AlwaysDraw \fP
+.TP
+\f(BIImGuiNavRenderCursorFlags_NoRounding \fP
+.TP
+\f(BIImGuiNavHighlightFlags_None \fP
+.TP
+\f(BIImGuiNavHighlightFlags_Compact \fP
+.TP
+\f(BIImGuiNavHighlightFlags_AlwaysDraw \fP
+.TP
+\f(BIImGuiNavHighlightFlags_NoRounding \fP
+.SS "enum \fBImGuiNextItemDataFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiNextItemDataFlags_None \fP
+.TP
+\f(BIImGuiNextItemDataFlags_HasWidth \fP
+.TP
+\f(BIImGuiNextItemDataFlags_HasOpen \fP
+.TP
+\f(BIImGuiNextItemDataFlags_HasShortcut \fP
+.TP
+\f(BIImGuiNextItemDataFlags_HasRefVal \fP
+.TP
+\f(BIImGuiNextItemDataFlags_HasStorageID \fP
+.SS "enum \fBImGuiNextWindowDataFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiNextWindowDataFlags_None \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasPos \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasSize \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasContentSize \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasCollapsed \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasSizeConstraint \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasFocus \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasBgAlpha \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasScroll \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasWindowFlags \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasChildFlags \fP
+.TP
+\f(BIImGuiNextWindowDataFlags_HasRefreshPolicy \fP
+.SS "enum \fBImGuiOldColumnFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiOldColumnFlags_None \fP
+.TP
+\f(BIImGuiOldColumnFlags_NoBorder \fP
+.TP
+\f(BIImGuiOldColumnFlags_NoResize \fP
+.TP
+\f(BIImGuiOldColumnFlags_NoPreserveWidths \fP
+.TP
+\f(BIImGuiOldColumnFlags_NoForceWithinWindow \fP
+.TP
+\f(BIImGuiOldColumnFlags_GrowParentContentsSize \fP
+.SS "enum \fBImGuiPlotType\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiPlotType_Lines \fP
+.TP
+\f(BIImGuiPlotType_Histogram \fP
+.SS "enum \fBImGuiPopupPositionPolicy\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiPopupPositionPolicy_Default \fP
+.TP
+\f(BIImGuiPopupPositionPolicy_ComboBox \fP
+.TP
+\f(BIImGuiPopupPositionPolicy_Tooltip \fP
+.SS "enum \fBImGuiScrollFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiScrollFlags_None \fP
+.TP
+\f(BIImGuiScrollFlags_KeepVisibleEdgeX \fP
+.TP
+\f(BIImGuiScrollFlags_KeepVisibleEdgeY \fP
+.TP
+\f(BIImGuiScrollFlags_KeepVisibleCenterX \fP
+.TP
+\f(BIImGuiScrollFlags_KeepVisibleCenterY \fP
+.TP
+\f(BIImGuiScrollFlags_AlwaysCenterX \fP
+.TP
+\f(BIImGuiScrollFlags_AlwaysCenterY \fP
+.TP
+\f(BIImGuiScrollFlags_NoScrollParent \fP
+.TP
+\f(BIImGuiScrollFlags_MaskX_ \fP
+.TP
+\f(BIImGuiScrollFlags_MaskY_ \fP
+.SS "enum \fBImGuiSelectableFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiSelectableFlags_NoHoldingActiveID \fP
+.TP
+\f(BIImGuiSelectableFlags_SelectOnNav \fP
+.TP
+\f(BIImGuiSelectableFlags_SelectOnClick \fP
+.TP
+\f(BIImGuiSelectableFlags_SelectOnRelease \fP
+.TP
+\f(BIImGuiSelectableFlags_SpanAvailWidth \fP
+.TP
+\f(BIImGuiSelectableFlags_SetNavIdOnHover \fP
+.TP
+\f(BIImGuiSelectableFlags_NoPadWithHalfSpacing \fP
+.TP
+\f(BIImGuiSelectableFlags_NoSetKeyOwner \fP
+.SS "enum \fBImGuiSeparatorFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiSeparatorFlags_None \fP
+.TP
+\f(BIImGuiSeparatorFlags_Horizontal \fP
+.TP
+\f(BIImGuiSeparatorFlags_Vertical \fP
+.TP
+\f(BIImGuiSeparatorFlags_SpanAllColumns \fP
+.SS "enum \fBImGuiSliderFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiSliderFlags_Vertical \fP
+.TP
+\f(BIImGuiSliderFlags_ReadOnly \fP
+.SS "enum \fBImGuiTabBarFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiTabBarFlags_DockNode \fP
+.TP
+\f(BIImGuiTabBarFlags_IsFocused \fP
+.TP
+\f(BIImGuiTabBarFlags_SaveSettings \fP
+.SS "enum \fBImGuiTabItemFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiTabItemFlags_SectionMask_ \fP
+.TP
+\f(BIImGuiTabItemFlags_NoCloseButton \fP
+.TP
+\f(BIImGuiTabItemFlags_Button \fP
+.TP
+\f(BIImGuiTabItemFlags_Invisible \fP
+.SS "enum \fBImGuiTextFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiTextFlags_None \fP
+.TP
+\f(BIImGuiTextFlags_NoWidthForLargeClippedText \fP
+.SS "enum \fBImGuiTooltipFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiTooltipFlags_None \fP
+.TP
+\f(BIImGuiTooltipFlags_OverridePrevious \fP
+.SS "enum \fBImGuiTreeNodeFlagsPrivate_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiTreeNodeFlags_NoNavFocus \fP
+.TP
+\f(BIImGuiTreeNodeFlags_ClipLabelForTrailingButton \fP
+.TP
+\f(BIImGuiTreeNodeFlags_UpsideDownArrow \fP
+.TP
+\f(BIImGuiTreeNodeFlags_OpenOnMask_ \fP
+.TP
+\f(BIImGuiTreeNodeFlags_DrawLinesMask_ \fP
+.SS "enum \fBImGuiTypingSelectFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiTypingSelectFlags_None \fP
+.TP
+\f(BIImGuiTypingSelectFlags_AllowBackspace \fP
+.TP
+\f(BIImGuiTypingSelectFlags_AllowSingleCharMode \fP
+.SS "enum \fBImGuiWindowRefreshFlags_\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiWindowRefreshFlags_None \fP
+.TP
+\f(BIImGuiWindowRefreshFlags_TryToAvoidRefresh \fP
+.TP
+\f(BIImGuiWindowRefreshFlags_RefreshOnHover \fP
+.TP
+\f(BIImGuiWindowRefreshFlags_RefreshOnFocus \fP
+.SH "Function Documentation"
+.PP 
+.SS "\fBIMGUI_API\fP \fBImU32\fP ImAlphaBlendColors (\fBImU32\fP col_a, \fBImU32\fP col_b)"
+
+.SS "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP \fBIMGUI_API\fP \fBImVec2\fP ImBezierCubicCalc (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, float t)"
+
+.SS "\fBIMGUI_API\fP \fBImVec2\fP ImBezierCubicClosestPoint (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, const \fBImVec2\fP & p, int num_segments)"
+
+.SS "\fBIMGUI_API\fP \fBImVec2\fP ImBezierCubicClosestPointCasteljau (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, const \fBImVec2\fP & p, float tess_tol)"
+
+.SS "\fBIMGUI_API\fP \fBImVec2\fP ImBezierQuadraticCalc (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, float t)"
+
+.SS "void ImBitArrayClearAllBits (\fBImU32\fP * arr, int bitcount)\fR [inline]\fP"
+
+.SS "void ImBitArrayClearBit (\fBImU32\fP * arr, int n)\fR [inline]\fP"
+
+.SS "size_t ImBitArrayGetStorageSizeInBytes (int bitcount)\fR [inline]\fP"
+
+.SS "void ImBitArraySetBit (\fBImU32\fP * arr, int n)\fR [inline]\fP"
+
+.SS "void ImBitArraySetBitRange (\fBImU32\fP * arr, int n, int n2)\fR [inline]\fP"
+
+.SS "bool ImBitArrayTestBit (const \fBImU32\fP * arr, int n)\fR [inline]\fP"
+
+.SS "\fBIMGUI_API\fP bool ImFileClose (\fBImFileHandle\fP file)"
+
+.SS "\fBIMGUI_API\fP \fBImU64\fP ImFileGetSize (\fBImFileHandle\fP file)"
+
+.SS "\fBIMGUI_API\fP void * ImFileLoadToMemory (const char * filename, const char * mode, size_t * out_file_size = \fRNULL\fP, int padding_bytes = \fR0\fP)"
+
+.SS "\fBIMGUI_API\fP \fBImFileHandle\fP ImFileOpen (const char * filename, const char * mode)"
+
+.SS "\fBIMGUI_API\fP \fBImU64\fP ImFileRead (void * data, \fBImU64\fP size, \fBImU64\fP count, \fBImFileHandle\fP file)"
+
+.SS "\fBIMGUI_API\fP \fBImU64\fP ImFileWrite (const void * data, \fBImU64\fP size, \fBImU64\fP count, \fBImFileHandle\fP file)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildFinish (\fBImFontAtlas\fP * atlas)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildGetOversampleFactors (const \fBImFontConfig\fP * src, int * out_oversample_h, int * out_oversample_v)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildInit (\fBImFontAtlas\fP * atlas)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildMultiplyCalcLookupTable (unsigned char out_table[256], float in_multiply_factor)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildMultiplyRectAlpha8 (const unsigned char table[256], unsigned char * pixels, int x, int y, int w, int h, int stride)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildPackCustomRects (\fBImFontAtlas\fP * atlas, void * stbrp_context_opaque)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildRender32bppRectFromString (\fBImFontAtlas\fP * atlas, int x, int y, int w, int h, const char * in_str, char in_marker_char, unsigned int in_marker_pixel_value)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildRender8bppRectFromString (\fBImFontAtlas\fP * atlas, int x, int y, int w, int h, const char * in_str, char in_marker_char, unsigned char in_marker_pixel_value)"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasBuildSetupFont (\fBImFontAtlas\fP * atlas, \fBImFont\fP * font, \fBImFontConfig\fP * src, float ascent, float descent)"
+
+.SS "\fBIMGUI_API\fP const \fBImFontBuilderIO\fP * ImFontAtlasGetBuilderForStbTruetype ()"
+
+.SS "\fBIMGUI_API\fP bool ImFontAtlasGetMouseCursorTexData (\fBImFontAtlas\fP * atlas, \fBImGuiMouseCursor\fP cursor_type, \fBImVec2\fP * out_offset, \fBImVec2\fP * out_size, \fBImVec2\fP out_uv_border[2], \fBImVec2\fP out_uv_fill[2])"
+
+.SS "\fBIMGUI_API\fP void ImFontAtlasUpdateSourcesPointers (\fBImFontAtlas\fP * atlas)"
+
+.SS "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP \fBIMGUI_API\fP int ImFormatString (char * buf, size_t buf_size, const char * fmt,  \&.\&.\&.)"
+
+.SS "\fBIMGUI_API\fP void ImFormatStringToTempBuffer (const char ** out_buf, const char ** out_buf_end, const char * fmt,  \&.\&.\&.)"
+
+.SS "\fBIMGUI_API\fP void ImFormatStringToTempBufferV (const char ** out_buf, const char ** out_buf_end, const char * fmt, va_list args)"
+
+.SS "\fBIMGUI_API\fP int ImFormatStringV (char * buf, size_t buf_size, const char * fmt, va_list args)"
+
+.SS "\fBIMGUI_API\fP \fBImGuiID\fP ImHashData (const void * data, size_t data_size, \fBImGuiID\fP seed = \fR0\fP)"
+
+.SS "\fBIMGUI_API\fP \fBImGuiID\fP ImHashStr (const char * data, size_t data_size = \fR0\fP, \fBImGuiID\fP seed = \fR0\fP)"
+
+.SS "\fBIMGUI_API\fP \fBImVec2\fP ImLineClosestPoint (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & p)"
+
+.SS "\fBIMGUI_API\fP \fBImGuiStoragePair\fP * ImLowerBound (\fBImGuiStoragePair\fP * in_begin, \fBImGuiStoragePair\fP * in_end, \fBImGuiID\fP key)"
+
+.SS "\fBIMGUI_API\fP const char * ImParseFormatFindEnd (const char * format)"
+
+.SS "\fBIMGUI_API\fP const char * ImParseFormatFindStart (const char * format)"
+
+.SS "\fBIMGUI_API\fP int ImParseFormatPrecision (const char * format, int default_value)"
+
+.SS "\fBIMGUI_API\fP void ImParseFormatSanitizeForPrinting (const char * fmt_in, char * fmt_out, size_t fmt_out_size)"
+
+.SS "\fBIMGUI_API\fP const char * ImParseFormatSanitizeForScanning (const char * fmt_in, char * fmt_out, size_t fmt_out_size)"
+
+.SS "\fBIMGUI_API\fP const char * ImParseFormatTrimDecorations (const char * format, char * buf, size_t buf_size)"
+
+.SS "\fBIMGUI_API\fP const char * ImStrbol (const char * buf_mid_line, const char * buf_begin)"
+
+.SS "\fBIMGUI_API\fP const char * ImStrchrRange (const char * str_begin, const char * str_end, char c)"
+
+.SS "\fBIMGUI_API\fP char * ImStrdup (const char * str)"
+
+.SS "\fBIMGUI_API\fP char * ImStrdupcpy (char * dst, size_t * p_dst_size, const char * str)"
+
+.SS "\fBIMGUI_API\fP const char * ImStreolRange (const char * str, const char * str_end)"
+
+.SS "\fBIMGUI_API\fP int ImStricmp (const char * str1, const char * str2)"
+
+.SS "\fBIMGUI_API\fP const char * ImStristr (const char * haystack, const char * haystack_end, const char * needle, const char * needle_end)"
+
+.SS "\fBIMGUI_API\fP int ImStrlenW (const \fBImWchar\fP * str)"
+
+.SS "\fBIMGUI_API\fP void ImStrncpy (char * dst, const char * src, size_t count)"
+
+.SS "\fBIMGUI_API\fP int ImStrnicmp (const char * str1, const char * str2, size_t count)"
+
+.SS "\fBIMGUI_API\fP const char * ImStrSkipBlank (const char * str)"
+
+.SS "\fBIMGUI_API\fP void ImStrTrimBlanks (char * str)"
+
+.SS "\fBIMGUI_API\fP int ImTextCharFromUtf8 (unsigned int * out_char, const char * in_text, const char * in_text_end)"
+
+.SS "\fBIMGUI_API\fP const char * ImTextCharToUtf8 (char out_buf[5], unsigned int c)"
+
+.SS "\fBIMGUI_API\fP int ImTextCountCharsFromUtf8 (const char * in_text, const char * in_text_end)"
+
+.SS "\fBIMGUI_API\fP int ImTextCountLines (const char * in_text, const char * in_text_end)"
+
+.SS "\fBIMGUI_API\fP int ImTextCountUtf8BytesFromChar (const char * in_text, const char * in_text_end)"
+
+.SS "\fBIMGUI_API\fP int ImTextCountUtf8BytesFromStr (const \fBImWchar\fP * in_text, const \fBImWchar\fP * in_text_end)"
+
+.SS "\fBIMGUI_API\fP const char * ImTextFindPreviousUtf8Codepoint (const char * in_text_start, const char * in_text_curr)"
+
+.SS "\fBIMGUI_API\fP int ImTextStrFromUtf8 (\fBImWchar\fP * out_buf, int out_buf_size, const char * in_text, const char * in_text_end, const char ** in_remaining = \fRNULL\fP)"
+
+.SS "\fBIMGUI_API\fP int ImTextStrToUtf8 (char * out_buf, int out_buf_size, const \fBImWchar\fP * in_text, const \fBImWchar\fP * in_text_end)"
+
+.SS "float ImTriangleArea (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c)\fR [inline]\fP"
+
+.SS "\fBIMGUI_API\fP void ImTriangleBarycentricCoords (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & p, float & out_u, float & out_v, float & out_w)"
+
+.SS "\fBIMGUI_API\fP \fBImVec2\fP ImTriangleClosestPoint (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & p)"
+
+.SS "\fBIMGUI_API\fP bool ImTriangleContainsPoint (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & p)"
+
+.SS "bool ImTriangleIsClockwise (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c)\fR [inline]\fP"
+
+.SH "Variable Documentation"
+.PP 
+.SS "\fBIMGUI_API\fP \fBImGuiContext\fP* GImGui\fR [extern]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

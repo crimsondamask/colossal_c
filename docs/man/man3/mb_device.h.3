@@ -6,7 +6,7 @@ colossal_cpp/mb_device.h
 .SH SYNOPSIS
 .br
 .PP
-.SS "Data Structures"
+.SS "Classes"
 
 .in +1c
 .ti -1c
@@ -52,7 +52,10 @@ colossal_cpp/mb_device.h
 
 .in +1c
 .ti -1c
-.RI "\fBcl_mb_device\fP * \fBcl_device_init\fP (char const *name, size_t n_channels)"
+.RI "\fBcl_mb_device\fP * \fBcl_device_init_tcp\fP (char const *name, size_t n_channels)"
+.br
+.ti -1c
+.RI "\fBcl_mb_device\fP * \fBcl_device_init_rtu\fP (char const *name, size_t n_channels)"
 .br
 .ti -1c
 .RI "int \fBcl_device_destroy\fP (\fBcl_mb_device\fP *device)"
@@ -130,7 +133,9 @@ Connect over a serial port using the COM identifier\&.
 
 .PP
 Clear the device and free its memory including channel memory\&. 
-.SS "\fBcl_mb_device\fP * cl_device_init (char const * name, size_t n_channels)"
+.SS "\fBcl_mb_device\fP * cl_device_init_rtu (char const * name, size_t n_channels)"
+
+.SS "\fBcl_mb_device\fP * cl_device_init_tcp (char const * name, size_t n_channels)"
 
 .PP
 \fBParameters\fP

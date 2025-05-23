@@ -4,130 +4,130 @@
 
 {\ttfamily \#include $<$mb\+\_\+device.\+h$>$}
 
-\doxysubsubsection*{Data Fields}
+\doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{structcl__mb__device_a7441ef0865bcb3db9b8064dd7375c1ea}{id}}
+int \mbox{\hyperlink{structcl__mb__device_ac92fab0f1ae32b9c779ca6dd29e0a941}{id}}
 \item 
-char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a5f1de76dd5d451949e12c0fbc966ca70}{name}}
+char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_ad7d6844e3e99ae3d21b4a92092f4456d}{name}}
 \item 
-char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_afbc356cd0e25d1dbbece7c10fd025fa6}{ip}}
+char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a3a34c2b0267f8d8823399cef7f49e549}{ip}}
 \begin{DoxyCompactList}\small\item\em Used for TCP device. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{structcl__mb__device_a63c89c04d1feae07ca35558055155ffb}{port}}
+int \mbox{\hyperlink{structcl__mb__device_a70951d1036c1c50c77da3c7aa5a101ca}{port}}
 \begin{DoxyCompactList}\small\item\em Used for TCP device. \end{DoxyCompactList}\item 
-char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a4fe48c92f760d00996644ef1bf7d37b5}{com\+\_\+port}}
+char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a13b00859331c92df9d1728bf4e13aba4}{com\+\_\+port}}
 \begin{DoxyCompactList}\small\item\em Used for serial device. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\+\_\+mb\+\_\+device\+\_\+baudrate}} \mbox{\hyperlink{structcl__mb__device_a874db579ae04c2f413c8cd089472a5bc}{baudrate}}
+enum \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\+\_\+mb\+\_\+device\+\_\+baudrate}} \mbox{\hyperlink{structcl__mb__device_ad20acb2a331f0e2307f542910afca9df}{baudrate}}
 \begin{DoxyCompactList}\small\item\em Used for serial device. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\+\_\+mb\+\_\+device\+\_\+parity}} \mbox{\hyperlink{structcl__mb__device_a5c70a7e4a729bdbf6170acf323561f1c}{parity}}
+enum \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\+\_\+mb\+\_\+device\+\_\+parity}} \mbox{\hyperlink{structcl__mb__device_a27b72984fc1a58219c30b08a1ff28493}{parity}}
 \begin{DoxyCompactList}\small\item\em Used for serial device. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+mb\+\_\+device\+\_\+type}} \mbox{\hyperlink{structcl__mb__device_a344389620c7a2b35b149be7659c79d38}{device\+\_\+type}}
+enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+mb\+\_\+device\+\_\+type}} \mbox{\hyperlink{structcl__mb__device_a85ab93e6ef20a450341f35af96c20063}{device\+\_\+type}}
 \begin{DoxyCompactList}\small\item\em Used to select which device configuration to use. \end{DoxyCompactList}\item 
-char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a343194b8dab42009bd9b1b2efae84134}{name\+\_\+identifier}}
+char const  \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_ae8757bd647b962a63f1e1c529903e0fc}{name\+\_\+identifier}}
 \item 
-\mbox{\hyperlink{structcl__mb__channel}{cl\+\_\+mb\+\_\+channel}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a606b74f090d1a2ac0cc383e7a4066545}{channels}}
+\mbox{\hyperlink{structcl__mb__channel}{cl\+\_\+mb\+\_\+channel}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structcl__mb__device_a6e8f36352b8f250fcde279e10ab4ffc4}{channels}}
 \begin{DoxyCompactList}\small\item\em A list of all the MB channels in the device. \end{DoxyCompactList}\item 
-size\+\_\+t \mbox{\hyperlink{structcl__mb__device_a880c010e92b71fa8a958ac2c02e40d8a}{channel\+\_\+count}}
+size\+\_\+t \mbox{\hyperlink{structcl__mb__device_a7d4ba3a72378e48506dcabdcc66f614d}{channel\+\_\+count}}
 \begin{DoxyCompactList}\small\item\em Keeps count of the number of channels. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \doxylink{structcl__mb__device}{cl\+\_\+mb\+\_\+device} is the root type for the Modbus device. It holds all device configuration and channels data. 
 
-\doxysubsection{Field Documentation}
-\Hypertarget{structcl__mb__device_a874db579ae04c2f413c8cd089472a5bc}\index{cl\_mb\_device@{cl\_mb\_device}!baudrate@{baudrate}}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcl__mb__device_ad20acb2a331f0e2307f542910afca9df}\index{cl\_mb\_device@{cl\_mb\_device}!baudrate@{baudrate}}
 \index{baudrate@{baudrate}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{baudrate}{baudrate}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a874db579ae04c2f413c8cd089472a5bc} 
-enum \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\+\_\+mb\+\_\+device\+\_\+baudrate}} baudrate}
+{\footnotesize\ttfamily \label{structcl__mb__device_ad20acb2a331f0e2307f542910afca9df} 
+enum \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\+\_\+mb\+\_\+device\+\_\+baudrate}} cl\+\_\+mb\+\_\+device\+::baudrate}
 
 
 
 Used for serial device. 
 
-\Hypertarget{structcl__mb__device_a880c010e92b71fa8a958ac2c02e40d8a}\index{cl\_mb\_device@{cl\_mb\_device}!channel\_count@{channel\_count}}
+\Hypertarget{structcl__mb__device_a7d4ba3a72378e48506dcabdcc66f614d}\index{cl\_mb\_device@{cl\_mb\_device}!channel\_count@{channel\_count}}
 \index{channel\_count@{channel\_count}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{channel\_count}{channel\_count}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a880c010e92b71fa8a958ac2c02e40d8a} 
-size\+\_\+t channel\+\_\+count}
+{\footnotesize\ttfamily \label{structcl__mb__device_a7d4ba3a72378e48506dcabdcc66f614d} 
+size\+\_\+t cl\+\_\+mb\+\_\+device\+::channel\+\_\+count}
 
 
 
 Keeps count of the number of channels. 
 
-\Hypertarget{structcl__mb__device_a606b74f090d1a2ac0cc383e7a4066545}\index{cl\_mb\_device@{cl\_mb\_device}!channels@{channels}}
+\Hypertarget{structcl__mb__device_a6e8f36352b8f250fcde279e10ab4ffc4}\index{cl\_mb\_device@{cl\_mb\_device}!channels@{channels}}
 \index{channels@{channels}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{channels}{channels}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a606b74f090d1a2ac0cc383e7a4066545} 
-\mbox{\hyperlink{structcl__mb__channel}{cl\+\_\+mb\+\_\+channel}}\texorpdfstring{$\ast$}{*} channels}
+{\footnotesize\ttfamily \label{structcl__mb__device_a6e8f36352b8f250fcde279e10ab4ffc4} 
+\mbox{\hyperlink{structcl__mb__channel}{cl\+\_\+mb\+\_\+channel}}\texorpdfstring{$\ast$}{*} cl\+\_\+mb\+\_\+device\+::channels}
 
 
 
 A list of all the MB channels in the device. 
 
-\Hypertarget{structcl__mb__device_a4fe48c92f760d00996644ef1bf7d37b5}\index{cl\_mb\_device@{cl\_mb\_device}!com\_port@{com\_port}}
+\Hypertarget{structcl__mb__device_a13b00859331c92df9d1728bf4e13aba4}\index{cl\_mb\_device@{cl\_mb\_device}!com\_port@{com\_port}}
 \index{com\_port@{com\_port}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{com\_port}{com\_port}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a4fe48c92f760d00996644ef1bf7d37b5} 
-char\texorpdfstring{$\ast$}{*} com\+\_\+port}
+{\footnotesize\ttfamily \label{structcl__mb__device_a13b00859331c92df9d1728bf4e13aba4} 
+char const\texorpdfstring{$\ast$}{*} cl\+\_\+mb\+\_\+device\+::com\+\_\+port}
 
 
 
 Used for serial device. 
 
-\Hypertarget{structcl__mb__device_a344389620c7a2b35b149be7659c79d38}\index{cl\_mb\_device@{cl\_mb\_device}!device\_type@{device\_type}}
+\Hypertarget{structcl__mb__device_a85ab93e6ef20a450341f35af96c20063}\index{cl\_mb\_device@{cl\_mb\_device}!device\_type@{device\_type}}
 \index{device\_type@{device\_type}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{device\_type}{device\_type}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a344389620c7a2b35b149be7659c79d38} 
-enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+mb\+\_\+device\+\_\+type}} device\+\_\+type}
+{\footnotesize\ttfamily \label{structcl__mb__device_a85ab93e6ef20a450341f35af96c20063} 
+enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+mb\+\_\+device\+\_\+type}} cl\+\_\+mb\+\_\+device\+::device\+\_\+type}
 
 
 
 Used to select which device configuration to use. 
 
-\Hypertarget{structcl__mb__device_a7441ef0865bcb3db9b8064dd7375c1ea}\index{cl\_mb\_device@{cl\_mb\_device}!id@{id}}
+\Hypertarget{structcl__mb__device_ac92fab0f1ae32b9c779ca6dd29e0a941}\index{cl\_mb\_device@{cl\_mb\_device}!id@{id}}
 \index{id@{id}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{id}{id}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a7441ef0865bcb3db9b8064dd7375c1ea} 
-int id}
+{\footnotesize\ttfamily \label{structcl__mb__device_ac92fab0f1ae32b9c779ca6dd29e0a941} 
+int cl\+\_\+mb\+\_\+device\+::id}
 
-\Hypertarget{structcl__mb__device_afbc356cd0e25d1dbbece7c10fd025fa6}\index{cl\_mb\_device@{cl\_mb\_device}!ip@{ip}}
+\Hypertarget{structcl__mb__device_a3a34c2b0267f8d8823399cef7f49e549}\index{cl\_mb\_device@{cl\_mb\_device}!ip@{ip}}
 \index{ip@{ip}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{ip}{ip}}
-{\footnotesize\ttfamily \label{structcl__mb__device_afbc356cd0e25d1dbbece7c10fd025fa6} 
-char\texorpdfstring{$\ast$}{*} ip}
+{\footnotesize\ttfamily \label{structcl__mb__device_a3a34c2b0267f8d8823399cef7f49e549} 
+char const\texorpdfstring{$\ast$}{*} cl\+\_\+mb\+\_\+device\+::ip}
 
 
 
 Used for TCP device. 
 
-\Hypertarget{structcl__mb__device_a5f1de76dd5d451949e12c0fbc966ca70}\index{cl\_mb\_device@{cl\_mb\_device}!name@{name}}
+\Hypertarget{structcl__mb__device_ad7d6844e3e99ae3d21b4a92092f4456d}\index{cl\_mb\_device@{cl\_mb\_device}!name@{name}}
 \index{name@{name}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{name}{name}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a5f1de76dd5d451949e12c0fbc966ca70} 
-char const\texorpdfstring{$\ast$}{*} name}
+{\footnotesize\ttfamily \label{structcl__mb__device_ad7d6844e3e99ae3d21b4a92092f4456d} 
+char const\texorpdfstring{$\ast$}{*} cl\+\_\+mb\+\_\+device\+::name}
 
-\Hypertarget{structcl__mb__device_a343194b8dab42009bd9b1b2efae84134}\index{cl\_mb\_device@{cl\_mb\_device}!name\_identifier@{name\_identifier}}
+\Hypertarget{structcl__mb__device_ae8757bd647b962a63f1e1c529903e0fc}\index{cl\_mb\_device@{cl\_mb\_device}!name\_identifier@{name\_identifier}}
 \index{name\_identifier@{name\_identifier}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{name\_identifier}{name\_identifier}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a343194b8dab42009bd9b1b2efae84134} 
-char const\texorpdfstring{$\ast$}{*} name\+\_\+identifier}
+{\footnotesize\ttfamily \label{structcl__mb__device_ae8757bd647b962a63f1e1c529903e0fc} 
+char const\texorpdfstring{$\ast$}{*} cl\+\_\+mb\+\_\+device\+::name\+\_\+identifier}
 
-A special string that identifies the device in calculations .i.\+e "{}\+MB"{} or "{}\+AI"{}. \Hypertarget{structcl__mb__device_a5c70a7e4a729bdbf6170acf323561f1c}\index{cl\_mb\_device@{cl\_mb\_device}!parity@{parity}}
+A special string that identifies the device in calculations .i.\+e "{}\+MB"{} or "{}\+AI"{}. \Hypertarget{structcl__mb__device_a27b72984fc1a58219c30b08a1ff28493}\index{cl\_mb\_device@{cl\_mb\_device}!parity@{parity}}
 \index{parity@{parity}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{parity}{parity}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a5c70a7e4a729bdbf6170acf323561f1c} 
-enum \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\+\_\+mb\+\_\+device\+\_\+parity}} parity}
+{\footnotesize\ttfamily \label{structcl__mb__device_a27b72984fc1a58219c30b08a1ff28493} 
+enum \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\+\_\+mb\+\_\+device\+\_\+parity}} cl\+\_\+mb\+\_\+device\+::parity}
 
 
 
 Used for serial device. 
 
-\Hypertarget{structcl__mb__device_a63c89c04d1feae07ca35558055155ffb}\index{cl\_mb\_device@{cl\_mb\_device}!port@{port}}
+\Hypertarget{structcl__mb__device_a70951d1036c1c50c77da3c7aa5a101ca}\index{cl\_mb\_device@{cl\_mb\_device}!port@{port}}
 \index{port@{port}!cl\_mb\_device@{cl\_mb\_device}}
 \doxysubsubsection{\texorpdfstring{port}{port}}
-{\footnotesize\ttfamily \label{structcl__mb__device_a63c89c04d1feae07ca35558055155ffb} 
-int port}
+{\footnotesize\ttfamily \label{structcl__mb__device_a70951d1036c1c50c77da3c7aa5a101ca} 
+int cl\+\_\+mb\+\_\+device\+::port}
 
 
 

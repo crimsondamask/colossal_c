@@ -1,0 +1,196 @@
+.TH "colossal_cpp/imgui/imgui_impl_glfw.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui_impl_glfw.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include 'imgui_impl_glfw\&.h'\fP
+.br
+\fR#include <GLFW/glfw3\&.h>\fP
+.br
+\fR#include <unistd\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImGui_ImplGlfw_Data\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBGLFW_VERSION_COMBINED\fP   (\fBGLFW_VERSION_MAJOR\fP * 1000 + \fBGLFW_VERSION_MINOR\fP * 100 + \fBGLFW_VERSION_REVISION\fP)"
+.br
+.ti -1c
+.RI "#define \fBGLFW_HAS_NEW_CURSORS\fP   (0)"
+.br
+.ti -1c
+.RI "#define \fBGLFW_HAS_GAMEPAD_API\fP   (\fBGLFW_VERSION_COMBINED\fP >= 3300)"
+.br
+.ti -1c
+.RI "#define \fBGLFW_HAS_GETKEYNAME\fP   (\fBGLFW_VERSION_COMBINED\fP >= 3200)"
+.br
+.ti -1c
+.RI "#define \fBGLFW_HAS_GETERROR\fP   (\fBGLFW_VERSION_COMBINED\fP >= 3300)"
+.br
+.ti -1c
+.RI "#define \fBMAP_BUTTON\fP(KEY_NO,  _UNUSED,  BUTTON_NO)"
+.br
+.ti -1c
+.RI "#define \fBMAP_ANALOG\fP(KEY_NO,  _UNUSED,  AXIS_NO,  V0,  V1)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBGlfwClientApi\fP { \fBGlfwClientApi_Unknown\fP, \fBGlfwClientApi_OpenGL\fP, \fBGlfwClientApi_Vulkan\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiKey\fP \fBImGui_ImplGlfw_KeyToImGuiKey\fP (int keycode, int scancode)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_MouseButtonCallback\fP (\fBGLFWwindow\fP *window, int button, int action, int mods)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_ScrollCallback\fP (\fBGLFWwindow\fP *window, double xoffset, double yoffset)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_KeyCallback\fP (\fBGLFWwindow\fP *window, int keycode, int scancode, int action, int mods)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_WindowFocusCallback\fP (\fBGLFWwindow\fP *window, int focused)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_CursorPosCallback\fP (\fBGLFWwindow\fP *window, double x, double y)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_CursorEnterCallback\fP (\fBGLFWwindow\fP *window, int entered)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_CharCallback\fP (\fBGLFWwindow\fP *window, unsigned int c)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_MonitorCallback\fP (\fBGLFWmonitor\fP *, int)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_InstallCallbacks\fP (\fBGLFWwindow\fP *window)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_RestoreCallbacks\fP (\fBGLFWwindow\fP *window)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_SetCallbacksChainForAllWindows\fP (bool chain_for_all_windows)"
+.br
+.ti -1c
+.RI "bool \fBImGui_ImplGlfw_InitForOpenGL\fP (\fBGLFWwindow\fP *window, bool install_callbacks)"
+.br
+.ti -1c
+.RI "bool \fBImGui_ImplGlfw_InitForVulkan\fP (\fBGLFWwindow\fP *window, bool install_callbacks)"
+.br
+.ti -1c
+.RI "bool \fBImGui_ImplGlfw_InitForOther\fP (\fBGLFWwindow\fP *window, bool install_callbacks)"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_Shutdown\fP ()"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_NewFrame\fP ()"
+.br
+.ti -1c
+.RI "void \fBImGui_ImplGlfw_Sleep\fP (int milliseconds)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define GLFW_HAS_GAMEPAD_API   (\fBGLFW_VERSION_COMBINED\fP >= 3300)"
+
+.SS "#define GLFW_HAS_GETERROR   (\fBGLFW_VERSION_COMBINED\fP >= 3300)"
+
+.SS "#define GLFW_HAS_GETKEYNAME   (\fBGLFW_VERSION_COMBINED\fP >= 3200)"
+
+.SS "#define GLFW_HAS_NEW_CURSORS   (0)"
+
+.SS "#define GLFW_VERSION_COMBINED   (\fBGLFW_VERSION_MAJOR\fP * 1000 + \fBGLFW_VERSION_MINOR\fP * 100 + \fBGLFW_VERSION_REVISION\fP)"
+
+.SS "#define MAP_ANALOG( KEY_NO,  _UNUSED,  AXIS_NO,  V0,  V1)"
+\fBValue:\fP
+.nf
+do { float v = (axes_count > AXIS_NO) ? axes[AXIS_NO] : V0; v = (v \- V0) / (V1 \- V0); io\&.AddKeyAnalogEvent(KEY_NO, v > 0\&.10f, Saturate(v)); } while (0)
+.PP
+.fi
+
+.SS "#define MAP_BUTTON( KEY_NO,  _UNUSED,  BUTTON_NO)"
+\fBValue:\fP
+.nf
+do { io\&.AddKeyEvent(KEY_NO, (buttons_count > BUTTON_NO && buttons[BUTTON_NO] == GLFW_PRESS)); } while (0)
+.PP
+.fi
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBGlfwClientApi\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIGlfwClientApi_Unknown \fP
+.TP
+\f(BIGlfwClientApi_OpenGL \fP
+.TP
+\f(BIGlfwClientApi_Vulkan \fP
+.SH "Function Documentation"
+.PP 
+.SS "void ImGui_ImplGlfw_CharCallback (\fBGLFWwindow\fP * window, unsigned int c)"
+
+.SS "void ImGui_ImplGlfw_CursorEnterCallback (\fBGLFWwindow\fP * window, int entered)"
+
+.SS "void ImGui_ImplGlfw_CursorPosCallback (\fBGLFWwindow\fP * window, double x, double y)"
+
+.SS "bool ImGui_ImplGlfw_InitForOpenGL (\fBGLFWwindow\fP * window, bool install_callbacks)"
+
+.SS "bool ImGui_ImplGlfw_InitForOther (\fBGLFWwindow\fP * window, bool install_callbacks)"
+
+.SS "bool ImGui_ImplGlfw_InitForVulkan (\fBGLFWwindow\fP * window, bool install_callbacks)"
+
+.SS "void ImGui_ImplGlfw_InstallCallbacks (\fBGLFWwindow\fP * window)"
+
+.SS "void ImGui_ImplGlfw_KeyCallback (\fBGLFWwindow\fP * window, int keycode, int scancode, int action, int mods)"
+
+.SS "\fBImGuiKey\fP ImGui_ImplGlfw_KeyToImGuiKey (int keycode, int scancode)"
+
+.SS "void ImGui_ImplGlfw_MonitorCallback (\fBGLFWmonitor\fP * monitor, int event)"
+
+.SS "void ImGui_ImplGlfw_MouseButtonCallback (\fBGLFWwindow\fP * window, int button, int action, int mods)"
+
+.SS "void ImGui_ImplGlfw_NewFrame ()"
+
+.SS "void ImGui_ImplGlfw_RestoreCallbacks (\fBGLFWwindow\fP * window)"
+
+.SS "void ImGui_ImplGlfw_ScrollCallback (\fBGLFWwindow\fP * window, double xoffset, double yoffset)"
+
+.SS "void ImGui_ImplGlfw_SetCallbacksChainForAllWindows (bool chain_for_all_windows)"
+
+.SS "void ImGui_ImplGlfw_Shutdown ()"
+
+.SS "void ImGui_ImplGlfw_Sleep (int milliseconds)"
+
+.SS "void ImGui_ImplGlfw_WindowFocusCallback (\fBGLFWwindow\fP * window, int focused)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

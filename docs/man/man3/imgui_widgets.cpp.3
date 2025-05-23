@@ -1,0 +1,257 @@
+.TH "colossal_cpp/imgui/imgui_widgets.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui_widgets.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include 'imgui_internal\&.h'\fP
+.br
+\fR#include <stdint\&.h>\fP
+.br
+\fR#include 'imstb_textedit\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImGuiGetNameFromIndexOldToNewCallbackData\fP"
+.br
+.ti -1c
+.RI "struct \fBImStb::StbUndoRecord\fP"
+.br
+.ti -1c
+.RI "struct \fBImStb::StbUndoState\fP"
+.br
+.ti -1c
+.RI "struct \fBImStb::STB_TexteditState\fP"
+.br
+.ti -1c
+.RI "struct \fBImStb::StbTexteditRow\fP"
+.br
+.ti -1c
+.RI "struct \fBImStb::StbFindState\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiPlotArrayGetterData\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTabBarSection\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBImStb\fP"
+.br
+.ti -1c
+.RI "namespace \fBImGui\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIMGUI_DEFINE_MATH_OPERATORS\fP"
+.br
+.ti -1c
+.RI "#define \fBINCLUDE_IMSTB_TEXTEDIT_H\fP"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_POSITIONTYPE\fP   int"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_GETNEXTCHARINDEX\fP   IMSTB_TEXTEDIT_GETNEXTCHARINDEX_IMPL"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_GETPREVCHARINDEX\fP   IMSTB_TEXTEDIT_GETPREVCHARINDEX_IMPL"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_MOVEWORDLEFT\fP   STB_TEXTEDIT_MOVEWORDLEFT_IMPL"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_MOVEWORDRIGHT\fP   STB_TEXTEDIT_MOVEWORDRIGHT_IMPL"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_LEFT\fP   0x200000"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_RIGHT\fP   0x200001"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_UP\fP   0x200002"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_DOWN\fP   0x200003"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_LINESTART\fP   0x200004"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_LINEEND\fP   0x200005"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_TEXTSTART\fP   0x200006"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_TEXTEND\fP   0x200007"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_DELETE\fP   0x200008"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_BACKSPACE\fP   0x200009"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_UNDO\fP   0x20000A"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_REDO\fP   0x20000B"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_WORDLEFT\fP   0x20000C"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_WORDRIGHT\fP   0x20000D"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_PGUP\fP   0x20000E"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_PGDOWN\fP   0x20000F"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_K_SHIFT\fP   0x400000"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_IMPLEMENTATION\fP"
+.br
+.ti -1c
+.RI "#define \fBIMSTB_TEXTEDIT_memmove\fP   memmove"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXT_HAS_SELECTION\fP(s)"
+.br
+.ti -1c
+.RI "#define \fBSTB_TEXTEDIT_KEYTYPE\fP   int"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct ImStb::STB_TexteditState \fBImStb::STB_TexteditState\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIM_STATIC_ASSERT\fP (\fBIM_ARRAYSIZE\fP(GDataTypeInfo)==\fBImGuiDataType_COUNT\fP)"
+.br
+.ti -1c
+.RI "const char * \fBImParseFormatFindStart\fP (const char *fmt)"
+.br
+.ti -1c
+.RI "const char * \fBImParseFormatFindEnd\fP (const char *fmt)"
+.br
+.ti -1c
+.RI "const char * \fBImParseFormatTrimDecorations\fP (const char *fmt, char *buf, size_t buf_size)"
+.br
+.ti -1c
+.RI "void \fBImParseFormatSanitizeForPrinting\fP (const char *fmt_in, char *fmt_out, size_t fmt_out_size)"
+.br
+.ti -1c
+.RI "const char * \fBImParseFormatSanitizeForScanning\fP (const char *fmt_in, char *fmt_out, size_t fmt_out_size)"
+.br
+.ti -1c
+.RI "int \fBImParseFormatPrecision\fP (const char *fmt, int default_precision)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define IMGUI_DEFINE_MATH_OPERATORS"
+
+.SS "#define IMSTB_TEXTEDIT_GETNEXTCHARINDEX   IMSTB_TEXTEDIT_GETNEXTCHARINDEX_IMPL"
+
+.SS "#define IMSTB_TEXTEDIT_GETPREVCHARINDEX   IMSTB_TEXTEDIT_GETPREVCHARINDEX_IMPL"
+
+.SS "#define IMSTB_TEXTEDIT_IMPLEMENTATION"
+
+.SS "#define IMSTB_TEXTEDIT_memmove   memmove"
+
+.SS "#define IMSTB_TEXTEDIT_POSITIONTYPE   int"
+
+.SS "#define INCLUDE_IMSTB_TEXTEDIT_H"
+
+.SS "#define STB_TEXT_HAS_SELECTION( s)"
+\fBValue:\fP
+.nf
+((s)\->select_start != (s)\->select_end)
+.PP
+.fi
+
+.SS "#define STB_TEXTEDIT_K_BACKSPACE   0x200009"
+
+.SS "#define STB_TEXTEDIT_K_DELETE   0x200008"
+
+.SS "#define STB_TEXTEDIT_K_DOWN   0x200003"
+
+.SS "#define STB_TEXTEDIT_K_LEFT   0x200000"
+
+.SS "#define STB_TEXTEDIT_K_LINEEND   0x200005"
+
+.SS "#define STB_TEXTEDIT_K_LINESTART   0x200004"
+
+.SS "#define STB_TEXTEDIT_K_PGDOWN   0x20000F"
+
+.SS "#define STB_TEXTEDIT_K_PGUP   0x20000E"
+
+.SS "#define STB_TEXTEDIT_K_REDO   0x20000B"
+
+.SS "#define STB_TEXTEDIT_K_RIGHT   0x200001"
+
+.SS "#define STB_TEXTEDIT_K_SHIFT   0x400000"
+
+.SS "#define STB_TEXTEDIT_K_TEXTEND   0x200007"
+
+.SS "#define STB_TEXTEDIT_K_TEXTSTART   0x200006"
+
+.SS "#define STB_TEXTEDIT_K_UNDO   0x20000A"
+
+.SS "#define STB_TEXTEDIT_K_UP   0x200002"
+
+.SS "#define STB_TEXTEDIT_K_WORDLEFT   0x20000C"
+
+.SS "#define STB_TEXTEDIT_K_WORDRIGHT   0x20000D"
+
+.SS "#define STB_TEXTEDIT_KEYTYPE   int"
+
+.SS "#define STB_TEXTEDIT_MOVEWORDLEFT   STB_TEXTEDIT_MOVEWORDLEFT_IMPL"
+
+.SS "#define STB_TEXTEDIT_MOVEWORDRIGHT   STB_TEXTEDIT_MOVEWORDRIGHT_IMPL"
+
+.SH "Function Documentation"
+.PP 
+.SS "IM_STATIC_ASSERT (\fBIM_ARRAYSIZE\fP(GDataTypeInfo)  = \fR=\fBImGuiDataType_COUNT\fP\fP)"
+
+.SS "const char * ImParseFormatFindEnd (const char * fmt)"
+
+.SS "const char * ImParseFormatFindStart (const char * fmt)"
+
+.SS "int ImParseFormatPrecision (const char * fmt, int default_precision)"
+
+.SS "void ImParseFormatSanitizeForPrinting (const char * fmt_in, char * fmt_out, size_t fmt_out_size)"
+
+.SS "const char * ImParseFormatSanitizeForScanning (const char * fmt_in, char * fmt_out, size_t fmt_out_size)"
+
+.SS "const char * ImParseFormatTrimDecorations (const char * fmt, char * buf, size_t buf_size)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

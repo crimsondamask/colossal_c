@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['u0_0',['U0',['../struct_im_font_glyph.html#a3c9d90fb39f6beaf9d69413fa4c8366f',1,'ImFontGlyph']]],
+  ['u1_1',['U1',['../struct_im_font_glyph.html#aaca9625f2d6972016e05fed583db85b0',1,'ImFontGlyph']]],
+  ['uid_2',['UID',['../struct_example_tree_node.html#a49b1eea89bac79cae4c3413307442a10',1,'ExampleTreeNode::UID'],['../struct_my_document.html#aa8b4127cad19be82ea13993d621367a1',1,'MyDocument::UID']]],
+  ['unclipmode_3',['UnclipMode',['../struct_im_gui_box_select_state.html#a891d144d7129f111e9e0a2b5bfd40a29',1,'ImGuiBoxSelectState']]],
+  ['uncliprect_4',['UnclipRect',['../struct_im_gui_box_select_state.html#a5872789f05e4d985b6e983a37da34c48',1,'ImGuiBoxSelectState']]],
+  ['undo_5fchar_5',['undo_char',['../struct_im_stb_1_1_stb_undo_state.html#ab29aaa296dbfc7519a5be927e212d22f',1,'ImStb::StbUndoState::undo_char'],['../struct_stb_undo_state.html#a8458dacf2d823a6eb69d4991ed219c05',1,'StbUndoState::undo_char']]],
+  ['undo_5fchar_5fpoint_6',['undo_char_point',['../struct_im_stb_1_1_stb_undo_state.html#a5821d093de03804669009f6fdfadff5b',1,'ImStb::StbUndoState::undo_char_point'],['../struct_stb_undo_state.html#a1e93b8c26a8a23536921d125aceacd06',1,'StbUndoState::undo_char_point']]],
+  ['undo_5fpoint_7',['undo_point',['../struct_im_stb_1_1_stb_undo_state.html#a2c4fd577dd35315aeade038ea01f3bff',1,'ImStb::StbUndoState::undo_point'],['../struct_stb_undo_state.html#ad29a8695b3e8252ac164d0c2d0be7d7c',1,'StbUndoState::undo_point']]],
+  ['undo_5frec_8',['undo_rec',['../struct_im_stb_1_1_stb_undo_state.html#a71cba109fca28e7c55989db6ab73b403',1,'ImStb::StbUndoState::undo_rec'],['../struct_stb_undo_state.html#ad8f3e6ad062589d2b560e6d0d20cc897',1,'StbUndoState::undo_rec']]],
+  ['undostate_9',['undostate',['../struct_im_stb_1_1_s_t_b___textedit_state.html#a46ad65e4289762da51bd7d6d2716842f',1,'ImStb::STB_TexteditState::undostate'],['../struct_s_t_b___textedit_state.html#a7e1f0366bbd57e01a4f49a720beb9ead',1,'STB_TexteditState::undostate']]],
+  ['usebuffersubdata_10',['UseBufferSubData',['../struct_im_gui___impl_open_g_l3___data.html#a7e52bd10bd4d2688df2fbdc915f0e075',1,'ImGui_ImplOpenGL3_Data']]],
+  ['used8kpagesmap_11',['Used8kPagesMap',['../struct_im_font.html#a844f668c86ec15795f9598720052a1c4',1,'ImFont']]],
+  ['usedchars_12',['UsedChars',['../struct_im_font_glyph_ranges_builder.html#af83d63600e78e2454a78f0d736ba8ee4',1,'ImFontGlyphRangesBuilder']]],
+  ['user_5fallocator_5fcontext_13',['user_allocator_context',['../structstbtt__pack__context.html#a45fddc4d4adfcef58aa08ad2874cedc0',1,'stbtt_pack_context']]],
+  ['usercallback_14',['UserCallback',['../struct_im_draw_cmd.html#ad26dac4e939f5c4bb892cbca0f9e3af8',1,'ImDrawCmd']]],
+  ['usercallbackdata_15',['UserCallbackData',['../struct_im_draw_cmd.html#ae2f5a0baf4a0b25942237b8ce6adb42d',1,'ImDrawCmd']]],
+  ['usercallbackdataoffset_16',['UserCallbackDataOffset',['../struct_im_draw_cmd.html#a936ecac1ade84c2d745506ea10aebea8',1,'ImDrawCmd']]],
+  ['usercallbackdatasize_17',['UserCallbackDataSize',['../struct_im_draw_cmd.html#a4c2c31cee078c37611053ee0d86c206b',1,'ImDrawCmd']]],
+  ['userdata_18',['UserData',['../struct_im_gui_i_o.html#a8c5e74fd39c2655455329e09529da7d3',1,'ImGuiIO::UserData'],['../struct_im_gui_input_text_callback_data.html#ae8358ea4135032204fcba6c9ada7c49f',1,'ImGuiInputTextCallbackData::UserData'],['../struct_im_gui_size_callback_data.html#ae16a4a1b916810b2f69925c527430a39',1,'ImGuiSizeCallbackData::UserData'],['../struct_im_gui_selection_basic_storage.html#aedc850d514307cfc204847b2716180ac',1,'ImGuiSelectionBasicStorage::UserData'],['../struct_im_gui_selection_external_storage.html#af201fc988b8ae8eb2f3047777b179f98',1,'ImGuiSelectionExternalStorage::UserData'],['../struct_im_font_atlas.html#ac848a29825d36edf8629b31b419dc21e',1,'ImFontAtlas::UserData'],['../struct_im_gui_settings_handler.html#a4e8dc5a10948568680764a3cdaf9b102',1,'ImGuiSettingsHandler::UserData'],['../struct_im_gui_context_hook.html#a334cf9cae105a3636f13aa1f2bc25e60',1,'ImGuiContextHook::UserData'],['../struct_im_gui_get_name_from_index_old_to_new_callback_data.html#ab5145665995e4fd93266c2b14ae4d199',1,'ImGuiGetNameFromIndexOldToNewCallbackData::UserData']]],
+  ['userdata_19',['userdata',['../structstbtt__fontinfo.html#a9c81078df96a7a3f730137151efab285',1,'stbtt_fontinfo']]],
+  ['userid_20',['UserID',['../struct_im_gui_table_column.html#a41e54f7b02880ad716544c0928338443',1,'ImGuiTableColumn::UserID'],['../struct_im_gui_table_column_settings.html#a8b68ca3c4df704ce887e11e9b2a4ac8b',1,'ImGuiTableColumnSettings::UserID']]],
+  ['useroutersize_21',['UserOuterSize',['../struct_im_gui_table_temp_data.html#aaf4e14bfbf965747f8925825dcb13255',1,'ImGuiTableTempData']]],
+  ['uv_22',['uv',['../struct_im_draw_vert.html#abdf3183529055a6c3f709b23a4bf06b1',1,'ImDrawVert']]]
+];

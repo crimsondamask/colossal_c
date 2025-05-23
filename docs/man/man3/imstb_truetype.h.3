@@ -1,0 +1,587 @@
+.TH "colossal_cpp/imgui/imstb_truetype.h" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imstb_truetype.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBstbtt__buf\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_bakedchar\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_aligned_quad\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_packedchar\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_pack_range\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_pack_context\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_fontinfo\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_kerningentry\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt_vertex\fP"
+.br
+.ti -1c
+.RI "struct \fBstbtt__bitmap\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fB__STB_INCLUDE_STB_TRUETYPE_H__\fP"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_DEF\fP   extern"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_POINT_SIZE\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBstbtt_vertex_type\fP   short"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_MACSTYLE_DONTCARE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_MACSTYLE_BOLD\fP   1"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_MACSTYLE_ITALIC\fP   2"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_MACSTYLE_UNDERSCORE\fP   4"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_MACSTYLE_NONE\fP   8"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct stbtt_pack_context \fBstbtt_pack_context\fP"
+.br
+.ti -1c
+.RI "typedef struct stbtt_fontinfo \fBstbtt_fontinfo\fP"
+.br
+.ti -1c
+.RI "typedef struct stbtt_kerningentry \fBstbtt_kerningentry\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBSTBTT_vmove\fP =1, \fBSTBTT_vline\fP, \fBSTBTT_vcurve\fP, \fBSTBTT_vcubic\fP }"
+.br
+.ti -1c
+.RI "enum { \fBSTBTT_PLATFORM_ID_UNICODE\fP =0, \fBSTBTT_PLATFORM_ID_MAC\fP =1, \fBSTBTT_PLATFORM_ID_ISO\fP =2, \fBSTBTT_PLATFORM_ID_MICROSOFT\fP =3 }"
+.br
+.ti -1c
+.RI "enum { \fBSTBTT_UNICODE_EID_UNICODE_1_0\fP =0, \fBSTBTT_UNICODE_EID_UNICODE_1_1\fP =1, \fBSTBTT_UNICODE_EID_ISO_10646\fP =2, \fBSTBTT_UNICODE_EID_UNICODE_2_0_BMP\fP =3, \fBSTBTT_UNICODE_EID_UNICODE_2_0_FULL\fP =4 }"
+.br
+.ti -1c
+.RI "enum { \fBSTBTT_MS_EID_SYMBOL\fP =0, \fBSTBTT_MS_EID_UNICODE_BMP\fP =1, \fBSTBTT_MS_EID_SHIFTJIS\fP =2, \fBSTBTT_MS_EID_UNICODE_FULL\fP =10 }"
+.br
+.ti -1c
+.RI "enum { \fBSTBTT_MAC_EID_ROMAN\fP =0, \fBSTBTT_MAC_EID_ARABIC\fP =4, \fBSTBTT_MAC_EID_JAPANESE\fP =1, \fBSTBTT_MAC_EID_HEBREW\fP =5, \fBSTBTT_MAC_EID_CHINESE_TRAD\fP =2, \fBSTBTT_MAC_EID_GREEK\fP =6, \fBSTBTT_MAC_EID_KOREAN\fP =3, \fBSTBTT_MAC_EID_RUSSIAN\fP =7 }"
+.br
+.ti -1c
+.RI "enum { \fBSTBTT_MS_LANG_ENGLISH\fP =0x0409, \fBSTBTT_MS_LANG_ITALIAN\fP =0x0410, \fBSTBTT_MS_LANG_CHINESE\fP =0x0804, \fBSTBTT_MS_LANG_JAPANESE\fP =0x0411, \fBSTBTT_MS_LANG_DUTCH\fP =0x0413, \fBSTBTT_MS_LANG_KOREAN\fP =0x0412, \fBSTBTT_MS_LANG_FRENCH\fP =0x040c, \fBSTBTT_MS_LANG_RUSSIAN\fP =0x0419, \fBSTBTT_MS_LANG_GERMAN\fP =0x0407, \fBSTBTT_MS_LANG_SPANISH\fP =0x0409, \fBSTBTT_MS_LANG_HEBREW\fP =0x040d, \fBSTBTT_MS_LANG_SWEDISH\fP =0x041D }"
+.br
+.ti -1c
+.RI "enum { \fBSTBTT_MAC_LANG_ENGLISH\fP =0, \fBSTBTT_MAC_LANG_JAPANESE\fP =11, \fBSTBTT_MAC_LANG_ARABIC\fP =12, \fBSTBTT_MAC_LANG_KOREAN\fP =23, \fBSTBTT_MAC_LANG_DUTCH\fP =4, \fBSTBTT_MAC_LANG_RUSSIAN\fP =32, \fBSTBTT_MAC_LANG_FRENCH\fP =1, \fBSTBTT_MAC_LANG_SPANISH\fP =6, \fBSTBTT_MAC_LANG_GERMAN\fP =2, \fBSTBTT_MAC_LANG_SWEDISH\fP =5, \fBSTBTT_MAC_LANG_HEBREW\fP =10, \fBSTBTT_MAC_LANG_CHINESE_SIMPLIFIED\fP =33, \fBSTBTT_MAC_LANG_ITALIAN\fP =3, \fBSTBTT_MAC_LANG_CHINESE_TRAD\fP =19 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_BakeFontBitmap\fP (const unsigned char *data, int offset, float pixel_height, unsigned char *pixels, int pw, int ph, int first_char, int num_chars, \fBstbtt_bakedchar\fP *chardata)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetBakedQuad\fP (const \fBstbtt_bakedchar\fP *chardata, int pw, int ph, int char_index, float *xpos, float *ypos, \fBstbtt_aligned_quad\fP *q, int opengl_fillrule)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetScaledFontVMetrics\fP (const unsigned char *fontdata, int index, float size, float *ascent, float *descent, float *lineGap)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_PackBegin\fP (\fBstbtt_pack_context\fP *spc, unsigned char *pixels, int width, int height, int stride_in_bytes, int padding, void *alloc_context)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_PackEnd\fP (\fBstbtt_pack_context\fP *spc)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_PackFontRange\fP (\fBstbtt_pack_context\fP *spc, const unsigned char *fontdata, int font_index, float font_size, int first_unicode_char_in_range, int num_chars_in_range, \fBstbtt_packedchar\fP *chardata_for_range)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_PackFontRanges\fP (\fBstbtt_pack_context\fP *spc, const unsigned char *fontdata, int font_index, \fBstbtt_pack_range\fP *ranges, int num_ranges)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_PackSetOversampling\fP (\fBstbtt_pack_context\fP *spc, unsigned int h_oversample, unsigned int v_oversample)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_PackSetSkipMissingCodepoints\fP (\fBstbtt_pack_context\fP *spc, int skip)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetPackedQuad\fP (const \fBstbtt_packedchar\fP *chardata, int pw, int ph, int char_index, float *xpos, float *ypos, \fBstbtt_aligned_quad\fP *q, int align_to_integer)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_PackFontRangesGatherRects\fP (\fBstbtt_pack_context\fP *spc, const \fBstbtt_fontinfo\fP *info, \fBstbtt_pack_range\fP *ranges, int num_ranges, \fBstbrp_rect\fP *rects)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_PackFontRangesPackRects\fP (\fBstbtt_pack_context\fP *spc, \fBstbrp_rect\fP *rects, int num_rects)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_PackFontRangesRenderIntoRects\fP (\fBstbtt_pack_context\fP *spc, const \fBstbtt_fontinfo\fP *info, \fBstbtt_pack_range\fP *ranges, int num_ranges, \fBstbrp_rect\fP *rects)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetNumberOfFonts\fP (const unsigned char *data)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetFontOffsetForIndex\fP (const unsigned char *data, int index)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_InitFont\fP (\fBstbtt_fontinfo\fP *info, const unsigned char *data, int offset)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_FindGlyphIndex\fP (const \fBstbtt_fontinfo\fP *info, int unicode_codepoint)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP float \fBstbtt_ScaleForPixelHeight\fP (const \fBstbtt_fontinfo\fP *info, float pixels)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP float \fBstbtt_ScaleForMappingEmToPixels\fP (const \fBstbtt_fontinfo\fP *info, float pixels)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetFontVMetrics\fP (const \fBstbtt_fontinfo\fP *info, int *ascent, int *descent, int *lineGap)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetFontVMetricsOS2\fP (const \fBstbtt_fontinfo\fP *info, int *typoAscent, int *typoDescent, int *typoLineGap)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetFontBoundingBox\fP (const \fBstbtt_fontinfo\fP *info, int *x0, int *y0, int *x1, int *y1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetCodepointHMetrics\fP (const \fBstbtt_fontinfo\fP *info, int codepoint, int *advanceWidth, int *leftSideBearing)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetCodepointKernAdvance\fP (const \fBstbtt_fontinfo\fP *info, int ch1, int ch2)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetCodepointBox\fP (const \fBstbtt_fontinfo\fP *info, int codepoint, int *x0, int *y0, int *x1, int *y1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetGlyphHMetrics\fP (const \fBstbtt_fontinfo\fP *info, int glyph_index, int *advanceWidth, int *leftSideBearing)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetGlyphKernAdvance\fP (const \fBstbtt_fontinfo\fP *info, int glyph1, int glyph2)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetGlyphBox\fP (const \fBstbtt_fontinfo\fP *info, int glyph_index, int *x0, int *y0, int *x1, int *y1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetKerningTableLength\fP (const \fBstbtt_fontinfo\fP *info)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetKerningTable\fP (const \fBstbtt_fontinfo\fP *info, \fBstbtt_kerningentry\fP *table, int table_length)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_IsGlyphEmpty\fP (const \fBstbtt_fontinfo\fP *info, int glyph_index)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetCodepointShape\fP (const \fBstbtt_fontinfo\fP *info, int unicode_codepoint, \fBstbtt_vertex\fP **vertices)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetGlyphShape\fP (const \fBstbtt_fontinfo\fP *info, int glyph_index, \fBstbtt_vertex\fP **vertices)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_FreeShape\fP (const \fBstbtt_fontinfo\fP *info, \fBstbtt_vertex\fP *vertices)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_FindSVGDoc\fP (const \fBstbtt_fontinfo\fP *info, int gl)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetCodepointSVG\fP (const \fBstbtt_fontinfo\fP *info, int unicode_codepoint, const char **svg)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_GetGlyphSVG\fP (const \fBstbtt_fontinfo\fP *info, int gl, const char **svg)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_FreeBitmap\fP (unsigned char *bitmap, void *userdata)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_GetCodepointBitmap\fP (const \fBstbtt_fontinfo\fP *info, float scale_x, float scale_y, int codepoint, int *width, int *height, int *xoff, int *yoff)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_GetCodepointBitmapSubpixel\fP (const \fBstbtt_fontinfo\fP *info, float scale_x, float scale_y, float shift_x, float shift_y, int codepoint, int *width, int *height, int *xoff, int *yoff)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_MakeCodepointBitmap\fP (const \fBstbtt_fontinfo\fP *info, unsigned char *output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, int codepoint)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_MakeCodepointBitmapSubpixel\fP (const \fBstbtt_fontinfo\fP *info, unsigned char *output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int codepoint)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_MakeCodepointBitmapSubpixelPrefilter\fP (const \fBstbtt_fontinfo\fP *info, unsigned char *output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int oversample_x, int oversample_y, float *sub_x, float *sub_y, int codepoint)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetCodepointBitmapBox\fP (const \fBstbtt_fontinfo\fP *font, int codepoint, float scale_x, float scale_y, int *ix0, int *iy0, int *ix1, int *iy1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetCodepointBitmapBoxSubpixel\fP (const \fBstbtt_fontinfo\fP *font, int codepoint, float scale_x, float scale_y, float shift_x, float shift_y, int *ix0, int *iy0, int *ix1, int *iy1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_GetGlyphBitmap\fP (const \fBstbtt_fontinfo\fP *info, float scale_x, float scale_y, int glyph, int *width, int *height, int *xoff, int *yoff)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_GetGlyphBitmapSubpixel\fP (const \fBstbtt_fontinfo\fP *info, float scale_x, float scale_y, float shift_x, float shift_y, int glyph, int *width, int *height, int *xoff, int *yoff)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_MakeGlyphBitmap\fP (const \fBstbtt_fontinfo\fP *info, unsigned char *output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, int glyph)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_MakeGlyphBitmapSubpixel\fP (const \fBstbtt_fontinfo\fP *info, unsigned char *output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int glyph)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_MakeGlyphBitmapSubpixelPrefilter\fP (const \fBstbtt_fontinfo\fP *info, unsigned char *output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int oversample_x, int oversample_y, float *sub_x, float *sub_y, int glyph)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetGlyphBitmapBox\fP (const \fBstbtt_fontinfo\fP *font, int glyph, float scale_x, float scale_y, int *ix0, int *iy0, int *ix1, int *iy1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_GetGlyphBitmapBoxSubpixel\fP (const \fBstbtt_fontinfo\fP *font, int glyph, float scale_x, float scale_y, float shift_x, float shift_y, int *ix0, int *iy0, int *ix1, int *iy1)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_Rasterize\fP (\fBstbtt__bitmap\fP *result, float flatness_in_pixels, \fBstbtt_vertex\fP *vertices, int num_verts, float scale_x, float scale_y, float shift_x, float shift_y, int x_off, int y_off, int invert, void *userdata)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP void \fBstbtt_FreeSDF\fP (unsigned char *bitmap, void *userdata)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_GetGlyphSDF\fP (const \fBstbtt_fontinfo\fP *info, float scale, int glyph, int padding, unsigned char onedge_value, float pixel_dist_scale, int *width, int *height, int *xoff, int *yoff)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP unsigned char * \fBstbtt_GetCodepointSDF\fP (const \fBstbtt_fontinfo\fP *info, float scale, int codepoint, int padding, unsigned char onedge_value, float pixel_dist_scale, int *width, int *height, int *xoff, int *yoff)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_FindMatchingFont\fP (const unsigned char *fontdata, const char *name, int flags)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP int \fBstbtt_CompareUTF8toUTF16_bigendian\fP (const char *s1, int len1, const char *s2, int len2)"
+.br
+.ti -1c
+.RI "\fBSTBTT_DEF\fP const char * \fBstbtt_GetFontNameString\fP (const \fBstbtt_fontinfo\fP *font, int *length, int platformID, int encodingID, int languageID, int nameID)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define __STB_INCLUDE_STB_TRUETYPE_H__"
+
+.SS "#define STBTT_DEF   extern"
+
+.SS "#define STBTT_MACSTYLE_BOLD   1"
+
+.SS "#define STBTT_MACSTYLE_DONTCARE   0"
+
+.SS "#define STBTT_MACSTYLE_ITALIC   2"
+
+.SS "#define STBTT_MACSTYLE_NONE   8"
+
+.SS "#define STBTT_MACSTYLE_UNDERSCORE   4"
+
+.SS "#define STBTT_POINT_SIZE( x)"
+\fBValue:\fP
+.nf
+(\-(x))
+.PP
+.fi
+
+.SS "#define stbtt_vertex_type   short"
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct stbtt_fontinfo stbtt_fontinfo"
+
+.SS "typedef struct stbtt_kerningentry stbtt_kerningentry"
+
+.SS "typedef struct stbtt_pack_context stbtt_pack_context"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_UNICODE_EID_UNICODE_1_0 \fP
+.TP
+\f(BISTBTT_UNICODE_EID_UNICODE_1_1 \fP
+.TP
+\f(BISTBTT_UNICODE_EID_ISO_10646 \fP
+.TP
+\f(BISTBTT_UNICODE_EID_UNICODE_2_0_BMP \fP
+.TP
+\f(BISTBTT_UNICODE_EID_UNICODE_2_0_FULL \fP
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_MAC_LANG_ENGLISH \fP
+.TP
+\f(BISTBTT_MAC_LANG_JAPANESE \fP
+.TP
+\f(BISTBTT_MAC_LANG_ARABIC \fP
+.TP
+\f(BISTBTT_MAC_LANG_KOREAN \fP
+.TP
+\f(BISTBTT_MAC_LANG_DUTCH \fP
+.TP
+\f(BISTBTT_MAC_LANG_RUSSIAN \fP
+.TP
+\f(BISTBTT_MAC_LANG_FRENCH \fP
+.TP
+\f(BISTBTT_MAC_LANG_SPANISH \fP
+.TP
+\f(BISTBTT_MAC_LANG_GERMAN \fP
+.TP
+\f(BISTBTT_MAC_LANG_SWEDISH \fP
+.TP
+\f(BISTBTT_MAC_LANG_HEBREW \fP
+.TP
+\f(BISTBTT_MAC_LANG_CHINESE_SIMPLIFIED \fP
+.TP
+\f(BISTBTT_MAC_LANG_ITALIAN \fP
+.TP
+\f(BISTBTT_MAC_LANG_CHINESE_TRAD \fP
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_MS_LANG_ENGLISH \fP
+.TP
+\f(BISTBTT_MS_LANG_ITALIAN \fP
+.TP
+\f(BISTBTT_MS_LANG_CHINESE \fP
+.TP
+\f(BISTBTT_MS_LANG_JAPANESE \fP
+.TP
+\f(BISTBTT_MS_LANG_DUTCH \fP
+.TP
+\f(BISTBTT_MS_LANG_KOREAN \fP
+.TP
+\f(BISTBTT_MS_LANG_FRENCH \fP
+.TP
+\f(BISTBTT_MS_LANG_RUSSIAN \fP
+.TP
+\f(BISTBTT_MS_LANG_GERMAN \fP
+.TP
+\f(BISTBTT_MS_LANG_SPANISH \fP
+.TP
+\f(BISTBTT_MS_LANG_HEBREW \fP
+.TP
+\f(BISTBTT_MS_LANG_SWEDISH \fP
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_MAC_EID_ROMAN \fP
+.TP
+\f(BISTBTT_MAC_EID_ARABIC \fP
+.TP
+\f(BISTBTT_MAC_EID_JAPANESE \fP
+.TP
+\f(BISTBTT_MAC_EID_HEBREW \fP
+.TP
+\f(BISTBTT_MAC_EID_CHINESE_TRAD \fP
+.TP
+\f(BISTBTT_MAC_EID_GREEK \fP
+.TP
+\f(BISTBTT_MAC_EID_KOREAN \fP
+.TP
+\f(BISTBTT_MAC_EID_RUSSIAN \fP
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_MS_EID_SYMBOL \fP
+.TP
+\f(BISTBTT_MS_EID_UNICODE_BMP \fP
+.TP
+\f(BISTBTT_MS_EID_SHIFTJIS \fP
+.TP
+\f(BISTBTT_MS_EID_UNICODE_FULL \fP
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_vmove \fP
+.TP
+\f(BISTBTT_vline \fP
+.TP
+\f(BISTBTT_vcurve \fP
+.TP
+\f(BISTBTT_vcubic \fP
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBTT_PLATFORM_ID_UNICODE \fP
+.TP
+\f(BISTBTT_PLATFORM_ID_MAC \fP
+.TP
+\f(BISTBTT_PLATFORM_ID_ISO \fP
+.TP
+\f(BISTBTT_PLATFORM_ID_MICROSOFT \fP
+.SH "Function Documentation"
+.PP 
+.SS "\fBSTBTT_DEF\fP int stbtt_BakeFontBitmap (const unsigned char * data, int offset, float pixel_height, unsigned char * pixels, int pw, int ph, int first_char, int num_chars, \fBstbtt_bakedchar\fP * chardata)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_CompareUTF8toUTF16_bigendian (const char * s1, int len1, const char * s2, int len2)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_FindGlyphIndex (const \fBstbtt_fontinfo\fP * info, int unicode_codepoint)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_FindMatchingFont (const unsigned char * fontdata, const char * name, int flags)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_FindSVGDoc (const \fBstbtt_fontinfo\fP * info, int gl)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_FreeBitmap (unsigned char * bitmap, void * userdata)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_FreeSDF (unsigned char * bitmap, void * userdata)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_FreeShape (const \fBstbtt_fontinfo\fP * info, \fBstbtt_vertex\fP * vertices)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetBakedQuad (const \fBstbtt_bakedchar\fP * chardata, int pw, int ph, int char_index, float * xpos, float * ypos, \fBstbtt_aligned_quad\fP * q, int opengl_fillrule)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_GetCodepointBitmap (const \fBstbtt_fontinfo\fP * info, float scale_x, float scale_y, int codepoint, int * width, int * height, int * xoff, int * yoff)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetCodepointBitmapBox (const \fBstbtt_fontinfo\fP * font, int codepoint, float scale_x, float scale_y, int * ix0, int * iy0, int * ix1, int * iy1)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetCodepointBitmapBoxSubpixel (const \fBstbtt_fontinfo\fP * font, int codepoint, float scale_x, float scale_y, float shift_x, float shift_y, int * ix0, int * iy0, int * ix1, int * iy1)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_GetCodepointBitmapSubpixel (const \fBstbtt_fontinfo\fP * info, float scale_x, float scale_y, float shift_x, float shift_y, int codepoint, int * width, int * height, int * xoff, int * yoff)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetCodepointBox (const \fBstbtt_fontinfo\fP * info, int codepoint, int * x0, int * y0, int * x1, int * y1)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetCodepointHMetrics (const \fBstbtt_fontinfo\fP * info, int codepoint, int * advanceWidth, int * leftSideBearing)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetCodepointKernAdvance (const \fBstbtt_fontinfo\fP * info, int ch1, int ch2)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_GetCodepointSDF (const \fBstbtt_fontinfo\fP * info, float scale, int codepoint, int padding, unsigned char onedge_value, float pixel_dist_scale, int * width, int * height, int * xoff, int * yoff)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetCodepointShape (const \fBstbtt_fontinfo\fP * info, int unicode_codepoint, \fBstbtt_vertex\fP ** vertices)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetCodepointSVG (const \fBstbtt_fontinfo\fP * info, int unicode_codepoint, const char ** svg)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetFontBoundingBox (const \fBstbtt_fontinfo\fP * info, int * x0, int * y0, int * x1, int * y1)"
+
+.SS "\fBSTBTT_DEF\fP const char * stbtt_GetFontNameString (const \fBstbtt_fontinfo\fP * font, int * length, int platformID, int encodingID, int languageID, int nameID)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetFontOffsetForIndex (const unsigned char * data, int index)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetFontVMetrics (const \fBstbtt_fontinfo\fP * info, int * ascent, int * descent, int * lineGap)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetFontVMetricsOS2 (const \fBstbtt_fontinfo\fP * info, int * typoAscent, int * typoDescent, int * typoLineGap)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_GetGlyphBitmap (const \fBstbtt_fontinfo\fP * info, float scale_x, float scale_y, int glyph, int * width, int * height, int * xoff, int * yoff)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetGlyphBitmapBox (const \fBstbtt_fontinfo\fP * font, int glyph, float scale_x, float scale_y, int * ix0, int * iy0, int * ix1, int * iy1)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetGlyphBitmapBoxSubpixel (const \fBstbtt_fontinfo\fP * font, int glyph, float scale_x, float scale_y, float shift_x, float shift_y, int * ix0, int * iy0, int * ix1, int * iy1)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_GetGlyphBitmapSubpixel (const \fBstbtt_fontinfo\fP * info, float scale_x, float scale_y, float shift_x, float shift_y, int glyph, int * width, int * height, int * xoff, int * yoff)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetGlyphBox (const \fBstbtt_fontinfo\fP * info, int glyph_index, int * x0, int * y0, int * x1, int * y1)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetGlyphHMetrics (const \fBstbtt_fontinfo\fP * info, int glyph_index, int * advanceWidth, int * leftSideBearing)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetGlyphKernAdvance (const \fBstbtt_fontinfo\fP * info, int glyph1, int glyph2)"
+
+.SS "\fBSTBTT_DEF\fP unsigned char * stbtt_GetGlyphSDF (const \fBstbtt_fontinfo\fP * info, float scale, int glyph, int padding, unsigned char onedge_value, float pixel_dist_scale, int * width, int * height, int * xoff, int * yoff)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetGlyphShape (const \fBstbtt_fontinfo\fP * info, int glyph_index, \fBstbtt_vertex\fP ** vertices)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetGlyphSVG (const \fBstbtt_fontinfo\fP * info, int gl, const char ** svg)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetKerningTable (const \fBstbtt_fontinfo\fP * info, \fBstbtt_kerningentry\fP * table, int table_length)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetKerningTableLength (const \fBstbtt_fontinfo\fP * info)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_GetNumberOfFonts (const unsigned char * data)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetPackedQuad (const \fBstbtt_packedchar\fP * chardata, int pw, int ph, int char_index, float * xpos, float * ypos, \fBstbtt_aligned_quad\fP * q, int align_to_integer)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_GetScaledFontVMetrics (const unsigned char * fontdata, int index, float size, float * ascent, float * descent, float * lineGap)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_InitFont (\fBstbtt_fontinfo\fP * info, const unsigned char * data, int offset)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_IsGlyphEmpty (const \fBstbtt_fontinfo\fP * info, int glyph_index)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_MakeCodepointBitmap (const \fBstbtt_fontinfo\fP * info, unsigned char * output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, int codepoint)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_MakeCodepointBitmapSubpixel (const \fBstbtt_fontinfo\fP * info, unsigned char * output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int codepoint)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_MakeCodepointBitmapSubpixelPrefilter (const \fBstbtt_fontinfo\fP * info, unsigned char * output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int oversample_x, int oversample_y, float * sub_x, float * sub_y, int codepoint)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_MakeGlyphBitmap (const \fBstbtt_fontinfo\fP * info, unsigned char * output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, int glyph)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_MakeGlyphBitmapSubpixel (const \fBstbtt_fontinfo\fP * info, unsigned char * output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int glyph)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_MakeGlyphBitmapSubpixelPrefilter (const \fBstbtt_fontinfo\fP * info, unsigned char * output, int out_w, int out_h, int out_stride, float scale_x, float scale_y, float shift_x, float shift_y, int oversample_x, int oversample_y, float * sub_x, float * sub_y, int glyph)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_PackBegin (\fBstbtt_pack_context\fP * spc, unsigned char * pixels, int width, int height, int stride_in_bytes, int padding, void * alloc_context)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_PackEnd (\fBstbtt_pack_context\fP * spc)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_PackFontRange (\fBstbtt_pack_context\fP * spc, const unsigned char * fontdata, int font_index, float font_size, int first_unicode_char_in_range, int num_chars_in_range, \fBstbtt_packedchar\fP * chardata_for_range)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_PackFontRanges (\fBstbtt_pack_context\fP * spc, const unsigned char * fontdata, int font_index, \fBstbtt_pack_range\fP * ranges, int num_ranges)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_PackFontRangesGatherRects (\fBstbtt_pack_context\fP * spc, const \fBstbtt_fontinfo\fP * info, \fBstbtt_pack_range\fP * ranges, int num_ranges, \fBstbrp_rect\fP * rects)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_PackFontRangesPackRects (\fBstbtt_pack_context\fP * spc, \fBstbrp_rect\fP * rects, int num_rects)"
+
+.SS "\fBSTBTT_DEF\fP int stbtt_PackFontRangesRenderIntoRects (\fBstbtt_pack_context\fP * spc, const \fBstbtt_fontinfo\fP * info, \fBstbtt_pack_range\fP * ranges, int num_ranges, \fBstbrp_rect\fP * rects)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_PackSetOversampling (\fBstbtt_pack_context\fP * spc, unsigned int h_oversample, unsigned int v_oversample)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_PackSetSkipMissingCodepoints (\fBstbtt_pack_context\fP * spc, int skip)"
+
+.SS "\fBSTBTT_DEF\fP void stbtt_Rasterize (\fBstbtt__bitmap\fP * result, float flatness_in_pixels, \fBstbtt_vertex\fP * vertices, int num_verts, float scale_x, float scale_y, float shift_x, float shift_y, int x_off, int y_off, int invert, void * userdata)"
+
+.SS "\fBSTBTT_DEF\fP float stbtt_ScaleForMappingEmToPixels (const \fBstbtt_fontinfo\fP * info, float pixels)"
+
+.SS "\fBSTBTT_DEF\fP float stbtt_ScaleForPixelHeight (const \fBstbtt_fontinfo\fP * info, float pixels)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,0 +1,203 @@
+.TH "ImGuiInputTextState" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiInputTextState
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiInputTextState\fP ()"
+.br
+.ti -1c
+.RI "\fB~ImGuiInputTextState\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearText\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearFreeMemory\fP ()"
+.br
+.ti -1c
+.RI "void \fBOnKeyPressed\fP (int key)"
+.br
+.ti -1c
+.RI "void \fBOnCharPressed\fP (unsigned int c)"
+.br
+.ti -1c
+.RI "void \fBCursorAnimReset\fP ()"
+.br
+.ti -1c
+.RI "void \fBCursorClamp\fP ()"
+.br
+.ti -1c
+.RI "bool \fBHasSelection\fP () const"
+.br
+.ti -1c
+.RI "void \fBClearSelection\fP ()"
+.br
+.ti -1c
+.RI "int \fBGetCursorPos\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetSelectionStart\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetSelectionEnd\fP () const"
+.br
+.ti -1c
+.RI "void \fBSelectAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadUserBufAndSelectAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadUserBufAndKeepSelection\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadUserBufAndMoveToEnd\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "\fBImStbTexteditState\fP * \fBStb\fP"
+.br
+.ti -1c
+.RI "\fBImGuiInputTextFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBID\fP"
+.br
+.ti -1c
+.RI "int \fBTextLen\fP"
+.br
+.ti -1c
+.RI "const char * \fBTextSrc\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char > \fBTextA\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char > \fBTextToRevertTo\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char > \fBCallbackTextBackup\fP"
+.br
+.ti -1c
+.RI "int \fBBufCapacity\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScroll\fP"
+.br
+.ti -1c
+.RI "float \fBCursorAnim\fP"
+.br
+.ti -1c
+.RI "bool \fBCursorFollow\fP"
+.br
+.ti -1c
+.RI "bool \fBSelectedAllMouseLock\fP"
+.br
+.ti -1c
+.RI "bool \fBEdited\fP"
+.br
+.ti -1c
+.RI "bool \fBWantReloadUserBuf\fP"
+.br
+.ti -1c
+.RI "int \fBReloadSelectionStart\fP"
+.br
+.ti -1c
+.RI "int \fBReloadSelectionEnd\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiInputTextState::ImGuiInputTextState ()"
+
+.SS "ImGuiInputTextState::~ImGuiInputTextState ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiInputTextState::ClearFreeMemory ()\fR [inline]\fP"
+
+.SS "void ImGuiInputTextState::ClearSelection ()"
+
+.SS "void ImGuiInputTextState::ClearText ()\fR [inline]\fP"
+
+.SS "void ImGuiInputTextState::CursorAnimReset ()"
+
+.SS "void ImGuiInputTextState::CursorClamp ()"
+
+.SS "int ImGuiInputTextState::GetCursorPos () const"
+
+.SS "int ImGuiInputTextState::GetSelectionEnd () const"
+
+.SS "int ImGuiInputTextState::GetSelectionStart () const"
+
+.SS "bool ImGuiInputTextState::HasSelection () const"
+
+.SS "void ImGuiInputTextState::OnCharPressed (unsigned int c)"
+
+.SS "void ImGuiInputTextState::OnKeyPressed (int key)"
+
+.SS "void ImGuiInputTextState::ReloadUserBufAndKeepSelection ()"
+
+.SS "void ImGuiInputTextState::ReloadUserBufAndMoveToEnd ()"
+
+.SS "void ImGuiInputTextState::ReloadUserBufAndSelectAll ()"
+
+.SS "void ImGuiInputTextState::SelectAll ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "int ImGuiInputTextState::BufCapacity"
+
+.SS "\fBImVector\fP<char> ImGuiInputTextState::CallbackTextBackup"
+
+.SS "\fBImGuiContext\fP* ImGuiInputTextState::Ctx"
+
+.SS "float ImGuiInputTextState::CursorAnim"
+
+.SS "bool ImGuiInputTextState::CursorFollow"
+
+.SS "bool ImGuiInputTextState::Edited"
+
+.SS "\fBImGuiInputTextFlags\fP ImGuiInputTextState::Flags"
+
+.SS "\fBImGuiID\fP ImGuiInputTextState::ID"
+
+.SS "int ImGuiInputTextState::ReloadSelectionEnd"
+
+.SS "int ImGuiInputTextState::ReloadSelectionStart"
+
+.SS "\fBImVec2\fP ImGuiInputTextState::Scroll"
+
+.SS "bool ImGuiInputTextState::SelectedAllMouseLock"
+
+.SS "\fBImStbTexteditState\fP* ImGuiInputTextState::Stb"
+
+.SS "\fBImVector\fP<char> ImGuiInputTextState::TextA"
+
+.SS "int ImGuiInputTextState::TextLen"
+
+.SS "const char* ImGuiInputTextState::TextSrc"
+
+.SS "\fBImVector\fP<char> ImGuiInputTextState::TextToRevertTo"
+
+.SS "bool ImGuiInputTextState::WantReloadUserBuf"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

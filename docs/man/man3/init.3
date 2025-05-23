@@ -1,0 +1,330 @@
+.TH "init" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+init \- Initialization, version and error reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Topics"
+
+.in +1c
+.ti -1c
+.RI "\fBError codes\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBGLFWerrorfun\fP) (int, const char *)"
+.br
+.RI "The function signature for error callbacks\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwInit\fP (void)"
+.br
+.RI "Initializes the GLFW library\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwTerminate\fP (void)"
+.br
+.RI "Terminates the GLFW library\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwGetVersion\fP (int *major, int *minor, int *rev)"
+.br
+.RI "Retrieves the version of the GLFW library\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const char * \fBglfwGetVersionString\fP (void)"
+.br
+.RI "Returns a string describing the compile-time configuration\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWerrorfun\fP \fBglfwSetErrorCallback\fP (\fBGLFWerrorfun\fP cbfun)"
+.br
+.RI "Sets the error callback\&. "
+.in -1c
+.SS "GLFW version macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBGLFW_VERSION_MAJOR\fP   3"
+.br
+.RI "The major version number of the GLFW library\&. "
+.ti -1c
+.RI "#define \fBGLFW_VERSION_MINOR\fP   2"
+.br
+.RI "The minor version number of the GLFW library\&. "
+.ti -1c
+.RI "#define \fBGLFW_VERSION_REVISION\fP   0"
+.br
+.RI "The revision number of the GLFW library\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is the reference documentation for initialization and termination of the library, version management and error handling\&. For more task-oriented information, see the \fBintro_guide\fP\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define GLFW_VERSION_MAJOR   3"
+
+.PP
+The major version number of the GLFW library\&. This is incremented when the API is changed in non-compatible ways\&. 
+.SS "#define GLFW_VERSION_MINOR   2"
+
+.PP
+The minor version number of the GLFW library\&. This is incremented when features are added to the API but it remains backward-compatible\&. 
+.SS "#define GLFW_VERSION_REVISION   0"
+
+.PP
+The revision number of the GLFW library\&. This is incremented when a bug fix release is made that does not contain any API changes\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* GLFWerrorfun) (int, const char *)"
+
+.PP
+The function signature for error callbacks\&. This is the function signature for error callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIerror\fP An \fBerror code\fP\&. 
+.br
+\fIdescription\fP A UTF-8 encoded string describing the error\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBerror_handling\fP 
+
+.PP
+\fBglfwSetErrorCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBGLFWAPI\fP void glfwGetVersion (int * major, int * minor, int * rev)"
+
+.PP
+Retrieves the version of the GLFW library\&. This function retrieves the major, minor and revision numbers of the GLFW library\&. It is intended for when you are using GLFW as a shared library and want to ensure that you are using the minimum required version\&.
+
+.PP
+Any or all of the version arguments may be \fRNULL\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImajor\fP Where to store the major version number, or \fRNULL\fP\&. 
+.br
+\fIminor\fP Where to store the minor version number, or \fRNULL\fP\&. 
+.br
+\fIrev\fP Where to store the revision number, or \fRNULL\fP\&.
+.RE
+.PP
+@errors None\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+This function may be called before \fBglfwInit\fP\&.
+.RE
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBintro_version\fP 
+
+.PP
+\fBglfwGetVersionString\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const char * glfwGetVersionString (void )"
+
+.PP
+Returns a string describing the compile-time configuration\&. This function returns the compile-time generated \fBversion string\fP of the GLFW library binary\&. It describes the version, platform, compiler and any platform-specific compile-time options\&. It should not be confused with the OpenGL or OpenGL ES version string, queried with \fRglGetString\fP\&.
+
+.PP
+\fBDo not use the version string\fP to parse the GLFW library version\&. The \fBglfwGetVersion\fP function provides the version of the running library binary in numerical format\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+The ASCII encoded GLFW version string\&.
+.RE
+.PP
+@errors None\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+This function may be called before \fBglfwInit\fP\&.
+.RE
+.PP
+@pointer_lifetime The returned string is static and compile-time generated\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBintro_version\fP 
+
+.PP
+\fBglfwGetVersion\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP int glfwInit (void )"
+
+.PP
+Initializes the GLFW library\&. This function initializes the GLFW library\&. Before most GLFW functions can be used, GLFW must be initialized, and before an application terminates GLFW should be terminated in order to free any resources allocated during or after initialization\&.
+
+.PP
+If this function fails, it calls \fBglfwTerminate\fP before returning\&. If it succeeds, you should call \fBglfwTerminate\fP before the application exits\&.
+
+.PP
+Additional calls to this function after successful initialization but before termination will return \fRGLFW_TRUE\fP immediately\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+\fRGLFW_TRUE\fP if successful, or \fRGLFW_FALSE\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+@osx This function will change the current directory of the application to the \fRContents/Resources\fP subdirectory of the application's bundle, if present\&. This can be disabled with a \fBcompile-time option\fP\&.
+.RE
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBintro_init\fP 
+
+.PP
+\fBglfwTerminate\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWerrorfun\fP glfwSetErrorCallback (\fBGLFWerrorfun\fP cbfun)"
+
+.PP
+Sets the error callback\&. This function sets the error callback, which is called with an error code and a human-readable description each time a GLFW error occurs\&.
+
+.PP
+The error callback is called on the thread where the error occurred\&. If you are using GLFW from multiple threads, your error callback needs to be written accordingly\&.
+
+.PP
+Because the description string may have been generated specifically for that error, it is not guaranteed to be valid after the callback has returned\&. If you wish to use it after the callback returns, you need to make a copy\&.
+
+.PP
+Once set, the error callback remains set even after the library has been terminated\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set\&.
+.RE
+.PP
+@errors None\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+This function may be called before \fBglfwInit\fP\&.
+.RE
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBerror_handling\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwTerminate (void )"
+
+.PP
+Terminates the GLFW library\&. This function destroys all remaining windows and cursors, restores any modified gamma ramps and frees any other allocated resources\&. Once this function is called, you must again call \fBglfwInit\fP successfully before you will be able to use most GLFW functions\&.
+
+.PP
+If GLFW has been successfully initialized, this function should be called before the application exits\&. If initialization fails, there is no need to call this function, as it is called by \fBglfwInit\fP before it returns failure\&.
+
+.PP
+@errors Possible errors include \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+This function may be called before \fBglfwInit\fP\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+The contexts of any remaining windows must not be current on any other thread when this function is called\&.
+.RE
+.PP
+@reentrancy This function must not be called from a callback\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBintro_init\fP 
+
+.PP
+\fBglfwInit\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

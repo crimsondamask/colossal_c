@@ -1,0 +1,71 @@
+.TH "ExampleAppDocuments" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleAppDocuments
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBExampleAppDocuments\fP ()"
+.br
+.ti -1c
+.RI "void \fBGetTabName\fP (\fBMyDocument\fP *doc, char *out_buf, size_t out_buf_size)"
+.br
+.ti -1c
+.RI "void \fBDisplayDocContents\fP (\fBMyDocument\fP *doc)"
+.br
+.ti -1c
+.RI "void \fBDisplayDocContextMenu\fP (\fBMyDocument\fP *doc)"
+.br
+.ti -1c
+.RI "void \fBNotifyOfDocumentsClosedElsewhere\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBMyDocument\fP > \fBDocuments\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBMyDocument\fP * > \fBCloseQueue\fP"
+.br
+.ti -1c
+.RI "\fBMyDocument\fP * \fBRenamingDoc\fP = NULL"
+.br
+.ti -1c
+.RI "bool \fBRenamingStarted\fP = false"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ExampleAppDocuments::ExampleAppDocuments ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ExampleAppDocuments::DisplayDocContents (\fBMyDocument\fP * doc)\fR [inline]\fP"
+
+.SS "void ExampleAppDocuments::DisplayDocContextMenu (\fBMyDocument\fP * doc)\fR [inline]\fP"
+
+.SS "void ExampleAppDocuments::GetTabName (\fBMyDocument\fP * doc, char * out_buf, size_t out_buf_size)\fR [inline]\fP"
+
+.SS "void ExampleAppDocuments::NotifyOfDocumentsClosedElsewhere ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBMyDocument\fP*> ExampleAppDocuments::CloseQueue"
+
+.SS "\fBImVector\fP<\fBMyDocument\fP> ExampleAppDocuments::Documents"
+
+.SS "\fBMyDocument\fP* ExampleAppDocuments::RenamingDoc = NULL"
+
+.SS "bool ExampleAppDocuments::RenamingStarted = false"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

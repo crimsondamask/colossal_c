@@ -1,0 +1,160 @@
+.TH "errors" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+errors \- Error codes
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBGLFW_NOT_INITIALIZED\fP   0x00010001"
+.br
+.RI "GLFW has not been initialized\&. "
+.ti -1c
+.RI "#define \fBGLFW_NO_CURRENT_CONTEXT\fP   0x00010002"
+.br
+.RI "No context is current for this thread\&. "
+.ti -1c
+.RI "#define \fBGLFW_INVALID_ENUM\fP   0x00010003"
+.br
+.RI "One of the arguments to the function was an invalid enum value\&. "
+.ti -1c
+.RI "#define \fBGLFW_INVALID_VALUE\fP   0x00010004"
+.br
+.RI "One of the arguments to the function was an invalid value\&. "
+.ti -1c
+.RI "#define \fBGLFW_OUT_OF_MEMORY\fP   0x00010005"
+.br
+.RI "A memory allocation failed\&. "
+.ti -1c
+.RI "#define \fBGLFW_API_UNAVAILABLE\fP   0x00010006"
+.br
+.RI "GLFW could not find support for the requested API on the system\&. "
+.ti -1c
+.RI "#define \fBGLFW_VERSION_UNAVAILABLE\fP   0x00010007"
+.br
+.RI "The requested OpenGL or OpenGL ES version is not available\&. "
+.ti -1c
+.RI "#define \fBGLFW_PLATFORM_ERROR\fP   0x00010008"
+.br
+.RI "A platform-specific error occurred that does not match any of the more specific categories\&. "
+.ti -1c
+.RI "#define \fBGLFW_FORMAT_UNAVAILABLE\fP   0x00010009"
+.br
+.RI "The requested format is not supported or available\&. "
+.ti -1c
+.RI "#define \fBGLFW_NO_WINDOW_CONTEXT\fP   0x0001000A"
+.br
+.RI "The specified window does not have an OpenGL or OpenGL ES context\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+See \fBerror handling\fP for how these are used\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define GLFW_API_UNAVAILABLE   0x00010006"
+
+.PP
+GLFW could not find support for the requested API on the system\&. GLFW could not find support for the requested API on the system\&.
+
+.PP
+@analysis The installed graphics driver does not support the requested API, or does not support it via the chosen context creation backend\&. Below are a few examples\&.
+
+.PP
+\fB\fP
+.RS 4
+Some pre-installed Windows graphics drivers do not support OpenGL\&. AMD only supports OpenGL ES via EGL, while Nvidia and Intel only support it via a WGL or GLX extension\&. OS X does not provide OpenGL ES at all\&. The Mesa EGL, OpenGL and OpenGL ES libraries do not interface with the Nvidia binary driver\&. Older graphics drivers do not support Vulkan\&. 
+.RE
+.PP
+
+.SS "#define GLFW_FORMAT_UNAVAILABLE   0x00010009"
+
+.PP
+The requested format is not supported or available\&. If emitted during window creation, the requested pixel format is not supported\&.
+
+.PP
+If emitted when querying the clipboard, the contents of the clipboard could not be converted to the requested format\&.
+
+.PP
+@analysis If emitted during window creation, one or more \fBhard constraints\fP did not match any of the available pixel formats\&. If your application is sufficiently flexible, downgrade your requirements and try again\&. Otherwise, inform the user that their machine does not match your requirements\&.
+
+.PP
+\fB\fP
+.RS 4
+If emitted when querying the clipboard, ignore the error or report it to the user, as appropriate\&. 
+.RE
+.PP
+
+.SS "#define GLFW_INVALID_ENUM   0x00010003"
+
+.PP
+One of the arguments to the function was an invalid enum value\&. One of the arguments to the function was an invalid enum value, for example requesting \fBGLFW_RED_BITS\fP with \fBglfwGetWindowAttrib\fP\&.
+
+.PP
+@analysis Application programmer error\&. Fix the offending call\&. 
+.SS "#define GLFW_INVALID_VALUE   0x00010004"
+
+.PP
+One of the arguments to the function was an invalid value\&. One of the arguments to the function was an invalid value, for example requesting a non-existent OpenGL or OpenGL ES version like 2\&.7\&.
+
+.PP
+Requesting a valid but unavailable OpenGL or OpenGL ES version will instead result in a \fBGLFW_VERSION_UNAVAILABLE\fP error\&.
+
+.PP
+@analysis Application programmer error\&. Fix the offending call\&. 
+.SS "#define GLFW_NO_CURRENT_CONTEXT   0x00010002"
+
+.PP
+No context is current for this thread\&. This occurs if a GLFW function was called that needs and operates on the current OpenGL or OpenGL ES context but no context is current on the calling thread\&. One such function is \fBglfwSwapInterval\fP\&.
+
+.PP
+@analysis Application programmer error\&. Ensure a context is current before calling functions that require a current context\&. 
+.SS "#define GLFW_NO_WINDOW_CONTEXT   0x0001000A"
+
+.PP
+The specified window does not have an OpenGL or OpenGL ES context\&. A window that does not have an OpenGL or OpenGL ES context was passed to a function that requires it to have one\&.
+
+.PP
+@analysis Application programmer error\&. Fix the offending call\&. 
+.SS "#define GLFW_NOT_INITIALIZED   0x00010001"
+
+.PP
+GLFW has not been initialized\&. This occurs if a GLFW function was called that must not be called unless the library is \fBinitialized\fP\&.
+
+.PP
+@analysis Application programmer error\&. Initialize GLFW before calling any function that requires initialization\&. 
+.SS "#define GLFW_OUT_OF_MEMORY   0x00010005"
+
+.PP
+A memory allocation failed\&. A memory allocation failed\&.
+
+.PP
+@analysis A bug in GLFW or the underlying operating system\&. Report the bug to our \fRissue tracker\fP\&. 
+.SS "#define GLFW_PLATFORM_ERROR   0x00010008"
+
+.PP
+A platform-specific error occurred that does not match any of the more specific categories\&. A platform-specific error occurred that does not match any of the more specific categories\&.
+
+.PP
+@analysis A bug or configuration error in GLFW, the underlying operating system or its drivers, or a lack of required resources\&. Report the issue to our \fRissue tracker\fP\&. 
+.SS "#define GLFW_VERSION_UNAVAILABLE   0x00010007"
+
+.PP
+The requested OpenGL or OpenGL ES version is not available\&. The requested OpenGL or OpenGL ES version (including any requested context or framebuffer hints) is not available on this machine\&.
+
+.PP
+@analysis The machine does not support your requirements\&. If your application is sufficiently flexible, downgrade your requirements and try again\&. Otherwise, inform the user that their machine does not match your requirements\&.
+
+.PP
+\fB\fP
+.RS 4
+Future invalid OpenGL and OpenGL ES versions, for example OpenGL 4\&.8 if 5\&.0 comes out before the 4\&.x series gets that far, also fail with this error and not \fBGLFW_INVALID_VALUE\fP, because GLFW cannot know what future versions will exist\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

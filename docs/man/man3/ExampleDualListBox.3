@@ -1,0 +1,73 @@
+.TH "ExampleDualListBox" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleDualListBox
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBMoveAll\fP (int src, int dst)"
+.br
+.ti -1c
+.RI "void \fBMoveSelected\fP (int src, int dst)"
+.br
+.ti -1c
+.RI "void \fBApplySelectionRequests\fP (\fBImGuiMultiSelectIO\fP *ms_io, int side)"
+.br
+.ti -1c
+.RI "void \fBSortItems\fP (int n)"
+.br
+.ti -1c
+.RI "void \fBShow\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBIMGUI_CDECL\fP \fBCompareItemsByValue\fP (const void *lhs, const void *rhs)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiID\fP > \fBItems\fP [2]"
+.br
+.ti -1c
+.RI "\fBImGuiSelectionBasicStorage\fP \fBSelections\fP [2]"
+.br
+.ti -1c
+.RI "bool \fBOptKeepSorted\fP = true"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void ExampleDualListBox::ApplySelectionRequests (\fBImGuiMultiSelectIO\fP * ms_io, int side)\fR [inline]\fP"
+
+.SS "static int \fBIMGUI_CDECL\fP ExampleDualListBox::CompareItemsByValue (const void * lhs, const void * rhs)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "void ExampleDualListBox::MoveAll (int src, int dst)\fR [inline]\fP"
+
+.SS "void ExampleDualListBox::MoveSelected (int src, int dst)\fR [inline]\fP"
+
+.SS "void ExampleDualListBox::Show ()\fR [inline]\fP"
+
+.SS "void ExampleDualListBox::SortItems (int n)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImGuiID\fP> ExampleDualListBox::Items[2]"
+
+.SS "bool ExampleDualListBox::OptKeepSorted = true"
+
+.SS "\fBImGuiSelectionBasicStorage\fP ExampleDualListBox::Selections[2]"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

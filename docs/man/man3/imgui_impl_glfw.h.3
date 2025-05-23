@@ -1,0 +1,105 @@
+.TH "colossal_cpp/imgui/imgui_impl_glfw.h" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui_impl_glfw.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP bool \fBImGui_ImplGlfw_InitForOpenGL\fP (\fBGLFWwindow\fP *window, bool install_callbacks)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP bool \fBImGui_ImplGlfw_InitForVulkan\fP (\fBGLFWwindow\fP *window, bool install_callbacks)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP bool \fBImGui_ImplGlfw_InitForOther\fP (\fBGLFWwindow\fP *window, bool install_callbacks)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_Shutdown\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_NewFrame\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_InstallCallbacks\fP (\fBGLFWwindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_RestoreCallbacks\fP (\fBGLFWwindow\fP *window)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_SetCallbacksChainForAllWindows\fP (bool chain_for_all_windows)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_WindowFocusCallback\fP (\fBGLFWwindow\fP *window, int focused)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_CursorEnterCallback\fP (\fBGLFWwindow\fP *window, int entered)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_CursorPosCallback\fP (\fBGLFWwindow\fP *window, double x, double y)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_MouseButtonCallback\fP (\fBGLFWwindow\fP *window, int button, int action, int mods)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_ScrollCallback\fP (\fBGLFWwindow\fP *window, double xoffset, double yoffset)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_KeyCallback\fP (\fBGLFWwindow\fP *window, int key, int scancode, int action, int mods)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_CharCallback\fP (\fBGLFWwindow\fP *window, unsigned int c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_MonitorCallback\fP (\fBGLFWmonitor\fP *monitor, int event)"
+.br
+.ti -1c
+.RI "\fBIMGUI_IMPL_API\fP void \fBImGui_ImplGlfw_Sleep\fP (int milliseconds)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_CharCallback (\fBGLFWwindow\fP * window, unsigned int c)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_CursorEnterCallback (\fBGLFWwindow\fP * window, int entered)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_CursorPosCallback (\fBGLFWwindow\fP * window, double x, double y)"
+
+.SS "\fBIMGUI_IMPL_API\fP bool ImGui_ImplGlfw_InitForOpenGL (\fBGLFWwindow\fP * window, bool install_callbacks)"
+
+.SS "\fBIMGUI_IMPL_API\fP bool ImGui_ImplGlfw_InitForOther (\fBGLFWwindow\fP * window, bool install_callbacks)"
+
+.SS "\fBIMGUI_IMPL_API\fP bool ImGui_ImplGlfw_InitForVulkan (\fBGLFWwindow\fP * window, bool install_callbacks)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_InstallCallbacks (\fBGLFWwindow\fP * window)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_KeyCallback (\fBGLFWwindow\fP * window, int key, int scancode, int action, int mods)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_MonitorCallback (\fBGLFWmonitor\fP * monitor, int event)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_MouseButtonCallback (\fBGLFWwindow\fP * window, int button, int action, int mods)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_NewFrame ()"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_RestoreCallbacks (\fBGLFWwindow\fP * window)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_ScrollCallback (\fBGLFWwindow\fP * window, double xoffset, double yoffset)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_SetCallbacksChainForAllWindows (bool chain_for_all_windows)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_Shutdown ()"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_Sleep (int milliseconds)"
+
+.SS "\fBIMGUI_IMPL_API\fP void ImGui_ImplGlfw_WindowFocusCallback (\fBGLFWwindow\fP * window, int focused)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

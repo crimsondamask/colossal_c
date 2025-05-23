@@ -1,0 +1,6 @@
+﻿  colossal.cpp
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(547,9): warning C4101: 'rc': unreferenced local variable
+  data_buffer.cpp
+  mb_device.cpp
+  Generating Code...
+  colossaal_app.vcxproj -> C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\x64\Debug\colossaal_app.exe

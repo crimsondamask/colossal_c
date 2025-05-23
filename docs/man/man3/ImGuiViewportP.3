@@ -1,0 +1,149 @@
+.TH "ImGuiViewportP" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiViewportP
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiViewportP\fP ()"
+.br
+.ti -1c
+.RI "\fB~ImGuiViewportP\fP ()"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCalcWorkRectPos\fP (const \fBImVec2\fP &inset_min) const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCalcWorkRectSize\fP (const \fBImVec2\fP &inset_min, const \fBImVec2\fP &inset_max) const"
+.br
+.ti -1c
+.RI "void \fBUpdateWorkRect\fP ()"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBGetMainRect\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBGetWorkRect\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBGetBuildWorkRect\fP () const"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBImGuiViewport\fP
+.in +1c
+.ti -1c
+.RI "\fBImGuiViewport\fP ()"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetCenter\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetWorkCenter\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBBgFgDrawListsLastFrame\fP [2]"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP * \fBBgFgDrawLists\fP [2]"
+.br
+.ti -1c
+.RI "\fBImDrawData\fP \fBDrawDataP\fP"
+.br
+.ti -1c
+.RI "\fBImDrawDataBuilder\fP \fBDrawDataBuilder\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkInsetMin\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkInsetMax\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBBuildWorkInsetMin\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBBuildWorkInsetMax\fP"
+.br
+.in -1c
+
+Public Attributes inherited from \fBImGuiViewport\fP
+.in +1c
+.ti -1c
+.RI "\fBImGuiID\fP \fBID\fP"
+.br
+.ti -1c
+.RI "\fBImGuiViewportFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkSize\fP"
+.br
+.ti -1c
+.RI "void * \fBPlatformHandle\fP"
+.br
+.ti -1c
+.RI "void * \fBPlatformHandleRaw\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiViewportP::ImGuiViewportP ()\fR [inline]\fP"
+
+.SS "ImGuiViewportP::~ImGuiViewportP ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBImVec2\fP ImGuiViewportP::CalcWorkRectPos (const \fBImVec2\fP & inset_min) const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImGuiViewportP::CalcWorkRectSize (const \fBImVec2\fP & inset_min, const \fBImVec2\fP & inset_max) const\fR [inline]\fP"
+
+.SS "\fBImRect\fP ImGuiViewportP::GetBuildWorkRect () const\fR [inline]\fP"
+
+.SS "\fBImRect\fP ImGuiViewportP::GetMainRect () const\fR [inline]\fP"
+
+.SS "\fBImRect\fP ImGuiViewportP::GetWorkRect () const\fR [inline]\fP"
+
+.SS "void ImGuiViewportP::UpdateWorkRect ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImDrawList\fP* ImGuiViewportP::BgFgDrawLists[2]"
+
+.SS "int ImGuiViewportP::BgFgDrawListsLastFrame[2]"
+
+.SS "\fBImVec2\fP ImGuiViewportP::BuildWorkInsetMax"
+
+.SS "\fBImVec2\fP ImGuiViewportP::BuildWorkInsetMin"
+
+.SS "\fBImDrawDataBuilder\fP ImGuiViewportP::DrawDataBuilder"
+
+.SS "\fBImDrawData\fP ImGuiViewportP::DrawDataP"
+
+.SS "\fBImVec2\fP ImGuiViewportP::WorkInsetMax"
+
+.SS "\fBImVec2\fP ImGuiViewportP::WorkInsetMin"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

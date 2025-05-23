@@ -1,0 +1,88 @@
+.TH "ImSpanAllocator< CHUNKS >" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImSpanAllocator< CHUNKS >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImSpanAllocator\fP ()"
+.br
+.ti -1c
+.RI "void \fBReserve\fP (int n, size_t sz, int a=4)"
+.br
+.ti -1c
+.RI "int \fBGetArenaSizeInBytes\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetArenaBasePtr\fP (void *base_ptr)"
+.br
+.ti -1c
+.RI "void * \fBGetSpanPtrBegin\fP (int n)"
+.br
+.ti -1c
+.RI "void * \fBGetSpanPtrEnd\fP (int n)"
+.br
+.ti -1c
+.RI "template<typename T> void \fBGetSpan\fP (int n, \fBImSpan\fP< T > *span)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBBasePtr\fP"
+.br
+.ti -1c
+.RI "int \fBCurrOff\fP"
+.br
+.ti -1c
+.RI "int \fBCurrIdx\fP"
+.br
+.ti -1c
+.RI "int \fBOffsets\fP [CHUNKS]"
+.br
+.ti -1c
+.RI "int \fBSizes\fP [CHUNKS]"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<int CHUNKS> \fBImSpanAllocator\fP< CHUNKS >\fB::ImSpanAllocator\fP ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<int CHUNKS> int \fBImSpanAllocator\fP< CHUNKS >::GetArenaSizeInBytes ()\fR [inline]\fP"
+
+.SS "template<int CHUNKS> template<typename T> void \fBImSpanAllocator\fP< CHUNKS >::GetSpan (int n, \fBImSpan\fP< T > * span)\fR [inline]\fP"
+
+.SS "template<int CHUNKS> void * \fBImSpanAllocator\fP< CHUNKS >::GetSpanPtrBegin (int n)\fR [inline]\fP"
+
+.SS "template<int CHUNKS> void * \fBImSpanAllocator\fP< CHUNKS >::GetSpanPtrEnd (int n)\fR [inline]\fP"
+
+.SS "template<int CHUNKS> void \fBImSpanAllocator\fP< CHUNKS >::Reserve (int n, size_t sz, int a = \fR4\fP)\fR [inline]\fP"
+
+.SS "template<int CHUNKS> void \fBImSpanAllocator\fP< CHUNKS >::SetArenaBasePtr (void * base_ptr)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<int CHUNKS> char* \fBImSpanAllocator\fP< CHUNKS >::BasePtr"
+
+.SS "template<int CHUNKS> int \fBImSpanAllocator\fP< CHUNKS >::CurrIdx"
+
+.SS "template<int CHUNKS> int \fBImSpanAllocator\fP< CHUNKS >::CurrOff"
+
+.SS "template<int CHUNKS> int \fBImSpanAllocator\fP< CHUNKS >::Offsets[CHUNKS]"
+
+.SS "template<int CHUNKS> int \fBImSpanAllocator\fP< CHUNKS >::Sizes[CHUNKS]"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

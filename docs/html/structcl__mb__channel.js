@@ -1,7 +1,7 @@
 var structcl__mb__channel =
 [
-    [ "id", "structcl__mb__channel.html#a7441ef0865bcb3db9b8064dd7375c1ea", null ],
-    [ "name", "structcl__mb__channel.html#a5f1de76dd5d451949e12c0fbc966ca70", null ],
-    [ "value", "structcl__mb__channel.html#a17956fe0129d3d4c94ebc06cfef2ad82", null ],
-    [ "value_type", "structcl__mb__channel.html#a97dffd00a410ee90350256a832efcc51", null ]
+    [ "id", "structcl__mb__channel.html#a86bdcfcf771bae6999f050227e4af7b1", null ],
+    [ "name", "structcl__mb__channel.html#a7c01ea8e632e874878cfb45467abca66", null ],
+    [ "value", "structcl__mb__channel.html#adf74eaf6868dea764abfbaa5bcf2f36f", null ],
+    [ "value_type", "structcl__mb__channel.html#a0d1a4df3b5d69d7055a5fb25b28ce55b", null ]
 ];

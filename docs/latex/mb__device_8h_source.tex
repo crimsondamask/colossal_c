@@ -4,48 +4,55 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00004\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\_mb\_device\_baudrate}}\ \{}
-\DoxyCodeLine{00006\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8daaa8e455fa0d7f79ae72ce1befbf8fbb6}{Baud9600}}\ =\ 9600,}
-\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8daa5f272942b5da434be7aef6c767de244}{Baud38400}}\ =\ 38400,}
-\DoxyCodeLine{00008\ \};}
-\DoxyCodeLine{00010\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\_mb\_device\_parity}}\ \{}
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ac9d3e887722f2bc482bcca9d41c512af}{None}}\ =\ 0,}
-\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95a0749d9166d40372cdffcaa92a8c89671}{Odd}}\ =\ 1,}
-\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ad5bd90b93310ca9658c5d7235521c77b}{Even}}\ =\ 2,}
-\DoxyCodeLine{00015\ \};}
-\DoxyCodeLine{00017\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\_mb\_channel\_type}}\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba4676c81a01a434ffb1cd3537e3c3faaa}{Coil}},}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba637b69dea56f804278aa50e975337e01}{Int}},}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857bae47767a8fd75c3f527962d1c194cc19c}{Real}},}
-\DoxyCodeLine{00024\ \};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\_mb\_device\_type}}\ \{}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8a34e764a95b583cea7ab13c28bddc7bab}{Tcp}},}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94}{Serial}},}
-\DoxyCodeLine{00032\ \};}
-\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcl__mb__channel}{cl\_mb\_channel}}\ \{}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcl__mb__channel_a7441ef0865bcb3db9b8064dd7375c1ea}{id}};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__channel_a5f1de76dd5d451949e12c0fbc966ca70}{name}};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\_mb\_channel\_type}}\ \mbox{\hyperlink{structcl__mb__channel_a97dffd00a410ee90350256a832efcc51}{value\_type}};}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structcl__mb__channel_a17956fe0129d3d4c94ebc06cfef2ad82}{value}};}
-\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{structcl__mb__channel}{cl\_mb\_channel}};}
+\DoxyCodeLine{00004\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\_mb\_device\_baudrate}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8daaa8e455fa0d7f79ae72ce1befbf8fbb6}{Baud9600}}\ =\ 9600,}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8daa5f272942b5da434be7aef6c767de244}{Baud38400}}\ =\ 38400,}
+\DoxyCodeLine{00009\ \};}
+\DoxyCodeLine{00011\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\_mb\_device\_parity}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ac9d3e887722f2bc482bcca9d41c512af}{None}}\ =\ 0,}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95a0749d9166d40372cdffcaa92a8c89671}{Odd}}\ =\ 1,}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95ad5bd90b93310ca9658c5d7235521c77b}{Even}}\ =\ 2,}
+\DoxyCodeLine{00017\ \};}
+\DoxyCodeLine{00019\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\_mb\_channel\_type}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba4676c81a01a434ffb1cd3537e3c3faaa}{Coil}},}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857ba637b69dea56f804278aa50e975337e01}{Int}},}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857bae47767a8fd75c3f527962d1c194cc19c}{Real}},}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\_mb\_device\_type}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8a34e764a95b583cea7ab13c28bddc7bab}{Tcp}},}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94}{Serial}},}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcl__mb__channel}{cl\_mb\_channel}}}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcl__mb__channel_a86bdcfcf771bae6999f050227e4af7b1}{id}};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__channel_a7c01ea8e632e874878cfb45467abca66}{name}};}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcl__mb__device_a7441ef0865bcb3db9b8064dd7375c1ea}{id}};}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__device_a5f1de76dd5d451949e12c0fbc966ca70}{name}};}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcl__mb__device_afbc356cd0e25d1dbbece7c10fd025fa6}{ip}};}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcl__mb__device_a63c89c04d1feae07ca35558055155ffb}{port}};}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcl__mb__device_a4fe48c92f760d00996644ef1bf7d37b5}{com\_port}};}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\_mb\_device\_baudrate}}\ \mbox{\hyperlink{structcl__mb__device_a874db579ae04c2f413c8cd089472a5bc}{baudrate}};}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\_mb\_device\_parity}}\ \mbox{\hyperlink{structcl__mb__device_a5c70a7e4a729bdbf6170acf323561f1c}{parity}};}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\_mb\_device\_type}}\ \mbox{\hyperlink{structcl__mb__device_a344389620c7a2b35b149be7659c79d38}{device\_type}};}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__device_a343194b8dab42009bd9b1b2efae84134}{name\_identifier}};}
-\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{structcl__mb__channel}{cl\_mb\_channel}}\ *\mbox{\hyperlink{structcl__mb__device_a606b74f090d1a2ac0cc383e7a4066545}{channels}};}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structcl__mb__device_a880c010e92b71fa8a958ac2c02e40d8a}{channel\_count}};}
-\DoxyCodeLine{00069\ \}\ \mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}\ *\mbox{\hyperlink{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093}{cl\_device\_init}}(\textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *name,\ \textcolor{keywordtype}{size\_t}\ n\_channels);}
-\DoxyCodeLine{00072\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mb__device_8h_ab1eaebe32ce52dc83625cf2d20d12351}{cl\_device\_destroy}}(\mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}\ *device);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ac422a6eb35ee65f43bfae5d07dbf857b}{cl\_mb\_channel\_type}}\ \mbox{\hyperlink{structcl__mb__channel_a0d1a4df3b5d69d7055a5fb25b28ce55b}{value\_type}};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structcl__mb__channel_adf74eaf6868dea764abfbaa5bcf2f36f}{value}};}
+\DoxyCodeLine{00046\ \}\ \mbox{\hyperlink{structcl__mb__channel}{cl\_mb\_channel}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcl__mb__device_ac92fab0f1ae32b9c779ca6dd29e0a941}{id}};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__device_ad7d6844e3e99ae3d21b4a92092f4456d}{name}};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__device_a3a34c2b0267f8d8823399cef7f49e549}{ip}};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcl__mb__device_a70951d1036c1c50c77da3c7aa5a101ca}{port}};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__device_a13b00859331c92df9d1728bf4e13aba4}{com\_port}};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a7a4812884a392b4382e25063f455fe8d}{cl\_mb\_device\_baudrate}}\ \mbox{\hyperlink{structcl__mb__device_ad20acb2a331f0e2307f542910afca9df}{baudrate}};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_a2baca95e986a2dfb900fdcd0d2740b95}{cl\_mb\_device\_parity}}\ \mbox{\hyperlink{structcl__mb__device_a27b72984fc1a58219c30b08a1ff28493}{parity}};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\_mb\_device\_type}}\ \mbox{\hyperlink{structcl__mb__device_a85ab93e6ef20a450341f35af96c20063}{device\_type}};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structcl__mb__device_ae8757bd647b962a63f1e1c529903e0fc}{name\_identifier}};}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{structcl__mb__channel}{cl\_mb\_channel}}\ *\mbox{\hyperlink{structcl__mb__device_a6e8f36352b8f250fcde279e10ab4ffc4}{channels}};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structcl__mb__device_a7d4ba3a72378e48506dcabdcc66f614d}{channel\_count}};}
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}\ *\mbox{\hyperlink{mb__device_8h_a71b590b3980d8c558255489e7ae1c930}{cl\_device\_init\_tcp}}(\textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *name,\ \textcolor{keywordtype}{size\_t}\ n\_channels);}
+\DoxyCodeLine{00078\ \mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}\ *\mbox{\hyperlink{mb__device_8h_a9263204fdbce7844b6683d4caef7dbe4}{cl\_device\_init\_rtu}}(\textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *name,\ \textcolor{keywordtype}{size\_t}\ n\_channels);}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mb__device_8h_ab1eaebe32ce52dc83625cf2d20d12351}{cl\_device\_destroy}}(\mbox{\hyperlink{structcl__mb__device}{cl\_mb\_device}}\ *device);}
 
 \end{DoxyCode}

@@ -1,0 +1,123 @@
+.TH "ImGuiInputTextCallbackData" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiInputTextCallbackData
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiInputTextCallbackData\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBDeleteChars\fP (int pos, int bytes_count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBInsertChars\fP (int pos, const char *text, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "void \fBSelectAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearSelection\fP ()"
+.br
+.ti -1c
+.RI "bool \fBHasSelection\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "\fBImGuiInputTextFlags\fP \fBEventFlag\fP"
+.br
+.ti -1c
+.RI "\fBImGuiInputTextFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "\fBImWchar\fP \fBEventChar\fP"
+.br
+.ti -1c
+.RI "\fBImGuiKey\fP \fBEventKey\fP"
+.br
+.ti -1c
+.RI "char * \fBBuf\fP"
+.br
+.ti -1c
+.RI "int \fBBufTextLen\fP"
+.br
+.ti -1c
+.RI "int \fBBufSize\fP"
+.br
+.ti -1c
+.RI "bool \fBBufDirty\fP"
+.br
+.ti -1c
+.RI "int \fBCursorPos\fP"
+.br
+.ti -1c
+.RI "int \fBSelectionStart\fP"
+.br
+.ti -1c
+.RI "int \fBSelectionEnd\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiInputTextCallbackData::ImGuiInputTextCallbackData ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiInputTextCallbackData::ClearSelection ()\fR [inline]\fP"
+
+.SS "void ImGuiInputTextCallbackData::DeleteChars (int pos, int bytes_count)"
+
+.SS "bool ImGuiInputTextCallbackData::HasSelection () const\fR [inline]\fP"
+
+.SS "void ImGuiInputTextCallbackData::InsertChars (int pos, const char * text, const char * text_end = \fRNULL\fP)"
+
+.SS "void ImGuiInputTextCallbackData::SelectAll ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "char* ImGuiInputTextCallbackData::Buf"
+
+.SS "bool ImGuiInputTextCallbackData::BufDirty"
+
+.SS "int ImGuiInputTextCallbackData::BufSize"
+
+.SS "int ImGuiInputTextCallbackData::BufTextLen"
+
+.SS "\fBImGuiContext\fP* ImGuiInputTextCallbackData::Ctx"
+
+.SS "int ImGuiInputTextCallbackData::CursorPos"
+
+.SS "\fBImWchar\fP ImGuiInputTextCallbackData::EventChar"
+
+.SS "\fBImGuiInputTextFlags\fP ImGuiInputTextCallbackData::EventFlag"
+
+.SS "\fBImGuiKey\fP ImGuiInputTextCallbackData::EventKey"
+
+.SS "\fBImGuiInputTextFlags\fP ImGuiInputTextCallbackData::Flags"
+
+.SS "int ImGuiInputTextCallbackData::SelectionEnd"
+
+.SS "int ImGuiInputTextCallbackData::SelectionStart"
+
+.SS "void* ImGuiInputTextCallbackData::UserData"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

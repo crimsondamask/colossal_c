@@ -1,0 +1,648 @@
+.TH "keys" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+keys \- Keyboard keys
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBGLFW_KEY_UNKNOWN\fP   \-1"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_SPACE\fP   32"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_APOSTROPHE\fP   39  /* ' */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_COMMA\fP   44  /* , */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_MINUS\fP   45  /* \- */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_PERIOD\fP   46  /* \&. */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_SLASH\fP   47  /* / */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_0\fP   48"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_1\fP   49"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_2\fP   50"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_3\fP   51"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_4\fP   52"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_5\fP   53"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_6\fP   54"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_7\fP   55"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_8\fP   56"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_9\fP   57"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_SEMICOLON\fP   59  /* ; */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_EQUAL\fP   61  /* = */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_A\fP   65"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_B\fP   66"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_C\fP   67"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_D\fP   68"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_E\fP   69"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F\fP   70"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_G\fP   71"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_H\fP   72"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_I\fP   73"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_J\fP   74"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_K\fP   75"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_L\fP   76"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_M\fP   77"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_N\fP   78"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_O\fP   79"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_P\fP   80"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_Q\fP   81"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_R\fP   82"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_S\fP   83"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_T\fP   84"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_U\fP   85"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_V\fP   86"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_W\fP   87"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_X\fP   88"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_Y\fP   89"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_Z\fP   90"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LEFT_BRACKET\fP   91  /* [ */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_BACKSLASH\fP   92  /* \\ */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_RIGHT_BRACKET\fP   93  /* ] */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_GRAVE_ACCENT\fP   96  /* ` */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_WORLD_1\fP   161 /* non\-US #1 */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_WORLD_2\fP   162 /* non\-US #2 */"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_ESCAPE\fP   256"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_ENTER\fP   257"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_TAB\fP   258"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_BACKSPACE\fP   259"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_INSERT\fP   260"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_DELETE\fP   261"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_RIGHT\fP   262"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LEFT\fP   263"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_DOWN\fP   264"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_UP\fP   265"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_PAGE_UP\fP   266"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_PAGE_DOWN\fP   267"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_HOME\fP   268"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_END\fP   269"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_CAPS_LOCK\fP   280"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_SCROLL_LOCK\fP   281"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_NUM_LOCK\fP   282"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_PRINT_SCREEN\fP   283"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_PAUSE\fP   284"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F1\fP   290"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F2\fP   291"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F3\fP   292"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F4\fP   293"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F5\fP   294"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F6\fP   295"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F7\fP   296"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F8\fP   297"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F9\fP   298"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F10\fP   299"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F11\fP   300"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F12\fP   301"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F13\fP   302"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F14\fP   303"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F15\fP   304"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F16\fP   305"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F17\fP   306"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F18\fP   307"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F19\fP   308"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F20\fP   309"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F21\fP   310"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F22\fP   311"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F23\fP   312"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F24\fP   313"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_F25\fP   314"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_0\fP   320"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_1\fP   321"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_2\fP   322"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_3\fP   323"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_4\fP   324"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_5\fP   325"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_6\fP   326"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_7\fP   327"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_8\fP   328"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_9\fP   329"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_DECIMAL\fP   330"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_DIVIDE\fP   331"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_MULTIPLY\fP   332"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_SUBTRACT\fP   333"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_ADD\fP   334"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_ENTER\fP   335"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_KP_EQUAL\fP   336"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LEFT_SHIFT\fP   340"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LEFT_CONTROL\fP   341"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LEFT_ALT\fP   342"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LEFT_SUPER\fP   343"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_RIGHT_SHIFT\fP   344"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_RIGHT_CONTROL\fP   345"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_RIGHT_ALT\fP   346"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_RIGHT_SUPER\fP   347"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_MENU\fP   348"
+.br
+.ti -1c
+.RI "#define \fBGLFW_KEY_LAST\fP   \fBGLFW_KEY_MENU\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+See \fBkey input\fP for how these are used\&.
+
+.PP
+These key codes are inspired by the \fIUSB HID Usage Tables v1\&.12\fP (p\&. 53-60), but re-arranged to map to 7-bit ASCII for printable keys (function keys are put in the 256+ range)\&.
+
+.PP
+The naming of the key codes follow these rules:
+.IP "\(bu" 2
+The US keyboard layout is used
+.IP "\(bu" 2
+Names of printable alpha-numeric characters are used (e\&.g\&. "A", "R", "3", etc\&.)
+.IP "\(bu" 2
+For non-alphanumeric characters, Unicode:ish names are used (e\&.g\&. "COMMA", "LEFT_SQUARE_BRACKET", etc\&.)\&. Note that some names do not correspond to the Unicode standard (usually for brevity)
+.IP "\(bu" 2
+Keys that lack a clear US mapping are named "WORLD_x"
+.IP "\(bu" 2
+For non-printable keys, custom names are used (e\&.g\&. "F4", "BACKSPACE", etc\&.) 
+.PP
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define GLFW_KEY_0   48"
+
+.SS "#define GLFW_KEY_1   49"
+
+.SS "#define GLFW_KEY_2   50"
+
+.SS "#define GLFW_KEY_3   51"
+
+.SS "#define GLFW_KEY_4   52"
+
+.SS "#define GLFW_KEY_5   53"
+
+.SS "#define GLFW_KEY_6   54"
+
+.SS "#define GLFW_KEY_7   55"
+
+.SS "#define GLFW_KEY_8   56"
+
+.SS "#define GLFW_KEY_9   57"
+
+.SS "#define GLFW_KEY_A   65"
+
+.SS "#define GLFW_KEY_APOSTROPHE   39  /* ' */"
+
+.SS "#define GLFW_KEY_B   66"
+
+.SS "#define GLFW_KEY_BACKSLASH   92  /* \\ */"
+
+.SS "#define GLFW_KEY_BACKSPACE   259"
+
+.SS "#define GLFW_KEY_C   67"
+
+.SS "#define GLFW_KEY_CAPS_LOCK   280"
+
+.SS "#define GLFW_KEY_COMMA   44  /* , */"
+
+.SS "#define GLFW_KEY_D   68"
+
+.SS "#define GLFW_KEY_DELETE   261"
+
+.SS "#define GLFW_KEY_DOWN   264"
+
+.SS "#define GLFW_KEY_E   69"
+
+.SS "#define GLFW_KEY_END   269"
+
+.SS "#define GLFW_KEY_ENTER   257"
+
+.SS "#define GLFW_KEY_EQUAL   61  /* = */"
+
+.SS "#define GLFW_KEY_ESCAPE   256"
+
+.SS "#define GLFW_KEY_F   70"
+
+.SS "#define GLFW_KEY_F1   290"
+
+.SS "#define GLFW_KEY_F10   299"
+
+.SS "#define GLFW_KEY_F11   300"
+
+.SS "#define GLFW_KEY_F12   301"
+
+.SS "#define GLFW_KEY_F13   302"
+
+.SS "#define GLFW_KEY_F14   303"
+
+.SS "#define GLFW_KEY_F15   304"
+
+.SS "#define GLFW_KEY_F16   305"
+
+.SS "#define GLFW_KEY_F17   306"
+
+.SS "#define GLFW_KEY_F18   307"
+
+.SS "#define GLFW_KEY_F19   308"
+
+.SS "#define GLFW_KEY_F2   291"
+
+.SS "#define GLFW_KEY_F20   309"
+
+.SS "#define GLFW_KEY_F21   310"
+
+.SS "#define GLFW_KEY_F22   311"
+
+.SS "#define GLFW_KEY_F23   312"
+
+.SS "#define GLFW_KEY_F24   313"
+
+.SS "#define GLFW_KEY_F25   314"
+
+.SS "#define GLFW_KEY_F3   292"
+
+.SS "#define GLFW_KEY_F4   293"
+
+.SS "#define GLFW_KEY_F5   294"
+
+.SS "#define GLFW_KEY_F6   295"
+
+.SS "#define GLFW_KEY_F7   296"
+
+.SS "#define GLFW_KEY_F8   297"
+
+.SS "#define GLFW_KEY_F9   298"
+
+.SS "#define GLFW_KEY_G   71"
+
+.SS "#define GLFW_KEY_GRAVE_ACCENT   96  /* ` */"
+
+.SS "#define GLFW_KEY_H   72"
+
+.SS "#define GLFW_KEY_HOME   268"
+
+.SS "#define GLFW_KEY_I   73"
+
+.SS "#define GLFW_KEY_INSERT   260"
+
+.SS "#define GLFW_KEY_J   74"
+
+.SS "#define GLFW_KEY_K   75"
+
+.SS "#define GLFW_KEY_KP_0   320"
+
+.SS "#define GLFW_KEY_KP_1   321"
+
+.SS "#define GLFW_KEY_KP_2   322"
+
+.SS "#define GLFW_KEY_KP_3   323"
+
+.SS "#define GLFW_KEY_KP_4   324"
+
+.SS "#define GLFW_KEY_KP_5   325"
+
+.SS "#define GLFW_KEY_KP_6   326"
+
+.SS "#define GLFW_KEY_KP_7   327"
+
+.SS "#define GLFW_KEY_KP_8   328"
+
+.SS "#define GLFW_KEY_KP_9   329"
+
+.SS "#define GLFW_KEY_KP_ADD   334"
+
+.SS "#define GLFW_KEY_KP_DECIMAL   330"
+
+.SS "#define GLFW_KEY_KP_DIVIDE   331"
+
+.SS "#define GLFW_KEY_KP_ENTER   335"
+
+.SS "#define GLFW_KEY_KP_EQUAL   336"
+
+.SS "#define GLFW_KEY_KP_MULTIPLY   332"
+
+.SS "#define GLFW_KEY_KP_SUBTRACT   333"
+
+.SS "#define GLFW_KEY_L   76"
+
+.SS "#define GLFW_KEY_LAST   \fBGLFW_KEY_MENU\fP"
+
+.SS "#define GLFW_KEY_LEFT   263"
+
+.SS "#define GLFW_KEY_LEFT_ALT   342"
+
+.SS "#define GLFW_KEY_LEFT_BRACKET   91  /* [ */"
+
+.SS "#define GLFW_KEY_LEFT_CONTROL   341"
+
+.SS "#define GLFW_KEY_LEFT_SHIFT   340"
+
+.SS "#define GLFW_KEY_LEFT_SUPER   343"
+
+.SS "#define GLFW_KEY_M   77"
+
+.SS "#define GLFW_KEY_MENU   348"
+
+.SS "#define GLFW_KEY_MINUS   45  /* \- */"
+
+.SS "#define GLFW_KEY_N   78"
+
+.SS "#define GLFW_KEY_NUM_LOCK   282"
+
+.SS "#define GLFW_KEY_O   79"
+
+.SS "#define GLFW_KEY_P   80"
+
+.SS "#define GLFW_KEY_PAGE_DOWN   267"
+
+.SS "#define GLFW_KEY_PAGE_UP   266"
+
+.SS "#define GLFW_KEY_PAUSE   284"
+
+.SS "#define GLFW_KEY_PERIOD   46  /* \&. */"
+
+.SS "#define GLFW_KEY_PRINT_SCREEN   283"
+
+.SS "#define GLFW_KEY_Q   81"
+
+.SS "#define GLFW_KEY_R   82"
+
+.SS "#define GLFW_KEY_RIGHT   262"
+
+.SS "#define GLFW_KEY_RIGHT_ALT   346"
+
+.SS "#define GLFW_KEY_RIGHT_BRACKET   93  /* ] */"
+
+.SS "#define GLFW_KEY_RIGHT_CONTROL   345"
+
+.SS "#define GLFW_KEY_RIGHT_SHIFT   344"
+
+.SS "#define GLFW_KEY_RIGHT_SUPER   347"
+
+.SS "#define GLFW_KEY_S   83"
+
+.SS "#define GLFW_KEY_SCROLL_LOCK   281"
+
+.SS "#define GLFW_KEY_SEMICOLON   59  /* ; */"
+
+.SS "#define GLFW_KEY_SLASH   47  /* / */"
+
+.SS "#define GLFW_KEY_SPACE   32"
+
+.SS "#define GLFW_KEY_T   84"
+
+.SS "#define GLFW_KEY_TAB   258"
+
+.SS "#define GLFW_KEY_U   85"
+
+.SS "#define GLFW_KEY_UNKNOWN   \-1"
+
+.SS "#define GLFW_KEY_UP   265"
+
+.SS "#define GLFW_KEY_V   86"
+
+.SS "#define GLFW_KEY_W   87"
+
+.SS "#define GLFW_KEY_WORLD_1   161 /* non\-US #1 */"
+
+.SS "#define GLFW_KEY_WORLD_2   162 /* non\-US #2 */"
+
+.SS "#define GLFW_KEY_X   88"
+
+.SS "#define GLFW_KEY_Y   89"
+
+.SS "#define GLFW_KEY_Z   90"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

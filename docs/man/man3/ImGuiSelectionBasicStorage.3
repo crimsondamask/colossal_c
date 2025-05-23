@@ -1,0 +1,98 @@
+.TH "ImGuiSelectionBasicStorage" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiSelectionBasicStorage
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiSelectionBasicStorage\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBApplyRequests\fP (\fBImGuiMultiSelectIO\fP *ms_io)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBContains\fP (\fBImGuiID\fP id) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSwap\fP (\fBImGuiSelectionBasicStorage\fP &r)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetItemSelected\fP (\fBImGuiID\fP id, bool selected)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBGetNextSelectedItem\fP (void **opaque_it, \fBImGuiID\fP *out_id)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetStorageIdFromIndex\fP (int idx)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBSize\fP"
+.br
+.ti -1c
+.RI "bool \fBPreserveOrder\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP(* \fBAdapterIndexToStorageId\fP )(\fBImGuiSelectionBasicStorage\fP *self, int idx)"
+.br
+.ti -1c
+.RI "int \fB_SelectionOrder\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fB_Storage\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiSelectionBasicStorage::ImGuiSelectionBasicStorage ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiSelectionBasicStorage::ApplyRequests (\fBImGuiMultiSelectIO\fP * ms_io)"
+
+.SS "void ImGuiSelectionBasicStorage::Clear ()"
+
+.SS "bool ImGuiSelectionBasicStorage::Contains (\fBImGuiID\fP id) const"
+
+.SS "bool ImGuiSelectionBasicStorage::GetNextSelectedItem (void ** opaque_it, \fBImGuiID\fP * out_id)"
+
+.SS "\fBImGuiID\fP ImGuiSelectionBasicStorage::GetStorageIdFromIndex (int idx)\fR [inline]\fP"
+
+.SS "void ImGuiSelectionBasicStorage::SetItemSelected (\fBImGuiID\fP id, bool selected)"
+
+.SS "void ImGuiSelectionBasicStorage::Swap (\fBImGuiSelectionBasicStorage\fP & r)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "int ImGuiSelectionBasicStorage::_SelectionOrder"
+
+.SS "\fBImGuiStorage\fP ImGuiSelectionBasicStorage::_Storage"
+
+.SS "\fBImGuiID\fP(* ImGuiSelectionBasicStorage::AdapterIndexToStorageId) (\fBImGuiSelectionBasicStorage\fP *self, int idx)"
+
+.SS "bool ImGuiSelectionBasicStorage::PreserveOrder"
+
+.SS "int ImGuiSelectionBasicStorage::Size"
+
+.SS "void* ImGuiSelectionBasicStorage::UserData"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

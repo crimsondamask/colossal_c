@@ -23,5 +23,6 @@ var mb__device_8h =
       [ "Serial", "mb__device_8h.html#ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94", null ]
     ] ],
     [ "cl_device_destroy", "mb__device_8h.html#ab1eaebe32ce52dc83625cf2d20d12351", null ],
-    [ "cl_device_init", "mb__device_8h.html#a1485e4d1e3a615a1f0d0c0062eb0d093", null ]
+    [ "cl_device_init_rtu", "mb__device_8h.html#a9263204fdbce7844b6683d4caef7dbe4", null ],
+    [ "cl_device_init_tcp", "mb__device_8h.html#a71b590b3980d8c558255489e7ae1c930", null ]
 ];

@@ -1,0 +1,458 @@
+.TH "ImDrawList" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImDrawList
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImDrawList\fP (\fBImDrawListSharedData\fP *shared_data)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fB~ImDrawList\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPushClipRect\fP (const \fBImVec2\fP &clip_rect_min, const \fBImVec2\fP &clip_rect_max, bool intersect_with_current_clip_rect=false)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPushClipRectFullScreen\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPopClipRect\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPushTextureID\fP (\fBImTextureID\fP texture_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPopTextureID\fP ()"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetClipRectMin\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetClipRectMax\fP () const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddLine\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, \fBImU32\fP col, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddRect\fP (const \fBImVec2\fP &p_min, const \fBImVec2\fP &p_max, \fBImU32\fP col, float rounding=0\&.0f, \fBImDrawFlags\fP flags=0, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddRectFilled\fP (const \fBImVec2\fP &p_min, const \fBImVec2\fP &p_max, \fBImU32\fP col, float rounding=0\&.0f, \fBImDrawFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddRectFilledMultiColor\fP (const \fBImVec2\fP &p_min, const \fBImVec2\fP &p_max, \fBImU32\fP col_upr_left, \fBImU32\fP col_upr_right, \fBImU32\fP col_bot_right, \fBImU32\fP col_bot_left)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddQuad\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, \fBImU32\fP col, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddQuadFilled\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddTriangle\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, \fBImU32\fP col, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddTriangleFilled\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddCircle\fP (const \fBImVec2\fP &center, float radius, \fBImU32\fP col, int num_segments=0, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddCircleFilled\fP (const \fBImVec2\fP &center, float radius, \fBImU32\fP col, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddNgon\fP (const \fBImVec2\fP &center, float radius, \fBImU32\fP col, int num_segments, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddNgonFilled\fP (const \fBImVec2\fP &center, float radius, \fBImU32\fP col, int num_segments)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddEllipse\fP (const \fBImVec2\fP &center, const \fBImVec2\fP &radius, \fBImU32\fP col, float rot=0\&.0f, int num_segments=0, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddEllipseFilled\fP (const \fBImVec2\fP &center, const \fBImVec2\fP &radius, \fBImU32\fP col, float rot=0\&.0f, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddText\fP (const \fBImVec2\fP &pos, \fBImU32\fP col, const char *text_begin, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddText\fP (\fBImFont\fP *font, float font_size, const \fBImVec2\fP &pos, \fBImU32\fP col, const char *text_begin, const char *text_end=NULL, float wrap_width=0\&.0f, const \fBImVec4\fP *cpu_fine_clip_rect=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddBezierCubic\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, \fBImU32\fP col, float thickness, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddBezierQuadratic\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, \fBImU32\fP col, float thickness, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddPolyline\fP (const \fBImVec2\fP *points, int num_points, \fBImU32\fP col, \fBImDrawFlags\fP flags, float thickness)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddConvexPolyFilled\fP (const \fBImVec2\fP *points, int num_points, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddConcavePolyFilled\fP (const \fBImVec2\fP *points, int num_points, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddImage\fP (\fBImTextureID\fP user_texture_id, const \fBImVec2\fP &p_min, const \fBImVec2\fP &p_max, const \fBImVec2\fP &uv_min=\fBImVec2\fP(0, 0), const \fBImVec2\fP &uv_max=\fBImVec2\fP(1, 1), \fBImU32\fP col=\fBIM_COL32_WHITE\fP)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddImageQuad\fP (\fBImTextureID\fP user_texture_id, const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, const \fBImVec2\fP &uv1=\fBImVec2\fP(0, 0), const \fBImVec2\fP &uv2=\fBImVec2\fP(1, 0), const \fBImVec2\fP &uv3=\fBImVec2\fP(1, 1), const \fBImVec2\fP &uv4=\fBImVec2\fP(0, 1), \fBImU32\fP col=\fBIM_COL32_WHITE\fP)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddImageRounded\fP (\fBImTextureID\fP user_texture_id, const \fBImVec2\fP &p_min, const \fBImVec2\fP &p_max, const \fBImVec2\fP &uv_min, const \fBImVec2\fP &uv_max, \fBImU32\fP col, float rounding, \fBImDrawFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "void \fBPathClear\fP ()"
+.br
+.ti -1c
+.RI "void \fBPathLineTo\fP (const \fBImVec2\fP &pos)"
+.br
+.ti -1c
+.RI "void \fBPathLineToMergeDuplicate\fP (const \fBImVec2\fP &pos)"
+.br
+.ti -1c
+.RI "void \fBPathFillConvex\fP (\fBImU32\fP col)"
+.br
+.ti -1c
+.RI "void \fBPathFillConcave\fP (\fBImU32\fP col)"
+.br
+.ti -1c
+.RI "void \fBPathStroke\fP (\fBImU32\fP col, \fBImDrawFlags\fP flags=0, float thickness=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPathArcTo\fP (const \fBImVec2\fP &center, float radius, float a_min, float a_max, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPathArcToFast\fP (const \fBImVec2\fP &center, float radius, int a_min_of_12, int a_max_of_12)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPathEllipticalArcTo\fP (const \fBImVec2\fP &center, const \fBImVec2\fP &radius, float rot, float a_min, float a_max, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPathBezierCubicCurveTo\fP (const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPathBezierQuadraticCurveTo\fP (const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, int num_segments=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPathRect\fP (const \fBImVec2\fP &rect_min, const \fBImVec2\fP &rect_max, float rounding=0\&.0f, \fBImDrawFlags\fP flags=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddCallback\fP (\fBImDrawCallback\fP callback, void *userdata, size_t userdata_size=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddDrawCmd\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImDrawList\fP * \fBCloneOutput\fP () const"
+.br
+.ti -1c
+.RI "void \fBChannelsSplit\fP (int count)"
+.br
+.ti -1c
+.RI "void \fBChannelsMerge\fP ()"
+.br
+.ti -1c
+.RI "void \fBChannelsSetCurrent\fP (int n)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPrimReserve\fP (int idx_count, int vtx_count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPrimUnreserve\fP (int idx_count, int vtx_count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPrimRect\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPrimRectUV\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &uv_a, const \fBImVec2\fP &uv_b, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBPrimQuadUV\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &d, const \fBImVec2\fP &uv_a, const \fBImVec2\fP &uv_b, const \fBImVec2\fP &uv_c, const \fBImVec2\fP &uv_d, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "void \fBPrimWriteVtx\fP (const \fBImVec2\fP &pos, const \fBImVec2\fP &uv, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "void \fBPrimWriteIdx\fP (\fBImDrawIdx\fP idx)"
+.br
+.ti -1c
+.RI "void \fBPrimVtx\fP (const \fBImVec2\fP &pos, const \fBImVec2\fP &uv, \fBImU32\fP col)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_ResetForNewFrame\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_ClearFreeMemory\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_PopUnusedDrawCmd\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_TryMergeDrawCmds\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_OnChangedClipRect\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_OnChangedTextureID\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_OnChangedVtxOffset\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_SetTextureID\fP (\fBImTextureID\fP texture_id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fB_CalcCircleAutoSegmentCount\fP (float radius) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_PathArcToFastEx\fP (const \fBImVec2\fP &center, float radius, int a_min_sample, int a_max_sample, int a_step)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fB_PathArcToN\fP (const \fBImVec2\fP &center, float radius, float a_min, float a_max, int num_segments)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBImDrawCmd\fP > \fBCmdBuffer\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImDrawIdx\fP > \fBIdxBuffer\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImDrawVert\fP > \fBVtxBuffer\fP"
+.br
+.ti -1c
+.RI "\fBImDrawListFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "unsigned int \fB_VtxCurrentIdx\fP"
+.br
+.ti -1c
+.RI "\fBImDrawListSharedData\fP * \fB_Data\fP"
+.br
+.ti -1c
+.RI "\fBImDrawVert\fP * \fB_VtxWritePtr\fP"
+.br
+.ti -1c
+.RI "\fBImDrawIdx\fP * \fB_IdxWritePtr\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImVec2\fP > \fB_Path\fP"
+.br
+.ti -1c
+.RI "\fBImDrawCmdHeader\fP \fB_CmdHeader\fP"
+.br
+.ti -1c
+.RI "\fBImDrawListSplitter\fP \fB_Splitter\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImVec4\fP > \fB_ClipRectStack\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImTextureID\fP > \fB_TextureIdStack\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImU8\fP > \fB_CallbacksDataBuf\fP"
+.br
+.ti -1c
+.RI "float \fB_FringeScale\fP"
+.br
+.ti -1c
+.RI "const char * \fB_OwnerName\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImDrawList::ImDrawList (\fBImDrawListSharedData\fP * shared_data)"
+
+.SS "ImDrawList::~ImDrawList ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "int ImDrawList::_CalcCircleAutoSegmentCount (float radius) const"
+
+.SS "void ImDrawList::_ClearFreeMemory ()"
+
+.SS "void ImDrawList::_OnChangedClipRect ()"
+
+.SS "void ImDrawList::_OnChangedTextureID ()"
+
+.SS "void ImDrawList::_OnChangedVtxOffset ()"
+
+.SS "void ImDrawList::_PathArcToFastEx (const \fBImVec2\fP & center, float radius, int a_min_sample, int a_max_sample, int a_step)"
+
+.SS "void ImDrawList::_PathArcToN (const \fBImVec2\fP & center, float radius, float a_min, float a_max, int num_segments)"
+
+.SS "void ImDrawList::_PopUnusedDrawCmd ()"
+
+.SS "void ImDrawList::_ResetForNewFrame ()"
+
+.SS "void ImDrawList::_SetTextureID (\fBImTextureID\fP texture_id)"
+
+.SS "void ImDrawList::_TryMergeDrawCmds ()"
+
+.SS "void ImDrawList::AddBezierCubic (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, \fBImU32\fP col, float thickness, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::AddBezierQuadratic (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, \fBImU32\fP col, float thickness, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::AddCallback (\fBImDrawCallback\fP callback, void * userdata, size_t userdata_size = \fR0\fP)"
+
+.SS "void ImDrawList::AddCircle (const \fBImVec2\fP & center, float radius, \fBImU32\fP col, int num_segments = \fR0\fP, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddCircleFilled (const \fBImVec2\fP & center, float radius, \fBImU32\fP col, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::AddConcavePolyFilled (const \fBImVec2\fP * points, int num_points, \fBImU32\fP col)"
+
+.SS "void ImDrawList::AddConvexPolyFilled (const \fBImVec2\fP * points, int num_points, \fBImU32\fP col)"
+
+.SS "void ImDrawList::AddDrawCmd ()"
+
+.SS "void ImDrawList::AddEllipse (const \fBImVec2\fP & center, const \fBImVec2\fP & radius, \fBImU32\fP col, float rot = \fR0\&.0f\fP, int num_segments = \fR0\fP, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddEllipseFilled (const \fBImVec2\fP & center, const \fBImVec2\fP & radius, \fBImU32\fP col, float rot = \fR0\&.0f\fP, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::AddImage (\fBImTextureID\fP user_texture_id, const \fBImVec2\fP & p_min, const \fBImVec2\fP & p_max, const \fBImVec2\fP & uv_min = \fR\fBImVec2\fP(0, 0)\fP, const \fBImVec2\fP & uv_max = \fR\fBImVec2\fP(1, 1)\fP, \fBImU32\fP col = \fR\fBIM_COL32_WHITE\fP\fP)"
+
+.SS "void ImDrawList::AddImageQuad (\fBImTextureID\fP user_texture_id, const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, const \fBImVec2\fP & uv1 = \fR\fBImVec2\fP(0, 0)\fP, const \fBImVec2\fP & uv2 = \fR\fBImVec2\fP(1, 0)\fP, const \fBImVec2\fP & uv3 = \fR\fBImVec2\fP(1, 1)\fP, const \fBImVec2\fP & uv4 = \fR\fBImVec2\fP(0, 1)\fP, \fBImU32\fP col = \fR\fBIM_COL32_WHITE\fP\fP)"
+
+.SS "void ImDrawList::AddImageRounded (\fBImTextureID\fP user_texture_id, const \fBImVec2\fP & p_min, const \fBImVec2\fP & p_max, const \fBImVec2\fP & uv_min, const \fBImVec2\fP & uv_max, \fBImU32\fP col, float rounding, \fBImDrawFlags\fP flags = \fR0\fP)"
+
+.SS "void ImDrawList::AddLine (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, \fBImU32\fP col, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddNgon (const \fBImVec2\fP & center, float radius, \fBImU32\fP col, int num_segments, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddNgonFilled (const \fBImVec2\fP & center, float radius, \fBImU32\fP col, int num_segments)"
+
+.SS "void ImDrawList::AddPolyline (const \fBImVec2\fP * points, int num_points, \fBImU32\fP col, \fBImDrawFlags\fP flags, float thickness)"
+
+.SS "void ImDrawList::AddQuad (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, \fBImU32\fP col, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddQuadFilled (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, \fBImU32\fP col)"
+
+.SS "void ImDrawList::AddRect (const \fBImVec2\fP & p_min, const \fBImVec2\fP & p_max, \fBImU32\fP col, float rounding = \fR0\&.0f\fP, \fBImDrawFlags\fP flags = \fR0\fP, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddRectFilled (const \fBImVec2\fP & p_min, const \fBImVec2\fP & p_max, \fBImU32\fP col, float rounding = \fR0\&.0f\fP, \fBImDrawFlags\fP flags = \fR0\fP)"
+
+.SS "void ImDrawList::AddRectFilledMultiColor (const \fBImVec2\fP & p_min, const \fBImVec2\fP & p_max, \fBImU32\fP col_upr_left, \fBImU32\fP col_upr_right, \fBImU32\fP col_bot_right, \fBImU32\fP col_bot_left)"
+
+.SS "void ImDrawList::AddText (const \fBImVec2\fP & pos, \fBImU32\fP col, const char * text_begin, const char * text_end = \fRNULL\fP)"
+
+.SS "void ImDrawList::AddText (\fBImFont\fP * font, float font_size, const \fBImVec2\fP & pos, \fBImU32\fP col, const char * text_begin, const char * text_end = \fRNULL\fP, float wrap_width = \fR0\&.0f\fP, const \fBImVec4\fP * cpu_fine_clip_rect = \fRNULL\fP)"
+
+.SS "void ImDrawList::AddTriangle (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, \fBImU32\fP col, float thickness = \fR1\&.0f\fP)"
+
+.SS "void ImDrawList::AddTriangleFilled (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, \fBImU32\fP col)"
+
+.SS "void ImDrawList::ChannelsMerge ()\fR [inline]\fP"
+
+.SS "void ImDrawList::ChannelsSetCurrent (int n)\fR [inline]\fP"
+
+.SS "void ImDrawList::ChannelsSplit (int count)\fR [inline]\fP"
+
+.SS "\fBImDrawList\fP * ImDrawList::CloneOutput () const"
+
+.SS "\fBImVec2\fP ImDrawList::GetClipRectMax () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImDrawList::GetClipRectMin () const\fR [inline]\fP"
+
+.SS "void ImDrawList::PathArcTo (const \fBImVec2\fP & center, float radius, float a_min, float a_max, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::PathArcToFast (const \fBImVec2\fP & center, float radius, int a_min_of_12, int a_max_of_12)"
+
+.SS "void ImDrawList::PathBezierCubicCurveTo (const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::PathBezierQuadraticCurveTo (const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::PathClear ()\fR [inline]\fP"
+
+.SS "void ImDrawList::PathEllipticalArcTo (const \fBImVec2\fP & center, const \fBImVec2\fP & radius, float rot, float a_min, float a_max, int num_segments = \fR0\fP)"
+
+.SS "void ImDrawList::PathFillConcave (\fBImU32\fP col)\fR [inline]\fP"
+
+.SS "void ImDrawList::PathFillConvex (\fBImU32\fP col)\fR [inline]\fP"
+
+.SS "void ImDrawList::PathLineTo (const \fBImVec2\fP & pos)\fR [inline]\fP"
+
+.SS "void ImDrawList::PathLineToMergeDuplicate (const \fBImVec2\fP & pos)\fR [inline]\fP"
+
+.SS "void ImDrawList::PathRect (const \fBImVec2\fP & rect_min, const \fBImVec2\fP & rect_max, float rounding = \fR0\&.0f\fP, \fBImDrawFlags\fP flags = \fR0\fP)"
+
+.SS "void ImDrawList::PathStroke (\fBImU32\fP col, \fBImDrawFlags\fP flags = \fR0\fP, float thickness = \fR1\&.0f\fP)\fR [inline]\fP"
+
+.SS "void ImDrawList::PopClipRect ()"
+
+.SS "void ImDrawList::PopTextureID ()"
+
+.SS "void ImDrawList::PrimQuadUV (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & d, const \fBImVec2\fP & uv_a, const \fBImVec2\fP & uv_b, const \fBImVec2\fP & uv_c, const \fBImVec2\fP & uv_d, \fBImU32\fP col)"
+
+.SS "void ImDrawList::PrimRect (const \fBImVec2\fP & a, const \fBImVec2\fP & b, \fBImU32\fP col)"
+
+.SS "void ImDrawList::PrimRectUV (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & uv_a, const \fBImVec2\fP & uv_b, \fBImU32\fP col)"
+
+.SS "void ImDrawList::PrimReserve (int idx_count, int vtx_count)"
+
+.SS "void ImDrawList::PrimUnreserve (int idx_count, int vtx_count)"
+
+.SS "void ImDrawList::PrimVtx (const \fBImVec2\fP & pos, const \fBImVec2\fP & uv, \fBImU32\fP col)\fR [inline]\fP"
+
+.SS "void ImDrawList::PrimWriteIdx (\fBImDrawIdx\fP idx)\fR [inline]\fP"
+
+.SS "void ImDrawList::PrimWriteVtx (const \fBImVec2\fP & pos, const \fBImVec2\fP & uv, \fBImU32\fP col)\fR [inline]\fP"
+
+.SS "void ImDrawList::PushClipRect (const \fBImVec2\fP & clip_rect_min, const \fBImVec2\fP & clip_rect_max, bool intersect_with_current_clip_rect = \fRfalse\fP)"
+
+.SS "void ImDrawList::PushClipRectFullScreen ()"
+
+.SS "void ImDrawList::PushTextureID (\fBImTextureID\fP texture_id)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImU8\fP> ImDrawList::_CallbacksDataBuf"
+
+.SS "\fBImVector\fP<\fBImVec4\fP> ImDrawList::_ClipRectStack"
+
+.SS "\fBImDrawCmdHeader\fP ImDrawList::_CmdHeader"
+
+.SS "\fBImDrawListSharedData\fP* ImDrawList::_Data"
+
+.SS "float ImDrawList::_FringeScale"
+
+.SS "\fBImDrawIdx\fP* ImDrawList::_IdxWritePtr"
+
+.SS "const char* ImDrawList::_OwnerName"
+
+.SS "\fBImVector\fP<\fBImVec2\fP> ImDrawList::_Path"
+
+.SS "\fBImDrawListSplitter\fP ImDrawList::_Splitter"
+
+.SS "\fBImVector\fP<\fBImTextureID\fP> ImDrawList::_TextureIdStack"
+
+.SS "unsigned int ImDrawList::_VtxCurrentIdx"
+
+.SS "\fBImDrawVert\fP* ImDrawList::_VtxWritePtr"
+
+.SS "\fBImVector\fP<\fBImDrawCmd\fP> ImDrawList::CmdBuffer"
+
+.SS "\fBImDrawListFlags\fP ImDrawList::Flags"
+
+.SS "\fBImVector\fP<\fBImDrawIdx\fP> ImDrawList::IdxBuffer"
+
+.SS "\fBImVector\fP<\fBImDrawVert\fP> ImDrawList::VtxBuffer"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

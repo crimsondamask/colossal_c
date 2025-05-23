@@ -1,0 +1,66 @@
+.TH "ExampleAppLog" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleAppLog
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBExampleAppLog\fP ()"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "void \fBAddLog\fP (const char *fmt,\&.\&.\&.) \fBIM_FMTARGS\fP(2)"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (const char *title, bool *p_open=NULL)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBBuf\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextFilter\fP \fBFilter\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< int > \fBLineOffsets\fP"
+.br
+.ti -1c
+.RI "bool \fBAutoScroll\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ExampleAppLog::ExampleAppLog ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ExampleAppLog::AddLog (const char * fmt,  \&.\&.\&.)\fR [inline]\fP"
+
+.SS "void ExampleAppLog::Clear ()\fR [inline]\fP"
+
+.SS "void ExampleAppLog::Draw (const char * title, bool * p_open = \fRNULL\fP)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "bool ExampleAppLog::AutoScroll"
+
+.SS "\fBImGuiTextBuffer\fP ExampleAppLog::Buf"
+
+.SS "\fBImGuiTextFilter\fP ExampleAppLog::Filter"
+
+.SS "\fBImVector\fP<int> ExampleAppLog::LineOffsets"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

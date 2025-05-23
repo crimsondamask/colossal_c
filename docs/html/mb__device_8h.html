@@ -103,7 +103,7 @@ $(function(){initNavTree('mb__device_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -114,7 +114,7 @@ $(function(){initNavTree('mb__device_8h.html',''); initResizable(true); });
 <p><a href="mb__device_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
+Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcl__mb__channel.html">cl_mb_channel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type to hold address, type and data of a Modbus register.  <a href="structcl__mb__channel.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,8 +156,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1485e4d1e3a615a1f0d0c0062eb0d093" id="r_a1485e4d1e3a615a1f0d0c0062eb0d093"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1485e4d1e3a615a1f0d0c0062eb0d093">cl_device_init</a> (char const *name, size_t n_channels)</td></tr>
-<tr class="separator:a1485e4d1e3a615a1f0d0c0062eb0d093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71b590b3980d8c558255489e7ae1c930" id="r_a71b590b3980d8c558255489e7ae1c930"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71b590b3980d8c558255489e7ae1c930">cl_device_init_tcp</a> (char const *name, size_t n_channels)</td></tr>
+<tr class="separator:a71b590b3980d8c558255489e7ae1c930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9263204fdbce7844b6683d4caef7dbe4" id="r_a9263204fdbce7844b6683d4caef7dbe4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9263204fdbce7844b6683d4caef7dbe4">cl_device_init_rtu</a> (char const *name, size_t n_channels)</td></tr>
+<tr class="separator:a9263204fdbce7844b6683d4caef7dbe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1eaebe32ce52dc83625cf2d20d12351" id="r_ab1eaebe32ce52dc83625cf2d20d12351"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1eaebe32ce52dc83625cf2d20d12351">cl_device_destroy</a> (<a class="el" href="structcl__mb__device.html">cl_mb_device</a> *device)</td></tr>
 <tr class="memdesc:ab1eaebe32ce52dc83625cf2d20d12351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the device and free its memory including channel memory.  <br /></td></tr>
 <tr class="separator:ab1eaebe32ce52dc83625cf2d20d12351"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -304,14 +306,35 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1485e4d1e3a615a1f0d0c0062eb0d093" name="a1485e4d1e3a615a1f0d0c0062eb0d093"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1485e4d1e3a615a1f0d0c0062eb0d093">&#9670;&#160;</a></span>cl_device_init()</h2>
+<a id="a9263204fdbce7844b6683d4caef7dbe4" name="a9263204fdbce7844b6683d4caef7dbe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9263204fdbce7844b6683d4caef7dbe4">&#9670;&#160;</a></span>cl_device_init_rtu()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> * cl_device_init </td>
+          <td class="memname"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> * cl_device_init_rtu </td>
+          <td>(</td>
+          <td class="paramtype">char const *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>n_channels</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a71b590b3980d8c558255489e7ae1c930" name="a71b590b3980d8c558255489e7ae1c930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71b590b3980d8c558255489e7ae1c930">&#9670;&#160;</a></span>cl_device_init_tcp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> * cl_device_init_tcp </td>
           <td>(</td>
           <td class="paramtype">char const *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>

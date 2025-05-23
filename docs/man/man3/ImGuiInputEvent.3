@@ -1,0 +1,89 @@
+.TH "ImGuiInputEvent" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiInputEvent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiInputEvent\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiInputEventType\fP \fBType\fP"
+.br
+.ti -1c
+.RI "\fBImGuiInputSource\fP \fBSource\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBEventId\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   \fBImGuiInputEventMousePos\fP \fBMousePos\fP"
+.br
+.ti -1c
+.RI "   \fBImGuiInputEventMouseWheel\fP \fBMouseWheel\fP"
+.br
+.ti -1c
+.RI "   \fBImGuiInputEventMouseButton\fP \fBMouseButton\fP"
+.br
+.ti -1c
+.RI "   \fBImGuiInputEventKey\fP \fBKey\fP"
+.br
+.ti -1c
+.RI "   \fBImGuiInputEventText\fP \fBText\fP"
+.br
+.ti -1c
+.RI "   \fBImGuiInputEventAppFocused\fP \fBAppFocused\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "bool \fBAddedByTestEngine\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiInputEvent::ImGuiInputEvent ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "union  { \&.\&.\&. }  \fBImGuiInputEvent\fP"
+
+.SS "bool ImGuiInputEvent::AddedByTestEngine"
+
+.SS "\fBImGuiInputEventAppFocused\fP ImGuiInputEvent::AppFocused"
+
+.SS "\fBImU32\fP ImGuiInputEvent::EventId"
+
+.SS "\fBImGuiInputEventKey\fP ImGuiInputEvent::Key"
+
+.SS "\fBImGuiInputEventMouseButton\fP ImGuiInputEvent::MouseButton"
+
+.SS "\fBImGuiInputEventMousePos\fP ImGuiInputEvent::MousePos"
+
+.SS "\fBImGuiInputEventMouseWheel\fP ImGuiInputEvent::MouseWheel"
+
+.SS "\fBImGuiInputSource\fP ImGuiInputEvent::Source"
+
+.SS "\fBImGuiInputEventText\fP ImGuiInputEvent::Text"
+
+.SS "\fBImGuiInputEventType\fP ImGuiInputEvent::Type"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

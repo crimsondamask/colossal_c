@@ -1,0 +1,93 @@
+.TH "ImGuiPayload" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiPayload
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiPayload\fP ()"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsDataType\fP (const char *type) const"
+.br
+.ti -1c
+.RI "bool \fBIsPreview\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsDelivery\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "void * \fBData\fP"
+.br
+.ti -1c
+.RI "int \fBDataSize\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBSourceId\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBSourceParentId\fP"
+.br
+.ti -1c
+.RI "int \fBDataFrameCount\fP"
+.br
+.ti -1c
+.RI "char \fBDataType\fP [32+1]"
+.br
+.ti -1c
+.RI "bool \fBPreview\fP"
+.br
+.ti -1c
+.RI "bool \fBDelivery\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiPayload::ImGuiPayload ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiPayload::Clear ()\fR [inline]\fP"
+
+.SS "bool ImGuiPayload::IsDataType (const char * type) const\fR [inline]\fP"
+
+.SS "bool ImGuiPayload::IsDelivery () const\fR [inline]\fP"
+
+.SS "bool ImGuiPayload::IsPreview () const\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "void* ImGuiPayload::Data"
+
+.SS "int ImGuiPayload::DataFrameCount"
+
+.SS "int ImGuiPayload::DataSize"
+
+.SS "char ImGuiPayload::DataType[32+1]"
+
+.SS "bool ImGuiPayload::Delivery"
+
+.SS "bool ImGuiPayload::Preview"
+
+.SS "\fBImGuiID\fP ImGuiPayload::SourceId"
+
+.SS "\fBImGuiID\fP ImGuiPayload::SourceParentId"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

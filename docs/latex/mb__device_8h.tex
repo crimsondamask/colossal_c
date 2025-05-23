@@ -1,6 +1,6 @@
 \doxysection{colossal\+\_\+cpp/mb\+\_\+device.h File Reference}
 \hypertarget{mb__device_8h}{}\label{mb__device_8h}\index{colossal\_cpp/mb\_device.h@{colossal\_cpp/mb\_device.h}}
-\doxysubsubsection*{Data Structures}
+\doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structcl__mb__channel}{cl\+\_\+mb\+\_\+channel}}
@@ -38,7 +38,9 @@ enum \mbox{\hyperlink{mb__device_8h_ad0ddd716bf02bf8eef65d434a8da28f8}{cl\+\_\+m
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093}{cl\+\_\+device\+\_\+init}} (char const \texorpdfstring{$\ast$}{*}name, size\+\_\+t n\+\_\+channels)
+\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mb__device_8h_a71b590b3980d8c558255489e7ae1c930}{cl\+\_\+device\+\_\+init\+\_\+tcp}} (char const \texorpdfstring{$\ast$}{*}name, size\+\_\+t n\+\_\+channels)
+\item 
+\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mb__device_8h_a9263204fdbce7844b6683d4caef7dbe4}{cl\+\_\+device\+\_\+init\+\_\+rtu}} (char const \texorpdfstring{$\ast$}{*}name, size\+\_\+t n\+\_\+channels)
 \item 
 int \mbox{\hyperlink{mb__device_8h_ab1eaebe32ce52dc83625cf2d20d12351}{cl\+\_\+device\+\_\+destroy}} (\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*}device)
 \begin{DoxyCompactList}\small\item\em Clear the device and free its memory including channel memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -165,11 +167,17 @@ int cl\+\_\+device\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink
 
 Clear the device and free its memory including channel memory. 
 
-\Hypertarget{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093}\index{mb\_device.h@{mb\_device.h}!cl\_device\_init@{cl\_device\_init}}
-\index{cl\_device\_init@{cl\_device\_init}!mb\_device.h@{mb\_device.h}}
-\doxysubsubsection{\texorpdfstring{cl\_device\_init()}{cl\_device\_init()}}
-{\footnotesize\ttfamily \label{mb__device_8h_a1485e4d1e3a615a1f0d0c0062eb0d093} 
-\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} cl\+\_\+device\+\_\+init (\begin{DoxyParamCaption}\item[{char const \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{n\+\_\+channels}{}\end{DoxyParamCaption})}
+\Hypertarget{mb__device_8h_a9263204fdbce7844b6683d4caef7dbe4}\index{mb\_device.h@{mb\_device.h}!cl\_device\_init\_rtu@{cl\_device\_init\_rtu}}
+\index{cl\_device\_init\_rtu@{cl\_device\_init\_rtu}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_device\_init\_rtu()}{cl\_device\_init\_rtu()}}
+{\footnotesize\ttfamily \label{mb__device_8h_a9263204fdbce7844b6683d4caef7dbe4} 
+\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} cl\+\_\+device\+\_\+init\+\_\+rtu (\begin{DoxyParamCaption}\item[{char const \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{n\+\_\+channels}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mb__device_8h_a71b590b3980d8c558255489e7ae1c930}\index{mb\_device.h@{mb\_device.h}!cl\_device\_init\_tcp@{cl\_device\_init\_tcp}}
+\index{cl\_device\_init\_tcp@{cl\_device\_init\_tcp}!mb\_device.h@{mb\_device.h}}
+\doxysubsubsection{\texorpdfstring{cl\_device\_init\_tcp()}{cl\_device\_init\_tcp()}}
+{\footnotesize\ttfamily \label{mb__device_8h_a71b590b3980d8c558255489e7ae1c930} 
+\mbox{\hyperlink{structcl__mb__device}{cl\+\_\+mb\+\_\+device}} \texorpdfstring{$\ast$}{*} cl\+\_\+device\+\_\+init\+\_\+tcp (\begin{DoxyParamCaption}\item[{char const \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{n\+\_\+channels}{}\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}

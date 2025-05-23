@@ -1,0 +1,88 @@
+.TH "ImGuiMenuColumns" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiMenuColumns
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiMenuColumns\fP ()"
+.br
+.ti -1c
+.RI "void \fBUpdate\fP (float spacing, bool window_reappearing)"
+.br
+.ti -1c
+.RI "float \fBDeclColumns\fP (float w_icon, float w_label, float w_shortcut, float w_mark)"
+.br
+.ti -1c
+.RI "void \fBCalcNextTotalWidth\fP (bool update_offsets)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImU32\fP \fBTotalWidth\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBNextTotalWidth\fP"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBSpacing\fP"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBOffsetIcon\fP"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBOffsetLabel\fP"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBOffsetShortcut\fP"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBOffsetMark\fP"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBWidths\fP [4]"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiMenuColumns::ImGuiMenuColumns ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiMenuColumns::CalcNextTotalWidth (bool update_offsets)"
+
+.SS "float ImGuiMenuColumns::DeclColumns (float w_icon, float w_label, float w_shortcut, float w_mark)"
+
+.SS "void ImGuiMenuColumns::Update (float spacing, bool window_reappearing)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImU32\fP ImGuiMenuColumns::NextTotalWidth"
+
+.SS "\fBImU16\fP ImGuiMenuColumns::OffsetIcon"
+
+.SS "\fBImU16\fP ImGuiMenuColumns::OffsetLabel"
+
+.SS "\fBImU16\fP ImGuiMenuColumns::OffsetMark"
+
+.SS "\fBImU16\fP ImGuiMenuColumns::OffsetShortcut"
+
+.SS "\fBImU16\fP ImGuiMenuColumns::Spacing"
+
+.SS "\fBImU32\fP ImGuiMenuColumns::TotalWidth"
+
+.SS "\fBImU16\fP ImGuiMenuColumns::Widths[4]"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

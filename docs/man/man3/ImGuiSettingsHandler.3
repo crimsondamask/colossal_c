@@ -1,0 +1,76 @@
+.TH "ImGuiSettingsHandler" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiSettingsHandler
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiSettingsHandler\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBTypeName\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBTypeHash\fP"
+.br
+.ti -1c
+.RI "void(* \fBClearAllFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler)"
+.br
+.ti -1c
+.RI "void(* \fBReadInitFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler)"
+.br
+.ti -1c
+.RI "void *(* \fBReadOpenFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler, const char *name)"
+.br
+.ti -1c
+.RI "void(* \fBReadLineFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler, void *entry, const char *line)"
+.br
+.ti -1c
+.RI "void(* \fBApplyAllFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler)"
+.br
+.ti -1c
+.RI "void(* \fBWriteAllFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler, \fBImGuiTextBuffer\fP *out_buf)"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiSettingsHandler::ImGuiSettingsHandler ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "void(* ImGuiSettingsHandler::ApplyAllFn) (\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler)"
+
+.SS "void(* ImGuiSettingsHandler::ClearAllFn) (\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler)"
+
+.SS "void(* ImGuiSettingsHandler::ReadInitFn) (\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler)"
+
+.SS "void(* ImGuiSettingsHandler::ReadLineFn) (\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler, void *entry, const char *line)"
+
+.SS "void *(* ImGuiSettingsHandler::ReadOpenFn) (\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler, const char *name)"
+
+.SS "\fBImGuiID\fP ImGuiSettingsHandler::TypeHash"
+
+.SS "const char* ImGuiSettingsHandler::TypeName"
+
+.SS "void* ImGuiSettingsHandler::UserData"
+
+.SS "void(* ImGuiSettingsHandler::WriteAllFn) (\fBImGuiContext\fP *ctx, \fBImGuiSettingsHandler\fP *handler, \fBImGuiTextBuffer\fP *out_buf)"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

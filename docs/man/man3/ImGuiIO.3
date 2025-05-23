@@ -1,0 +1,623 @@
+.TH "ImGuiIO" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiIO
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddKeyEvent\fP (\fBImGuiKey\fP key, bool down)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddKeyAnalogEvent\fP (\fBImGuiKey\fP key, bool down, float v)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddMousePosEvent\fP (float x, float y)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddMouseButtonEvent\fP (int button, bool down)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddMouseWheelEvent\fP (float wheel_x, float wheel_y)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddMouseSourceEvent\fP (\fBImGuiMouseSource\fP source)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddFocusEvent\fP (bool focused)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddInputCharacter\fP (unsigned int c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddInputCharacterUTF16\fP (\fBImWchar16\fP c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddInputCharactersUTF8\fP (const char *str)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetKeyEventNativeData\fP (\fBImGuiKey\fP key, int native_keycode, int native_scancode, int native_legacy_index=\-1)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetAppAcceptingEvents\fP (bool accepting_events)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearEventsQueue\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearInputKeys\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearInputMouse\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearInputCharacters\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiIO\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiConfigFlags\fP \fBConfigFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiBackendFlags\fP \fBBackendFlags\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplaySize\fP"
+.br
+.ti -1c
+.RI "float \fBDeltaTime\fP"
+.br
+.ti -1c
+.RI "float \fBIniSavingRate\fP"
+.br
+.ti -1c
+.RI "const char * \fBIniFilename\fP"
+.br
+.ti -1c
+.RI "const char * \fBLogFilename\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "\fBImFontAtlas\fP * \fBFonts\fP"
+.br
+.ti -1c
+.RI "float \fBFontGlobalScale\fP"
+.br
+.ti -1c
+.RI "bool \fBFontAllowUserScaling\fP"
+.br
+.ti -1c
+.RI "\fBImFont\fP * \fBFontDefault\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplayFramebufferScale\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavSwapGamepadButtons\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavMoveSetMousePos\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavCaptureKeyboard\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavEscapeClearFocusItem\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavEscapeClearFocusWindow\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavCursorVisibleAuto\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigNavCursorVisibleAlways\fP"
+.br
+.ti -1c
+.RI "bool \fBMouseDrawCursor\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigMacOSXBehaviors\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigInputTrickleEventQueue\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigInputTextCursorBlink\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigInputTextEnterKeepActive\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDragClickToInputText\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigWindowsResizeFromEdges\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigWindowsMoveFromTitleBarOnly\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigWindowsCopyContentsWithCtrlC\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigScrollbarScrollByPage\fP"
+.br
+.ti -1c
+.RI "float \fBConfigMemoryCompactTimer\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDoubleClickTime\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDoubleClickMaxDist\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDragThreshold\fP"
+.br
+.ti -1c
+.RI "float \fBKeyRepeatDelay\fP"
+.br
+.ti -1c
+.RI "float \fBKeyRepeatRate\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigErrorRecovery\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigErrorRecoveryEnableAssert\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigErrorRecoveryEnableDebugLog\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigErrorRecoveryEnableTooltip\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugIsDebuggerPresent\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugHighlightIdConflicts\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugHighlightIdConflictsShowItemPicker\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugBeginReturnValueOnce\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugBeginReturnValueLoop\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugIgnoreFocusLoss\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugIniSettings\fP"
+.br
+.ti -1c
+.RI "const char * \fBBackendPlatformName\fP"
+.br
+.ti -1c
+.RI "const char * \fBBackendRendererName\fP"
+.br
+.ti -1c
+.RI "void * \fBBackendPlatformUserData\fP"
+.br
+.ti -1c
+.RI "void * \fBBackendRendererUserData\fP"
+.br
+.ti -1c
+.RI "void * \fBBackendLanguageUserData\fP"
+.br
+.ti -1c
+.RI "bool \fBWantCaptureMouse\fP"
+.br
+.ti -1c
+.RI "bool \fBWantCaptureKeyboard\fP"
+.br
+.ti -1c
+.RI "bool \fBWantTextInput\fP"
+.br
+.ti -1c
+.RI "bool \fBWantSetMousePos\fP"
+.br
+.ti -1c
+.RI "bool \fBWantSaveIniSettings\fP"
+.br
+.ti -1c
+.RI "bool \fBNavActive\fP"
+.br
+.ti -1c
+.RI "bool \fBNavVisible\fP"
+.br
+.ti -1c
+.RI "float \fBFramerate\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsRenderVertices\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsRenderIndices\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsRenderWindows\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsActiveWindows\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMouseDelta\fP"
+.br
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMousePos\fP"
+.br
+.ti -1c
+.RI "bool \fBMouseDown\fP [5]"
+.br
+.ti -1c
+.RI "float \fBMouseWheel\fP"
+.br
+.ti -1c
+.RI "float \fBMouseWheelH\fP"
+.br
+.ti -1c
+.RI "\fBImGuiMouseSource\fP \fBMouseSource\fP"
+.br
+.ti -1c
+.RI "bool \fBKeyCtrl\fP"
+.br
+.ti -1c
+.RI "bool \fBKeyShift\fP"
+.br
+.ti -1c
+.RI "bool \fBKeyAlt\fP"
+.br
+.ti -1c
+.RI "bool \fBKeySuper\fP"
+.br
+.ti -1c
+.RI "\fBImGuiKeyChord\fP \fBKeyMods\fP"
+.br
+.ti -1c
+.RI "\fBImGuiKeyData\fP \fBKeysData\fP [\fBImGuiKey_NamedKey_COUNT\fP]"
+.br
+.ti -1c
+.RI "bool \fBWantCaptureMouseUnlessPopupClose\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMousePosPrev\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMouseClickedPos\fP [5]"
+.br
+.ti -1c
+.RI "double \fBMouseClickedTime\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseClicked\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseDoubleClicked\fP [5]"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBMouseClickedCount\fP [5]"
+.br
+.ti -1c
+.RI "\fBImU16\fP \fBMouseClickedLastCount\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseReleased\fP [5]"
+.br
+.ti -1c
+.RI "double \fBMouseReleasedTime\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseDownOwned\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseDownOwnedUnlessPopupClose\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseWheelRequestAxisSwap\fP"
+.br
+.ti -1c
+.RI "bool \fBMouseCtrlLeftAsRightClick\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDownDuration\fP [5]"
+.br
+.ti -1c
+.RI "float \fBMouseDownDurationPrev\fP [5]"
+.br
+.ti -1c
+.RI "float \fBMouseDragMaxDistanceSqr\fP [5]"
+.br
+.ti -1c
+.RI "float \fBPenPressure\fP"
+.br
+.ti -1c
+.RI "bool \fBAppFocusLost\fP"
+.br
+.ti -1c
+.RI "bool \fBAppAcceptingEvents\fP"
+.br
+.ti -1c
+.RI "\fBImWchar16\fP \fBInputQueueSurrogate\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImWchar\fP > \fBInputQueueCharacters\fP"
+.br
+.ti -1c
+.RI "const char *(* \fBGetClipboardTextFn\fP )(void *user_data)"
+.br
+.ti -1c
+.RI "void(* \fBSetClipboardTextFn\fP )(void *user_data, const char *text)"
+.br
+.ti -1c
+.RI "void * \fBClipboardUserData\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiIO::ImGuiIO ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiIO::AddFocusEvent (bool focused)"
+
+.SS "void ImGuiIO::AddInputCharacter (unsigned int c)"
+
+.SS "void ImGuiIO::AddInputCharactersUTF8 (const char * str)"
+
+.SS "void ImGuiIO::AddInputCharacterUTF16 (\fBImWchar16\fP c)"
+
+.SS "void ImGuiIO::AddKeyAnalogEvent (\fBImGuiKey\fP key, bool down, float v)"
+
+.SS "void ImGuiIO::AddKeyEvent (\fBImGuiKey\fP key, bool down)"
+
+.SS "void ImGuiIO::AddMouseButtonEvent (int button, bool down)"
+
+.SS "void ImGuiIO::AddMousePosEvent (float x, float y)"
+
+.SS "void ImGuiIO::AddMouseSourceEvent (\fBImGuiMouseSource\fP source)"
+
+.SS "void ImGuiIO::AddMouseWheelEvent (float wheel_x, float wheel_y)"
+
+.SS "void ImGuiIO::ClearEventsQueue ()"
+
+.SS "void ImGuiIO::ClearInputCharacters ()"
+
+.SS "void ImGuiIO::ClearInputKeys ()"
+
+.SS "void ImGuiIO::ClearInputMouse ()"
+
+.SS "void ImGuiIO::SetAppAcceptingEvents (bool accepting_events)"
+
+.SS "void ImGuiIO::SetKeyEventNativeData (\fBImGuiKey\fP key, int native_keycode, int native_scancode, int native_legacy_index = \fR\-1\fP)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "bool ImGuiIO::AppAcceptingEvents"
+
+.SS "bool ImGuiIO::AppFocusLost"
+
+.SS "\fBImGuiBackendFlags\fP ImGuiIO::BackendFlags"
+
+.SS "void* ImGuiIO::BackendLanguageUserData"
+
+.SS "const char* ImGuiIO::BackendPlatformName"
+
+.SS "void* ImGuiIO::BackendPlatformUserData"
+
+.SS "const char* ImGuiIO::BackendRendererName"
+
+.SS "void* ImGuiIO::BackendRendererUserData"
+
+.SS "void* ImGuiIO::ClipboardUserData"
+
+.SS "bool ImGuiIO::ConfigDebugBeginReturnValueLoop"
+
+.SS "bool ImGuiIO::ConfigDebugBeginReturnValueOnce"
+
+.SS "bool ImGuiIO::ConfigDebugHighlightIdConflicts"
+
+.SS "bool ImGuiIO::ConfigDebugHighlightIdConflictsShowItemPicker"
+
+.SS "bool ImGuiIO::ConfigDebugIgnoreFocusLoss"
+
+.SS "bool ImGuiIO::ConfigDebugIniSettings"
+
+.SS "bool ImGuiIO::ConfigDebugIsDebuggerPresent"
+
+.SS "bool ImGuiIO::ConfigDragClickToInputText"
+
+.SS "bool ImGuiIO::ConfigErrorRecovery"
+
+.SS "bool ImGuiIO::ConfigErrorRecoveryEnableAssert"
+
+.SS "bool ImGuiIO::ConfigErrorRecoveryEnableDebugLog"
+
+.SS "bool ImGuiIO::ConfigErrorRecoveryEnableTooltip"
+
+.SS "\fBImGuiConfigFlags\fP ImGuiIO::ConfigFlags"
+
+.SS "bool ImGuiIO::ConfigInputTextCursorBlink"
+
+.SS "bool ImGuiIO::ConfigInputTextEnterKeepActive"
+
+.SS "bool ImGuiIO::ConfigInputTrickleEventQueue"
+
+.SS "bool ImGuiIO::ConfigMacOSXBehaviors"
+
+.SS "float ImGuiIO::ConfigMemoryCompactTimer"
+
+.SS "bool ImGuiIO::ConfigNavCaptureKeyboard"
+
+.SS "bool ImGuiIO::ConfigNavCursorVisibleAlways"
+
+.SS "bool ImGuiIO::ConfigNavCursorVisibleAuto"
+
+.SS "bool ImGuiIO::ConfigNavEscapeClearFocusItem"
+
+.SS "bool ImGuiIO::ConfigNavEscapeClearFocusWindow"
+
+.SS "bool ImGuiIO::ConfigNavMoveSetMousePos"
+
+.SS "bool ImGuiIO::ConfigNavSwapGamepadButtons"
+
+.SS "bool ImGuiIO::ConfigScrollbarScrollByPage"
+
+.SS "bool ImGuiIO::ConfigWindowsCopyContentsWithCtrlC"
+
+.SS "bool ImGuiIO::ConfigWindowsMoveFromTitleBarOnly"
+
+.SS "bool ImGuiIO::ConfigWindowsResizeFromEdges"
+
+.SS "\fBImGuiContext\fP* ImGuiIO::Ctx"
+
+.SS "float ImGuiIO::DeltaTime"
+
+.SS "\fBImVec2\fP ImGuiIO::DisplayFramebufferScale"
+
+.SS "\fBImVec2\fP ImGuiIO::DisplaySize"
+
+.SS "bool ImGuiIO::FontAllowUserScaling"
+
+.SS "\fBImFont\fP* ImGuiIO::FontDefault"
+
+.SS "float ImGuiIO::FontGlobalScale"
+
+.SS "\fBImFontAtlas\fP* ImGuiIO::Fonts"
+
+.SS "float ImGuiIO::Framerate"
+
+.SS "const char *(* ImGuiIO::GetClipboardTextFn) (void *user_data)"
+
+.SS "const char* ImGuiIO::IniFilename"
+
+.SS "float ImGuiIO::IniSavingRate"
+
+.SS "\fBImVector\fP<\fBImWchar\fP> ImGuiIO::InputQueueCharacters"
+
+.SS "\fBImWchar16\fP ImGuiIO::InputQueueSurrogate"
+
+.SS "bool ImGuiIO::KeyAlt"
+
+.SS "bool ImGuiIO::KeyCtrl"
+
+.SS "\fBImGuiKeyChord\fP ImGuiIO::KeyMods"
+
+.SS "float ImGuiIO::KeyRepeatDelay"
+
+.SS "float ImGuiIO::KeyRepeatRate"
+
+.SS "\fBImGuiKeyData\fP ImGuiIO::KeysData[\fBImGuiKey_NamedKey_COUNT\fP]"
+
+.SS "bool ImGuiIO::KeyShift"
+
+.SS "bool ImGuiIO::KeySuper"
+
+.SS "const char* ImGuiIO::LogFilename"
+
+.SS "int ImGuiIO::MetricsActiveWindows"
+
+.SS "int ImGuiIO::MetricsRenderIndices"
+
+.SS "int ImGuiIO::MetricsRenderVertices"
+
+.SS "int ImGuiIO::MetricsRenderWindows"
+
+.SS "bool ImGuiIO::MouseClicked[5]"
+
+.SS "\fBImU16\fP ImGuiIO::MouseClickedCount[5]"
+
+.SS "\fBImU16\fP ImGuiIO::MouseClickedLastCount[5]"
+
+.SS "\fBImVec2\fP ImGuiIO::MouseClickedPos[5]"
+
+.SS "double ImGuiIO::MouseClickedTime[5]"
+
+.SS "bool ImGuiIO::MouseCtrlLeftAsRightClick"
+
+.SS "\fBImVec2\fP ImGuiIO::MouseDelta"
+
+.SS "bool ImGuiIO::MouseDoubleClicked[5]"
+
+.SS "float ImGuiIO::MouseDoubleClickMaxDist"
+
+.SS "float ImGuiIO::MouseDoubleClickTime"
+
+.SS "bool ImGuiIO::MouseDown[5]"
+
+.SS "float ImGuiIO::MouseDownDuration[5]"
+
+.SS "float ImGuiIO::MouseDownDurationPrev[5]"
+
+.SS "bool ImGuiIO::MouseDownOwned[5]"
+
+.SS "bool ImGuiIO::MouseDownOwnedUnlessPopupClose[5]"
+
+.SS "float ImGuiIO::MouseDragMaxDistanceSqr[5]"
+
+.SS "float ImGuiIO::MouseDragThreshold"
+
+.SS "bool ImGuiIO::MouseDrawCursor"
+
+.SS "\fBImVec2\fP ImGuiIO::MousePos"
+
+.SS "\fBImVec2\fP ImGuiIO::MousePosPrev"
+
+.SS "bool ImGuiIO::MouseReleased[5]"
+
+.SS "double ImGuiIO::MouseReleasedTime[5]"
+
+.SS "\fBImGuiMouseSource\fP ImGuiIO::MouseSource"
+
+.SS "float ImGuiIO::MouseWheel"
+
+.SS "float ImGuiIO::MouseWheelH"
+
+.SS "bool ImGuiIO::MouseWheelRequestAxisSwap"
+
+.SS "bool ImGuiIO::NavActive"
+
+.SS "bool ImGuiIO::NavVisible"
+
+.SS "float ImGuiIO::PenPressure"
+
+.SS "void(* ImGuiIO::SetClipboardTextFn) (void *user_data, const char *text)"
+
+.SS "void* ImGuiIO::UserData"
+
+.SS "bool ImGuiIO::WantCaptureKeyboard"
+
+.SS "bool ImGuiIO::WantCaptureMouse"
+
+.SS "bool ImGuiIO::WantCaptureMouseUnlessPopupClose"
+
+.SS "bool ImGuiIO::WantSaveIniSettings"
+
+.SS "bool ImGuiIO::WantSetMousePos"
+
+.SS "bool ImGuiIO::WantTextInput"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

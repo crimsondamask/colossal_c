@@ -1,0 +1,76 @@
+.TH "MyDocument" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MyDocument
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMyDocument\fP (int uid, const char *name, bool open=true, const \fBImVec4\fP &color=\fBImVec4\fP(1\&.0f, 1\&.0f, 1\&.0f, 1\&.0f))"
+.br
+.ti -1c
+.RI "void \fBDoOpen\fP ()"
+.br
+.ti -1c
+.RI "void \fBDoForceClose\fP ()"
+.br
+.ti -1c
+.RI "void \fBDoSave\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char \fBName\fP [32]"
+.br
+.ti -1c
+.RI "int \fBUID\fP"
+.br
+.ti -1c
+.RI "bool \fBOpen\fP"
+.br
+.ti -1c
+.RI "bool \fBOpenPrev\fP"
+.br
+.ti -1c
+.RI "bool \fBDirty\fP"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBColor\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "MyDocument::MyDocument (int uid, const char * name, bool open = \fRtrue\fP, const \fBImVec4\fP & color = \fR\fBImVec4\fP(1\&.0f, 1\&.0f, 1\&.0f, 1\&.0f)\fP)\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void MyDocument::DoForceClose ()\fR [inline]\fP"
+
+.SS "void MyDocument::DoOpen ()\fR [inline]\fP"
+
+.SS "void MyDocument::DoSave ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVec4\fP MyDocument::Color"
+
+.SS "bool MyDocument::Dirty"
+
+.SS "char MyDocument::Name[32]"
+
+.SS "bool MyDocument::Open"
+
+.SS "bool MyDocument::OpenPrev"
+
+.SS "int MyDocument::UID"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

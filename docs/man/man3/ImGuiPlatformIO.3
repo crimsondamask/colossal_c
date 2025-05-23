@@ -1,0 +1,76 @@
+.TH "ImGuiPlatformIO" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiPlatformIO
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiPlatformIO\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const char *(* \fBPlatform_GetClipboardTextFn\fP )(\fBImGuiContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void(* \fBPlatform_SetClipboardTextFn\fP )(\fBImGuiContext\fP *ctx, const char *text)"
+.br
+.ti -1c
+.RI "void * \fBPlatform_ClipboardUserData\fP"
+.br
+.ti -1c
+.RI "bool(* \fBPlatform_OpenInShellFn\fP )(\fBImGuiContext\fP *ctx, const char *path)"
+.br
+.ti -1c
+.RI "void * \fBPlatform_OpenInShellUserData\fP"
+.br
+.ti -1c
+.RI "void(* \fBPlatform_SetImeDataFn\fP )(\fBImGuiContext\fP *ctx, \fBImGuiViewport\fP *viewport, \fBImGuiPlatformImeData\fP *data)"
+.br
+.ti -1c
+.RI "void * \fBPlatform_ImeUserData\fP"
+.br
+.ti -1c
+.RI "\fBImWchar\fP \fBPlatform_LocaleDecimalPoint\fP"
+.br
+.ti -1c
+.RI "void * \fBRenderer_RenderState\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiPlatformIO::ImGuiPlatformIO ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "void* ImGuiPlatformIO::Platform_ClipboardUserData"
+
+.SS "const char *(* ImGuiPlatformIO::Platform_GetClipboardTextFn) (\fBImGuiContext\fP *ctx)"
+
+.SS "void* ImGuiPlatformIO::Platform_ImeUserData"
+
+.SS "\fBImWchar\fP ImGuiPlatformIO::Platform_LocaleDecimalPoint"
+
+.SS "bool(* ImGuiPlatformIO::Platform_OpenInShellFn) (\fBImGuiContext\fP *ctx, const char *path)"
+
+.SS "void* ImGuiPlatformIO::Platform_OpenInShellUserData"
+
+.SS "void(* ImGuiPlatformIO::Platform_SetClipboardTextFn) (\fBImGuiContext\fP *ctx, const char *text)"
+
+.SS "void(* ImGuiPlatformIO::Platform_SetImeDataFn) (\fBImGuiContext\fP *ctx, \fBImGuiViewport\fP *viewport, \fBImGuiPlatformImeData\fP *data)"
+
+.SS "void* ImGuiPlatformIO::Renderer_RenderState"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

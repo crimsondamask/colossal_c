@@ -1,0 +1,100 @@
+\doxysection{colossal\+\_\+cpp/imgui/freetype/imgui\+\_\+freetype.cpp File Reference}
+\hypertarget{imgui__freetype_8cpp}{}\label{imgui__freetype_8cpp}\index{colossal\_cpp/imgui/freetype/imgui\_freetype.cpp@{colossal\_cpp/imgui/freetype/imgui\_freetype.cpp}}
+{\ttfamily \#include "{}imgui.\+h"{}}\newline
+{\ttfamily \#include "{}imgui\+\_\+freetype.\+h"{}}\newline
+{\ttfamily \#include "{}imgui\+\_\+internal.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$ft2build.\+h$>$}\newline
+{\ttfamily \#include "{}imstb\+\_\+rectpack.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_im_font_build_src_glyph_f_t}{Im\+Font\+Build\+Src\+Glyph\+FT}}
+\item 
+struct \mbox{\hyperlink{struct_im_font_build_src_data_f_t}{Im\+Font\+Build\+Src\+Data\+FT}}
+\item 
+struct \mbox{\hyperlink{struct_im_font_build_dst_data_f_t}{Im\+Font\+Build\+Dst\+Data\+FT}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{imgui__freetype_8cpp_a2269176f26c6ea4521fbc0e9ce9c0da8}{FT\+\_\+\+CEIL}}(X)
+\item 
+\#define \mbox{\hyperlink{imgui__freetype_8cpp_afc9779460d1a1a237eaefabd9efd5cd5}{FT\+\_\+\+SCALEFACTOR}}~64.\+0f
+\item 
+\#define \mbox{\hyperlink{imgui__freetype_8cpp_a4405e4c2a7edf0d2f32fa15f280322ba}{DE\+\_\+\+MULTIPLY}}(color,  alpha)
+\item 
+\#define \mbox{\hyperlink{imgui__freetype_8cpp_a9592e63d0df8b6f0712e8da3aea5db23}{STBRP\+\_\+\+ASSERT}}(x)
+\item 
+\#define \mbox{\hyperlink{imgui__freetype_8cpp_aebe589aefd15ba7289a47168e31b5e45}{STBRP\+\_\+\+STATIC}}
+\item 
+\#define \mbox{\hyperlink{imgui__freetype_8cpp_a0791e69f0dcd58efa795dd50eb8c6cd0}{STB\+\_\+\+RECT\+\_\+\+PACK\+\_\+\+IMPLEMENTATION}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{imgui__freetype_8cpp_af965b039f4cb8ad8bcdc5a1981ac5d81}{Im\+Font\+Atlas\+Build\+With\+Free\+Type\+Ex}} (FT\+\_\+\+Library ft\+\_\+library, \mbox{\hyperlink{struct_im_font_atlas}{Im\+Font\+Atlas}} \texorpdfstring{$\ast$}{*}atlas, unsigned int extra\+\_\+flags)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{imgui__freetype_8cpp_a4405e4c2a7edf0d2f32fa15f280322ba}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!DE\_MULTIPLY@{DE\_MULTIPLY}}
+\index{DE\_MULTIPLY@{DE\_MULTIPLY}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{DE\_MULTIPLY}{DE\_MULTIPLY}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_a4405e4c2a7edf0d2f32fa15f280322ba} 
+\#define DE\+\_\+\+MULTIPLY(\begin{DoxyParamCaption}\item[{}]{color}{, }\item[{}]{alpha}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ImMin((\mbox{\hyperlink{imgui_8h_a118cff4eeb8d00e7d07ce3d6460eed36}{ImU32}})(255.0f\ *\ (\textcolor{keywordtype}{float})color\ /\ (\textcolor{keywordtype}{float})(alpha\ +\ FLT\_MIN)\ +\ 0.5f),\ 255u)}
+
+\end{DoxyCode}
+\Hypertarget{imgui__freetype_8cpp_a2269176f26c6ea4521fbc0e9ce9c0da8}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!FT\_CEIL@{FT\_CEIL}}
+\index{FT\_CEIL@{FT\_CEIL}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{FT\_CEIL}{FT\_CEIL}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_a2269176f26c6ea4521fbc0e9ce9c0da8} 
+\#define FT\+\_\+\+CEIL(\begin{DoxyParamCaption}\item[{}]{X}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((X\ +\ 63)\ \&\ -\/64)\ /\ 64)}
+
+\end{DoxyCode}
+\Hypertarget{imgui__freetype_8cpp_afc9779460d1a1a237eaefabd9efd5cd5}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!FT\_SCALEFACTOR@{FT\_SCALEFACTOR}}
+\index{FT\_SCALEFACTOR@{FT\_SCALEFACTOR}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{FT\_SCALEFACTOR}{FT\_SCALEFACTOR}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_afc9779460d1a1a237eaefabd9efd5cd5} 
+\#define FT\+\_\+\+SCALEFACTOR~64.\+0f}
+
+\Hypertarget{imgui__freetype_8cpp_a0791e69f0dcd58efa795dd50eb8c6cd0}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!STB\_RECT\_PACK\_IMPLEMENTATION@{STB\_RECT\_PACK\_IMPLEMENTATION}}
+\index{STB\_RECT\_PACK\_IMPLEMENTATION@{STB\_RECT\_PACK\_IMPLEMENTATION}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{STB\_RECT\_PACK\_IMPLEMENTATION}{STB\_RECT\_PACK\_IMPLEMENTATION}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_a0791e69f0dcd58efa795dd50eb8c6cd0} 
+\#define STB\+\_\+\+RECT\+\_\+\+PACK\+\_\+\+IMPLEMENTATION}
+
+\Hypertarget{imgui__freetype_8cpp_a9592e63d0df8b6f0712e8da3aea5db23}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!STBRP\_ASSERT@{STBRP\_ASSERT}}
+\index{STBRP\_ASSERT@{STBRP\_ASSERT}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{STBRP\_ASSERT}{STBRP\_ASSERT}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_a9592e63d0df8b6f0712e8da3aea5db23} 
+\#define STBRP\+\_\+\+ASSERT(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\ \mbox{\hyperlink{imgui_8h_acb09e7dc42e8e3cefb0ecaa197978920}{IM\_ASSERT}}(x);\ \}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{imgui__freetype_8cpp_aebe589aefd15ba7289a47168e31b5e45}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!STBRP\_STATIC@{STBRP\_STATIC}}
+\index{STBRP\_STATIC@{STBRP\_STATIC}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{STBRP\_STATIC}{STBRP\_STATIC}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_aebe589aefd15ba7289a47168e31b5e45} 
+\#define STBRP\+\_\+\+STATIC}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{imgui__freetype_8cpp_af965b039f4cb8ad8bcdc5a1981ac5d81}\index{imgui\_freetype.cpp@{imgui\_freetype.cpp}!ImFontAtlasBuildWithFreeTypeEx@{ImFontAtlasBuildWithFreeTypeEx}}
+\index{ImFontAtlasBuildWithFreeTypeEx@{ImFontAtlasBuildWithFreeTypeEx}!imgui\_freetype.cpp@{imgui\_freetype.cpp}}
+\doxysubsubsection{\texorpdfstring{ImFontAtlasBuildWithFreeTypeEx()}{ImFontAtlasBuildWithFreeTypeEx()}}
+{\footnotesize\ttfamily \label{imgui__freetype_8cpp_af965b039f4cb8ad8bcdc5a1981ac5d81} 
+bool Im\+Font\+Atlas\+Build\+With\+Free\+Type\+Ex (\begin{DoxyParamCaption}\item[{FT\+\_\+\+Library}]{ft\+\_\+library}{, }\item[{\mbox{\hyperlink{struct_im_font_atlas}{Im\+Font\+Atlas}} \texorpdfstring{$\ast$}{*}}]{atlas}{, }\item[{unsigned int}]{extra\+\_\+flags}{}\end{DoxyParamCaption})}
+

@@ -1,0 +1,594 @@
+.TH "monitor" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+monitor \- Monitor reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBGLFWvidmode\fP"
+.br
+.RI "Video mode type\&. "
+.ti -1c
+.RI "struct \fBGLFWgammaramp\fP"
+.br
+.RI "Gamma ramp\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBGLFWmonitor\fP \fBGLFWmonitor\fP"
+.br
+.RI "Opaque monitor object\&. "
+.ti -1c
+.RI "typedef void(* \fBGLFWmonitorfun\fP) (\fBGLFWmonitor\fP *, int)"
+.br
+.RI "The function signature for monitor configuration callbacks\&. "
+.ti -1c
+.RI "typedef struct GLFWvidmode \fBGLFWvidmode\fP"
+.br
+.RI "Video mode type\&. "
+.ti -1c
+.RI "typedef struct GLFWgammaramp \fBGLFWgammaramp\fP"
+.br
+.RI "Gamma ramp\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWmonitor\fP ** \fBglfwGetMonitors\fP (int *count)"
+.br
+.RI "Returns the currently connected monitors\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWmonitor\fP * \fBglfwGetPrimaryMonitor\fP (void)"
+.br
+.RI "Returns the primary monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwGetMonitorPos\fP (\fBGLFWmonitor\fP *monitor, int *xpos, int *ypos)"
+.br
+.RI "Returns the position of the monitor's viewport on the virtual screen\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwGetMonitorPhysicalSize\fP (\fBGLFWmonitor\fP *monitor, int *widthMM, int *heightMM)"
+.br
+.RI "Returns the physical size of the monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const char * \fBglfwGetMonitorName\fP (\fBGLFWmonitor\fP *monitor)"
+.br
+.RI "Returns the name of the specified monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWmonitorfun\fP \fBglfwSetMonitorCallback\fP (\fBGLFWmonitorfun\fP cbfun)"
+.br
+.RI "Sets the monitor configuration callback\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const \fBGLFWvidmode\fP * \fBglfwGetVideoModes\fP (\fBGLFWmonitor\fP *monitor, int *count)"
+.br
+.RI "Returns the available video modes for the specified monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const \fBGLFWvidmode\fP * \fBglfwGetVideoMode\fP (\fBGLFWmonitor\fP *monitor)"
+.br
+.RI "Returns the current mode of the specified monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetGamma\fP (\fBGLFWmonitor\fP *monitor, float gamma)"
+.br
+.RI "Generates a gamma ramp and sets it for the specified monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const \fBGLFWgammaramp\fP * \fBglfwGetGammaRamp\fP (\fBGLFWmonitor\fP *monitor)"
+.br
+.RI "Returns the current gamma ramp for the specified monitor\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSetGammaRamp\fP (\fBGLFWmonitor\fP *monitor, const \fBGLFWgammaramp\fP *ramp)"
+.br
+.RI "Sets the current gamma ramp for the specified monitor\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is the reference documentation for monitor related functions and types\&. For more task-oriented information, see the \fBmonitor_guide\fP\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct GLFWgammaramp GLFWgammaramp"
+
+.PP
+Gamma ramp\&. This describes the gamma ramp for a monitor\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_gamma\fP 
+
+.PP
+\fBglfwGetGammaRamp\fP \fBglfwSetGammaRamp\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "typedef struct \fBGLFWmonitor\fP \fBGLFWmonitor\fP"
+
+.PP
+Opaque monitor object\&. Opaque monitor object\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_object\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "typedef void(* GLFWmonitorfun) (\fBGLFWmonitor\fP *, int)"
+
+.PP
+The function signature for monitor configuration callbacks\&. This is the function signature for monitor configuration callback functions\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor that was connected or disconnected\&. 
+.br
+\fIevent\fP One of \fRGLFW_CONNECTED\fP or \fRGLFW_DISCONNECTED\fP\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_event\fP 
+
+.PP
+\fBglfwSetMonitorCallback\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "typedef struct GLFWvidmode GLFWvidmode"
+
+.PP
+Video mode type\&. This describes a single video mode\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_modes\fP 
+
+.PP
+\fBglfwGetVideoMode\fP \fBglfwGetVideoModes\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Added refresh rate member\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBGLFWAPI\fP const \fBGLFWgammaramp\fP * glfwGetGammaRamp (\fBGLFWmonitor\fP * monitor)"
+
+.PP
+Returns the current gamma ramp for the specified monitor\&. This function returns the current gamma ramp of the specified monitor\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor to query\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The current gamma ramp, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned structure and its arrays are allocated and freed by GLFW\&. You should not free them yourself\&. They are valid until the specified monitor is disconnected, this function is called again for that monitor or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_gamma\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const char * glfwGetMonitorName (\fBGLFWmonitor\fP * monitor)"
+
+.PP
+Returns the name of the specified monitor\&. This function returns a human-readable name, encoded as UTF-8, of the specified monitor\&. The name typically reflects the make and model of the monitor and is not guaranteed to be unique among the connected monitors\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor to query\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The UTF-8 encoded name of the monitor, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@pointer_lifetime The returned string is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the specified monitor is disconnected or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_properties\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwGetMonitorPhysicalSize (\fBGLFWmonitor\fP * monitor, int * widthMM, int * heightMM)"
+
+.PP
+Returns the physical size of the monitor\&. This function returns the size, in millimetres, of the display area of the specified monitor\&.
+
+.PP
+Some systems do not provide accurate monitor size information, either because the monitor \fREDID\fP data is incorrect or because the driver does not report it accurately\&.
+
+.PP
+Any or all of the size arguments may be \fRNULL\fP\&. If an error occurs, all non-\fRNULL\fP size arguments will be set to zero\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor to query\&. 
+.br
+\fIwidthMM\fP Where to store the width, in millimetres, of the monitor's display area, or \fRNULL\fP\&. 
+.br
+\fIheightMM\fP Where to store the height, in millimetres, of the monitor's display area, or \fRNULL\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+@win32 calculates the returned physical size from the current resolution and system DPI instead of querying the monitor EDID data\&.
+.RE
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_properties\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwGetMonitorPos (\fBGLFWmonitor\fP * monitor, int * xpos, int * ypos)"
+
+.PP
+Returns the position of the monitor's viewport on the virtual screen\&. This function returns the position, in screen coordinates, of the upper-left corner of the specified monitor\&.
+
+.PP
+Any or all of the position arguments may be \fRNULL\fP\&. If an error occurs, all non-\fRNULL\fP position arguments will be set to zero\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor to query\&. 
+.br
+\fIxpos\fP Where to store the monitor x-coordinate, or \fRNULL\fP\&. 
+.br
+\fIypos\fP Where to store the monitor y-coordinate, or \fRNULL\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_properties\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWmonitor\fP ** glfwGetMonitors (int * count)"
+
+.PP
+Returns the currently connected monitors\&. This function returns an array of handles for all currently connected monitors\&. The primary monitor is always first in the returned array\&. If no monitors were found, this function returns \fRNULL\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcount\fP Where to store the number of monitors in the returned array\&. This is set to zero if an error occurred\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An array of monitor handles, or \fRNULL\fP if no monitors were found or if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@pointer_lifetime The returned array is allocated and freed by GLFW\&. You should not free it yourself\&. It is guaranteed to be valid only until the monitor configuration changes or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_monitors\fP 
+
+.PP
+\fBmonitor_event\fP 
+
+.PP
+\fBglfwGetPrimaryMonitor\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWmonitor\fP * glfwGetPrimaryMonitor (void )"
+
+.PP
+Returns the primary monitor\&. This function returns the primary monitor\&. This is usually the monitor where elements like the task bar or global menu bar are located\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+The primary monitor, or \fRNULL\fP if no monitors were found or if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+The primary monitor is always first in the array returned by \fBglfwGetMonitors\fP\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_monitors\fP 
+
+.PP
+\fBglfwGetMonitors\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const \fBGLFWvidmode\fP * glfwGetVideoMode (\fBGLFWmonitor\fP * monitor)"
+
+.PP
+Returns the current mode of the specified monitor\&. This function returns the current video mode of the specified monitor\&. If you have created a full screen window for that monitor, the return value will depend on whether that window is iconified\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor to query\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The current mode of the monitor, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned array is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the specified monitor is disconnected or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_modes\fP 
+
+.PP
+\fBglfwGetVideoModes\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. Replaces \fRglfwGetDesktopMode\fP\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP const \fBGLFWvidmode\fP * glfwGetVideoModes (\fBGLFWmonitor\fP * monitor, int * count)"
+
+.PP
+Returns the available video modes for the specified monitor\&. This function returns an array of all video modes supported by the specified monitor\&. The returned array is sorted in ascending order, first by color bit depth (the sum of all channel depths) and then by resolution area (the product of width and height)\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor to query\&. 
+.br
+\fIcount\fP Where to store the number of video modes in the returned array\&. This is set to zero if an error occurred\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An array of video modes, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@pointer_lifetime The returned array is allocated and freed by GLFW\&. You should not free it yourself\&. It is valid until the specified monitor is disconnected, this function is called again for that monitor or the library is terminated\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_modes\fP 
+
+.PP
+\fBglfwGetVideoMode\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. @glfw3 Changed to return an array of modes for a specific monitor\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetGamma (\fBGLFWmonitor\fP * monitor, float gamma)"
+
+.PP
+Generates a gamma ramp and sets it for the specified monitor\&. This function generates a 256-element gamma ramp from the specified exponent and then calls \fBglfwSetGammaRamp\fP with it\&. The value must be a finite number greater than zero\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor whose gamma ramp to set\&. 
+.br
+\fIgamma\fP The desired exponent\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_INVALID_VALUE\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_gamma\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSetGammaRamp (\fBGLFWmonitor\fP * monitor, const \fBGLFWgammaramp\fP * ramp)"
+
+.PP
+Sets the current gamma ramp for the specified monitor\&. This function sets the current gamma ramp for the specified monitor\&. The original gamma ramp for that monitor is saved by GLFW the first time this function is called and is restored by \fBglfwTerminate\fP\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fImonitor\fP The monitor whose gamma ramp to set\&. 
+.br
+\fIramp\fP The gamma ramp to use\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+Gamma ramp sizes other than 256 are not supported by all platforms or graphics hardware\&.
+
+.PP
+@win32 The gamma ramp size must be 256\&.
+.RE
+.PP
+@pointer_lifetime The specified gamma ramp is copied before this function returns\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_gamma\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWmonitorfun\fP glfwSetMonitorCallback (\fBGLFWmonitorfun\fP cbfun)"
+
+.PP
+Sets the monitor configuration callback\&. This function sets the monitor configuration callback, or removes the currently set callback\&. This is called when a monitor is connected to or disconnected from the system\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcbfun\fP The new callback, or \fRNULL\fP to remove the currently set callback\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The previously set callback, or \fRNULL\fP if no callback was set or the library had not been \fBinitialized\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function must only be called from the main thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBmonitor_event\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

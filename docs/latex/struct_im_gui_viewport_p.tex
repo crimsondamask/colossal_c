@@ -1,0 +1,182 @@
+\doxysection{Im\+Gui\+ViewportP Struct Reference}
+\hypertarget{struct_im_gui_viewport_p}{}\label{struct_im_gui_viewport_p}\index{ImGuiViewportP@{ImGuiViewportP}}
+
+
+{\ttfamily \#include $<$imgui\+\_\+internal.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_im_gui_viewport_p_a78fca0422ab2cb3ede3676846d92b6aa}{Im\+Gui\+ViewportP}} ()
+\item 
+\mbox{\hyperlink{struct_im_gui_viewport_p_a2110db2d3fff955d9afa36749ca4a90f}{\texorpdfstring{$\sim$}{\string~}\+Im\+Gui\+ViewportP}} ()
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_p_a8a44107b242b90b10a97ddf786535f2e}{Calc\+Work\+Rect\+Pos}} (const \mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \&inset\+\_\+min) const
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_p_af787bc2b67a369516d980b2f07f8d2f6}{Calc\+Work\+Rect\+Size}} (const \mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \&inset\+\_\+min, const \mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \&inset\+\_\+max) const
+\item 
+void \mbox{\hyperlink{struct_im_gui_viewport_p_a00cd6261263e9637c819908d93580e0c}{Update\+Work\+Rect}} ()
+\item 
+\mbox{\hyperlink{struct_im_rect}{Im\+Rect}} \mbox{\hyperlink{struct_im_gui_viewport_p_adb4c14f0b0a42bff9c1c0ab1971027f7}{Get\+Main\+Rect}} () const
+\item 
+\mbox{\hyperlink{struct_im_rect}{Im\+Rect}} \mbox{\hyperlink{struct_im_gui_viewport_p_ae5c3184b73ea080f14e03ecb344b913e}{Get\+Work\+Rect}} () const
+\item 
+\mbox{\hyperlink{struct_im_rect}{Im\+Rect}} \mbox{\hyperlink{struct_im_gui_viewport_p_a86bd0e71fac71355b11d49d2ba182009}{Get\+Build\+Work\+Rect}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_im_gui_viewport}{Im\+Gui\+Viewport}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_im_gui_viewport_aa195d9a5b7ba8905c5064195a059868c}{Im\+Gui\+Viewport}} ()
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_aecb8b050853aae709f64b82319699bf8}{Get\+Center}} () const
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_a64a278e84f98efbf67fe0d46b29f686a}{Get\+Work\+Center}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_im_gui_viewport_p_ab992ddc165fe6f9fbacf61f43206232a}{Bg\+Fg\+Draw\+Lists\+Last\+Frame}} \mbox{[}2\mbox{]}
+\item 
+\mbox{\hyperlink{struct_im_draw_list}{Im\+Draw\+List}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_viewport_p_a1c4bd9164298a0166679bb0eceea5978}{Bg\+Fg\+Draw\+Lists}} \mbox{[}2\mbox{]}
+\item 
+\mbox{\hyperlink{struct_im_draw_data}{Im\+Draw\+Data}} \mbox{\hyperlink{struct_im_gui_viewport_p_ac3b300ec36e107ad50e0512b4983d3c8}{Draw\+DataP}}
+\item 
+\mbox{\hyperlink{struct_im_draw_data_builder}{Im\+Draw\+Data\+Builder}} \mbox{\hyperlink{struct_im_gui_viewport_p_a2969a07813f0112a37975b2096ee1cc7}{Draw\+Data\+Builder}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_p_a7e47ae6d6fc90a8554ca77d7316a8dd8}{Work\+Inset\+Min}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_p_a0df61484c6fba2559c064f3ecd4964c3}{Work\+Inset\+Max}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_p_a81ce56c54e1ef413620ea80a1a7ae42a}{Build\+Work\+Inset\+Min}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_p_a46debaa57271cb43fb2149cd8651692d}{Build\+Work\+Inset\+Max}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_im_gui_viewport}{Im\+Gui\+Viewport}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{imgui_8h_a1785c9b6f4e16406764a85f32582236f}{Im\+Gui\+ID}} \mbox{\hyperlink{struct_im_gui_viewport_a426c45b1cb97238caf5bded6f1312ecd}{ID}}
+\item 
+\mbox{\hyperlink{imgui_8h_a061453babf70cd864059856178eb8e50}{Im\+Gui\+Viewport\+Flags}} \mbox{\hyperlink{struct_im_gui_viewport_a126b1ea962a2f400031aa67a20208350}{Flags}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_a271ff4e595757a809f237616dd07d525}{Pos}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_ab44a78f37dd56cc7581f715485485787}{Size}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_a9171354583726d867938e93023334d6b}{Work\+Pos}}
+\item 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \mbox{\hyperlink{struct_im_gui_viewport_ac4c1ce7d912b72b42a14f00c8cefd8d0}{Work\+Size}}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_viewport_a98387edab3bce16a9aacd7b0a36a1d3c}{Platform\+Handle}}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_viewport_ab0c79a0acf985c75f5cadd56ebab8eb5}{Platform\+Handle\+Raw}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_im_gui_viewport_p_a78fca0422ab2cb3ede3676846d92b6aa}\index{ImGuiViewportP@{ImGuiViewportP}!ImGuiViewportP@{ImGuiViewportP}}
+\index{ImGuiViewportP@{ImGuiViewportP}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{ImGuiViewportP()}{ImGuiViewportP()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a78fca0422ab2cb3ede3676846d92b6aa} 
+Im\+Gui\+Viewport\+P\+::\+Im\+Gui\+ViewportP (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_gui_viewport_p_a2110db2d3fff955d9afa36749ca4a90f}\index{ImGuiViewportP@{ImGuiViewportP}!````~ImGuiViewportP@{\texorpdfstring{$\sim$}{\string~}ImGuiViewportP}}
+\index{````~ImGuiViewportP@{\texorpdfstring{$\sim$}{\string~}ImGuiViewportP}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ImGuiViewportP()}{\string~ImGuiViewportP()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a2110db2d3fff955d9afa36749ca4a90f} 
+Im\+Gui\+Viewport\+P\+::\texorpdfstring{$\sim$}{\string~}\+Im\+Gui\+ViewportP (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_im_gui_viewport_p_a8a44107b242b90b10a97ddf786535f2e}\index{ImGuiViewportP@{ImGuiViewportP}!CalcWorkRectPos@{CalcWorkRectPos}}
+\index{CalcWorkRectPos@{CalcWorkRectPos}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{CalcWorkRectPos()}{CalcWorkRectPos()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a8a44107b242b90b10a97ddf786535f2e} 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} Im\+Gui\+Viewport\+P\+::\+Calc\+Work\+Rect\+Pos (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \&}]{inset\+\_\+min}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_gui_viewport_p_af787bc2b67a369516d980b2f07f8d2f6}\index{ImGuiViewportP@{ImGuiViewportP}!CalcWorkRectSize@{CalcWorkRectSize}}
+\index{CalcWorkRectSize@{CalcWorkRectSize}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{CalcWorkRectSize()}{CalcWorkRectSize()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_af787bc2b67a369516d980b2f07f8d2f6} 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} Im\+Gui\+Viewport\+P\+::\+Calc\+Work\+Rect\+Size (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \&}]{inset\+\_\+min}{, }\item[{const \mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} \&}]{inset\+\_\+max}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_gui_viewport_p_a86bd0e71fac71355b11d49d2ba182009}\index{ImGuiViewportP@{ImGuiViewportP}!GetBuildWorkRect@{GetBuildWorkRect}}
+\index{GetBuildWorkRect@{GetBuildWorkRect}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{GetBuildWorkRect()}{GetBuildWorkRect()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a86bd0e71fac71355b11d49d2ba182009} 
+\mbox{\hyperlink{struct_im_rect}{Im\+Rect}} Im\+Gui\+Viewport\+P\+::\+Get\+Build\+Work\+Rect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_gui_viewport_p_adb4c14f0b0a42bff9c1c0ab1971027f7}\index{ImGuiViewportP@{ImGuiViewportP}!GetMainRect@{GetMainRect}}
+\index{GetMainRect@{GetMainRect}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{GetMainRect()}{GetMainRect()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_adb4c14f0b0a42bff9c1c0ab1971027f7} 
+\mbox{\hyperlink{struct_im_rect}{Im\+Rect}} Im\+Gui\+Viewport\+P\+::\+Get\+Main\+Rect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_gui_viewport_p_ae5c3184b73ea080f14e03ecb344b913e}\index{ImGuiViewportP@{ImGuiViewportP}!GetWorkRect@{GetWorkRect}}
+\index{GetWorkRect@{GetWorkRect}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{GetWorkRect()}{GetWorkRect()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_ae5c3184b73ea080f14e03ecb344b913e} 
+\mbox{\hyperlink{struct_im_rect}{Im\+Rect}} Im\+Gui\+Viewport\+P\+::\+Get\+Work\+Rect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_gui_viewport_p_a00cd6261263e9637c819908d93580e0c}\index{ImGuiViewportP@{ImGuiViewportP}!UpdateWorkRect@{UpdateWorkRect}}
+\index{UpdateWorkRect@{UpdateWorkRect}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{UpdateWorkRect()}{UpdateWorkRect()}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a00cd6261263e9637c819908d93580e0c} 
+void Im\+Gui\+Viewport\+P\+::\+Update\+Work\+Rect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_im_gui_viewport_p_a1c4bd9164298a0166679bb0eceea5978}\index{ImGuiViewportP@{ImGuiViewportP}!BgFgDrawLists@{BgFgDrawLists}}
+\index{BgFgDrawLists@{BgFgDrawLists}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{BgFgDrawLists}{BgFgDrawLists}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a1c4bd9164298a0166679bb0eceea5978} 
+\mbox{\hyperlink{struct_im_draw_list}{Im\+Draw\+List}}\texorpdfstring{$\ast$}{*} Im\+Gui\+Viewport\+P\+::\+Bg\+Fg\+Draw\+Lists\mbox{[}2\mbox{]}}
+
+\Hypertarget{struct_im_gui_viewport_p_ab992ddc165fe6f9fbacf61f43206232a}\index{ImGuiViewportP@{ImGuiViewportP}!BgFgDrawListsLastFrame@{BgFgDrawListsLastFrame}}
+\index{BgFgDrawListsLastFrame@{BgFgDrawListsLastFrame}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{BgFgDrawListsLastFrame}{BgFgDrawListsLastFrame}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_ab992ddc165fe6f9fbacf61f43206232a} 
+int Im\+Gui\+Viewport\+P\+::\+Bg\+Fg\+Draw\+Lists\+Last\+Frame\mbox{[}2\mbox{]}}
+
+\Hypertarget{struct_im_gui_viewport_p_a46debaa57271cb43fb2149cd8651692d}\index{ImGuiViewportP@{ImGuiViewportP}!BuildWorkInsetMax@{BuildWorkInsetMax}}
+\index{BuildWorkInsetMax@{BuildWorkInsetMax}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{BuildWorkInsetMax}{BuildWorkInsetMax}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a46debaa57271cb43fb2149cd8651692d} 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} Im\+Gui\+Viewport\+P\+::\+Build\+Work\+Inset\+Max}
+
+\Hypertarget{struct_im_gui_viewport_p_a81ce56c54e1ef413620ea80a1a7ae42a}\index{ImGuiViewportP@{ImGuiViewportP}!BuildWorkInsetMin@{BuildWorkInsetMin}}
+\index{BuildWorkInsetMin@{BuildWorkInsetMin}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{BuildWorkInsetMin}{BuildWorkInsetMin}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a81ce56c54e1ef413620ea80a1a7ae42a} 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} Im\+Gui\+Viewport\+P\+::\+Build\+Work\+Inset\+Min}
+
+\Hypertarget{struct_im_gui_viewport_p_a2969a07813f0112a37975b2096ee1cc7}\index{ImGuiViewportP@{ImGuiViewportP}!DrawDataBuilder@{DrawDataBuilder}}
+\index{DrawDataBuilder@{DrawDataBuilder}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{DrawDataBuilder}{DrawDataBuilder}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a2969a07813f0112a37975b2096ee1cc7} 
+\mbox{\hyperlink{struct_im_draw_data_builder}{Im\+Draw\+Data\+Builder}} Im\+Gui\+Viewport\+P\+::\+Draw\+Data\+Builder}
+
+\Hypertarget{struct_im_gui_viewport_p_ac3b300ec36e107ad50e0512b4983d3c8}\index{ImGuiViewportP@{ImGuiViewportP}!DrawDataP@{DrawDataP}}
+\index{DrawDataP@{DrawDataP}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{DrawDataP}{DrawDataP}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_ac3b300ec36e107ad50e0512b4983d3c8} 
+\mbox{\hyperlink{struct_im_draw_data}{Im\+Draw\+Data}} Im\+Gui\+Viewport\+P\+::\+Draw\+DataP}
+
+\Hypertarget{struct_im_gui_viewport_p_a0df61484c6fba2559c064f3ecd4964c3}\index{ImGuiViewportP@{ImGuiViewportP}!WorkInsetMax@{WorkInsetMax}}
+\index{WorkInsetMax@{WorkInsetMax}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{WorkInsetMax}{WorkInsetMax}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a0df61484c6fba2559c064f3ecd4964c3} 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} Im\+Gui\+Viewport\+P\+::\+Work\+Inset\+Max}
+
+\Hypertarget{struct_im_gui_viewport_p_a7e47ae6d6fc90a8554ca77d7316a8dd8}\index{ImGuiViewportP@{ImGuiViewportP}!WorkInsetMin@{WorkInsetMin}}
+\index{WorkInsetMin@{WorkInsetMin}!ImGuiViewportP@{ImGuiViewportP}}
+\doxysubsubsection{\texorpdfstring{WorkInsetMin}{WorkInsetMin}}
+{\footnotesize\ttfamily \label{struct_im_gui_viewport_p_a7e47ae6d6fc90a8554ca77d7316a8dd8} 
+\mbox{\hyperlink{struct_im_vec2}{Im\+Vec2}} Im\+Gui\+Viewport\+P\+::\+Work\+Inset\+Min}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+colossal\+\_\+cpp/imgui/\mbox{\hyperlink{imgui__internal_8h}{imgui\+\_\+internal.\+h}}\end{DoxyCompactItemize}

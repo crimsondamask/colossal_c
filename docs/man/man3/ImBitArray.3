@@ -1,0 +1,73 @@
+.TH "ImBitArray< BITCOUNT, OFFSET >" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImBitArray< BITCOUNT, OFFSET >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImBitArray\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearAllBits\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetAllBits\fP ()"
+.br
+.ti -1c
+.RI "bool \fBTestBit\fP (int n) const"
+.br
+.ti -1c
+.RI "void \fBSetBit\fP (int n)"
+.br
+.ti -1c
+.RI "void \fBClearBit\fP (int n)"
+.br
+.ti -1c
+.RI "void \fBSetBitRange\fP (int n, int n2)"
+.br
+.ti -1c
+.RI "bool \fBoperator[]\fP (int n) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImU32\fP \fBStorage\fP [(BITCOUNT+31) > > 5]"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<int BITCOUNT, int OFFSET = 0> \fBImBitArray\fP< BITCOUNT, OFFSET >\fB::ImBitArray\fP ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<int BITCOUNT, int OFFSET = 0> void \fBImBitArray\fP< BITCOUNT, OFFSET >::ClearAllBits ()\fR [inline]\fP"
+
+.SS "template<int BITCOUNT, int OFFSET = 0> void \fBImBitArray\fP< BITCOUNT, OFFSET >::ClearBit (int n)\fR [inline]\fP"
+
+.SS "template<int BITCOUNT, int OFFSET = 0> bool \fBImBitArray\fP< BITCOUNT, OFFSET >::operator[] (int n) const\fR [inline]\fP"
+
+.SS "template<int BITCOUNT, int OFFSET = 0> void \fBImBitArray\fP< BITCOUNT, OFFSET >::SetAllBits ()\fR [inline]\fP"
+
+.SS "template<int BITCOUNT, int OFFSET = 0> void \fBImBitArray\fP< BITCOUNT, OFFSET >::SetBit (int n)\fR [inline]\fP"
+
+.SS "template<int BITCOUNT, int OFFSET = 0> void \fBImBitArray\fP< BITCOUNT, OFFSET >::SetBitRange (int n, int n2)\fR [inline]\fP"
+
+.SS "template<int BITCOUNT, int OFFSET = 0> bool \fBImBitArray\fP< BITCOUNT, OFFSET >::TestBit (int n) const\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<int BITCOUNT, int OFFSET = 0> \fBImU32\fP \fBImBitArray\fP< BITCOUNT, OFFSET >::Storage[(BITCOUNT+31) > > 5]"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

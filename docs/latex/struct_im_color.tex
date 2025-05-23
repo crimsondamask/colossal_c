@@ -1,0 +1,109 @@
+\doxysection{Im\+Color Struct Reference}
+\hypertarget{struct_im_color}{}\label{struct_im_color}\index{ImColor@{ImColor}}
+
+
+{\ttfamily \#include $<$imgui.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \mbox{\hyperlink{struct_im_color_afcac85caf0653c8c73048b79f98a1933}{Im\+Color}} ()
+\item 
+constexpr \mbox{\hyperlink{struct_im_color_af43ef7c778b4eb6cd43285379026929b}{Im\+Color}} (float r, float g, float b, float a=1.\+0f)
+\item 
+constexpr \mbox{\hyperlink{struct_im_color_ab013c0baa756972b6ad5c01b8f3159ab}{Im\+Color}} (const \mbox{\hyperlink{struct_im_vec4}{Im\+Vec4}} \&col)
+\item 
+constexpr \mbox{\hyperlink{struct_im_color_a4134d15305bf349209ddd6571d727848}{Im\+Color}} (int r, int g, int b, int a=255)
+\item 
+constexpr \mbox{\hyperlink{struct_im_color_a6edcd5171dea150d74d3c1d2e3d99bfc}{Im\+Color}} (\mbox{\hyperlink{imgui_8h_a118cff4eeb8d00e7d07ce3d6460eed36}{Im\+U32}} rgba)
+\item 
+\mbox{\hyperlink{struct_im_color_a4f4fc53e0676d50404d6d5ffcf16637f}{operator Im\+U32}} () const
+\item 
+\mbox{\hyperlink{struct_im_color_a10f1de242f13c93f8be64545e4cbcb0a}{operator Im\+Vec4}} () const
+\item 
+void \mbox{\hyperlink{struct_im_color_afcff20160db703b956d56e5a9fa88e24}{Set\+HSV}} (float h, float s, float v, float a=1.\+0f)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{struct_im_color}{Im\+Color}} \mbox{\hyperlink{struct_im_color_ac8cb52119648523038818a613becf010}{HSV}} (float h, float s, float v, float a=1.\+0f)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_im_vec4}{Im\+Vec4}} \mbox{\hyperlink{struct_im_color_a4cf43bd58e30decaa0248f839fc85e95}{Value}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_im_color_afcac85caf0653c8c73048b79f98a1933}\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{ImColor()}{ImColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \label{struct_im_color_afcac85caf0653c8c73048b79f98a1933} 
+Im\+Color\+::\+Im\+Color (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{struct_im_color_af43ef7c778b4eb6cd43285379026929b}\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{ImColor()}{ImColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \label{struct_im_color_af43ef7c778b4eb6cd43285379026929b} 
+Im\+Color\+::\+Im\+Color (\begin{DoxyParamCaption}\item[{float}]{r}{, }\item[{float}]{g}{, }\item[{float}]{b}{, }\item[{float}]{a}{ = {\ttfamily 1.0f}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{struct_im_color_ab013c0baa756972b6ad5c01b8f3159ab}\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{ImColor()}{ImColor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \label{struct_im_color_ab013c0baa756972b6ad5c01b8f3159ab} 
+Im\+Color\+::\+Im\+Color (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_im_vec4}{Im\+Vec4}} \&}]{col}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{struct_im_color_a4134d15305bf349209ddd6571d727848}\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{ImColor()}{ImColor()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \label{struct_im_color_a4134d15305bf349209ddd6571d727848} 
+Im\+Color\+::\+Im\+Color (\begin{DoxyParamCaption}\item[{int}]{r}{, }\item[{int}]{g}{, }\item[{int}]{b}{, }\item[{int}]{a}{ = {\ttfamily 255}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{struct_im_color_a6edcd5171dea150d74d3c1d2e3d99bfc}\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\index{ImColor@{ImColor}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{ImColor()}{ImColor()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \label{struct_im_color_a6edcd5171dea150d74d3c1d2e3d99bfc} 
+Im\+Color\+::\+Im\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{imgui_8h_a118cff4eeb8d00e7d07ce3d6460eed36}{Im\+U32}}}]{rgba}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_im_color_ac8cb52119648523038818a613becf010}\index{ImColor@{ImColor}!HSV@{HSV}}
+\index{HSV@{HSV}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{HSV()}{HSV()}}
+{\footnotesize\ttfamily \label{struct_im_color_ac8cb52119648523038818a613becf010} 
+static \mbox{\hyperlink{struct_im_color}{Im\+Color}} Im\+Color\+::\+HSV (\begin{DoxyParamCaption}\item[{float}]{h}{, }\item[{float}]{s}{, }\item[{float}]{v}{, }\item[{float}]{a}{ = {\ttfamily 1.0f}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{struct_im_color_a4f4fc53e0676d50404d6d5ffcf16637f}\index{ImColor@{ImColor}!operator ImU32@{operator ImU32}}
+\index{operator ImU32@{operator ImU32}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{operator ImU32()}{operator ImU32()}}
+{\footnotesize\ttfamily \label{struct_im_color_a4f4fc53e0676d50404d6d5ffcf16637f} 
+Im\+Color\+::operator \mbox{\hyperlink{imgui_8h_a118cff4eeb8d00e7d07ce3d6460eed36}{Im\+U32}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_color_a10f1de242f13c93f8be64545e4cbcb0a}\index{ImColor@{ImColor}!operator ImVec4@{operator ImVec4}}
+\index{operator ImVec4@{operator ImVec4}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{operator ImVec4()}{operator ImVec4()}}
+{\footnotesize\ttfamily \label{struct_im_color_a10f1de242f13c93f8be64545e4cbcb0a} 
+Im\+Color\+::operator \mbox{\hyperlink{struct_im_vec4}{Im\+Vec4}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{struct_im_color_afcff20160db703b956d56e5a9fa88e24}\index{ImColor@{ImColor}!SetHSV@{SetHSV}}
+\index{SetHSV@{SetHSV}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{SetHSV()}{SetHSV()}}
+{\footnotesize\ttfamily \label{struct_im_color_afcff20160db703b956d56e5a9fa88e24} 
+void Im\+Color\+::\+Set\+HSV (\begin{DoxyParamCaption}\item[{float}]{h}{, }\item[{float}]{s}{, }\item[{float}]{v}{, }\item[{float}]{a}{ = {\ttfamily 1.0f}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_im_color_a4cf43bd58e30decaa0248f839fc85e95}\index{ImColor@{ImColor}!Value@{Value}}
+\index{Value@{Value}!ImColor@{ImColor}}
+\doxysubsubsection{\texorpdfstring{Value}{Value}}
+{\footnotesize\ttfamily \label{struct_im_color_a4cf43bd58e30decaa0248f839fc85e95} 
+\mbox{\hyperlink{struct_im_vec4}{Im\+Vec4}} Im\+Color\+::\+Value}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+colossal\+\_\+cpp/imgui/\mbox{\hyperlink{imgui_8h}{imgui.\+h}}\end{DoxyCompactItemize}

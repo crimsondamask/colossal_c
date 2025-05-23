@@ -1,0 +1,173 @@
+\doxysection{colossal\+\_\+cpp/imgui/imgui\+\_\+demo.cpp File Reference}
+\hypertarget{imgui__demo_8cpp}{}\label{imgui__demo_8cpp}\index{colossal\_cpp/imgui/imgui\_demo.cpp@{colossal\_cpp/imgui/imgui\_demo.cpp}}
+{\ttfamily \#include "{}imgui.\+h"{}}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_im_gui_demo_window_data}{Im\+Gui\+Demo\+Window\+Data}}
+\item 
+struct \mbox{\hyperlink{struct_example_tree_node}{Example\+Tree\+Node}}
+\item 
+struct \mbox{\hyperlink{struct_example_member_info}{Example\+Member\+Info}}
+\item 
+struct \mbox{\hyperlink{struct_example_selection_with_deletion}{Example\+Selection\+With\+Deletion}}
+\item 
+struct \mbox{\hyperlink{struct_example_dual_list_box}{Example\+Dual\+List\+Box}}
+\item 
+struct \mbox{\hyperlink{struct_example_app_console}{Example\+App\+Console}}
+\item 
+struct \mbox{\hyperlink{struct_example_app_log}{Example\+App\+Log}}
+\item 
+struct \mbox{\hyperlink{struct_example_app_property_editor}{Example\+App\+Property\+Editor}}
+\item 
+struct \mbox{\hyperlink{struct_my_document}{My\+Document}}
+\item 
+struct \mbox{\hyperlink{struct_example_app_documents}{Example\+App\+Documents}}
+\item 
+struct \mbox{\hyperlink{struct_example_asset}{Example\+Asset}}
+\item 
+struct \mbox{\hyperlink{struct_example_assets_browser}{Example\+Assets\+Browser}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_im_gui}{Im\+Gui}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_a1bfa04d9a2431433f9668c814fd4c3d5}{IM\+\_\+\+NEWLINE}}~"{}\textbackslash{}n"{}
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_ae372e90b62c1e8b51dc5d95bf7f5ba48}{PRId64}}~"{}lld"{}
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_ac582131d7a7c8ee57e73180d1714f9d5}{PRIu64}}~"{}llu"{}
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_af25a13a96600f1a018104f6c2d3da645}{IM\+\_\+\+MIN}}(A,  B)
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_a9d0693fad89638629beea97300c8f8f6}{IM\+\_\+\+MAX}}(A,  B)
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_a25d1e4d29150e7587f99e0723493a004}{IM\+\_\+\+CLAMP}}(V,  MN,  MX)
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_a3a504542c4837c193bd5e54911123fe1}{IMGUI\+\_\+\+CDECL}}
+\item 
+\#define \mbox{\hyperlink{imgui__demo_8cpp_af2fd5c4683ae4fa9c9369f68c5960d77}{IMGUI\+\_\+\+DEMO\+\_\+\+MARKER}}(section)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{imgui__demo_8cpp_ad8ff37b5c6b9fcc2500750326e40724f}{Im\+Gui\+Demo\+Marker\+Callback}}) (const char \texorpdfstring{$\ast$}{*}file, int line, const char \texorpdfstring{$\ast$}{*}section, void \texorpdfstring{$\ast$}{*}user\+\_\+data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{imgui_8h_a43829975e84e45d1149597467a14bbf5}{IMGUI\+\_\+\+API}} void \mbox{\hyperlink{namespace_im_gui_acab51ec2b39577845309f24535381038}{Im\+Gui\+::\+Show\+Font\+Atlas}} (\mbox{\hyperlink{struct_im_font_atlas}{Im\+Font\+Atlas}} \texorpdfstring{$\ast$}{*}atlas)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{imgui__demo_8cpp_ad8ff37b5c6b9fcc2500750326e40724f}{Im\+Gui\+Demo\+Marker\+Callback}} \mbox{\hyperlink{imgui__demo_8cpp_aa97e0d91afa07d38476b50a20dc22bcd}{GIm\+Gui\+Demo\+Marker\+Callback}} = NULL
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{imgui__demo_8cpp_a6c822116e9dcb5956c25b1103a8a208d}{GIm\+Gui\+Demo\+Marker\+Callback\+User\+Data}} = NULL
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{imgui__demo_8cpp_a25d1e4d29150e7587f99e0723493a004}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!IM\_CLAMP@{IM\_CLAMP}}
+\index{IM\_CLAMP@{IM\_CLAMP}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{IM\_CLAMP}{IM\_CLAMP}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_a25d1e4d29150e7587f99e0723493a004} 
+\#define IM\+\_\+\+CLAMP(\begin{DoxyParamCaption}\item[{}]{V}{, }\item[{}]{MN}{, }\item[{}]{MX}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((V)\ <\ (MN)\ ?\ (MN)\ :\ (V)\ >\ (MX)\ ?\ (MX)\ :\ (V))}
+
+\end{DoxyCode}
+\Hypertarget{imgui__demo_8cpp_a9d0693fad89638629beea97300c8f8f6}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!IM\_MAX@{IM\_MAX}}
+\index{IM\_MAX@{IM\_MAX}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{IM\_MAX}{IM\_MAX}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_a9d0693fad89638629beea97300c8f8f6} 
+\#define IM\+\_\+\+MAX(\begin{DoxyParamCaption}\item[{}]{A}{, }\item[{}]{B}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((A)\ >=\ (B))\ ?\ (A)\ :\ (B))}
+
+\end{DoxyCode}
+\Hypertarget{imgui__demo_8cpp_af25a13a96600f1a018104f6c2d3da645}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!IM\_MIN@{IM\_MIN}}
+\index{IM\_MIN@{IM\_MIN}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{IM\_MIN}{IM\_MIN}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_af25a13a96600f1a018104f6c2d3da645} 
+\#define IM\+\_\+\+MIN(\begin{DoxyParamCaption}\item[{}]{A}{, }\item[{}]{B}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((A)\ <\ (B))\ ?\ (A)\ :\ (B))}
+
+\end{DoxyCode}
+\Hypertarget{imgui__demo_8cpp_a1bfa04d9a2431433f9668c814fd4c3d5}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!IM\_NEWLINE@{IM\_NEWLINE}}
+\index{IM\_NEWLINE@{IM\_NEWLINE}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{IM\_NEWLINE}{IM\_NEWLINE}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_a1bfa04d9a2431433f9668c814fd4c3d5} 
+\#define IM\+\_\+\+NEWLINE~"{}\textbackslash{}n"{}}
+
+\Hypertarget{imgui__demo_8cpp_a3a504542c4837c193bd5e54911123fe1}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!IMGUI\_CDECL@{IMGUI\_CDECL}}
+\index{IMGUI\_CDECL@{IMGUI\_CDECL}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{IMGUI\_CDECL}{IMGUI\_CDECL}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_a3a504542c4837c193bd5e54911123fe1} 
+\#define IMGUI\+\_\+\+CDECL}
+
+\Hypertarget{imgui__demo_8cpp_af2fd5c4683ae4fa9c9369f68c5960d77}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!IMGUI\_DEMO\_MARKER@{IMGUI\_DEMO\_MARKER}}
+\index{IMGUI\_DEMO\_MARKER@{IMGUI\_DEMO\_MARKER}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{IMGUI\_DEMO\_MARKER}{IMGUI\_DEMO\_MARKER}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_af2fd5c4683ae4fa9c9369f68c5960d77} 
+\#define IMGUI\+\_\+\+DEMO\+\_\+\+MARKER(\begin{DoxyParamCaption}\item[{}]{section}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{imgui__demo_8cpp_aa97e0d91afa07d38476b50a20dc22bcd}{GImGuiDemoMarkerCallback}}\ !=\ NULL)\ \mbox{\hyperlink{imgui__demo_8cpp_aa97e0d91afa07d38476b50a20dc22bcd}{GImGuiDemoMarkerCallback}}(\_\_FILE\_\_,\ \_\_LINE\_\_,\ section,\ \mbox{\hyperlink{imgui__demo_8cpp_a6c822116e9dcb5956c25b1103a8a208d}{GImGuiDemoMarkerCallbackUserData}});\ \}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{imgui__demo_8cpp_ae372e90b62c1e8b51dc5d95bf7f5ba48}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!PRId64@{PRId64}}
+\index{PRId64@{PRId64}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{PRId64}{PRId64}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_ae372e90b62c1e8b51dc5d95bf7f5ba48} 
+\#define PRId64~"{}lld"{}}
+
+\Hypertarget{imgui__demo_8cpp_ac582131d7a7c8ee57e73180d1714f9d5}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!PRIu64@{PRIu64}}
+\index{PRIu64@{PRIu64}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{PRIu64}{PRIu64}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_ac582131d7a7c8ee57e73180d1714f9d5} 
+\#define PRIu64~"{}llu"{}}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{imgui__demo_8cpp_ad8ff37b5c6b9fcc2500750326e40724f}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!ImGuiDemoMarkerCallback@{ImGuiDemoMarkerCallback}}
+\index{ImGuiDemoMarkerCallback@{ImGuiDemoMarkerCallback}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{ImGuiDemoMarkerCallback}{ImGuiDemoMarkerCallback}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_ad8ff37b5c6b9fcc2500750326e40724f} 
+typedef void(\texorpdfstring{$\ast$}{*} Im\+Gui\+Demo\+Marker\+Callback) (const char \texorpdfstring{$\ast$}{*}file, int line, const char \texorpdfstring{$\ast$}{*}section, void \texorpdfstring{$\ast$}{*}user\+\_\+data)}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{imgui__demo_8cpp_aa97e0d91afa07d38476b50a20dc22bcd}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!GImGuiDemoMarkerCallback@{GImGuiDemoMarkerCallback}}
+\index{GImGuiDemoMarkerCallback@{GImGuiDemoMarkerCallback}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{GImGuiDemoMarkerCallback}{GImGuiDemoMarkerCallback}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_aa97e0d91afa07d38476b50a20dc22bcd} 
+\mbox{\hyperlink{imgui__demo_8cpp_ad8ff37b5c6b9fcc2500750326e40724f}{Im\+Gui\+Demo\+Marker\+Callback}} GIm\+Gui\+Demo\+Marker\+Callback = NULL}
+
+\Hypertarget{imgui__demo_8cpp_a6c822116e9dcb5956c25b1103a8a208d}\index{imgui\_demo.cpp@{imgui\_demo.cpp}!GImGuiDemoMarkerCallbackUserData@{GImGuiDemoMarkerCallbackUserData}}
+\index{GImGuiDemoMarkerCallbackUserData@{GImGuiDemoMarkerCallbackUserData}!imgui\_demo.cpp@{imgui\_demo.cpp}}
+\doxysubsubsection{\texorpdfstring{GImGuiDemoMarkerCallbackUserData}{GImGuiDemoMarkerCallbackUserData}}
+{\footnotesize\ttfamily \label{imgui__demo_8cpp_a6c822116e9dcb5956c25b1103a8a208d} 
+void \texorpdfstring{$\ast$}{*} GIm\+Gui\+Demo\+Marker\+Callback\+User\+Data = NULL}
+

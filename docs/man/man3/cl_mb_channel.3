@@ -9,7 +9,7 @@ cl_mb_channel \- A type to hold address, type and data of a Modbus register\&.
 .PP
 .PP
 \fR#include <mb_device\&.h>\fP
-.SS "Data Fields"
+.SS "Public Attributes"
 
 .in +1c
 .ti -1c
@@ -29,17 +29,17 @@ cl_mb_channel \- A type to hold address, type and data of a Modbus register\&.
 .SH "Detailed Description"
 .PP 
 A type to hold address, type and data of a Modbus register\&. 
-.SH "Field Documentation"
+.SH "Member Data Documentation"
 .PP 
-.SS "int id"
+.SS "int cl_mb_channel::id"
 
-.SS "char const* name"
+.SS "char const* cl_mb_channel::name"
 
-.SS "float value"
+.SS "float cl_mb_channel::value"
 
 .PP
 A channel can only hold float values even when its type is Int or Coil\&. 
-.SS "enum \fBcl_mb_channel_type\fP value_type"
+.SS "enum \fBcl_mb_channel_type\fP cl_mb_channel::value_type"
 
 
 .SH "Author"

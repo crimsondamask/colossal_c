@@ -1,0 +1,175 @@
+.TH "colossal_cpp/imgui/imgui_demo.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui_demo.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include <ctype\&.h>\fP
+.br
+\fR#include <limits\&.h>\fP
+.br
+\fR#include <math\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <stdint\&.h>\fP
+.br
+\fR#include <inttypes\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImGuiDemoWindowData\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleTreeNode\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleMemberInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleSelectionWithDeletion\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleDualListBox\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleAppConsole\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleAppLog\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleAppPropertyEditor\fP"
+.br
+.ti -1c
+.RI "struct \fBMyDocument\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleAppDocuments\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleAsset\fP"
+.br
+.ti -1c
+.RI "struct \fBExampleAssetsBrowser\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBImGui\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIM_NEWLINE\fP   '\\n'"
+.br
+.ti -1c
+.RI "#define \fBPRId64\fP   'lld'"
+.br
+.ti -1c
+.RI "#define \fBPRIu64\fP   'llu'"
+.br
+.ti -1c
+.RI "#define \fBIM_MIN\fP(A,  B)"
+.br
+.ti -1c
+.RI "#define \fBIM_MAX\fP(A,  B)"
+.br
+.ti -1c
+.RI "#define \fBIM_CLAMP\fP(V,  MN,  MX)"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_CDECL\fP"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEMO_MARKER\fP(section)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBImGuiDemoMarkerCallback\fP) (const char *file, int line, const char *section, void *user_data)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGui::ShowFontAtlas\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiDemoMarkerCallback\fP \fBGImGuiDemoMarkerCallback\fP = NULL"
+.br
+.ti -1c
+.RI "void * \fBGImGuiDemoMarkerCallbackUserData\fP = NULL"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define IM_CLAMP( V,  MN,  MX)"
+\fBValue:\fP
+.nf
+((V) < (MN) ? (MN) : (V) > (MX) ? (MX) : (V))
+.PP
+.fi
+
+.SS "#define IM_MAX( A,  B)"
+\fBValue:\fP
+.nf
+(((A) >= (B)) ? (A) : (B))
+.PP
+.fi
+
+.SS "#define IM_MIN( A,  B)"
+\fBValue:\fP
+.nf
+(((A) < (B)) ? (A) : (B))
+.PP
+.fi
+
+.SS "#define IM_NEWLINE   '\\n'"
+
+.SS "#define IMGUI_CDECL"
+
+.SS "#define IMGUI_DEMO_MARKER( section)"
+\fBValue:\fP
+.nf
+do { if (GImGuiDemoMarkerCallback != NULL) GImGuiDemoMarkerCallback(__FILE__, __LINE__, section, GImGuiDemoMarkerCallbackUserData); } while (0)
+.PP
+.fi
+
+.SS "#define PRId64   'lld'"
+
+.SS "#define PRIu64   'llu'"
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* ImGuiDemoMarkerCallback) (const char *file, int line, const char *section, void *user_data)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "\fBImGuiDemoMarkerCallback\fP GImGuiDemoMarkerCallback = NULL"
+
+.SS "void * GImGuiDemoMarkerCallbackUserData = NULL"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

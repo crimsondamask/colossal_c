@@ -8,7 +8,7 @@ cl_mb_device
 .PP
 .PP
 \fR#include <mb_device\&.h>\fP
-.SS "Data Fields"
+.SS "Public Attributes"
 
 .in +1c
 .ti -1c
@@ -18,7 +18,7 @@ cl_mb_device
 .RI "char const  * \fBname\fP"
 .br
 .ti -1c
-.RI "char * \fBip\fP"
+.RI "char const  * \fBip\fP"
 .br
 .RI "Used for TCP device\&. "
 .ti -1c
@@ -26,7 +26,7 @@ cl_mb_device
 .br
 .RI "Used for TCP device\&. "
 .ti -1c
-.RI "char * \fBcom_port\fP"
+.RI "char const  * \fBcom_port\fP"
 .br
 .RI "Used for serial device\&. "
 .ti -1c
@@ -56,43 +56,43 @@ cl_mb_device
 .SH "Detailed Description"
 .PP 
 \fBcl_mb_device\fP is the root type for the Modbus device\&. It holds all device configuration and channels data\&. 
-.SH "Field Documentation"
+.SH "Member Data Documentation"
 .PP 
-.SS "enum \fBcl_mb_device_baudrate\fP baudrate"
+.SS "enum \fBcl_mb_device_baudrate\fP cl_mb_device::baudrate"
 
 .PP
 Used for serial device\&. 
-.SS "size_t channel_count"
+.SS "size_t cl_mb_device::channel_count"
 
 .PP
 Keeps count of the number of channels\&. 
-.SS "\fBcl_mb_channel\fP* channels"
+.SS "\fBcl_mb_channel\fP* cl_mb_device::channels"
 
 .PP
 A list of all the MB channels in the device\&. 
-.SS "char* com_port"
+.SS "char const* cl_mb_device::com_port"
 
 .PP
 Used for serial device\&. 
-.SS "enum \fBcl_mb_device_type\fP device_type"
+.SS "enum \fBcl_mb_device_type\fP cl_mb_device::device_type"
 
 .PP
 Used to select which device configuration to use\&. 
-.SS "int id"
+.SS "int cl_mb_device::id"
 
-.SS "char* ip"
+.SS "char const* cl_mb_device::ip"
 
 .PP
 Used for TCP device\&. 
-.SS "char const* name"
+.SS "char const* cl_mb_device::name"
 
-.SS "char const* name_identifier"
+.SS "char const* cl_mb_device::name_identifier"
 A special string that identifies the device in calculations \&.i\&.e "MB" or "AI"\&. 
-.SS "enum \fBcl_mb_device_parity\fP parity"
+.SS "enum \fBcl_mb_device_parity\fP cl_mb_device::parity"
 
 .PP
 Used for serial device\&. 
-.SS "int port"
+.SS "int cl_mb_device::port"
 
 .PP
 Used for TCP device\&. 

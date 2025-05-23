@@ -1,0 +1,118 @@
+.TH "ImGuiListClipper" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiListClipper
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiListClipper\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fB~ImGuiListClipper\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBBegin\fP (int items_count, float items_height=\-1\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBEnd\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBStep\fP ()"
+.br
+.ti -1c
+.RI "void \fBIncludeItemByIndex\fP (int item_index)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBIncludeItemsByIndex\fP (int item_begin, int item_end)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSeekCursorForItem\fP (int item_index)"
+.br
+.ti -1c
+.RI "void \fBIncludeRangeByIndices\fP (int item_begin, int item_end)"
+.br
+.ti -1c
+.RI "void \fBForceDisplayRangeByIndices\fP (int item_begin, int item_end)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "int \fBDisplayStart\fP"
+.br
+.ti -1c
+.RI "int \fBDisplayEnd\fP"
+.br
+.ti -1c
+.RI "int \fBItemsCount\fP"
+.br
+.ti -1c
+.RI "float \fBItemsHeight\fP"
+.br
+.ti -1c
+.RI "float \fBStartPosY\fP"
+.br
+.ti -1c
+.RI "double \fBStartSeekOffsetY\fP"
+.br
+.ti -1c
+.RI "void * \fBTempData\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiListClipper::ImGuiListClipper ()"
+
+.SS "ImGuiListClipper::~ImGuiListClipper ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiListClipper::Begin (int items_count, float items_height = \fR\-1\&.0f\fP)"
+
+.SS "void ImGuiListClipper::End ()"
+
+.SS "void ImGuiListClipper::ForceDisplayRangeByIndices (int item_begin, int item_end)\fR [inline]\fP"
+
+.SS "void ImGuiListClipper::IncludeItemByIndex (int item_index)\fR [inline]\fP"
+
+.SS "void ImGuiListClipper::IncludeItemsByIndex (int item_begin, int item_end)"
+
+.SS "void ImGuiListClipper::IncludeRangeByIndices (int item_begin, int item_end)\fR [inline]\fP"
+
+.SS "void ImGuiListClipper::SeekCursorForItem (int item_index)"
+
+.SS "bool ImGuiListClipper::Step ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImGuiContext\fP* ImGuiListClipper::Ctx"
+
+.SS "int ImGuiListClipper::DisplayEnd"
+
+.SS "int ImGuiListClipper::DisplayStart"
+
+.SS "int ImGuiListClipper::ItemsCount"
+
+.SS "float ImGuiListClipper::ItemsHeight"
+
+.SS "float ImGuiListClipper::StartPosY"
+
+.SS "double ImGuiListClipper::StartSeekOffsetY"
+
+.SS "void* ImGuiListClipper::TempData"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,0 +1,613 @@
+.TH "ImGuiWindow" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiWindow
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiWindow\fP (\fBImGuiContext\fP *context, const char *name)"
+.br
+.ti -1c
+.RI "\fB~ImGuiWindow\fP ()"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetID\fP (const char *str, const char *str_end=NULL)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetID\fP (const void *ptr)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetID\fP (int n)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetIDFromPos\fP (const \fBImVec2\fP &p_abs)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetIDFromRectangle\fP (const \fBImRect\fP &r_abs)"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBRect\fP () const"
+.br
+.ti -1c
+.RI "float \fBCalcFontSize\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBTitleBarRect\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBMenuBarRect\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "char * \fBName\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBID\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindowFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiChildFlags\fP \fBChildFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiViewportP\fP * \fBViewport\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSizeFull\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBContentSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBContentSizeIdeal\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBContentSizeExplicit\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWindowPadding\fP"
+.br
+.ti -1c
+.RI "float \fBWindowRounding\fP"
+.br
+.ti -1c
+.RI "float \fBWindowBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBTitleBarHeight\fP"
+.br
+.ti -1c
+.RI "float \fBMenuBarHeight\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeX1\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeY1\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeX2\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeY2\fP"
+.br
+.ti -1c
+.RI "float \fBDecoInnerSizeX1\fP"
+.br
+.ti -1c
+.RI "float \fBDecoInnerSizeY1\fP"
+.br
+.ti -1c
+.RI "int \fBNameBufLen\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBMoveId\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBChildId\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBPopupId\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScroll\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollMax\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollTarget\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollTargetCenterRatio\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollTargetEdgeSnapDist\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollbarSizes\fP"
+.br
+.ti -1c
+.RI "bool \fBScrollbarX\fP"
+.br
+.ti -1c
+.RI "bool \fBScrollbarY\fP"
+.br
+.ti -1c
+.RI "bool \fBScrollbarXStabilizeEnabled\fP"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBScrollbarXStabilizeToggledHistory\fP"
+.br
+.ti -1c
+.RI "bool \fBActive\fP"
+.br
+.ti -1c
+.RI "bool \fBWasActive\fP"
+.br
+.ti -1c
+.RI "bool \fBWriteAccessed\fP"
+.br
+.ti -1c
+.RI "bool \fBCollapsed\fP"
+.br
+.ti -1c
+.RI "bool \fBWantCollapseToggle\fP"
+.br
+.ti -1c
+.RI "bool \fBSkipItems\fP"
+.br
+.ti -1c
+.RI "bool \fBSkipRefresh\fP"
+.br
+.ti -1c
+.RI "bool \fBAppearing\fP"
+.br
+.ti -1c
+.RI "bool \fBHidden\fP"
+.br
+.ti -1c
+.RI "bool \fBIsFallbackWindow\fP"
+.br
+.ti -1c
+.RI "bool \fBIsExplicitChild\fP"
+.br
+.ti -1c
+.RI "bool \fBHasCloseButton\fP"
+.br
+.ti -1c
+.RI "signed char \fBResizeBorderHovered\fP"
+.br
+.ti -1c
+.RI "signed char \fBResizeBorderHeld\fP"
+.br
+.ti -1c
+.RI "short \fBBeginCount\fP"
+.br
+.ti -1c
+.RI "short \fBBeginCountPreviousFrame\fP"
+.br
+.ti -1c
+.RI "short \fBBeginOrderWithinParent\fP"
+.br
+.ti -1c
+.RI "short \fBBeginOrderWithinContext\fP"
+.br
+.ti -1c
+.RI "short \fBFocusOrder\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBAutoFitFramesX\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBAutoFitFramesY\fP"
+.br
+.ti -1c
+.RI "bool \fBAutoFitOnlyGrows\fP"
+.br
+.ti -1c
+.RI "\fBImGuiDir\fP \fBAutoPosLastDirection\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBHiddenFramesCanSkipItems\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBHiddenFramesCannotSkipItems\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBHiddenFramesForRenderOnly\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBDisableInputsFrames\fP"
+.br
+.ti -1c
+.RI "\fBImGuiCond\fP \fBSetWindowPosAllowFlags\fP: 8"
+.br
+.ti -1c
+.RI "\fBImGuiCond\fP \fBSetWindowSizeAllowFlags\fP: 8"
+.br
+.ti -1c
+.RI "\fBImGuiCond\fP \fBSetWindowCollapsedAllowFlags\fP: 8"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSetWindowPosVal\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSetWindowPosPivot\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiID\fP > \fBIDStack\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindowTempData\fP \fBDC\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBOuterRectClipped\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBInnerRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBInnerClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBWorkRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBParentWorkRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBContentRegionRect\fP"
+.br
+.ti -1c
+.RI "\fBImVec2ih\fP \fBHitTestHoleSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2ih\fP \fBHitTestHoleOffset\fP"
+.br
+.ti -1c
+.RI "int \fBLastFrameActive\fP"
+.br
+.ti -1c
+.RI "float \fBLastTimeActive\fP"
+.br
+.ti -1c
+.RI "float \fBItemWidthDefault\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fBStateStorage\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiOldColumns\fP > \fBColumnsStorage\fP"
+.br
+.ti -1c
+.RI "float \fBFontWindowScale\fP"
+.br
+.ti -1c
+.RI "float \fBFontWindowScaleParents\fP"
+.br
+.ti -1c
+.RI "float \fBFontRefSize\fP"
+.br
+.ti -1c
+.RI "int \fBSettingsOffset\fP"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP * \fBDrawList\fP"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP \fBDrawListInst\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBParentWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBParentWindowInBeginStack\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindowPopupTree\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindowForTitleBarHighlight\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindowForNav\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBParentWindowForFocusRoute\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBNavLastChildNavWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBNavLastIds\fP [\fBImGuiNavLayer_COUNT\fP]"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBNavRectRel\fP [\fBImGuiNavLayer_COUNT\fP]"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBNavPreferredScoringPosRel\fP [\fBImGuiNavLayer_COUNT\fP]"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBNavRootFocusScopeId\fP"
+.br
+.ti -1c
+.RI "int \fBMemoryDrawListIdxCapacity\fP"
+.br
+.ti -1c
+.RI "int \fBMemoryDrawListVtxCapacity\fP"
+.br
+.ti -1c
+.RI "bool \fBMemoryCompacted\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiWindow::ImGuiWindow (\fBImGuiContext\fP * context, const char * name)"
+
+.SS "ImGuiWindow::~ImGuiWindow ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "float ImGuiWindow::CalcFontSize () const\fR [inline]\fP"
+
+.SS "\fBIM_MSVC_RUNTIME_CHECKS_OFF\fP \fBImGuiID\fP ImGuiWindow::GetID (const char * str, const char * str_end = \fRNULL\fP)"
+
+.SS "\fBImGuiID\fP ImGuiWindow::GetID (const void * ptr)"
+
+.SS "\fBImGuiID\fP ImGuiWindow::GetID (int n)"
+
+.SS "\fBImGuiID\fP ImGuiWindow::GetIDFromPos (const \fBImVec2\fP & p_abs)"
+
+.SS "\fBImGuiID\fP ImGuiWindow::GetIDFromRectangle (const \fBImRect\fP & r_abs)"
+
+.SS "\fBImRect\fP ImGuiWindow::MenuBarRect () const\fR [inline]\fP"
+
+.SS "\fBImRect\fP ImGuiWindow::Rect () const\fR [inline]\fP"
+
+.SS "\fBImRect\fP ImGuiWindow::TitleBarRect () const\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "bool ImGuiWindow::Active"
+
+.SS "bool ImGuiWindow::Appearing"
+
+.SS "\fBImS8\fP ImGuiWindow::AutoFitFramesX"
+
+.SS "\fBImS8\fP ImGuiWindow::AutoFitFramesY"
+
+.SS "bool ImGuiWindow::AutoFitOnlyGrows"
+
+.SS "\fBImGuiDir\fP ImGuiWindow::AutoPosLastDirection"
+
+.SS "short ImGuiWindow::BeginCount"
+
+.SS "short ImGuiWindow::BeginCountPreviousFrame"
+
+.SS "short ImGuiWindow::BeginOrderWithinContext"
+
+.SS "short ImGuiWindow::BeginOrderWithinParent"
+
+.SS "\fBImGuiChildFlags\fP ImGuiWindow::ChildFlags"
+
+.SS "\fBImGuiID\fP ImGuiWindow::ChildId"
+
+.SS "\fBImRect\fP ImGuiWindow::ClipRect"
+
+.SS "bool ImGuiWindow::Collapsed"
+
+.SS "\fBImVector\fP<\fBImGuiOldColumns\fP> ImGuiWindow::ColumnsStorage"
+
+.SS "\fBImRect\fP ImGuiWindow::ContentRegionRect"
+
+.SS "\fBImVec2\fP ImGuiWindow::ContentSize"
+
+.SS "\fBImVec2\fP ImGuiWindow::ContentSizeExplicit"
+
+.SS "\fBImVec2\fP ImGuiWindow::ContentSizeIdeal"
+
+.SS "\fBImGuiContext\fP* ImGuiWindow::Ctx"
+
+.SS "\fBImGuiWindowTempData\fP ImGuiWindow::DC"
+
+.SS "float ImGuiWindow::DecoInnerSizeX1"
+
+.SS "float ImGuiWindow::DecoInnerSizeY1"
+
+.SS "float ImGuiWindow::DecoOuterSizeX1"
+
+.SS "float ImGuiWindow::DecoOuterSizeX2"
+
+.SS "float ImGuiWindow::DecoOuterSizeY1"
+
+.SS "float ImGuiWindow::DecoOuterSizeY2"
+
+.SS "\fBImS8\fP ImGuiWindow::DisableInputsFrames"
+
+.SS "\fBImDrawList\fP* ImGuiWindow::DrawList"
+
+.SS "\fBImDrawList\fP ImGuiWindow::DrawListInst"
+
+.SS "\fBImGuiWindowFlags\fP ImGuiWindow::Flags"
+
+.SS "short ImGuiWindow::FocusOrder"
+
+.SS "float ImGuiWindow::FontRefSize"
+
+.SS "float ImGuiWindow::FontWindowScale"
+
+.SS "float ImGuiWindow::FontWindowScaleParents"
+
+.SS "bool ImGuiWindow::HasCloseButton"
+
+.SS "bool ImGuiWindow::Hidden"
+
+.SS "\fBImS8\fP ImGuiWindow::HiddenFramesCannotSkipItems"
+
+.SS "\fBImS8\fP ImGuiWindow::HiddenFramesCanSkipItems"
+
+.SS "\fBImS8\fP ImGuiWindow::HiddenFramesForRenderOnly"
+
+.SS "\fBImVec2ih\fP ImGuiWindow::HitTestHoleOffset"
+
+.SS "\fBImVec2ih\fP ImGuiWindow::HitTestHoleSize"
+
+.SS "\fBImGuiID\fP ImGuiWindow::ID"
+
+.SS "\fBImVector\fP<\fBImGuiID\fP> ImGuiWindow::IDStack"
+
+.SS "\fBImRect\fP ImGuiWindow::InnerClipRect"
+
+.SS "\fBImRect\fP ImGuiWindow::InnerRect"
+
+.SS "bool ImGuiWindow::IsExplicitChild"
+
+.SS "bool ImGuiWindow::IsFallbackWindow"
+
+.SS "float ImGuiWindow::ItemWidthDefault"
+
+.SS "int ImGuiWindow::LastFrameActive"
+
+.SS "float ImGuiWindow::LastTimeActive"
+
+.SS "bool ImGuiWindow::MemoryCompacted"
+
+.SS "int ImGuiWindow::MemoryDrawListIdxCapacity"
+
+.SS "int ImGuiWindow::MemoryDrawListVtxCapacity"
+
+.SS "float ImGuiWindow::MenuBarHeight"
+
+.SS "\fBImGuiID\fP ImGuiWindow::MoveId"
+
+.SS "char* ImGuiWindow::Name"
+
+.SS "int ImGuiWindow::NameBufLen"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::NavLastChildNavWindow"
+
+.SS "\fBImGuiID\fP ImGuiWindow::NavLastIds[\fBImGuiNavLayer_COUNT\fP]"
+
+.SS "\fBImVec2\fP ImGuiWindow::NavPreferredScoringPosRel[\fBImGuiNavLayer_COUNT\fP]"
+
+.SS "\fBImRect\fP ImGuiWindow::NavRectRel[\fBImGuiNavLayer_COUNT\fP]"
+
+.SS "\fBImGuiID\fP ImGuiWindow::NavRootFocusScopeId"
+
+.SS "\fBImRect\fP ImGuiWindow::OuterRectClipped"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::ParentWindow"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::ParentWindowForFocusRoute"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::ParentWindowInBeginStack"
+
+.SS "\fBImRect\fP ImGuiWindow::ParentWorkRect"
+
+.SS "\fBImGuiID\fP ImGuiWindow::PopupId"
+
+.SS "\fBImVec2\fP ImGuiWindow::Pos"
+
+.SS "signed char ImGuiWindow::ResizeBorderHeld"
+
+.SS "signed char ImGuiWindow::ResizeBorderHovered"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::RootWindow"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::RootWindowForNav"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::RootWindowForTitleBarHighlight"
+
+.SS "\fBImGuiWindow\fP* ImGuiWindow::RootWindowPopupTree"
+
+.SS "\fBImVec2\fP ImGuiWindow::Scroll"
+
+.SS "\fBImVec2\fP ImGuiWindow::ScrollbarSizes"
+
+.SS "bool ImGuiWindow::ScrollbarX"
+
+.SS "bool ImGuiWindow::ScrollbarXStabilizeEnabled"
+
+.SS "\fBImU8\fP ImGuiWindow::ScrollbarXStabilizeToggledHistory"
+
+.SS "bool ImGuiWindow::ScrollbarY"
+
+.SS "\fBImVec2\fP ImGuiWindow::ScrollMax"
+
+.SS "\fBImVec2\fP ImGuiWindow::ScrollTarget"
+
+.SS "\fBImVec2\fP ImGuiWindow::ScrollTargetCenterRatio"
+
+.SS "\fBImVec2\fP ImGuiWindow::ScrollTargetEdgeSnapDist"
+
+.SS "int ImGuiWindow::SettingsOffset"
+
+.SS "\fBImGuiCond\fP ImGuiWindow::SetWindowCollapsedAllowFlags"
+
+.SS "\fBImGuiCond\fP ImGuiWindow::SetWindowPosAllowFlags"
+
+.SS "\fBImVec2\fP ImGuiWindow::SetWindowPosPivot"
+
+.SS "\fBImVec2\fP ImGuiWindow::SetWindowPosVal"
+
+.SS "\fBImGuiCond\fP ImGuiWindow::SetWindowSizeAllowFlags"
+
+.SS "\fBImVec2\fP ImGuiWindow::Size"
+
+.SS "\fBImVec2\fP ImGuiWindow::SizeFull"
+
+.SS "bool ImGuiWindow::SkipItems"
+
+.SS "bool ImGuiWindow::SkipRefresh"
+
+.SS "\fBImGuiStorage\fP ImGuiWindow::StateStorage"
+
+.SS "float ImGuiWindow::TitleBarHeight"
+
+.SS "\fBImGuiViewportP\fP* ImGuiWindow::Viewport"
+
+.SS "bool ImGuiWindow::WantCollapseToggle"
+
+.SS "bool ImGuiWindow::WasActive"
+
+.SS "float ImGuiWindow::WindowBorderSize"
+
+.SS "\fBImVec2\fP ImGuiWindow::WindowPadding"
+
+.SS "float ImGuiWindow::WindowRounding"
+
+.SS "\fBImRect\fP ImGuiWindow::WorkRect"
+
+.SS "bool ImGuiWindow::WriteAccessed"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

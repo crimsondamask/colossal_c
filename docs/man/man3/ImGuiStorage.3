@@ -1,0 +1,106 @@
+.TH "ImGuiStorage" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiStorage
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBGetInt\fP (\fBImGuiID\fP key, int default_val=0) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetInt\fP (\fBImGuiID\fP key, int val)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBGetBool\fP (\fBImGuiID\fP key, bool default_val=false) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetBool\fP (\fBImGuiID\fP key, bool val)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float \fBGetFloat\fP (\fBImGuiID\fP key, float default_val=0\&.0f) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetFloat\fP (\fBImGuiID\fP key, float val)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void * \fBGetVoidPtr\fP (\fBImGuiID\fP key) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetVoidPtr\fP (\fBImGuiID\fP key, void *val)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int * \fBGetIntRef\fP (\fBImGuiID\fP key, int default_val=0)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool * \fBGetBoolRef\fP (\fBImGuiID\fP key, bool default_val=false)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP float * \fBGetFloatRef\fP (\fBImGuiID\fP key, float default_val=0\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void ** \fBGetVoidPtrRef\fP (\fBImGuiID\fP key, void *default_val=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBBuildSortByKey\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetAllInt\fP (int val)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiStoragePair\fP > \fBData\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiStorage::BuildSortByKey ()"
+
+.SS "void ImGuiStorage::Clear ()\fR [inline]\fP"
+
+.SS "bool ImGuiStorage::GetBool (\fBImGuiID\fP key, bool default_val = \fRfalse\fP) const"
+
+.SS "bool * ImGuiStorage::GetBoolRef (\fBImGuiID\fP key, bool default_val = \fRfalse\fP)"
+
+.SS "float ImGuiStorage::GetFloat (\fBImGuiID\fP key, float default_val = \fR0\&.0f\fP) const"
+
+.SS "float * ImGuiStorage::GetFloatRef (\fBImGuiID\fP key, float default_val = \fR0\&.0f\fP)"
+
+.SS "int ImGuiStorage::GetInt (\fBImGuiID\fP key, int default_val = \fR0\fP) const"
+
+.SS "int * ImGuiStorage::GetIntRef (\fBImGuiID\fP key, int default_val = \fR0\fP)"
+
+.SS "void * ImGuiStorage::GetVoidPtr (\fBImGuiID\fP key) const"
+
+.SS "void ** ImGuiStorage::GetVoidPtrRef (\fBImGuiID\fP key, void * default_val = \fRNULL\fP)"
+
+.SS "void ImGuiStorage::SetAllInt (int val)"
+
+.SS "void ImGuiStorage::SetBool (\fBImGuiID\fP key, bool val)"
+
+.SS "void ImGuiStorage::SetFloat (\fBImGuiID\fP key, float val)"
+
+.SS "void ImGuiStorage::SetInt (\fBImGuiID\fP key, int val)"
+
+.SS "void ImGuiStorage::SetVoidPtr (\fBImGuiID\fP key, void * val)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImGuiStoragePair\fP> ImGuiStorage::Data"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

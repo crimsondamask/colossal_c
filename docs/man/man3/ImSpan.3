@@ -1,0 +1,108 @@
+.TH "ImSpan< T >" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImSpan< T >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImSpan\fP ()"
+.br
+.ti -1c
+.RI "\fBImSpan\fP (T *data, int \fBsize\fP)"
+.br
+.ti -1c
+.RI "\fBImSpan\fP (T *data, T *data_end)"
+.br
+.ti -1c
+.RI "void \fBset\fP (T *data, int \fBsize\fP)"
+.br
+.ti -1c
+.RI "void \fBset\fP (T *data, T *data_end)"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize_in_bytes\fP () const"
+.br
+.ti -1c
+.RI "T & \fBoperator[]\fP (int i)"
+.br
+.ti -1c
+.RI "const T & \fBoperator[]\fP (int i) const"
+.br
+.ti -1c
+.RI "T * \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "const T * \fBbegin\fP () const"
+.br
+.ti -1c
+.RI "T * \fBend\fP ()"
+.br
+.ti -1c
+.RI "const T * \fBend\fP () const"
+.br
+.ti -1c
+.RI "int \fBindex_from_ptr\fP (const T *it) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "T * \fBData\fP"
+.br
+.ti -1c
+.RI "T * \fBDataEnd\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<typename T> \fBImSpan\fP< T >\fB::ImSpan\fP ()\fR [inline]\fP"
+
+.SS "template<typename T> \fBImSpan\fP< T >\fB::ImSpan\fP (T * data, int size)\fR [inline]\fP"
+
+.SS "template<typename T> \fBImSpan\fP< T >\fB::ImSpan\fP (T * data, T * data_end)\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename T> T * \fBImSpan\fP< T >::begin ()\fR [inline]\fP"
+
+.SS "template<typename T> const T * \fBImSpan\fP< T >::begin () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImSpan\fP< T >::end ()\fR [inline]\fP"
+
+.SS "template<typename T> const T * \fBImSpan\fP< T >::end () const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImSpan\fP< T >::index_from_ptr (const T * it) const\fR [inline]\fP"
+
+.SS "template<typename T> T & \fBImSpan\fP< T >::operator[] (int i)\fR [inline]\fP"
+
+.SS "template<typename T> const T & \fBImSpan\fP< T >::operator[] (int i) const\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImSpan\fP< T >::set (T * data, int size)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImSpan\fP< T >::set (T * data, T * data_end)\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImSpan\fP< T >::size () const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImSpan\fP< T >::size_in_bytes () const\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<typename T> T* \fBImSpan\fP< T >::Data"
+
+.SS "template<typename T> T* \fBImSpan\fP< T >::DataEnd"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

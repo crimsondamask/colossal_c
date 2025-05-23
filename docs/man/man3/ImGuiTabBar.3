@@ -1,0 +1,201 @@
+.TH "ImGuiTabBar" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTabBar
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiTabBar\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBWindow\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiTabItem\fP > \fBTabs\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTabBarFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBID\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBSelectedTabId\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBNextSelectedTabId\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBVisibleTabId\fP"
+.br
+.ti -1c
+.RI "int \fBCurrFrameVisible\fP"
+.br
+.ti -1c
+.RI "int \fBPrevFrameVisible\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBBarRect\fP"
+.br
+.ti -1c
+.RI "float \fBCurrTabsContentsHeight\fP"
+.br
+.ti -1c
+.RI "float \fBPrevTabsContentsHeight\fP"
+.br
+.ti -1c
+.RI "float \fBWidthAllTabs\fP"
+.br
+.ti -1c
+.RI "float \fBWidthAllTabsIdeal\fP"
+.br
+.ti -1c
+.RI "float \fBScrollingAnim\fP"
+.br
+.ti -1c
+.RI "float \fBScrollingTarget\fP"
+.br
+.ti -1c
+.RI "float \fBScrollingTargetDistToVisibility\fP"
+.br
+.ti -1c
+.RI "float \fBScrollingSpeed\fP"
+.br
+.ti -1c
+.RI "float \fBScrollingRectMinX\fP"
+.br
+.ti -1c
+.RI "float \fBScrollingRectMaxX\fP"
+.br
+.ti -1c
+.RI "float \fBSeparatorMinX\fP"
+.br
+.ti -1c
+.RI "float \fBSeparatorMaxX\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBReorderRequestTabId\fP"
+.br
+.ti -1c
+.RI "\fBImS16\fP \fBReorderRequestOffset\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBBeginCount\fP"
+.br
+.ti -1c
+.RI "bool \fBWantLayout\fP"
+.br
+.ti -1c
+.RI "bool \fBVisibleTabWasSubmitted\fP"
+.br
+.ti -1c
+.RI "bool \fBTabsAddedNew\fP"
+.br
+.ti -1c
+.RI "\fBImS16\fP \fBTabsActiveCount\fP"
+.br
+.ti -1c
+.RI "\fBImS16\fP \fBLastTabItemIdx\fP"
+.br
+.ti -1c
+.RI "float \fBItemSpacingY\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBFramePadding\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBBackupCursorPos\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBTabsNames\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiTabBar::ImGuiTabBar ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVec2\fP ImGuiTabBar::BackupCursorPos"
+
+.SS "\fBImRect\fP ImGuiTabBar::BarRect"
+
+.SS "\fBImS8\fP ImGuiTabBar::BeginCount"
+
+.SS "int ImGuiTabBar::CurrFrameVisible"
+
+.SS "float ImGuiTabBar::CurrTabsContentsHeight"
+
+.SS "\fBImGuiTabBarFlags\fP ImGuiTabBar::Flags"
+
+.SS "\fBImVec2\fP ImGuiTabBar::FramePadding"
+
+.SS "\fBImGuiID\fP ImGuiTabBar::ID"
+
+.SS "float ImGuiTabBar::ItemSpacingY"
+
+.SS "\fBImS16\fP ImGuiTabBar::LastTabItemIdx"
+
+.SS "\fBImGuiID\fP ImGuiTabBar::NextSelectedTabId"
+
+.SS "int ImGuiTabBar::PrevFrameVisible"
+
+.SS "float ImGuiTabBar::PrevTabsContentsHeight"
+
+.SS "\fBImS16\fP ImGuiTabBar::ReorderRequestOffset"
+
+.SS "\fBImGuiID\fP ImGuiTabBar::ReorderRequestTabId"
+
+.SS "float ImGuiTabBar::ScrollingAnim"
+
+.SS "float ImGuiTabBar::ScrollingRectMaxX"
+
+.SS "float ImGuiTabBar::ScrollingRectMinX"
+
+.SS "float ImGuiTabBar::ScrollingSpeed"
+
+.SS "float ImGuiTabBar::ScrollingTarget"
+
+.SS "float ImGuiTabBar::ScrollingTargetDistToVisibility"
+
+.SS "\fBImGuiID\fP ImGuiTabBar::SelectedTabId"
+
+.SS "float ImGuiTabBar::SeparatorMaxX"
+
+.SS "float ImGuiTabBar::SeparatorMinX"
+
+.SS "\fBImVector\fP<\fBImGuiTabItem\fP> ImGuiTabBar::Tabs"
+
+.SS "\fBImS16\fP ImGuiTabBar::TabsActiveCount"
+
+.SS "bool ImGuiTabBar::TabsAddedNew"
+
+.SS "\fBImGuiTextBuffer\fP ImGuiTabBar::TabsNames"
+
+.SS "\fBImGuiID\fP ImGuiTabBar::VisibleTabId"
+
+.SS "bool ImGuiTabBar::VisibleTabWasSubmitted"
+
+.SS "bool ImGuiTabBar::WantLayout"
+
+.SS "float ImGuiTabBar::WidthAllTabs"
+
+.SS "float ImGuiTabBar::WidthAllTabsIdeal"
+
+.SS "\fBImGuiWindow\fP* ImGuiTabBar::Window"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

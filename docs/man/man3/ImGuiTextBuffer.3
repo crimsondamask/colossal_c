@@ -1,0 +1,107 @@
+.TH "ImGuiTextBuffer" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTextBuffer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP ()"
+.br
+.ti -1c
+.RI "char \fBoperator[]\fP (int i) const"
+.br
+.ti -1c
+.RI "const char * \fBbegin\fP () const"
+.br
+.ti -1c
+.RI "const char * \fBend\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "bool \fBempty\fP () const"
+.br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "void \fBresize\fP (int \fBsize\fP)"
+.br
+.ti -1c
+.RI "void \fBreserve\fP (int capacity)"
+.br
+.ti -1c
+.RI "const char * \fBc_str\fP () const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBappend\fP (const char *str, const char *str_end=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBappendf\fP (const char *fmt,\&.\&.\&.) \fBIM_FMTARGS\fP(2)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBappendfv\fP (const char *fmt, va_list args) \fBIM_FMTLIST\fP(2)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< char > \fBBuf\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBIMGUI_API\fP char \fBEmptyString\fP [1] = { 0 }"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiTextBuffer::ImGuiTextBuffer ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiTextBuffer::append (const char * str, const char * str_end = \fRNULL\fP)"
+
+.SS "void ImGuiTextBuffer::appendf (const char * fmt,  \&.\&.\&.)"
+
+.SS "void ImGuiTextBuffer::appendfv (const char * fmt, va_list args)"
+
+.SS "const char * ImGuiTextBuffer::begin () const\fR [inline]\fP"
+
+.SS "const char * ImGuiTextBuffer::c_str () const\fR [inline]\fP"
+
+.SS "void ImGuiTextBuffer::clear ()\fR [inline]\fP"
+
+.SS "bool ImGuiTextBuffer::empty () const\fR [inline]\fP"
+
+.SS "const char * ImGuiTextBuffer::end () const\fR [inline]\fP"
+
+.SS "char ImGuiTextBuffer::operator[] (int i) const\fR [inline]\fP"
+
+.SS "void ImGuiTextBuffer::reserve (int capacity)\fR [inline]\fP"
+
+.SS "void ImGuiTextBuffer::resize (int size)\fR [inline]\fP"
+
+.SS "int ImGuiTextBuffer::size () const\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<char> ImGuiTextBuffer::Buf"
+
+.SS "char ImGuiTextBuffer::EmptyString = { 0 }\fR [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

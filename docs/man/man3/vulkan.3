@@ -1,0 +1,139 @@
+.TH "vulkan" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vulkan \- Vulkan reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBGLFWvkproc\fP) (void)"
+.br
+.RI "Vulkan API function pointer type\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwVulkanSupported\fP (void)"
+.br
+.RI "Returns whether the Vulkan loader has been found\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP const char ** \fBglfwGetRequiredInstanceExtensions\fP (uint32_t *count)"
+.br
+.RI "Returns the Vulkan instance extensions required by GLFW\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is the reference documentation for Vulkan related functions and types\&. For more task-oriented information, see the \fBvulkan_guide\fP\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* GLFWvkproc) (void)"
+
+.PP
+Vulkan API function pointer type\&. Generic function pointer used for returning Vulkan API function pointers without forcing a cast from a regular pointer\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBvulkan_proc\fP 
+
+.PP
+glfwGetInstanceProcAddress
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBGLFWAPI\fP const char ** glfwGetRequiredInstanceExtensions (uint32_t * count)"
+
+.PP
+Returns the Vulkan instance extensions required by GLFW\&. This function returns an array of names of Vulkan instance extensions required by GLFW for creating Vulkan surfaces for GLFW windows\&. If successful, the list will always contains \fRVK_KHR_surface\fP, so if you don't require any additional extensions you can pass this list directly to the \fRVkInstanceCreateInfo\fP struct\&.
+
+.PP
+If Vulkan is not available on the machine, this function returns \fRNULL\fP and generates a \fBGLFW_API_UNAVAILABLE\fP error\&. Call \fBglfwVulkanSupported\fP to check whether Vulkan is available\&.
+
+.PP
+If Vulkan is available but no set of extensions allowing window surface creation was found, this function returns \fRNULL\fP\&. You may still use Vulkan for off-screen rendering and compute work\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcount\fP Where to store the number of extensions in the returned array\&. This is set to zero if an error occurred\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An array of ASCII encoded extension names, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP and \fBGLFW_API_UNAVAILABLE\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+Additional extensions may be required by future versions of GLFW\&. You should check if any extensions you wish to enable are already in the returned array, as it is an error to specify an extension more than once in the \fRVkInstanceCreateInfo\fP struct\&.
+.RE
+.PP
+@pointer_lifetime The returned array is allocated and freed by GLFW\&. You should not free it yourself\&. It is guaranteed to be valid only until the library is terminated\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBvulkan_ext\fP 
+
+.PP
+glfwCreateWindowSurface
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP int glfwVulkanSupported (void )"
+
+.PP
+Returns whether the Vulkan loader has been found\&. This function returns whether the Vulkan loader has been found\&. This check is performed by \fBglfwInit\fP\&.
+
+.PP
+The availability of a Vulkan loader does not by itself guarantee that window surface creation or even device creation is possible\&. Call \fBglfwGetRequiredInstanceExtensions\fP to check whether the extensions necessary for Vulkan surface creation are available and \fBglfwGetPhysicalDevicePresentationSupport\fP to check whether a queue family of a physical device supports image presentation\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+\fRGLFW_TRUE\fP if Vulkan is available, or \fRGLFW_FALSE\fP otherwise\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBvulkan_support\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.2\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

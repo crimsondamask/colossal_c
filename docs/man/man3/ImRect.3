@@ -1,0 +1,183 @@
+.TH "ImRect" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImRect
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBImRect\fP ()"
+.br
+.ti -1c
+.RI "constexpr \fBImRect\fP (const \fBImVec2\fP &min, const \fBImVec2\fP &max)"
+.br
+.ti -1c
+.RI "constexpr \fBImRect\fP (const \fBImVec4\fP &v)"
+.br
+.ti -1c
+.RI "constexpr \fBImRect\fP (float x1, float y1, float x2, float y2)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetCenter\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetSize\fP () const"
+.br
+.ti -1c
+.RI "float \fBGetWidth\fP () const"
+.br
+.ti -1c
+.RI "float \fBGetHeight\fP () const"
+.br
+.ti -1c
+.RI "float \fBGetArea\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetTL\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetTR\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetBL\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetBR\fP () const"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const \fBImVec2\fP &p) const"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const \fBImRect\fP &r) const"
+.br
+.ti -1c
+.RI "bool \fBContainsWithPad\fP (const \fBImVec2\fP &p, const \fBImVec2\fP &pad) const"
+.br
+.ti -1c
+.RI "bool \fBOverlaps\fP (const \fBImRect\fP &r) const"
+.br
+.ti -1c
+.RI "void \fBAdd\fP (const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "void \fBAdd\fP (const \fBImRect\fP &r)"
+.br
+.ti -1c
+.RI "void \fBExpand\fP (const float amount)"
+.br
+.ti -1c
+.RI "void \fBExpand\fP (const \fBImVec2\fP &amount)"
+.br
+.ti -1c
+.RI "void \fBTranslate\fP (const \fBImVec2\fP &d)"
+.br
+.ti -1c
+.RI "void \fBTranslateX\fP (float dx)"
+.br
+.ti -1c
+.RI "void \fBTranslateY\fP (float dy)"
+.br
+.ti -1c
+.RI "void \fBClipWith\fP (const \fBImRect\fP &r)"
+.br
+.ti -1c
+.RI "void \fBClipWithFull\fP (const \fBImRect\fP &r)"
+.br
+.ti -1c
+.RI "void \fBFloor\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsInverted\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBToVec4\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBMin\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMax\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImRect::ImRect ()\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImRect::ImRect (const \fBImVec2\fP & min, const \fBImVec2\fP & max)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImRect::ImRect (const \fBImVec4\fP & v)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImRect::ImRect (float x1, float y1, float x2, float y2)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImRect::Add (const \fBImRect\fP & r)\fR [inline]\fP"
+
+.SS "void ImRect::Add (const \fBImVec2\fP & p)\fR [inline]\fP"
+
+.SS "void ImRect::ClipWith (const \fBImRect\fP & r)\fR [inline]\fP"
+
+.SS "void ImRect::ClipWithFull (const \fBImRect\fP & r)\fR [inline]\fP"
+
+.SS "bool ImRect::Contains (const \fBImRect\fP & r) const\fR [inline]\fP"
+
+.SS "bool ImRect::Contains (const \fBImVec2\fP & p) const\fR [inline]\fP"
+
+.SS "bool ImRect::ContainsWithPad (const \fBImVec2\fP & p, const \fBImVec2\fP & pad) const\fR [inline]\fP"
+
+.SS "void ImRect::Expand (const float amount)\fR [inline]\fP"
+
+.SS "void ImRect::Expand (const \fBImVec2\fP & amount)\fR [inline]\fP"
+
+.SS "void ImRect::Floor ()\fR [inline]\fP"
+
+.SS "float ImRect::GetArea () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImRect::GetBL () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImRect::GetBR () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImRect::GetCenter () const\fR [inline]\fP"
+
+.SS "float ImRect::GetHeight () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImRect::GetSize () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImRect::GetTL () const\fR [inline]\fP"
+
+.SS "\fBImVec2\fP ImRect::GetTR () const\fR [inline]\fP"
+
+.SS "float ImRect::GetWidth () const\fR [inline]\fP"
+
+.SS "bool ImRect::IsInverted () const\fR [inline]\fP"
+
+.SS "bool ImRect::Overlaps (const \fBImRect\fP & r) const\fR [inline]\fP"
+
+.SS "\fBImVec4\fP ImRect::ToVec4 () const\fR [inline]\fP"
+
+.SS "void ImRect::Translate (const \fBImVec2\fP & d)\fR [inline]\fP"
+
+.SS "void ImRect::TranslateX (float dx)\fR [inline]\fP"
+
+.SS "void ImRect::TranslateY (float dy)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVec2\fP ImRect::Max"
+
+.SS "\fBImVec2\fP ImRect::Min"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

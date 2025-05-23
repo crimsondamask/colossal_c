@@ -1,0 +1,333 @@
+.TH "ImGuiStyle" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiStyle
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiStyle\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBScaleAllSizes\fP (float scale_factor)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBAlpha\fP"
+.br
+.ti -1c
+.RI "float \fBDisabledAlpha\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWindowPadding\fP"
+.br
+.ti -1c
+.RI "float \fBWindowRounding\fP"
+.br
+.ti -1c
+.RI "float \fBWindowBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBWindowBorderHoverPadding\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWindowMinSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWindowTitleAlign\fP"
+.br
+.ti -1c
+.RI "\fBImGuiDir\fP \fBWindowMenuButtonPosition\fP"
+.br
+.ti -1c
+.RI "float \fBChildRounding\fP"
+.br
+.ti -1c
+.RI "float \fBChildBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBPopupRounding\fP"
+.br
+.ti -1c
+.RI "float \fBPopupBorderSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBFramePadding\fP"
+.br
+.ti -1c
+.RI "float \fBFrameRounding\fP"
+.br
+.ti -1c
+.RI "float \fBFrameBorderSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBItemSpacing\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBItemInnerSpacing\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCellPadding\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBTouchExtraPadding\fP"
+.br
+.ti -1c
+.RI "float \fBIndentSpacing\fP"
+.br
+.ti -1c
+.RI "float \fBColumnsMinSpacing\fP"
+.br
+.ti -1c
+.RI "float \fBScrollbarSize\fP"
+.br
+.ti -1c
+.RI "float \fBScrollbarRounding\fP"
+.br
+.ti -1c
+.RI "float \fBGrabMinSize\fP"
+.br
+.ti -1c
+.RI "float \fBGrabRounding\fP"
+.br
+.ti -1c
+.RI "float \fBLogSliderDeadzone\fP"
+.br
+.ti -1c
+.RI "float \fBImageBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBTabRounding\fP"
+.br
+.ti -1c
+.RI "float \fBTabBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBTabCloseButtonMinWidthSelected\fP"
+.br
+.ti -1c
+.RI "float \fBTabCloseButtonMinWidthUnselected\fP"
+.br
+.ti -1c
+.RI "float \fBTabBarBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBTabBarOverlineSize\fP"
+.br
+.ti -1c
+.RI "float \fBTableAngledHeadersAngle\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBTableAngledHeadersTextAlign\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTreeNodeFlags\fP \fBTreeLinesFlags\fP"
+.br
+.ti -1c
+.RI "float \fBTreeLinesSize\fP"
+.br
+.ti -1c
+.RI "float \fBTreeLinesRounding\fP"
+.br
+.ti -1c
+.RI "\fBImGuiDir\fP \fBColorButtonPosition\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBButtonTextAlign\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSelectableTextAlign\fP"
+.br
+.ti -1c
+.RI "float \fBSeparatorTextBorderSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSeparatorTextAlign\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSeparatorTextPadding\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplayWindowPadding\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplaySafeAreaPadding\fP"
+.br
+.ti -1c
+.RI "float \fBMouseCursorScale\fP"
+.br
+.ti -1c
+.RI "bool \fBAntiAliasedLines\fP"
+.br
+.ti -1c
+.RI "bool \fBAntiAliasedLinesUseTex\fP"
+.br
+.ti -1c
+.RI "bool \fBAntiAliasedFill\fP"
+.br
+.ti -1c
+.RI "float \fBCurveTessellationTol\fP"
+.br
+.ti -1c
+.RI "float \fBCircleTessellationMaxError\fP"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBColors\fP [\fBImGuiCol_COUNT\fP]"
+.br
+.ti -1c
+.RI "float \fBHoverStationaryDelay\fP"
+.br
+.ti -1c
+.RI "float \fBHoverDelayShort\fP"
+.br
+.ti -1c
+.RI "float \fBHoverDelayNormal\fP"
+.br
+.ti -1c
+.RI "\fBImGuiHoveredFlags\fP \fBHoverFlagsForTooltipMouse\fP"
+.br
+.ti -1c
+.RI "\fBImGuiHoveredFlags\fP \fBHoverFlagsForTooltipNav\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiStyle::ImGuiStyle ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiStyle::ScaleAllSizes (float scale_factor)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "float ImGuiStyle::Alpha"
+
+.SS "bool ImGuiStyle::AntiAliasedFill"
+
+.SS "bool ImGuiStyle::AntiAliasedLines"
+
+.SS "bool ImGuiStyle::AntiAliasedLinesUseTex"
+
+.SS "\fBImVec2\fP ImGuiStyle::ButtonTextAlign"
+
+.SS "\fBImVec2\fP ImGuiStyle::CellPadding"
+
+.SS "float ImGuiStyle::ChildBorderSize"
+
+.SS "float ImGuiStyle::ChildRounding"
+
+.SS "float ImGuiStyle::CircleTessellationMaxError"
+
+.SS "\fBImGuiDir\fP ImGuiStyle::ColorButtonPosition"
+
+.SS "\fBImVec4\fP ImGuiStyle::Colors[\fBImGuiCol_COUNT\fP]"
+
+.SS "float ImGuiStyle::ColumnsMinSpacing"
+
+.SS "float ImGuiStyle::CurveTessellationTol"
+
+.SS "float ImGuiStyle::DisabledAlpha"
+
+.SS "\fBImVec2\fP ImGuiStyle::DisplaySafeAreaPadding"
+
+.SS "\fBImVec2\fP ImGuiStyle::DisplayWindowPadding"
+
+.SS "float ImGuiStyle::FrameBorderSize"
+
+.SS "\fBImVec2\fP ImGuiStyle::FramePadding"
+
+.SS "float ImGuiStyle::FrameRounding"
+
+.SS "float ImGuiStyle::GrabMinSize"
+
+.SS "float ImGuiStyle::GrabRounding"
+
+.SS "float ImGuiStyle::HoverDelayNormal"
+
+.SS "float ImGuiStyle::HoverDelayShort"
+
+.SS "\fBImGuiHoveredFlags\fP ImGuiStyle::HoverFlagsForTooltipMouse"
+
+.SS "\fBImGuiHoveredFlags\fP ImGuiStyle::HoverFlagsForTooltipNav"
+
+.SS "float ImGuiStyle::HoverStationaryDelay"
+
+.SS "float ImGuiStyle::ImageBorderSize"
+
+.SS "float ImGuiStyle::IndentSpacing"
+
+.SS "\fBImVec2\fP ImGuiStyle::ItemInnerSpacing"
+
+.SS "\fBImVec2\fP ImGuiStyle::ItemSpacing"
+
+.SS "float ImGuiStyle::LogSliderDeadzone"
+
+.SS "float ImGuiStyle::MouseCursorScale"
+
+.SS "float ImGuiStyle::PopupBorderSize"
+
+.SS "float ImGuiStyle::PopupRounding"
+
+.SS "float ImGuiStyle::ScrollbarRounding"
+
+.SS "float ImGuiStyle::ScrollbarSize"
+
+.SS "\fBImVec2\fP ImGuiStyle::SelectableTextAlign"
+
+.SS "\fBImVec2\fP ImGuiStyle::SeparatorTextAlign"
+
+.SS "float ImGuiStyle::SeparatorTextBorderSize"
+
+.SS "\fBImVec2\fP ImGuiStyle::SeparatorTextPadding"
+
+.SS "float ImGuiStyle::TabBarBorderSize"
+
+.SS "float ImGuiStyle::TabBarOverlineSize"
+
+.SS "float ImGuiStyle::TabBorderSize"
+
+.SS "float ImGuiStyle::TabCloseButtonMinWidthSelected"
+
+.SS "float ImGuiStyle::TabCloseButtonMinWidthUnselected"
+
+.SS "float ImGuiStyle::TableAngledHeadersAngle"
+
+.SS "\fBImVec2\fP ImGuiStyle::TableAngledHeadersTextAlign"
+
+.SS "float ImGuiStyle::TabRounding"
+
+.SS "\fBImVec2\fP ImGuiStyle::TouchExtraPadding"
+
+.SS "\fBImGuiTreeNodeFlags\fP ImGuiStyle::TreeLinesFlags"
+
+.SS "float ImGuiStyle::TreeLinesRounding"
+
+.SS "float ImGuiStyle::TreeLinesSize"
+
+.SS "float ImGuiStyle::WindowBorderHoverPadding"
+
+.SS "float ImGuiStyle::WindowBorderSize"
+
+.SS "\fBImGuiDir\fP ImGuiStyle::WindowMenuButtonPosition"
+
+.SS "\fBImVec2\fP ImGuiStyle::WindowMinSize"
+
+.SS "\fBImVec2\fP ImGuiStyle::WindowPadding"
+
+.SS "float ImGuiStyle::WindowRounding"
+
+.SS "\fBImVec2\fP ImGuiStyle::WindowTitleAlign"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,0 +1,98 @@
+.TH "ImTriangulator" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImTriangulator
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInit\fP (const \fBImVec2\fP *points, int points_count, void *scratch_buffer)"
+.br
+.ti -1c
+.RI "void \fBGetNextTriangle\fP (unsigned int out_triangle[3])"
+.br
+.ti -1c
+.RI "void \fBBuildNodes\fP (const \fBImVec2\fP *points, int points_count)"
+.br
+.ti -1c
+.RI "void \fBBuildReflexes\fP ()"
+.br
+.ti -1c
+.RI "void \fBBuildEars\fP ()"
+.br
+.ti -1c
+.RI "void \fBFlipNodeList\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsEar\fP (int i0, int i1, int i2, const \fBImVec2\fP &v0, const \fBImVec2\fP &v1, const \fBImVec2\fP &v2) const"
+.br
+.ti -1c
+.RI "void \fBReclassifyNode\fP (\fBImTriangulatorNode\fP *node)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBEstimateTriangleCount\fP (int points_count)"
+.br
+.ti -1c
+.RI "static int \fBEstimateScratchBufferSize\fP (int points_count)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fB_TrianglesLeft\fP = 0"
+.br
+.ti -1c
+.RI "\fBImTriangulatorNode\fP * \fB_Nodes\fP = NULL"
+.br
+.ti -1c
+.RI "\fBImTriangulatorNodeSpan\fP \fB_Ears\fP"
+.br
+.ti -1c
+.RI "\fBImTriangulatorNodeSpan\fP \fB_Reflexes\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImTriangulator::BuildEars ()"
+
+.SS "void ImTriangulator::BuildNodes (const \fBImVec2\fP * points, int points_count)"
+
+.SS "void ImTriangulator::BuildReflexes ()"
+
+.SS "static int ImTriangulator::EstimateScratchBufferSize (int points_count)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "static int ImTriangulator::EstimateTriangleCount (int points_count)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "void ImTriangulator::FlipNodeList ()"
+
+.SS "void ImTriangulator::GetNextTriangle (unsigned int out_triangle[3])"
+
+.SS "void ImTriangulator::Init (const \fBImVec2\fP * points, int points_count, void * scratch_buffer)"
+
+.SS "bool ImTriangulator::IsEar (int i0, int i1, int i2, const \fBImVec2\fP & v0, const \fBImVec2\fP & v1, const \fBImVec2\fP & v2) const"
+
+.SS "void ImTriangulator::ReclassifyNode (\fBImTriangulatorNode\fP * node)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImTriangulatorNodeSpan\fP ImTriangulator::_Ears"
+
+.SS "\fBImTriangulatorNode\fP* ImTriangulator::_Nodes = NULL"
+
+.SS "\fBImTriangulatorNodeSpan\fP ImTriangulator::_Reflexes"
+
+.SS "int ImTriangulator::_TrianglesLeft = 0"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

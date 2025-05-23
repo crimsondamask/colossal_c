@@ -1,0 +1,288 @@
+.TH "ImFontAtlas" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImFontAtlas
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFontAtlas\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fB~ImFontAtlas\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP * \fBAddFont\fP (const \fBImFontConfig\fP *font_cfg)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP * \fBAddFontDefault\fP (const \fBImFontConfig\fP *font_cfg=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP * \fBAddFontFromFileTTF\fP (const char *filename, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const \fBImWchar\fP *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP * \fBAddFontFromMemoryTTF\fP (void *font_data, int font_data_size, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const \fBImWchar\fP *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP * \fBAddFontFromMemoryCompressedTTF\fP (const void *compressed_font_data, int compressed_font_data_size, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const \fBImWchar\fP *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP * \fBAddFontFromMemoryCompressedBase85TTF\fP (const char *compressed_font_data_base85, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const \fBImWchar\fP *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearInputData\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearFonts\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearTexData\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBBuild\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBGetTexDataAsAlpha8\fP (unsigned char **out_pixels, int *out_width, int *out_height, int *out_bytes_per_pixel=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBGetTexDataAsRGBA32\fP (unsigned char **out_pixels, int *out_width, int *out_height, int *out_bytes_per_pixel=NULL)"
+.br
+.ti -1c
+.RI "bool \fBIsBuilt\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetTexID\fP (\fBImTextureID\fP id)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesDefault\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesGreek\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesKorean\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesJapanese\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesChineseFull\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesChineseSimplifiedCommon\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesCyrillic\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesThai\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImWchar\fP * \fBGetGlyphRangesVietnamese\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBAddCustomRectRegular\fP (int width, int height)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP int \fBAddCustomRectFontGlyph\fP (\fBImFont\fP *font, \fBImWchar\fP id, int width, int height, float advance_x, const \fBImVec2\fP &offset=\fBImVec2\fP(0, 0))"
+.br
+.ti -1c
+.RI "\fBImFontAtlasCustomRect\fP * \fBGetCustomRectByIndex\fP (int index)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBCalcCustomRectUV\fP (const \fBImFontAtlasCustomRect\fP *rect, \fBImVec2\fP *out_uv_min, \fBImVec2\fP *out_uv_max) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImFontAtlasFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "\fBImTextureID\fP \fBTexID\fP"
+.br
+.ti -1c
+.RI "int \fBTexDesiredWidth\fP"
+.br
+.ti -1c
+.RI "int \fBTexGlyphPadding\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "bool \fBLocked\fP"
+.br
+.ti -1c
+.RI "bool \fBTexReady\fP"
+.br
+.ti -1c
+.RI "bool \fBTexPixelsUseColors\fP"
+.br
+.ti -1c
+.RI "unsigned char * \fBTexPixelsAlpha8\fP"
+.br
+.ti -1c
+.RI "unsigned int * \fBTexPixelsRGBA32\fP"
+.br
+.ti -1c
+.RI "int \fBTexWidth\fP"
+.br
+.ti -1c
+.RI "int \fBTexHeight\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBTexUvScale\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBTexUvWhitePixel\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFont\fP * > \fBFonts\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFontAtlasCustomRect\fP > \fBCustomRects\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFontConfig\fP > \fBSources\fP"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBTexUvLines\fP [\fBIM_DRAWLIST_TEX_LINES_WIDTH_MAX\fP+1]"
+.br
+.ti -1c
+.RI "const \fBImFontBuilderIO\fP * \fBFontBuilderIO\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBFontBuilderFlags\fP"
+.br
+.ti -1c
+.RI "int \fBPackIdMouseCursors\fP"
+.br
+.ti -1c
+.RI "int \fBPackIdLines\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImFontAtlas::ImFontAtlas ()"
+
+.SS "ImFontAtlas::~ImFontAtlas ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "int ImFontAtlas::AddCustomRectFontGlyph (\fBImFont\fP * font, \fBImWchar\fP id, int width, int height, float advance_x, const \fBImVec2\fP & offset = \fR\fBImVec2\fP(0, 0)\fP)"
+
+.SS "int ImFontAtlas::AddCustomRectRegular (int width, int height)"
+
+.SS "\fBImFont\fP * ImFontAtlas::AddFont (const \fBImFontConfig\fP * font_cfg)"
+
+.SS "\fBImFont\fP * ImFontAtlas::AddFontDefault (const \fBImFontConfig\fP * font_cfg = \fRNULL\fP)"
+
+.SS "\fBImFont\fP * ImFontAtlas::AddFontFromFileTTF (const char * filename, float size_pixels, const \fBImFontConfig\fP * font_cfg = \fRNULL\fP, const \fBImWchar\fP * glyph_ranges = \fRNULL\fP)"
+
+.SS "\fBImFont\fP * ImFontAtlas::AddFontFromMemoryCompressedBase85TTF (const char * compressed_font_data_base85, float size_pixels, const \fBImFontConfig\fP * font_cfg = \fRNULL\fP, const \fBImWchar\fP * glyph_ranges = \fRNULL\fP)"
+
+.SS "\fBImFont\fP * ImFontAtlas::AddFontFromMemoryCompressedTTF (const void * compressed_font_data, int compressed_font_data_size, float size_pixels, const \fBImFontConfig\fP * font_cfg = \fRNULL\fP, const \fBImWchar\fP * glyph_ranges = \fRNULL\fP)"
+
+.SS "\fBImFont\fP * ImFontAtlas::AddFontFromMemoryTTF (void * font_data, int font_data_size, float size_pixels, const \fBImFontConfig\fP * font_cfg = \fRNULL\fP, const \fBImWchar\fP * glyph_ranges = \fRNULL\fP)"
+
+.SS "bool ImFontAtlas::Build ()"
+
+.SS "void ImFontAtlas::CalcCustomRectUV (const \fBImFontAtlasCustomRect\fP * rect, \fBImVec2\fP * out_uv_min, \fBImVec2\fP * out_uv_max) const"
+
+.SS "void ImFontAtlas::Clear ()"
+
+.SS "void ImFontAtlas::ClearFonts ()"
+
+.SS "void ImFontAtlas::ClearInputData ()"
+
+.SS "void ImFontAtlas::ClearTexData ()"
+
+.SS "\fBImFontAtlasCustomRect\fP * ImFontAtlas::GetCustomRectByIndex (int index)\fR [inline]\fP"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesChineseFull ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesChineseSimplifiedCommon ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesCyrillic ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesDefault ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesGreek ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesJapanese ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesKorean ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesThai ()"
+
+.SS "const \fBImWchar\fP * ImFontAtlas::GetGlyphRangesVietnamese ()"
+
+.SS "void ImFontAtlas::GetTexDataAsAlpha8 (unsigned char ** out_pixels, int * out_width, int * out_height, int * out_bytes_per_pixel = \fRNULL\fP)"
+
+.SS "void ImFontAtlas::GetTexDataAsRGBA32 (unsigned char ** out_pixels, int * out_width, int * out_height, int * out_bytes_per_pixel = \fRNULL\fP)"
+
+.SS "bool ImFontAtlas::IsBuilt () const\fR [inline]\fP"
+
+.SS "void ImFontAtlas::SetTexID (\fBImTextureID\fP id)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImFontAtlasCustomRect\fP> ImFontAtlas::CustomRects"
+
+.SS "\fBImFontAtlasFlags\fP ImFontAtlas::Flags"
+
+.SS "unsigned int ImFontAtlas::FontBuilderFlags"
+
+.SS "const \fBImFontBuilderIO\fP* ImFontAtlas::FontBuilderIO"
+
+.SS "\fBImVector\fP<\fBImFont\fP*> ImFontAtlas::Fonts"
+
+.SS "bool ImFontAtlas::Locked"
+
+.SS "int ImFontAtlas::PackIdLines"
+
+.SS "int ImFontAtlas::PackIdMouseCursors"
+
+.SS "\fBImVector\fP<\fBImFontConfig\fP> ImFontAtlas::Sources"
+
+.SS "int ImFontAtlas::TexDesiredWidth"
+
+.SS "int ImFontAtlas::TexGlyphPadding"
+
+.SS "int ImFontAtlas::TexHeight"
+
+.SS "\fBImTextureID\fP ImFontAtlas::TexID"
+
+.SS "unsigned char* ImFontAtlas::TexPixelsAlpha8"
+
+.SS "unsigned int* ImFontAtlas::TexPixelsRGBA32"
+
+.SS "bool ImFontAtlas::TexPixelsUseColors"
+
+.SS "bool ImFontAtlas::TexReady"
+
+.SS "\fBImVec4\fP ImFontAtlas::TexUvLines[\fBIM_DRAWLIST_TEX_LINES_WIDTH_MAX\fP+1]"
+
+.SS "\fBImVec2\fP ImFontAtlas::TexUvScale"
+
+.SS "\fBImVec2\fP ImFontAtlas::TexUvWhitePixel"
+
+.SS "int ImFontAtlas::TexWidth"
+
+.SS "void* ImFontAtlas::UserData"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

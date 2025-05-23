@@ -1,0 +1,279 @@
+.TH "ImVector< T >" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImVector< T >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBvalue_type\fP * \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef const \fBvalue_type\fP * \fBconst_iterator\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP ()"
+.br
+.ti -1c
+.RI "\fBImVector\fP (const \fBImVector\fP< T > &src)"
+.br
+.ti -1c
+.RI "\fBImVector\fP< T > & \fBoperator=\fP (const \fBImVector\fP< T > &src)"
+.br
+.ti -1c
+.RI "\fB~ImVector\fP ()"
+.br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "void \fBclear_delete\fP ()"
+.br
+.ti -1c
+.RI "void \fBclear_destruct\fP ()"
+.br
+.ti -1c
+.RI "bool \fBempty\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize_in_bytes\fP () const"
+.br
+.ti -1c
+.RI "int \fBmax_size\fP () const"
+.br
+.ti -1c
+.RI "int \fBcapacity\fP () const"
+.br
+.ti -1c
+.RI "T & \fBoperator[]\fP (int i)"
+.br
+.ti -1c
+.RI "const T & \fBoperator[]\fP (int i) const"
+.br
+.ti -1c
+.RI "T * \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "const T * \fBbegin\fP () const"
+.br
+.ti -1c
+.RI "T * \fBend\fP ()"
+.br
+.ti -1c
+.RI "const T * \fBend\fP () const"
+.br
+.ti -1c
+.RI "T & \fBfront\fP ()"
+.br
+.ti -1c
+.RI "const T & \fBfront\fP () const"
+.br
+.ti -1c
+.RI "T & \fBback\fP ()"
+.br
+.ti -1c
+.RI "const T & \fBback\fP () const"
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBImVector\fP< T > &rhs)"
+.br
+.ti -1c
+.RI "int \fB_grow_capacity\fP (int sz) const"
+.br
+.ti -1c
+.RI "void \fBresize\fP (int new_size)"
+.br
+.ti -1c
+.RI "void \fBresize\fP (int new_size, const T &v)"
+.br
+.ti -1c
+.RI "void \fBshrink\fP (int new_size)"
+.br
+.ti -1c
+.RI "void \fBreserve\fP (int new_capacity)"
+.br
+.ti -1c
+.RI "void \fBreserve_discard\fP (int new_capacity)"
+.br
+.ti -1c
+.RI "void \fBpush_back\fP (const T &v)"
+.br
+.ti -1c
+.RI "void \fBpop_back\fP ()"
+.br
+.ti -1c
+.RI "void \fBpush_front\fP (const T &v)"
+.br
+.ti -1c
+.RI "T * \fBerase\fP (const T *it)"
+.br
+.ti -1c
+.RI "T * \fBerase\fP (const T *it, const T *it_last)"
+.br
+.ti -1c
+.RI "T * \fBerase_unsorted\fP (const T *it)"
+.br
+.ti -1c
+.RI "T * \fBinsert\fP (const T *it, const T &v)"
+.br
+.ti -1c
+.RI "bool \fBcontains\fP (const T &v) const"
+.br
+.ti -1c
+.RI "T * \fBfind\fP (const T &v)"
+.br
+.ti -1c
+.RI "const T * \fBfind\fP (const T &v) const"
+.br
+.ti -1c
+.RI "int \fBfind_index\fP (const T &v) const"
+.br
+.ti -1c
+.RI "bool \fBfind_erase\fP (const T &v)"
+.br
+.ti -1c
+.RI "bool \fBfind_erase_unsorted\fP (const T &v)"
+.br
+.ti -1c
+.RI "int \fBindex_from_ptr\fP (const T *it) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBSize\fP"
+.br
+.ti -1c
+.RI "int \fBCapacity\fP"
+.br
+.ti -1c
+.RI "T * \fBData\fP"
+.br
+.in -1c
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<typename T> typedef const \fBvalue_type\fP* \fBImVector\fP< T >::const_iterator"
+
+.SS "template<typename T> typedef \fBvalue_type\fP* \fBImVector\fP< T >::iterator"
+
+.SS "template<typename T> typedef T \fBImVector\fP< T >::value_type"
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<typename T> \fBImVector\fP< T >\fB::ImVector\fP ()\fR [inline]\fP"
+
+.SS "template<typename T> \fBImVector\fP< T >\fB::ImVector\fP (const \fBImVector\fP< T > & src)\fR [inline]\fP"
+
+.SS "template<typename T> \fBImVector\fP< T >::~\fBImVector\fP ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename T> int \fBImVector\fP< T >::_grow_capacity (int sz) const\fR [inline]\fP"
+
+.SS "template<typename T> T & \fBImVector\fP< T >::back ()\fR [inline]\fP"
+
+.SS "template<typename T> const T & \fBImVector\fP< T >::back () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::begin ()\fR [inline]\fP"
+
+.SS "template<typename T> const T * \fBImVector\fP< T >::begin () const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImVector\fP< T >::capacity () const\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::clear ()\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::clear_delete ()\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::clear_destruct ()\fR [inline]\fP"
+
+.SS "template<typename T> bool \fBImVector\fP< T >::contains (const T & v) const\fR [inline]\fP"
+
+.SS "template<typename T> bool \fBImVector\fP< T >::empty () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::end ()\fR [inline]\fP"
+
+.SS "template<typename T> const T * \fBImVector\fP< T >::end () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::erase (const T * it)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::erase (const T * it, const T * it_last)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::erase_unsorted (const T * it)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::find (const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> const T * \fBImVector\fP< T >::find (const T & v) const\fR [inline]\fP"
+
+.SS "template<typename T> bool \fBImVector\fP< T >::find_erase (const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> bool \fBImVector\fP< T >::find_erase_unsorted (const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImVector\fP< T >::find_index (const T & v) const\fR [inline]\fP"
+
+.SS "template<typename T> T & \fBImVector\fP< T >::front ()\fR [inline]\fP"
+
+.SS "template<typename T> const T & \fBImVector\fP< T >::front () const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImVector\fP< T >::index_from_ptr (const T * it) const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImVector\fP< T >::insert (const T * it, const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImVector\fP< T >::max_size () const\fR [inline]\fP"
+
+.SS "template<typename T> \fBImVector\fP< T > & \fBImVector\fP< T >::operator= (const \fBImVector\fP< T > & src)\fR [inline]\fP"
+
+.SS "template<typename T> T & \fBImVector\fP< T >::operator[] (int i)\fR [inline]\fP"
+
+.SS "template<typename T> const T & \fBImVector\fP< T >::operator[] (int i) const\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::pop_back ()\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::push_back (const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::push_front (const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::reserve (int new_capacity)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::reserve_discard (int new_capacity)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::resize (int new_size)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::resize (int new_size, const T & v)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::shrink (int new_size)\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImVector\fP< T >::size () const\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImVector\fP< T >::size_in_bytes () const\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImVector\fP< T >::swap (\fBImVector\fP< T > & rhs)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<typename T> int \fBImVector\fP< T >::Capacity"
+
+.SS "template<typename T> T* \fBImVector\fP< T >::Data"
+
+.SS "template<typename T> int \fBImVector\fP< T >::Size"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

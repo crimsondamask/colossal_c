@@ -1,0 +1,156 @@
+.TH "ExampleAssetsBrowser" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleAssetsBrowser
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBExampleAssetsBrowser\fP ()"
+.br
+.ti -1c
+.RI "void \fBAddItems\fP (int count)"
+.br
+.ti -1c
+.RI "void \fBClearItems\fP ()"
+.br
+.ti -1c
+.RI "void \fBUpdateLayoutSizes\fP (float avail_width)"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (const char *title, bool *p_open)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "bool \fBShowTypeOverlay\fP = true"
+.br
+.ti -1c
+.RI "bool \fBAllowSorting\fP = true"
+.br
+.ti -1c
+.RI "bool \fBAllowDragUnselected\fP = false"
+.br
+.ti -1c
+.RI "bool \fBAllowBoxSelect\fP = true"
+.br
+.ti -1c
+.RI "float \fBIconSize\fP = 32\&.0f"
+.br
+.ti -1c
+.RI "int \fBIconSpacing\fP = 10"
+.br
+.ti -1c
+.RI "int \fBIconHitSpacing\fP = 4"
+.br
+.ti -1c
+.RI "bool \fBStretchSpacing\fP = true"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBExampleAsset\fP > \fBItems\fP"
+.br
+.ti -1c
+.RI "\fBExampleSelectionWithDeletion\fP \fBSelection\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBNextItemId\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBRequestDelete\fP = false"
+.br
+.ti -1c
+.RI "bool \fBRequestSort\fP = false"
+.br
+.ti -1c
+.RI "float \fBZoomWheelAccum\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBLayoutItemSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBLayoutItemStep\fP"
+.br
+.ti -1c
+.RI "float \fBLayoutItemSpacing\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBLayoutSelectableSpacing\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBLayoutOuterPadding\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "int \fBLayoutColumnCount\fP = 0"
+.br
+.ti -1c
+.RI "int \fBLayoutLineCount\fP = 0"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ExampleAssetsBrowser::ExampleAssetsBrowser ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ExampleAssetsBrowser::AddItems (int count)\fR [inline]\fP"
+
+.SS "void ExampleAssetsBrowser::ClearItems ()\fR [inline]\fP"
+
+.SS "void ExampleAssetsBrowser::Draw (const char * title, bool * p_open)\fR [inline]\fP"
+
+.SS "void ExampleAssetsBrowser::UpdateLayoutSizes (float avail_width)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "bool ExampleAssetsBrowser::AllowBoxSelect = true"
+
+.SS "bool ExampleAssetsBrowser::AllowDragUnselected = false"
+
+.SS "bool ExampleAssetsBrowser::AllowSorting = true"
+
+.SS "int ExampleAssetsBrowser::IconHitSpacing = 4"
+
+.SS "float ExampleAssetsBrowser::IconSize = 32\&.0f"
+
+.SS "int ExampleAssetsBrowser::IconSpacing = 10"
+
+.SS "\fBImVector\fP<\fBExampleAsset\fP> ExampleAssetsBrowser::Items"
+
+.SS "int ExampleAssetsBrowser::LayoutColumnCount = 0"
+
+.SS "\fBImVec2\fP ExampleAssetsBrowser::LayoutItemSize"
+
+.SS "float ExampleAssetsBrowser::LayoutItemSpacing = 0\&.0f"
+
+.SS "\fBImVec2\fP ExampleAssetsBrowser::LayoutItemStep"
+
+.SS "int ExampleAssetsBrowser::LayoutLineCount = 0"
+
+.SS "float ExampleAssetsBrowser::LayoutOuterPadding = 0\&.0f"
+
+.SS "float ExampleAssetsBrowser::LayoutSelectableSpacing = 0\&.0f"
+
+.SS "\fBImGuiID\fP ExampleAssetsBrowser::NextItemId = 0"
+
+.SS "bool ExampleAssetsBrowser::RequestDelete = false"
+
+.SS "bool ExampleAssetsBrowser::RequestSort = false"
+
+.SS "\fBExampleSelectionWithDeletion\fP ExampleAssetsBrowser::Selection"
+
+.SS "bool ExampleAssetsBrowser::ShowTypeOverlay = true"
+
+.SS "bool ExampleAssetsBrowser::StretchSpacing = true"
+
+.SS "float ExampleAssetsBrowser::ZoomWheelAccum = 0\&.0f"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

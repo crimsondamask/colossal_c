@@ -1,0 +1,213 @@
+.TH "ImFont" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImFont
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFont\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fB~ImFont\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFontGlyph\fP * \fBFindGlyph\fP (\fBImWchar\fP c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImFontGlyph\fP * \fBFindGlyphNoFallback\fP (\fBImWchar\fP c)"
+.br
+.ti -1c
+.RI "float \fBGetCharAdvance\fP (\fBImWchar\fP c)"
+.br
+.ti -1c
+.RI "bool \fBIsLoaded\fP () const"
+.br
+.ti -1c
+.RI "const char * \fBGetDebugName\fP () const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImVec2\fP \fBCalcTextSizeA\fP (float size, float max_width, float wrap_width, const char *text_begin, const char *text_end=NULL, const char **remaining=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP const char * \fBCalcWordWrapPositionA\fP (float scale, const char *text, const char *text_end, float wrap_width)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBRenderChar\fP (\fBImDrawList\fP *draw_list, float size, const \fBImVec2\fP &pos, \fBImU32\fP col, \fBImWchar\fP c, const \fBImVec4\fP *cpu_fine_clip=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBRenderText\fP (\fBImDrawList\fP *draw_list, float size, const \fBImVec2\fP &pos, \fBImU32\fP col, const \fBImVec4\fP &clip_rect, const char *text_begin, const char *text_end, float wrap_width=0\&.0f, bool cpu_fine_clip=false)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBBuildLookupTable\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearOutputData\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBGrowIndex\fP (int new_size)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddGlyph\fP (const \fBImFontConfig\fP *src_cfg, \fBImWchar\fP c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddRemapChar\fP (\fBImWchar\fP from_codepoint, \fBImWchar\fP to_codepoint, bool overwrite_dst)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBIsGlyphRangeUnused\fP (unsigned int c_begin, unsigned int c_last)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< float > \fBIndexAdvanceX\fP"
+.br
+.ti -1c
+.RI "float \fBFallbackAdvanceX\fP"
+.br
+.ti -1c
+.RI "float \fBFontSize\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImU16\fP > \fBIndexLookup\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFontGlyph\fP > \fBGlyphs\fP"
+.br
+.ti -1c
+.RI "\fBImFontGlyph\fP * \fBFallbackGlyph\fP"
+.br
+.ti -1c
+.RI "\fBImFontAtlas\fP * \fBContainerAtlas\fP"
+.br
+.ti -1c
+.RI "\fBImFontConfig\fP * \fBSources\fP"
+.br
+.ti -1c
+.RI "short \fBSourcesCount\fP"
+.br
+.ti -1c
+.RI "short \fBEllipsisCharCount\fP"
+.br
+.ti -1c
+.RI "\fBImWchar\fP \fBEllipsisChar\fP"
+.br
+.ti -1c
+.RI "\fBImWchar\fP \fBFallbackChar\fP"
+.br
+.ti -1c
+.RI "float \fBEllipsisWidth\fP"
+.br
+.ti -1c
+.RI "float \fBEllipsisCharStep\fP"
+.br
+.ti -1c
+.RI "float \fBScale\fP"
+.br
+.ti -1c
+.RI "float \fBAscent\fP"
+.br
+.ti -1c
+.RI "float \fBDescent\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsTotalSurface\fP"
+.br
+.ti -1c
+.RI "bool \fBDirtyLookupTables\fP"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBUsed8kPagesMap\fP [(\fBIM_UNICODE_CODEPOINT_MAX\fP+1)/8192/8]"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImFont::ImFont ()"
+
+.SS "ImFont::~ImFont ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImFont::AddGlyph (const \fBImFontConfig\fP * src_cfg, \fBImWchar\fP c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x)"
+
+.SS "void ImFont::AddRemapChar (\fBImWchar\fP from_codepoint, \fBImWchar\fP to_codepoint, bool overwrite_dst)"
+
+.SS "void ImFont::BuildLookupTable ()"
+
+.SS "\fBImVec2\fP ImFont::CalcTextSizeA (float size, float max_width, float wrap_width, const char * text_begin, const char * text_end = \fRNULL\fP, const char ** remaining = \fRNULL\fP)"
+
+.SS "const char * ImFont::CalcWordWrapPositionA (float scale, const char * text, const char * text_end, float wrap_width)"
+
+.SS "void ImFont::ClearOutputData ()"
+
+.SS "\fBImFontGlyph\fP * ImFont::FindGlyph (\fBImWchar\fP c)"
+
+.SS "\fBImFontGlyph\fP * ImFont::FindGlyphNoFallback (\fBImWchar\fP c)"
+
+.SS "float ImFont::GetCharAdvance (\fBImWchar\fP c)\fR [inline]\fP"
+
+.SS "const char * ImFont::GetDebugName () const\fR [inline]\fP"
+
+.SS "void ImFont::GrowIndex (int new_size)"
+
+.SS "bool ImFont::IsGlyphRangeUnused (unsigned int c_begin, unsigned int c_last)"
+
+.SS "bool ImFont::IsLoaded () const\fR [inline]\fP"
+
+.SS "void ImFont::RenderChar (\fBImDrawList\fP * draw_list, float size, const \fBImVec2\fP & pos, \fBImU32\fP col, \fBImWchar\fP c, const \fBImVec4\fP * cpu_fine_clip = \fRNULL\fP)"
+
+.SS "void ImFont::RenderText (\fBImDrawList\fP * draw_list, float size, const \fBImVec2\fP & pos, \fBImU32\fP col, const \fBImVec4\fP & clip_rect, const char * text_begin, const char * text_end, float wrap_width = \fR0\&.0f\fP, bool cpu_fine_clip = \fRfalse\fP)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "float ImFont::Ascent"
+
+.SS "\fBImFontAtlas\fP* ImFont::ContainerAtlas"
+
+.SS "float ImFont::Descent"
+
+.SS "bool ImFont::DirtyLookupTables"
+
+.SS "\fBImWchar\fP ImFont::EllipsisChar"
+
+.SS "short ImFont::EllipsisCharCount"
+
+.SS "float ImFont::EllipsisCharStep"
+
+.SS "float ImFont::EllipsisWidth"
+
+.SS "float ImFont::FallbackAdvanceX"
+
+.SS "\fBImWchar\fP ImFont::FallbackChar"
+
+.SS "\fBImFontGlyph\fP* ImFont::FallbackGlyph"
+
+.SS "float ImFont::FontSize"
+
+.SS "\fBImVector\fP<\fBImFontGlyph\fP> ImFont::Glyphs"
+
+.SS "\fBImVector\fP<float> ImFont::IndexAdvanceX"
+
+.SS "\fBImVector\fP<\fBImU16\fP> ImFont::IndexLookup"
+
+.SS "int ImFont::MetricsTotalSurface"
+
+.SS "float ImFont::Scale"
+
+.SS "\fBImFontConfig\fP* ImFont::Sources"
+
+.SS "short ImFont::SourcesCount"
+
+.SS "\fBImU8\fP ImFont::Used8kPagesMap[(\fBIM_UNICODE_CODEPOINT_MAX\fP+1)/8192/8]"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['navclearpreferredposforaxis_0',['NavClearPreferredPosForAxis',['../namespace_im_gui.html#a16348f6e2db5310142fff74eeb315929',1,'ImGui']]],
+  ['navhighlightactivated_1',['NavHighlightActivated',['../namespace_im_gui.html#a3ea169ace83f149ae2b8c1a6d0f6d457',1,'ImGui']]],
+  ['navinitrequestapplyresult_2',['NavInitRequestApplyResult',['../namespace_im_gui.html#a51e560cdb17a961810d557df80a4eaaa',1,'ImGui']]],
+  ['navinitwindow_3',['NavInitWindow',['../namespace_im_gui.html#ae46a79d836c4b223c7030ea432e3ec15',1,'ImGui']]],
+  ['navmoverequestapplyresult_4',['NavMoveRequestApplyResult',['../namespace_im_gui.html#a87c0b18dc173341304a700b096681c51',1,'ImGui']]],
+  ['navmoverequestbutnoresultyet_5',['NavMoveRequestButNoResultYet',['../namespace_im_gui.html#a3fab98556d11690efd4f7f2fde94968e',1,'ImGui']]],
+  ['navmoverequestcancel_6',['NavMoveRequestCancel',['../namespace_im_gui.html#a43326bb080d9fa80327ed81d864d8b8d',1,'ImGui']]],
+  ['navmoverequestforward_7',['NavMoveRequestForward',['../namespace_im_gui.html#a25bbd21bce9d49b94168d5b5773558c3',1,'ImGui']]],
+  ['navmoverequestresolvewithlastitem_8',['NavMoveRequestResolveWithLastItem',['../namespace_im_gui.html#ad71eb039682bb8e3bb950c67eeec4ed8',1,'ImGui']]],
+  ['navmoverequestresolvewithpasttreenode_9',['NavMoveRequestResolveWithPastTreeNode',['../namespace_im_gui.html#ae7a8e7782943abb87517749467473b49',1,'ImGui']]],
+  ['navmoverequestsubmit_10',['NavMoveRequestSubmit',['../namespace_im_gui.html#aaab3763774b822dca0070fa76924d3ef',1,'ImGui']]],
+  ['navmoverequesttrywrapping_11',['NavMoveRequestTryWrapping',['../namespace_im_gui.html#a95a9a1a5411cccb918fc29a0b0d3f953',1,'ImGui']]],
+  ['navupdatecurrentwindowisscrollpushablex_12',['NavUpdateCurrentWindowIsScrollPushableX',['../namespace_im_gui.html#a5c0c081852a520c006a0b084d0e8b0cb',1,'ImGui']]],
+  ['newframe_13',['NewFrame',['../namespace_im_gui.html#ab3f1fc018f903b7ad79fd10663375774',1,'ImGui']]],
+  ['newline_14',['NewLine',['../namespace_im_gui.html#a77f8b0a33e5335f98661f99e720411da',1,'ImGui']]],
+  ['next_5fchunk_15',['next_chunk',['../struct_im_chunk_stream.html#a3a99f21ce1867d694104d740ac7ab133',1,'ImChunkStream']]],
+  ['nextcolumn_16',['NextColumn',['../namespace_im_gui.html#a8f97746d6a9d59c8400c26fb7613a2ff',1,'ImGui']]],
+  ['notifyofdocumentsclosedelsewhere_17',['NotifyOfDocumentsClosedElsewhere',['../struct_example_app_documents.html#a0076259aa5b47ed3cc40adf63416dab6',1,'ExampleAppDocuments']]]
+];

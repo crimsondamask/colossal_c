@@ -1,0 +1,108 @@
+.TH "ImDrawListSharedData" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImDrawListSharedData
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImDrawListSharedData\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetCircleTessellationMaxError\fP (float max_error)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBTexUvWhitePixel\fP"
+.br
+.ti -1c
+.RI "const \fBImVec4\fP * \fBTexUvLines\fP"
+.br
+.ti -1c
+.RI "\fBImFont\fP * \fBFont\fP"
+.br
+.ti -1c
+.RI "float \fBFontSize\fP"
+.br
+.ti -1c
+.RI "float \fBFontScale\fP"
+.br
+.ti -1c
+.RI "float \fBCurveTessellationTol\fP"
+.br
+.ti -1c
+.RI "float \fBCircleSegmentMaxError\fP"
+.br
+.ti -1c
+.RI "float \fBInitialFringeScale\fP"
+.br
+.ti -1c
+.RI "\fBImDrawListFlags\fP \fBInitialFlags\fP"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBClipRectFullscreen\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImVec2\fP > \fBTempBuffer\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBArcFastVtx\fP [\fBIM_DRAWLIST_ARCFAST_TABLE_SIZE\fP]"
+.br
+.ti -1c
+.RI "float \fBArcFastRadiusCutoff\fP"
+.br
+.ti -1c
+.RI "\fBImU8\fP \fBCircleSegmentCounts\fP [64]"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImDrawListSharedData::ImDrawListSharedData ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImDrawListSharedData::SetCircleTessellationMaxError (float max_error)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "float ImDrawListSharedData::ArcFastRadiusCutoff"
+
+.SS "\fBImVec2\fP ImDrawListSharedData::ArcFastVtx[\fBIM_DRAWLIST_ARCFAST_TABLE_SIZE\fP]"
+
+.SS "\fBImU8\fP ImDrawListSharedData::CircleSegmentCounts[64]"
+
+.SS "float ImDrawListSharedData::CircleSegmentMaxError"
+
+.SS "\fBImVec4\fP ImDrawListSharedData::ClipRectFullscreen"
+
+.SS "float ImDrawListSharedData::CurveTessellationTol"
+
+.SS "\fBImFont\fP* ImDrawListSharedData::Font"
+
+.SS "float ImDrawListSharedData::FontScale"
+
+.SS "float ImDrawListSharedData::FontSize"
+
+.SS "\fBImDrawListFlags\fP ImDrawListSharedData::InitialFlags"
+
+.SS "float ImDrawListSharedData::InitialFringeScale"
+
+.SS "\fBImVector\fP<\fBImVec2\fP> ImDrawListSharedData::TempBuffer"
+
+.SS "const \fBImVec4\fP* ImDrawListSharedData::TexUvLines"
+
+.SS "\fBImVec2\fP ImDrawListSharedData::TexUvWhitePixel"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

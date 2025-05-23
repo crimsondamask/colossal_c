@@ -1,0 +1,130 @@
+.TH "ExampleAppConsole" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleAppConsole
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBExampleAppConsole\fP ()"
+.br
+.ti -1c
+.RI "\fB~ExampleAppConsole\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearLog\fP ()"
+.br
+.ti -1c
+.RI "void \fBAddLog\fP (const char *fmt,\&.\&.\&.) \fBIM_FMTARGS\fP(2)"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (const char *title, bool *p_open)"
+.br
+.ti -1c
+.RI "void \fBExecCommand\fP (const char *command_line)"
+.br
+.ti -1c
+.RI "int \fBTextEditCallback\fP (\fBImGuiInputTextCallbackData\fP *data)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBStricmp\fP (const char *s1, const char *s2)"
+.br
+.ti -1c
+.RI "static int \fBStrnicmp\fP (const char *s1, const char *s2, int n)"
+.br
+.ti -1c
+.RI "static char * \fBStrdup\fP (const char *s)"
+.br
+.ti -1c
+.RI "static void \fBStrtrim\fP (char *s)"
+.br
+.ti -1c
+.RI "static int \fBTextEditCallbackStub\fP (\fBImGuiInputTextCallbackData\fP *data)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char \fBInputBuf\fP [256]"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char * > \fBItems\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< const char * > \fBCommands\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char * > \fBHistory\fP"
+.br
+.ti -1c
+.RI "int \fBHistoryPos\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextFilter\fP \fBFilter\fP"
+.br
+.ti -1c
+.RI "bool \fBAutoScroll\fP"
+.br
+.ti -1c
+.RI "bool \fBScrollToBottom\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ExampleAppConsole::ExampleAppConsole ()\fR [inline]\fP"
+
+.SS "ExampleAppConsole::~ExampleAppConsole ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ExampleAppConsole::AddLog (const char * fmt,  \&.\&.\&.)\fR [inline]\fP"
+
+.SS "void ExampleAppConsole::ClearLog ()\fR [inline]\fP"
+
+.SS "void ExampleAppConsole::Draw (const char * title, bool * p_open)\fR [inline]\fP"
+
+.SS "void ExampleAppConsole::ExecCommand (const char * command_line)\fR [inline]\fP"
+
+.SS "static char * ExampleAppConsole::Strdup (const char * s)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "static int ExampleAppConsole::Stricmp (const char * s1, const char * s2)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "static int ExampleAppConsole::Strnicmp (const char * s1, const char * s2, int n)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "static void ExampleAppConsole::Strtrim (char * s)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "int ExampleAppConsole::TextEditCallback (\fBImGuiInputTextCallbackData\fP * data)\fR [inline]\fP"
+
+.SS "static int ExampleAppConsole::TextEditCallbackStub (\fBImGuiInputTextCallbackData\fP * data)\fR [inline]\fP, \fR [static]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "bool ExampleAppConsole::AutoScroll"
+
+.SS "\fBImVector\fP<const char*> ExampleAppConsole::Commands"
+
+.SS "\fBImGuiTextFilter\fP ExampleAppConsole::Filter"
+
+.SS "\fBImVector\fP<char*> ExampleAppConsole::History"
+
+.SS "int ExampleAppConsole::HistoryPos"
+
+.SS "char ExampleAppConsole::InputBuf[256]"
+
+.SS "\fBImVector\fP<char*> ExampleAppConsole::Items"
+
+.SS "bool ExampleAppConsole::ScrollToBottom"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

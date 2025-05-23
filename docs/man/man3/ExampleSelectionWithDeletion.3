@@ -1,0 +1,80 @@
+.TH "ExampleSelectionWithDeletion" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleSelectionWithDeletion
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBApplyDeletionPreLoop\fP (\fBImGuiMultiSelectIO\fP *ms_io, int items_count)"
+.br
+.ti -1c
+.RI "template<typename ITEM_TYPE> void \fBApplyDeletionPostLoop\fP (\fBImGuiMultiSelectIO\fP *ms_io, \fBImVector\fP< ITEM_TYPE > &items, int item_curr_idx_to_select)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBImGuiSelectionBasicStorage\fP
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiSelectionBasicStorage\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBApplyRequests\fP (\fBImGuiMultiSelectIO\fP *ms_io)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBContains\fP (\fBImGuiID\fP id) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSwap\fP (\fBImGuiSelectionBasicStorage\fP &r)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetItemSelected\fP (\fBImGuiID\fP id, bool selected)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBGetNextSelectedItem\fP (void **opaque_it, \fBImGuiID\fP *out_id)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBGetStorageIdFromIndex\fP (int idx)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Attributes inherited from \fBImGuiSelectionBasicStorage\fP
+.in +1c
+.ti -1c
+.RI "int \fBSize\fP"
+.br
+.ti -1c
+.RI "bool \fBPreserveOrder\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP(* \fBAdapterIndexToStorageId\fP )(\fBImGuiSelectionBasicStorage\fP *self, int idx)"
+.br
+.ti -1c
+.RI "int \fB_SelectionOrder\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fB_Storage\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename ITEM_TYPE> void ExampleSelectionWithDeletion::ApplyDeletionPostLoop (\fBImGuiMultiSelectIO\fP * ms_io, \fBImVector\fP< ITEM_TYPE > & items, int item_curr_idx_to_select)\fR [inline]\fP"
+
+.SS "int ExampleSelectionWithDeletion::ApplyDeletionPreLoop (\fBImGuiMultiSelectIO\fP * ms_io, int items_count)\fR [inline]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

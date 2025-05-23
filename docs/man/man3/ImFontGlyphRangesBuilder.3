@@ -1,0 +1,73 @@
+.TH "ImFontGlyphRangesBuilder" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImFontGlyphRangesBuilder
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImFontGlyphRangesBuilder\fP ()"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetBit\fP (size_t n) const"
+.br
+.ti -1c
+.RI "void \fBSetBit\fP (size_t n)"
+.br
+.ti -1c
+.RI "void \fBAddChar\fP (\fBImWchar\fP c)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddText\fP (const char *text, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBAddRanges\fP (const \fBImWchar\fP *ranges)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBBuildRanges\fP (\fBImVector\fP< \fBImWchar\fP > *out_ranges)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBImU32\fP > \fBUsedChars\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImFontGlyphRangesBuilder::ImFontGlyphRangesBuilder ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImFontGlyphRangesBuilder::AddChar (\fBImWchar\fP c)\fR [inline]\fP"
+
+.SS "void ImFontGlyphRangesBuilder::AddRanges (const \fBImWchar\fP * ranges)"
+
+.SS "void ImFontGlyphRangesBuilder::AddText (const char * text, const char * text_end = \fRNULL\fP)"
+
+.SS "void ImFontGlyphRangesBuilder::BuildRanges (\fBImVector\fP< \fBImWchar\fP > * out_ranges)"
+
+.SS "void ImFontGlyphRangesBuilder::Clear ()\fR [inline]\fP"
+
+.SS "bool ImFontGlyphRangesBuilder::GetBit (size_t n) const\fR [inline]\fP"
+
+.SS "void ImFontGlyphRangesBuilder::SetBit (size_t n)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImU32\fP> ImFontGlyphRangesBuilder::UsedChars"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

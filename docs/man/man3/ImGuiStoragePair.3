@@ -1,0 +1,69 @@
+.TH "ImGuiStoragePair" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiStoragePair
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiStoragePair\fP (\fBImGuiID\fP _key, int _val)"
+.br
+.ti -1c
+.RI "\fBImGuiStoragePair\fP (\fBImGuiID\fP _key, float _val)"
+.br
+.ti -1c
+.RI "\fBImGuiStoragePair\fP (\fBImGuiID\fP _key, void *_val)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiID\fP \fBkey\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBval_i\fP"
+.br
+.ti -1c
+.RI "   float \fBval_f\fP"
+.br
+.ti -1c
+.RI "   void * \fBval_p\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiStoragePair::ImGuiStoragePair (\fBImGuiID\fP _key, int _val)\fR [inline]\fP"
+
+.SS "ImGuiStoragePair::ImGuiStoragePair (\fBImGuiID\fP _key, float _val)\fR [inline]\fP"
+
+.SS "ImGuiStoragePair::ImGuiStoragePair (\fBImGuiID\fP _key, void * _val)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "union  { \&.\&.\&. }  \fBImGuiStoragePair\fP"
+
+.SS "\fBImGuiID\fP ImGuiStoragePair::key"
+
+.SS "float ImGuiStoragePair::val_f"
+
+.SS "int ImGuiStoragePair::val_i"
+
+.SS "void* ImGuiStoragePair::val_p"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

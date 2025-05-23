@@ -1,0 +1,80 @@
+.TH "ImGuiTextFilter" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTextFilter
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImGuiTextRange\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP \fBImGuiTextFilter\fP (const char *default_filter='')"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBDraw\fP (const char *label='Filter (inc,\-exc)', float width=0\&.0f)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP bool \fBPassFilter\fP (const char *text, const char *text_end=NULL) const"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBBuild\fP ()"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsActive\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char \fBInputBuf\fP [256]"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiTextRange\fP > \fBFilters\fP"
+.br
+.ti -1c
+.RI "int \fBCountGrep\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP ImGuiTextFilter::ImGuiTextFilter (const char * default_filter = \fR''\fP)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiTextFilter::Build ()"
+
+.SS "void ImGuiTextFilter::Clear ()\fR [inline]\fP"
+
+.SS "bool ImGuiTextFilter::Draw (const char * label = \fR'Filter (inc,\-exc)'\fP, float width = \fR0\&.0f\fP)"
+
+.SS "bool ImGuiTextFilter::IsActive () const\fR [inline]\fP"
+
+.SS "bool ImGuiTextFilter::PassFilter (const char * text, const char * text_end = \fRNULL\fP) const"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "int ImGuiTextFilter::CountGrep"
+
+.SS "\fBImVector\fP<\fBImGuiTextRange\fP> ImGuiTextFilter::Filters"
+
+.SS "char ImGuiTextFilter::InputBuf[256]"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

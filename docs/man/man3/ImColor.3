@@ -1,0 +1,82 @@
+.TH "ImColor" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImColor
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBImColor\fP ()"
+.br
+.ti -1c
+.RI "constexpr \fBImColor\fP (float r, float g, float b, float a=1\&.0f)"
+.br
+.ti -1c
+.RI "constexpr \fBImColor\fP (const \fBImVec4\fP &col)"
+.br
+.ti -1c
+.RI "constexpr \fBImColor\fP (int r, int g, int b, int a=255)"
+.br
+.ti -1c
+.RI "constexpr \fBImColor\fP (\fBImU32\fP rgba)"
+.br
+.ti -1c
+.RI "\fBoperator ImU32\fP () const"
+.br
+.ti -1c
+.RI "\fBoperator ImVec4\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetHSV\fP (float h, float s, float v, float a=1\&.0f)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBImColor\fP \fBHSV\fP (float h, float s, float v, float a=1\&.0f)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec4\fP \fBValue\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImColor::ImColor ()\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImColor::ImColor (float r, float g, float b, float a = \fR1\&.0f\fP)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImColor::ImColor (const \fBImVec4\fP & col)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImColor::ImColor (int r, int g, int b, int a = \fR255\fP)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SS "ImColor::ImColor (\fBImU32\fP rgba)\fR [inline]\fP, \fR [constexpr]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "static \fBImColor\fP ImColor::HSV (float h, float s, float v, float a = \fR1\&.0f\fP)\fR [inline]\fP, \fR [static]\fP"
+
+.SS "ImColor::operator \fBImU32\fP () const\fR [inline]\fP"
+
+.SS "ImColor::operator \fBImVec4\fP () const\fR [inline]\fP"
+
+.SS "void ImColor::SetHSV (float h, float s, float v, float a = \fR1\&.0f\fP)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVec4\fP ImColor::Value"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

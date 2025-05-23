@@ -26,11 +26,11 @@ enum DeviceParity
 enum MbChannelType
 {
     /// A boolean value.
-    Coil,
+    Coil = 0,
     /// 16bit value.
-    Int,
+    Int = 1,
     /// Needs 2 congruent 16bit registers.
-    Real,
+    Real = 2,
 };
 
 /// Modbus device type: TCP/Serial.
@@ -45,13 +45,15 @@ enum MbDeviceType
 typedef struct MbChannel
 {
     int id;
-    char const *name;
+    char tag[16];
     int address;
 
+    int channel_type;
     enum MbChannelType value_type;
     /// A channel can only hold float values even when its type is Int or Coil.
     float value;
     char description[48];
+    char unit[48];
 } MbChannel;
 
 /**
@@ -87,6 +89,13 @@ typedef struct MbDevice
     bool is_error;
     /// Error message.
     const char *error_msg;
+    /// Database url
+    char url[256];
+    /// Logging type 0: Local. 1: Remote.
+    int logging_type;
+    char db_table[32];
+    char token[256];
+    unsigned long log_count;
 } MbDevice;
 
 MbDevice cl_device_init_tcp(char const *name, int id, size_t n_channels);

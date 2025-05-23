@@ -1,0 +1,63 @@
+.TH "ExampleTreeNode" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ExampleTreeNode
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char \fBName\fP [28] = ''"
+.br
+.ti -1c
+.RI "int \fBUID\fP = 0"
+.br
+.ti -1c
+.RI "\fBExampleTreeNode\fP * \fBParent\fP = NULL"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBExampleTreeNode\fP * > \fBChilds\fP"
+.br
+.ti -1c
+.RI "unsigned short \fBIndexInParent\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBHasData\fP = false"
+.br
+.ti -1c
+.RI "bool \fBDataMyBool\fP = true"
+.br
+.ti -1c
+.RI "int \fBDataMyInt\fP = 128"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDataMyVec2\fP = \fBImVec2\fP(0\&.0f, 3\&.141592f)"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBExampleTreeNode\fP*> ExampleTreeNode::Childs"
+
+.SS "bool ExampleTreeNode::DataMyBool = true"
+
+.SS "int ExampleTreeNode::DataMyInt = 128"
+
+.SS "\fBImVec2\fP ExampleTreeNode::DataMyVec2 = \fBImVec2\fP(0\&.0f, 3\&.141592f)"
+
+.SS "bool ExampleTreeNode::HasData = false"
+
+.SS "unsigned short ExampleTreeNode::IndexInParent = 0"
+
+.SS "char ExampleTreeNode::Name[28] = ''"
+
+.SS "\fBExampleTreeNode\fP* ExampleTreeNode::Parent = NULL"
+
+.SS "int ExampleTreeNode::UID = 0"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

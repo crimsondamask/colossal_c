@@ -3,6 +3,8 @@
 /// @file colossal.cpp
 
 #include "colossal.h"
+#include "curl/curl.h"
+#include "curl/easy.h"
 #include "imgui/GLFW/glfw3.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -14,16 +16,44 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <threads.h>
 #include <time.h>
 #include <windows.h>
 
-#define N_CHANNELS 10
+#define N_CHANNELS 15
 #define N_DEVICES 3
 #define N_FRAMES_UNTIL_CONS 60
 
+#define POSTDATA_BUF_STRLEN 2048
+#define TAGSDATA_BUF_STRLEN 1024
+#define TAGDATA_BUF_STRLEN 64
+
 int polling_thread(void *arg);
 static void glfw_error_callback(int error, const char *description);
+
+struct CurlMemoryStruct
+{
+    char *memory;
+    size_t size;
+};
+
+static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
+{
+    size_t realsize = size * nmemb;
+    struct CurlMemoryStruct *mem = (struct CurlMemoryStruct *)userp;
+
+    char *ptr = (char *)realloc(mem->memory, mem->size + realsize + 1);
+    if (ptr == NULL)
+    {
+        return 0;
+    }
+    mem->memory = ptr;
+    memcpy(&(mem->memory[mem->size]), contents, realsize);
+    mem->size += realsize;
+    mem->memory[mem->size] = 0;
+    return realsize;
+}
 
 int main(int, char **)
 {
@@ -127,12 +157,17 @@ int main(int, char **)
     // UI buffers to hold the GUI data
     MbDevice ui_device_buffers[N_DEVICES];
 
+    UiMenuState menu_state = {};
     // We use this so we don't lock the mutex each frame.
     bool frames_exceeded = false;
     size_t frame_count = 0;
 
     bool selected_channel[N_DEVICES][N_CHANNELS] = {};
     int config_edit_flags[N_DEVICES] = {};
+
+    int logger_selected_device = 0;
+    int selected_device_index = 0;
+    int selected_channel_index = 0;
 
     // Initialize each buffer for 10 products.
     // Can only keep 10 products at a time.
@@ -208,19 +243,127 @@ int main(int, char **)
 
             frame_count = 0;
         }
+        if (ImGui::BeginMainMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Edit"))
+            {
+
+                ImGui::MenuItem("Tag Properties", NULL, &menu_state.tag_menu);
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Devices"))
+            {
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Logging"))
+            {
+                ImGui::MenuItem("Logger Config", NULL, &menu_state.logging_menu);
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Help"))
+            {
+                ImGui::EndMenu();
+            }
+            ImGui::EndMainMenuBar();
+        }
         // Show demo window for tests.
         if (app.show_demo_window)
         {
             ImGui::ShowDemoWindow(&app.show_demo_window);
         }
 
+        if (menu_state.logging_menu)
         {
+            if (ImGui::Begin("Logging Config"))
+            {
 
-            ImGui::Begin("Devices");
+                MbDevice *ui_device_buffer = &ui_device_buffers[logger_selected_device];
+                const char *device_names[N_DEVICES] = {};
 
+                // Populate the combobox values with device names.
+                for (int i = 0; i < N_DEVICES; i++)
+                {
+                    device_names[i] = mb_devices[i].name;
+                }
+
+                if (ImGui::Combo("Device", &logger_selected_device, device_names, IM_ARRAYSIZE(device_names)))
+                {
+                }
+                ImGui::Text("%s Logging Details", mb_devices[logger_selected_device].name);
+
+                if (ImGui::InputText("API Token", ui_device_buffer->token, IM_ARRAYSIZE(ui_device_buffer->token),
+                                     ImGuiInputTextFlags_CharsNoBlank))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_DEVICE_CONFIG;
+                }
+
+                if (ImGui::InputText("Database URL", ui_device_buffer->url, IM_ARRAYSIZE(ui_device_buffer->url),
+                                     ImGuiInputTextFlags_CharsNoBlank))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_DEVICE_CONFIG;
+                }
+                const char *logging_method[] = {"LOCAL", "REMOTE"};
+                if (ImGui::Combo("Logging Method", &ui_device_buffer->logging_type, logging_method,
+                                 IM_ARRAYSIZE(logging_method)))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_DEVICE_CONFIG;
+                }
+                ImGui::Text("Logging Count: %lu", mb_devices[logger_selected_device].log_count);
+            }
+            ImGui::End();
+        }
+        if (menu_state.tag_menu)
+        {
+            if (ImGui::Begin("Properties"))
+            {
+
+                MbDevice *ui_device_buffer = &ui_device_buffers[selected_device_index];
+
+                ImGui::Text("%s:%s Details", mb_devices[selected_device_index].name,
+                            mb_devices[selected_device_index].channels[selected_channel_index].tag);
+
+                if (ImGui::InputText("Tag", ui_device_buffer->channels[selected_channel_index].tag,
+                                     IM_ARRAYSIZE(ui_device_buffer->channels[selected_channel_index].tag),
+                                     ImGuiInputTextFlags_CharsNoBlank))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+
+                if (ImGui::InputText("Description", ui_device_buffer->channels[selected_channel_index].description,
+                                     IM_ARRAYSIZE(ui_device_buffer->channels[selected_channel_index].description)))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+                if (ImGui::InputText("Unit", ui_device_buffer->channels[selected_channel_index].unit,
+                                     IM_ARRAYSIZE(ui_device_buffer->channels[selected_channel_index].unit)))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+
+                const char *value_types[] = {"COIL", "INT", "REAL - Uses 2 registers"};
+                static int value_type = 0;
+                if (ImGui::Combo("Value Type", &ui_device_buffer->channels[selected_channel_index].channel_type,
+                                 value_types, IM_ARRAYSIZE(value_types)))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+                if (ImGui::InputInt("Address", &ui_device_buffer->channels[selected_channel_index].address))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+            }
+            ImGui::End();
+        }
+
+        if (ImGui::Begin("Devices"))
+        {
             ImGui::Checkbox("Show Demo", &app.show_demo_window);
 
-            ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
+            // ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
 
             for (int i = 0; i < IM_ARRAYSIZE(mb_devices); i++)
             {
@@ -265,7 +408,7 @@ int main(int, char **)
                     }
                 }
                 // Button to send config update to the threads
-                if (ImGui::Button("Update Config"))
+                if (ImGui::Button("Reconfigure"))
                 {
                     device = ui_device_buffer;
                     if (config_update_put(&config_update[i], device, true))
@@ -281,16 +424,16 @@ int main(int, char **)
                 else
                 {
                     ImVec2 outer_size = ImVec2(0.0f, 200.0f);
-                    if (ImGui::BeginTable("Device Data", 5,
+                    if (ImGui::BeginTable("Device Data", 6,
                                           ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders |
-                                              ImGuiTableFlags_HighlightHoveredColumn | ImGuiTableFlags_ScrollY |
-                                              ImGuiTableFlags_ScrollX | ImGuiTableFlags_RowBg,
+                                              ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollX | ImGuiTableFlags_RowBg,
                                           outer_size))
 
                     {
 
-                        ImGui::TableSetupColumn("Channel");
+                        ImGui::TableSetupColumn("Tag");
                         ImGui::TableSetupColumn("Value");
+                        ImGui::TableSetupColumn("Unit");
                         ImGui::TableSetupColumn("Type");
                         ImGui::TableSetupColumn("Address");
                         ImGui::TableSetupColumn("Description");
@@ -299,21 +442,36 @@ int main(int, char **)
                         for (int j = 0; j < device->channel_count; j++)
                         {
                             char selectable_label[32];
-                            sprintf_s(selectable_label, "%s:CH%d", device->name, j);
+                            bool set_selected = false;
+                            sprintf_s(selectable_label, "%s", device->channels[j].tag);
                             ImGui::TableNextRow();
                             ImGui::TableNextColumn();
-                            ImGui::Selectable(selectable_label, &selected_channel[i][j],
-                                              ImGuiSelectableFlags_SpanAllColumns);
+
+                            if (selected_device_index == i && selected_channel_index == j)
+                            {
+                                set_selected = true;
+                            }
+                            else
+                            {
+                                set_selected = false;
+                            }
+                            if (ImGui::Selectable(selectable_label, set_selected, ImGuiSelectableFlags_SpanAllColumns))
+                            {
+                                selected_device_index = i;
+                                selected_channel_index = j;
+                            }
                             // ImGui::Text("CH%d", device->channels[j].id);
                             ImGui::TableNextColumn();
                             ImGui::Text("%0.3f", device->channels[j].value);
                             ImGui::TableNextColumn();
-                            switch (device->channels[j].value_type)
+                            ImGui::Text("%s", device->channels[j].unit);
+                            ImGui::TableNextColumn();
+                            switch (device->channels[j].channel_type)
                             {
-                            case MbChannelType::Int:
+                            case 1:
                                 ImGui::Text("INT");
                                 break;
-                            case MbChannelType::Real:
+                            case 2:
                                 ImGui::Text("REAL");
                                 break;
                             default:
@@ -331,10 +489,8 @@ int main(int, char **)
                 ImGui::PopID();
             }
         }
-
         ImGui::End();
 
-        // Rendering
         ImGui::Render();
 
         int display_w, display_h;
@@ -393,10 +549,18 @@ int polling_thread(void *arg)
     modbus_t *ctx;
     MbDevice device = cl_device_init_tcp("PLC_1", arg_ptr->id, N_CHANNELS);
 
+    CURL *curl;
+    CURLcode curl_res;
+
+    char post_data[POSTDATA_BUF_STRLEN];
+    curl = curl_easy_init();
+
+    float test_value = 0.0;
     bool reconnect_flag = false;
 
     for (;;)
     {
+        timestamp = (unsigned long)time(nullptr);
         if (config_update_get(config_update_ptr, &device, &reconnect_flag))
         {
             printf("Config updated: Device %d\n", arg_ptr->id);
@@ -428,22 +592,27 @@ int polling_thread(void *arg)
         device.is_error = false;
         for (;;) // Loop until error
         {
+            char tag_data_str_buf[TAGSDATA_BUF_STRLEN] = {};
+            timestamp = (unsigned long)time(nullptr);
             // Check if there is a configuration update and if we need to reconnect the device.
             if (config_update_get(config_update_ptr, &device, &reconnect_flag))
             {
                 printf("Config updated: Device %d\n", arg_ptr->id);
             }
+
             for (int i = 0; i < device.channel_count; i++)
             {
+                char tag_str[TAGDATA_BUF_STRLEN] = {};
+
                 uint16_t read_buf[2] = {};
                 int read_rc;
-                switch (device.channels[i].value_type)
+                switch (device.channels[i].channel_type)
                 {
-                case MbChannelType::Real:
+                case 2:
                     read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
                     device.channels[i].value = modbus_get_float_abcd(read_buf);
                     break;
-                case MbChannelType::Int:
+                case 1:
                     read_rc = modbus_read_registers(ctx, device.channels[i].address, 1, read_buf);
                     device.channels[i].value = (read_buf[0]);
                     break;
@@ -462,8 +631,82 @@ int polling_thread(void *arg)
                     device.error_msg = modbus_strerror(errno);
                     break;
                 }
+
+                if (i + 1 == device.channel_count)
+                {
+                    if (sprintf_s(tag_str, "%s=%0.3f %lu", device.channels[i].tag, device.channels[i].value,
+                                  timestamp) == -1)
+                    {
+                    }
+                }
+                else
+                {
+                    sprintf_s(tag_str, "%s=%0.3f,", device.channels[i].tag, device.channels[i].value);
+                }
+                strcat_s(tag_data_str_buf, tag_str);
             }
             device.timestamp = timestamp;
+
+            sprintf_s(post_data, "%s %s", device.name, tag_data_str_buf);
+
+            if (curl)
+            {
+                struct CurlMemoryStruct chunk;
+                chunk.memory = NULL;
+                chunk.size = 0;
+
+                struct curl_slist *headers = NULL;
+                char token_header[256];
+
+                switch (device.logging_type)
+                {
+                case 0: {
+                    sprintf_s(token_header, "Authorization: Bearer %s", device.token);
+                    headers = curl_slist_append(headers, "Content-Type: application/json");
+                    break;
+                }
+                case 1: {
+                    sprintf_s(token_header, "Authorization: Token %s", device.token);
+                    headers = curl_slist_append(headers, "Content-Type: text/plain; charset=utf-8");
+                    break;
+                }
+                default: {
+                    sprintf_s(token_header, "Authorization: Bearer %s", device.token);
+                    headers = curl_slist_append(headers, "Content-Type: application/json");
+                    break;
+                }
+                }
+
+                headers = curl_slist_append(headers, token_header);
+
+                curl_easy_setopt(curl, CURLOPT_URL, device.url);
+                curl_easy_setopt(curl, CURLOPT_POST, 1L);
+                curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+                curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+                curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+                curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+                curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_data);
+
+                curl_res = curl_easy_perform(curl);
+
+                if (curl_res != CURLE_OK)
+                {
+                    printf("CURL Error: %s\n", curl_easy_strerror(curl_res));
+                }
+                else
+                {
+                    printf("Response: %s\n", chunk.memory);
+                    long http_code = 0;
+                    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+                    if (http_code == 204)
+                    {
+                        device.log_count++;
+                    }
+                    printf("HTTP Status Code: %ld\n", http_code);
+                }
+                free(chunk.memory);
+            }
+
             if (buf_put(buf_ptr, device))
             {
                 // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
@@ -480,6 +723,8 @@ int polling_thread(void *arg)
         }
     }
 
+    curl_easy_cleanup(curl);
+    curl_global_cleanup();
     modbus_free(ctx);
     cl_device_destroy(&device);
     return EXIT_SUCCESS;

@@ -1,0 +1,78 @@
+.TH "ImDrawListSplitter" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImDrawListSplitter
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImDrawListSplitter\fP ()"
+.br
+.ti -1c
+.RI "\fB~ImDrawListSplitter\fP ()"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBClearFreeMemory\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSplit\fP (\fBImDrawList\fP *draw_list, int count)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBMerge\fP (\fBImDrawList\fP *draw_list)"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBSetCurrentChannel\fP (\fBImDrawList\fP *draw_list, int channel_idx)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fB_Current\fP"
+.br
+.ti -1c
+.RI "int \fB_Count\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImDrawChannel\fP > \fB_Channels\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImDrawListSplitter::ImDrawListSplitter ()\fR [inline]\fP"
+
+.SS "ImDrawListSplitter::~ImDrawListSplitter ()\fR [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImDrawListSplitter::Clear ()\fR [inline]\fP"
+
+.SS "void ImDrawListSplitter::ClearFreeMemory ()"
+
+.SS "void ImDrawListSplitter::Merge (\fBImDrawList\fP * draw_list)"
+
+.SS "void ImDrawListSplitter::SetCurrentChannel (\fBImDrawList\fP * draw_list, int channel_idx)"
+
+.SS "void ImDrawListSplitter::Split (\fBImDrawList\fP * draw_list, int count)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImVector\fP<\fBImDrawChannel\fP> ImDrawListSplitter::_Channels"
+
+.SS "int ImDrawListSplitter::_Count"
+
+.SS "int ImDrawListSplitter::_Current"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

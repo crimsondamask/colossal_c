@@ -1,0 +1,399 @@
+.TH "colossal_cpp/imgui/imgui_draw.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui_draw.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include 'imgui_internal\&.h'\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include 'imstb_rectpack\&.h'\fP
+.br
+\fR#include 'imstb_truetype\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImTriangulatorNode\fP"
+.br
+.ti -1c
+.RI "struct \fBImTriangulatorNodeSpan\fP"
+.br
+.ti -1c
+.RI "struct \fBImTriangulator\fP"
+.br
+.ti -1c
+.RI "struct \fBImFontBuildSrcData\fP"
+.br
+.ti -1c
+.RI "struct \fBImFontBuildDstData\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIMGUI_DEFINE_MATH_OPERATORS\fP"
+.br
+.ti -1c
+.RI "#define \fBSTBRP_STATIC\fP"
+.br
+.ti -1c
+.RI "#define \fBSTBRP_ASSERT\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBRP_SORT\fP   ImQsort"
+.br
+.ti -1c
+.RI "#define \fBSTB_RECT_PACK_IMPLEMENTATION\fP"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_malloc\fP(x,  u)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_free\fP(x,  u)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_assert\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_fmod\fP(x,  y)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_sqrt\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_pow\fP(x,  y)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_fabs\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_ifloor\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_iceil\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_strlen\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBTT_STATIC\fP"
+.br
+.ti -1c
+.RI "#define \fBSTB_TRUETYPE_IMPLEMENTATION\fP"
+.br
+.ti -1c
+.RI "#define \fBImDrawCmd_HeaderSize\fP   (offsetof(\fBImDrawCmd\fP, VtxOffset) + sizeof(unsigned int))"
+.br
+.ti -1c
+.RI "#define \fBImDrawCmd_HeaderCompare\fP(CMD_LHS,  CMD_RHS)"
+.br
+.ti -1c
+.RI "#define \fBImDrawCmd_HeaderCopy\fP(CMD_DST,  CMD_SRC)"
+.br
+.ti -1c
+.RI "#define \fBImDrawCmd_AreSequentialIdxOffset\fP(CMD_0,  CMD_1)"
+.br
+.ti -1c
+.RI "#define \fBIM_NORMALIZE2F_OVER_ZERO\fP(VX,  VY)"
+.br
+.ti -1c
+.RI "#define \fBIM_FIXNORMAL2F_MAX_INVLEN2\fP   100\&.0f"
+.br
+.ti -1c
+.RI "#define \fBIM_FIXNORMAL2F\fP(VX,  VY)"
+.br
+.ti -1c
+.RI "#define \fBImFontGetCharAdvanceX\fP(_FONT,  _CH)"
+.br
+.ti -1c
+.RI "#define \fBstb__in2\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBstb__in3\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBstb__in4\fP(x)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBImTriangulatorNodeType\fP { \fBImTriangulatorNodeType_Convex\fP, \fBImTriangulatorNodeType_Ear\fP, \fBImTriangulatorNodeType_Reflex\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBImBezierCubicCalc\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, float t)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBImBezierQuadraticCalc\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, float t)"
+.br
+.ti -1c
+.RI "bool \fBImFontAtlasGetMouseCursorTexData\fP (\fBImFontAtlas\fP *atlas, \fBImGuiMouseCursor\fP cursor_type, \fBImVec2\fP *out_offset, \fBImVec2\fP *out_size, \fBImVec2\fP out_uv_border[2], \fBImVec2\fP out_uv_fill[2])"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildMultiplyCalcLookupTable\fP (unsigned char out_table[256], float in_brighten_factor)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildMultiplyRectAlpha8\fP (const unsigned char table[256], unsigned char *pixels, int x, int y, int w, int h, int stride)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildGetOversampleFactors\fP (const \fBImFontConfig\fP *src, int *out_oversample_h, int *out_oversample_v)"
+.br
+.ti -1c
+.RI "const \fBImFontBuilderIO\fP * \fBImFontAtlasGetBuilderForStbTruetype\fP ()"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasUpdateSourcesPointers\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildSetupFont\fP (\fBImFontAtlas\fP *atlas, \fBImFont\fP *font, \fBImFontConfig\fP *font_config, float ascent, float descent)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildPackCustomRects\fP (\fBImFontAtlas\fP *atlas, void *stbrp_context_opaque)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildRender8bppRectFromString\fP (\fBImFontAtlas\fP *atlas, int x, int y, int w, int h, const char *in_str, char in_marker_char, unsigned char in_marker_pixel_value)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildRender32bppRectFromString\fP (\fBImFontAtlas\fP *atlas, int x, int y, int w, int h, const char *in_str, char in_marker_char, unsigned int in_marker_pixel_value)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildInit\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.ti -1c
+.RI "void \fBImFontAtlasBuildFinish\fP (\fBImFontAtlas\fP *atlas)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const int \fBFONT_ATLAS_DEFAULT_TEX_DATA_W\fP = 122"
+.br
+.ti -1c
+.RI "const int \fBFONT_ATLAS_DEFAULT_TEX_DATA_H\fP = 27"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define IM_FIXNORMAL2F( VX,  VY)"
+\fBValue:\fP
+.nf
+{ float d2 = VX*VX + VY*VY; if (d2 > 0\&.000001f) { float inv_len2 = 1\&.0f / d2; if (inv_len2 > IM_FIXNORMAL2F_MAX_INVLEN2) inv_len2 = IM_FIXNORMAL2F_MAX_INVLEN2; VX *= inv_len2; VY *= inv_len2; } } (void)0
+.PP
+.fi
+
+.SS "#define IM_FIXNORMAL2F_MAX_INVLEN2   100\&.0f"
+
+.SS "#define IM_NORMALIZE2F_OVER_ZERO( VX,  VY)"
+\fBValue:\fP
+.nf
+{ float d2 = VX*VX + VY*VY; if (d2 > 0\&.0f) { float inv_len = ImRsqrt(d2); VX *= inv_len; VY *= inv_len; } } (void)0
+.PP
+.fi
+
+.SS "#define ImDrawCmd_AreSequentialIdxOffset( CMD_0,  CMD_1)"
+\fBValue:\fP
+.nf
+(CMD_0\->IdxOffset + CMD_0\->ElemCount == CMD_1\->IdxOffset)
+.PP
+.fi
+
+.SS "#define ImDrawCmd_HeaderCompare( CMD_LHS,  CMD_RHS)"
+\fBValue:\fP
+.nf
+(memcmp(CMD_LHS, CMD_RHS, ImDrawCmd_HeaderSize))
+.PP
+.fi
+
+.SS "#define ImDrawCmd_HeaderCopy( CMD_DST,  CMD_SRC)"
+\fBValue:\fP
+.nf
+(memcpy(CMD_DST, CMD_SRC, ImDrawCmd_HeaderSize))
+.PP
+.fi
+
+.SS "#define ImDrawCmd_HeaderSize   (offsetof(\fBImDrawCmd\fP, VtxOffset) + sizeof(unsigned int))"
+
+.SS "#define ImFontGetCharAdvanceX( _FONT,  _CH)"
+\fBValue:\fP
+.nf
+((int)(_CH) < (_FONT)\->IndexAdvanceX\&.Size ? (_FONT)\->IndexAdvanceX\&.Data[_CH] : (_FONT)\->FallbackAdvanceX)
+.PP
+.fi
+
+.SS "#define IMGUI_DEFINE_MATH_OPERATORS"
+
+.SS "#define stb__in2( x)"
+\fBValue:\fP
+.nf
+((i[x] << 8) + i[(x)+1])
+.PP
+.fi
+
+.SS "#define stb__in3( x)"
+\fBValue:\fP
+.nf
+((i[x] << 16) + stb__in2((x)+1))
+.PP
+.fi
+
+.SS "#define stb__in4( x)"
+\fBValue:\fP
+.nf
+((i[x] << 24) + stb__in3((x)+1))
+.PP
+.fi
+
+.SS "#define STB_RECT_PACK_IMPLEMENTATION"
+
+.SS "#define STB_TRUETYPE_IMPLEMENTATION"
+
+.SS "#define STBRP_ASSERT( x)"
+\fBValue:\fP
+.nf
+do { IM_ASSERT(x); } while (0)
+.PP
+.fi
+
+.SS "#define STBRP_SORT   ImQsort"
+
+.SS "#define STBRP_STATIC"
+
+.SS "#define STBTT_assert( x)"
+\fBValue:\fP
+.nf
+do { IM_ASSERT(x); } while(0)
+.PP
+.fi
+
+.SS "#define STBTT_fabs( x)"
+\fBValue:\fP
+.nf
+ImFabs(x)
+.PP
+.fi
+
+.SS "#define STBTT_fmod( x,  y)"
+\fBValue:\fP
+.nf
+ImFmod(x,y)
+.PP
+.fi
+
+.SS "#define STBTT_free( x,  u)"
+\fBValue:\fP
+.nf
+((void)(u), IM_FREE(x))
+.PP
+.fi
+
+.SS "#define STBTT_iceil( x)"
+\fBValue:\fP
+.nf
+((int)ImCeil(x))
+.PP
+.fi
+
+.SS "#define STBTT_ifloor( x)"
+\fBValue:\fP
+.nf
+((int)ImFloor(x))
+.PP
+.fi
+
+.SS "#define STBTT_malloc( x,  u)"
+\fBValue:\fP
+.nf
+((void)(u), IM_ALLOC(x))
+.PP
+.fi
+
+.SS "#define STBTT_pow( x,  y)"
+\fBValue:\fP
+.nf
+ImPow(x,y)
+.PP
+.fi
+
+.SS "#define STBTT_sqrt( x)"
+\fBValue:\fP
+.nf
+ImSqrt(x)
+.PP
+.fi
+
+.SS "#define STBTT_STATIC"
+
+.SS "#define STBTT_strlen( x)"
+\fBValue:\fP
+.nf
+ImStrlen(x)
+.PP
+.fi
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBImTriangulatorNodeType\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImTriangulatorNodeType_Convex \fP
+.TP
+\f(BIImTriangulatorNodeType_Ear \fP
+.TP
+\f(BIImTriangulatorNodeType_Reflex \fP
+.SH "Function Documentation"
+.PP 
+.SS "\fBImVec2\fP ImBezierCubicCalc (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, float t)"
+
+.SS "\fBImVec2\fP ImBezierQuadraticCalc (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, float t)"
+
+.SS "void ImFontAtlasBuildFinish (\fBImFontAtlas\fP * atlas)"
+
+.SS "void ImFontAtlasBuildGetOversampleFactors (const \fBImFontConfig\fP * src, int * out_oversample_h, int * out_oversample_v)"
+
+.SS "void ImFontAtlasBuildInit (\fBImFontAtlas\fP * atlas)"
+
+.SS "void ImFontAtlasBuildMultiplyCalcLookupTable (unsigned char out_table[256], float in_brighten_factor)"
+
+.SS "void ImFontAtlasBuildMultiplyRectAlpha8 (const unsigned char table[256], unsigned char * pixels, int x, int y, int w, int h, int stride)"
+
+.SS "void ImFontAtlasBuildPackCustomRects (\fBImFontAtlas\fP * atlas, void * stbrp_context_opaque)"
+
+.SS "void ImFontAtlasBuildRender32bppRectFromString (\fBImFontAtlas\fP * atlas, int x, int y, int w, int h, const char * in_str, char in_marker_char, unsigned int in_marker_pixel_value)"
+
+.SS "void ImFontAtlasBuildRender8bppRectFromString (\fBImFontAtlas\fP * atlas, int x, int y, int w, int h, const char * in_str, char in_marker_char, unsigned char in_marker_pixel_value)"
+
+.SS "void ImFontAtlasBuildSetupFont (\fBImFontAtlas\fP * atlas, \fBImFont\fP * font, \fBImFontConfig\fP * font_config, float ascent, float descent)"
+
+.SS "const \fBImFontBuilderIO\fP * ImFontAtlasGetBuilderForStbTruetype ()"
+
+.SS "bool ImFontAtlasGetMouseCursorTexData (\fBImFontAtlas\fP * atlas, \fBImGuiMouseCursor\fP cursor_type, \fBImVec2\fP * out_offset, \fBImVec2\fP * out_size, \fBImVec2\fP out_uv_border[2], \fBImVec2\fP out_uv_fill[2])"
+
+.SS "void ImFontAtlasUpdateSourcesPointers (\fBImFontAtlas\fP * atlas)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "const int FONT_ATLAS_DEFAULT_TEX_DATA_H = 27"
+
+.SS "const int FONT_ATLAS_DEFAULT_TEX_DATA_W = 122"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

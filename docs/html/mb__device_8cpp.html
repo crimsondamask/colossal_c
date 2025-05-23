@@ -107,27 +107,49 @@ $(function(){initNavTree('mb__device_8cpp.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">mb_device.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;mb_device.h&quot;</code><br />
-<code>#include &lt;cstddef&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="mb__device_8h_source.html">mb_device.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0cfc93d503e41f5bf7ad1da21cb3936d" id="r_a0cfc93d503e41f5bf7ad1da21cb3936d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cfc93d503e41f5bf7ad1da21cb3936d">cl_device_init</a> (char *name, size_t n_channels)</td></tr>
-<tr class="separator:a0cfc93d503e41f5bf7ad1da21cb3936d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71b590b3980d8c558255489e7ae1c930" id="r_a71b590b3980d8c558255489e7ae1c930"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71b590b3980d8c558255489e7ae1c930">cl_device_init_tcp</a> (char const *name, size_t n_channels)</td></tr>
+<tr class="separator:a71b590b3980d8c558255489e7ae1c930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1eaebe32ce52dc83625cf2d20d12351" id="r_ab1eaebe32ce52dc83625cf2d20d12351"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1eaebe32ce52dc83625cf2d20d12351">cl_device_destroy</a> (<a class="el" href="structcl__mb__device.html">cl_mb_device</a> *device)</td></tr>
+<tr class="memdesc:ab1eaebe32ce52dc83625cf2d20d12351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the device and free its memory including channel memory.  <br /></td></tr>
+<tr class="separator:ab1eaebe32ce52dc83625cf2d20d12351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Initialize the Modbus device. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a0cfc93d503e41f5bf7ad1da21cb3936d" name="a0cfc93d503e41f5bf7ad1da21cb3936d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cfc93d503e41f5bf7ad1da21cb3936d">&#9670;&#160;</a></span>cl_device_init()</h2>
+<a id="ab1eaebe32ce52dc83625cf2d20d12351" name="ab1eaebe32ce52dc83625cf2d20d12351"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1eaebe32ce52dc83625cf2d20d12351">&#9670;&#160;</a></span>cl_device_destroy()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> * cl_device_init </td>
+          <td class="memname">int cl_device_destroy </td>
           <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> *</td>          <td class="paramname"><span class="paramname"><em>device</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear the device and free its memory including channel memory. </p>
+
+</div>
+</div>
+<a id="a71b590b3980d8c558255489e7ae1c930" name="a71b590b3980d8c558255489e7ae1c930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71b590b3980d8c558255489e7ae1c930">&#9670;&#160;</a></span>cl_device_init_tcp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcl__mb__device.html">cl_mb_device</a> * cl_device_init_tcp </td>
+          <td>(</td>
+          <td class="paramtype">char const *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

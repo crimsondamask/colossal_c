@@ -8,22 +8,30 @@ colossal_cpp/mb_device.cpp
 .PP
 \fR#include 'mb_device\&.h'\fP
 .br
-\fR#include <cstddef>\fP
+\fR#include <stdlib\&.h>\fP
 .br
 
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBcl_mb_device\fP * \fBcl_device_init\fP (char *name, size_t n_channels)"
+.RI "\fBcl_mb_device\fP * \fBcl_device_init_tcp\fP (char const *name, size_t n_channels)"
 .br
+.ti -1c
+.RI "int \fBcl_device_destroy\fP (\fBcl_mb_device\fP *device)"
+.br
+.RI "Clear the device and free its memory including channel memory\&. "
 .in -1c
 .SH "Detailed Description"
 .PP 
 Initialize the Modbus device\&. 
 .SH "Function Documentation"
 .PP 
-.SS "\fBcl_mb_device\fP * cl_device_init (char * name, size_t n_channels)"
+.SS "int cl_device_destroy (\fBcl_mb_device\fP * device)"
+
+.PP
+Clear the device and free its memory including channel memory\&. 
+.SS "\fBcl_mb_device\fP * cl_device_init_tcp (char const * name, size_t n_channels)"
 
 .PP
 \fBParameters\fP

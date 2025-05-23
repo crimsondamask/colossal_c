@@ -1,0 +1,284 @@
+.TH "context" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+context \- Context reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBGLFWglproc\fP) (void)"
+.br
+.RI "Client API function pointer type\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwMakeContextCurrent\fP (\fBGLFWwindow\fP *window)"
+.br
+.RI "Makes the context of the specified window current for the calling thread\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWwindow\fP * \fBglfwGetCurrentContext\fP (void)"
+.br
+.RI "Returns the window whose context is current on the calling thread\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP void \fBglfwSwapInterval\fP (int interval)"
+.br
+.RI "Sets the swap interval for the current context\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP int \fBglfwExtensionSupported\fP (const char *extension)"
+.br
+.RI "Returns whether the specified extension is available\&. "
+.ti -1c
+.RI "\fBGLFWAPI\fP \fBGLFWglproc\fP \fBglfwGetProcAddress\fP (const char *procname)"
+.br
+.RI "Returns the address of the specified function for the current context\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is the reference documentation for OpenGL and OpenGL ES context related functions\&. For more task-oriented information, see the \fBcontext_guide\fP\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* GLFWglproc) (void)"
+
+.PP
+Client API function pointer type\&. Generic function pointer used for returning client API function pointers without forcing a cast from a regular pointer\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcontext_glext\fP 
+
+.PP
+\fBglfwGetProcAddress\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBGLFWAPI\fP int glfwExtensionSupported (const char * extension)"
+
+.PP
+Returns whether the specified extension is available\&. This function returns whether the specified \fBAPI extension\fP is supported by the current OpenGL or OpenGL ES context\&. It searches both for client API extension and context creation API extensions\&.
+
+.PP
+A context must be current on the calling thread\&. Calling this function without a current context will cause a \fBGLFW_NO_CURRENT_CONTEXT\fP error\&.
+
+.PP
+As this functions retrieves and searches one or more extension strings each call, it is recommended that you cache its results if it is going to be used frequently\&. The extension strings will not change during the lifetime of a context, so there is no danger in doing this\&.
+
+.PP
+This function does not apply to Vulkan\&. If you are using Vulkan, see \fBglfwGetRequiredInstanceExtensions\fP, \fRvkEnumerateInstanceExtensionProperties\fP and \fRvkEnumerateDeviceExtensionProperties\fP instead\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIextension\fP The ASCII encoded name of the extension\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fRGLFW_TRUE\fP if the extension is available, or \fRGLFW_FALSE\fP otherwise\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_NO_CURRENT_CONTEXT\fP, \fBGLFW_INVALID_VALUE\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcontext_glext\fP 
+
+.PP
+\fBglfwGetProcAddress\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWwindow\fP * glfwGetCurrentContext (void )"
+
+.PP
+Returns the window whose context is current on the calling thread\&. This function returns the window whose OpenGL or OpenGL ES context is current on the calling thread\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+The window whose context is current, or \fRNULL\fP if no window's context is current\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcontext_current\fP 
+
+.PP
+\fBglfwMakeContextCurrent\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP \fBGLFWglproc\fP glfwGetProcAddress (const char * procname)"
+
+.PP
+Returns the address of the specified function for the current context\&. This function returns the address of the specified OpenGL or OpenGL ES \fBcore or extension function\fP, if it is supported by the current context\&.
+
+.PP
+A context must be current on the calling thread\&. Calling this function without a current context will cause a \fBGLFW_NO_CURRENT_CONTEXT\fP error\&.
+
+.PP
+This function does not apply to Vulkan\&. If you are rendering with Vulkan, see \fBglfwGetInstanceProcAddress\fP, \fRvkGetInstanceProcAddr\fP and \fRvkGetDeviceProcAddr\fP instead\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIprocname\fP The ASCII encoded name of the function\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The address of the function, or \fRNULL\fP if an \fBerror\fP occurred\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_NO_CURRENT_CONTEXT\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+The address of a given function is not guaranteed to be the same between contexts\&.
+
+.PP
+This function may return a non-\fRNULL\fP address despite the associated version or extension not being available\&. Always check the context version or extension string first\&.
+.RE
+.PP
+@pointer_lifetime The returned function pointer is valid until the context is destroyed or the library is terminated\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcontext_glext\fP 
+
+.PP
+\fBglfwExtensionSupported\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwMakeContextCurrent (\fBGLFWwindow\fP * window)"
+
+.PP
+Makes the context of the specified window current for the calling thread\&. This function makes the OpenGL or OpenGL ES context of the specified window current on the calling thread\&. A context can only be made current on a single thread at a time and each thread can have only a single current context at a time\&.
+
+.PP
+By default, making a context non-current implicitly forces a pipeline flush\&. On machines that support \fRGL_KHR_context_flush_control\fP, you can control whether a context performs this flush by setting the \fBGLFW_CONTEXT_RELEASE_BEHAVIOR\fP window hint\&.
+
+.PP
+The specified window must have an OpenGL or OpenGL ES context\&. Specifying a window without a context will generate a \fBGLFW_NO_WINDOW_CONTEXT\fP error\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP The window whose context to make current, or \fRNULL\fP to detach the current context\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_NO_WINDOW_CONTEXT\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBcontext_current\fP 
+
+.PP
+\fBglfwGetCurrentContext\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBGLFWAPI\fP void glfwSwapInterval (int interval)"
+
+.PP
+Sets the swap interval for the current context\&. This function sets the swap interval for the current OpenGL or OpenGL ES context, i\&.e\&. the number of screen updates to wait from the time \fBglfwSwapBuffers\fP was called before swapping the buffers and returning\&. This is sometimes called \fIvertical synchronization\fP, \fIvertical retrace synchronization\fP or just \fIvsync\fP\&.
+
+.PP
+Contexts that support either of the \fRWGL_EXT_swap_control_tear\fP and \fRGLX_EXT_swap_control_tear\fP extensions also accept negative swap intervals, which allow the driver to swap even if a frame arrives a little bit late\&. You can check for the presence of these extensions using \fBglfwExtensionSupported\fP\&. For more information about swap tearing, see the extension specifications\&.
+
+.PP
+A context must be current on the calling thread\&. Calling this function without a current context will cause a \fBGLFW_NO_CURRENT_CONTEXT\fP error\&.
+
+.PP
+This function does not apply to Vulkan\&. If you are rendering with Vulkan, see the present mode of your swapchain instead\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIinterval\fP The minimum number of screen updates to wait for until the buffers are swapped by \fBglfwSwapBuffers\fP\&.
+.RE
+.PP
+@errors Possible errors include \fBGLFW_NOT_INITIALIZED\fP, \fBGLFW_NO_CURRENT_CONTEXT\fP and \fBGLFW_PLATFORM_ERROR\fP\&.
+
+.PP
+\fBRemarks\fP
+.RS 4
+This function is not called during context creation, leaving the swap interval set to whatever is the default on that platform\&. This is done because some swap interval extensions used by GLFW do not allow the swap interval to be reset to zero once it has been set to a non-zero value\&.
+
+.PP
+Some GPU drivers do not honor the requested swap interval, either because of a user setting that overrides the application's request or due to bugs in the driver\&.
+.RE
+.PP
+@thread_safety This function may be called from any thread\&.
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBbuffer_swap\fP 
+
+.PP
+\fBglfwSwapBuffers\fP
+.RE
+.PP
+\fBSince\fP
+.RS 4
+Added in version 1\&.0\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

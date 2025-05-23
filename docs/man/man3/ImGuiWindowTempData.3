@@ -1,0 +1,220 @@
+.TH "ImGuiWindowTempData" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiWindowTempData
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBCursorPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCursorPosPrevLine\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCursorStartPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCursorMaxPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBIdealMaxPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCurrLineSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBPrevLineSize\fP"
+.br
+.ti -1c
+.RI "float \fBCurrLineTextBaseOffset\fP"
+.br
+.ti -1c
+.RI "float \fBPrevLineTextBaseOffset\fP"
+.br
+.ti -1c
+.RI "bool \fBIsSameLine\fP"
+.br
+.ti -1c
+.RI "bool \fBIsSetPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec1\fP \fBIndent\fP"
+.br
+.ti -1c
+.RI "\fBImVec1\fP \fBColumnsOffset\fP"
+.br
+.ti -1c
+.RI "\fBImVec1\fP \fBGroupOffset\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCursorStartPosLossyness\fP"
+.br
+.ti -1c
+.RI "\fBImGuiNavLayer\fP \fBNavLayerCurrent\fP"
+.br
+.ti -1c
+.RI "short \fBNavLayersActiveMask\fP"
+.br
+.ti -1c
+.RI "short \fBNavLayersActiveMaskNext\fP"
+.br
+.ti -1c
+.RI "bool \fBNavIsScrollPushableX\fP"
+.br
+.ti -1c
+.RI "bool \fBNavHideHighlightOneFrame\fP"
+.br
+.ti -1c
+.RI "bool \fBNavWindowHasScrollY\fP"
+.br
+.ti -1c
+.RI "bool \fBMenuBarAppending\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMenuBarOffset\fP"
+.br
+.ti -1c
+.RI "\fBImGuiMenuColumns\fP \fBMenuColumns\fP"
+.br
+.ti -1c
+.RI "int \fBTreeDepth\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBTreeHasStackDataDepthMask\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBTreeRecordsClippedNodesY2Mask\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiWindow\fP * > \fBChildWindows\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP * \fBStateStorage\fP"
+.br
+.ti -1c
+.RI "\fBImGuiOldColumns\fP * \fBCurrentColumns\fP"
+.br
+.ti -1c
+.RI "int \fBCurrentTableIdx\fP"
+.br
+.ti -1c
+.RI "\fBImGuiLayoutType\fP \fBLayoutType\fP"
+.br
+.ti -1c
+.RI "\fBImGuiLayoutType\fP \fBParentLayoutType\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBModalDimBgColor\fP"
+.br
+.ti -1c
+.RI "\fBImGuiItemStatusFlags\fP \fBWindowItemStatusFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiItemStatusFlags\fP \fBChildItemStatusFlags\fP"
+.br
+.ti -1c
+.RI "float \fBItemWidth\fP"
+.br
+.ti -1c
+.RI "float \fBTextWrapPos\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< float > \fBItemWidthStack\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< float > \fBTextWrapPosStack\fP"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImGuiItemStatusFlags\fP ImGuiWindowTempData::ChildItemStatusFlags"
+
+.SS "\fBImVector\fP<\fBImGuiWindow\fP*> ImGuiWindowTempData::ChildWindows"
+
+.SS "\fBImVec1\fP ImGuiWindowTempData::ColumnsOffset"
+
+.SS "\fBImGuiOldColumns\fP* ImGuiWindowTempData::CurrentColumns"
+
+.SS "int ImGuiWindowTempData::CurrentTableIdx"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::CurrLineSize"
+
+.SS "float ImGuiWindowTempData::CurrLineTextBaseOffset"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::CursorMaxPos"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::CursorPos"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::CursorPosPrevLine"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::CursorStartPos"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::CursorStartPosLossyness"
+
+.SS "\fBImVec1\fP ImGuiWindowTempData::GroupOffset"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::IdealMaxPos"
+
+.SS "\fBImVec1\fP ImGuiWindowTempData::Indent"
+
+.SS "bool ImGuiWindowTempData::IsSameLine"
+
+.SS "bool ImGuiWindowTempData::IsSetPos"
+
+.SS "float ImGuiWindowTempData::ItemWidth"
+
+.SS "\fBImVector\fP<float> ImGuiWindowTempData::ItemWidthStack"
+
+.SS "\fBImGuiLayoutType\fP ImGuiWindowTempData::LayoutType"
+
+.SS "bool ImGuiWindowTempData::MenuBarAppending"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::MenuBarOffset"
+
+.SS "\fBImGuiMenuColumns\fP ImGuiWindowTempData::MenuColumns"
+
+.SS "\fBImU32\fP ImGuiWindowTempData::ModalDimBgColor"
+
+.SS "bool ImGuiWindowTempData::NavHideHighlightOneFrame"
+
+.SS "bool ImGuiWindowTempData::NavIsScrollPushableX"
+
+.SS "\fBImGuiNavLayer\fP ImGuiWindowTempData::NavLayerCurrent"
+
+.SS "short ImGuiWindowTempData::NavLayersActiveMask"
+
+.SS "short ImGuiWindowTempData::NavLayersActiveMaskNext"
+
+.SS "bool ImGuiWindowTempData::NavWindowHasScrollY"
+
+.SS "\fBImGuiLayoutType\fP ImGuiWindowTempData::ParentLayoutType"
+
+.SS "\fBImVec2\fP ImGuiWindowTempData::PrevLineSize"
+
+.SS "float ImGuiWindowTempData::PrevLineTextBaseOffset"
+
+.SS "\fBImGuiStorage\fP* ImGuiWindowTempData::StateStorage"
+
+.SS "float ImGuiWindowTempData::TextWrapPos"
+
+.SS "\fBImVector\fP<float> ImGuiWindowTempData::TextWrapPosStack"
+
+.SS "int ImGuiWindowTempData::TreeDepth"
+
+.SS "\fBImU32\fP ImGuiWindowTempData::TreeHasStackDataDepthMask"
+
+.SS "\fBImU32\fP ImGuiWindowTempData::TreeRecordsClippedNodesY2Mask"
+
+.SS "\fBImGuiItemStatusFlags\fP ImGuiWindowTempData::WindowItemStatusFlags"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

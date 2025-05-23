@@ -1,0 +1,65 @@
+.TH "colossal_cpp/imgui/freetype/imgui_freetype.h" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/freetype/imgui_freetype.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBImGuiFreeType\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBImGuiFreeTypeBuilderFlags\fP { \fBImGuiFreeTypeBuilderFlags_NoHinting\fP = 1 << 0, \fBImGuiFreeTypeBuilderFlags_NoAutoHint\fP = 1 << 1, \fBImGuiFreeTypeBuilderFlags_ForceAutoHint\fP = 1 << 2, \fBImGuiFreeTypeBuilderFlags_LightHinting\fP = 1 << 3, \fBImGuiFreeTypeBuilderFlags_MonoHinting\fP = 1 << 4, \fBImGuiFreeTypeBuilderFlags_Bold\fP = 1 << 5, \fBImGuiFreeTypeBuilderFlags_Oblique\fP = 1 << 6, \fBImGuiFreeTypeBuilderFlags_Monochrome\fP = 1 << 7, \fBImGuiFreeTypeBuilderFlags_LoadColor\fP = 1 << 8, \fBImGuiFreeTypeBuilderFlags_Bitmap\fP = 1 << 9 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIMGUI_API\fP const \fBImFontBuilderIO\fP * \fBImGuiFreeType::GetBuilderForFreeType\fP ()"
+.br
+.ti -1c
+.RI "\fBIMGUI_API\fP void \fBImGuiFreeType::SetAllocatorFunctions\fP (void *(*alloc_func)(size_t sz, void *user_data), void(*free_func)(void *ptr, void *user_data), void *user_data=nullptr)"
+.br
+.in -1c
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBImGuiFreeTypeBuilderFlags\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_NoHinting \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_NoAutoHint \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_ForceAutoHint \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_LightHinting \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_MonoHinting \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_Bold \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_Oblique \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_Monochrome \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_LoadColor \fP
+.TP
+\f(BIImGuiFreeTypeBuilderFlags_Bitmap \fP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

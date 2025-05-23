@@ -1,0 +1,75 @@
+.TH "colossal_cpp/imgui/freetype Directory Reference" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/freetype Directory Reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Files"
+
+.in +1c
+.ti -1c
+.RI "file \fBimgui_freetype\&.cpp\fP"
+.br
+.ti -1c
+.RI "file \fBimgui_freetype\&.h\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Build font atlases using FreeType instead of stb_truetype (which is the default font rasterizer)\&. 
+.br
+by @vuhdo, @mikesart, @ocornut\&.
+.SS "Usage"
+.IP "1." 4
+Get latest FreeType binaries or build yourself (under Windows you may use vcpkg with \fRvcpkg install freetype --triplet=x64-windows\fP, \fRvcpkg integrate install\fP)\&.
+.IP "2." 4
+Add \fBimgui_freetype\&.h\fP/cpp alongside your project files\&.
+.IP "3." 4
+Add \fR#define IMGUI_ENABLE_FREETYPE\fP in your \fRimconfig\&.h\fP file
+.PP
+.SS "About Gamma Correct Blending"
+FreeType assumes blending in linear space rather than gamma space\&. See FreeType note for \fRFT_Render_Glyph\fP\&. For correct results you need to be using sRGB and convert to linear space in the pixel shader output\&. The default Dear \fBImGui\fP styles will be impacted by this change (alpha values will need tweaking)\&.
+.SS "Testbed for toying with settings (for developers)"
+See https://gist.github.com/ocornut/b3a9ecf13502fd818799a452969649ad
+.SS "Known issues"
+.IP "\(bu" 2
+Oversampling settings are ignored but also not so much necessary with the higher quality rendering\&.
+.PP
+.SS "Comparison"
+Small, thin anti-aliased fonts typically benefit a lot from FreeType's hinting: 
+.SS "Colorful glyphs/emojis"
+You can use the \fRImGuiFreeTypeBuilderFlags_LoadColor\fP flag to load certain colorful glyphs\&. See the \fR"Using Colorful Glyphs/Emojis"\fP section of FONTS\&.md\&.
+
+.PP
+.SS "Using OpenType SVG fonts (SVGinOT)"
+.IP "\(bu" 2
+\fISVG in Open Type\fP is a standard by Adobe and Mozilla for color OpenType and Open Font Format fonts\&. It allows font creators to embed complete SVG files within a font enabling full color and even animations\&.
+.IP "\(bu" 2
+Popular fonts such as \fRtwemoji\fP and fonts made with \fRscfbuild\fP is SVGinOT\&.
+.IP "\(bu" 2
+Two alternatives are possible to render SVG fonts: use "lunasvg" or "plutosvg"\&. plutosvg will support some more fonts (e\&.g\&. NotoColorEmoji-Regular) and may load them faster\&.
+.PP
+.SS "Using lunasvg"
+Requires: \fRlunasvg\fP v2\&.3\&.2 and above
+.IP "\(bu" 2
+Add \fR#define IMGUI_ENABLE_FREETYPE_LUNASVG\fP in your \fR\fBimconfig\&.h\fP\fP\&.
+.IP "\(bu" 2
+Get latest lunasvg binaries or build yourself\&. Under Windows you may use vcpkg with: \fRvcpkg install lunasvg --triplet=x64-windows\fP\&.
+.PP
+.SS "Using plutosvg (and plutovg)"
+.IP "\(bu" 2
+Add \fR#define IMGUI_ENABLE_FREETYPE_PLUTOSVG\fP in your \fR\fBimconfig\&.h\fP\fP\&.
+.IP "\(bu" 2
+Get latest plutosvg binaries or build yourself\&. Under Windows you may use vcpkg with: \fRvcpkg install plutosvg --triplet=x64-windows\fP\&. Alternatively, if you build imgui from vcpkg, you just need to enable the plutosvg feature: \fRvcpkg install imgui[plutosvg] --triplet=x64-windows\fP
+.IP "\(bu" 2
+If you prefer to build plutosvg manually:
+.IP "  \(bu" 4
+Compilation hints for plutovg: Compile all source files in \fRplutovg/source/*\&.c\fP + Add include directory: \fRplutovg/include\fP + \fRplutovg/stb\fP
+.IP "  \(bu" 4
+Compilation hints for plutosvg: Compile \fRplutosvg/source/plutosvg\&.c\fP + Add include directory: \fRplutosvg/source\fP + Add define: \fRPLUTOSVG_HAS_FREETYPE\fP + Link with: plutovg, freetype 
+.PP
+
+.PP
+

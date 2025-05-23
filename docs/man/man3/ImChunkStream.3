@@ -1,0 +1,86 @@
+.TH "ImChunkStream< T >" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImChunkStream< T >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "bool \fBempty\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "T * \fBalloc_chunk\fP (size_t sz)"
+.br
+.ti -1c
+.RI "T * \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "T * \fBnext_chunk\fP (T *p)"
+.br
+.ti -1c
+.RI "int \fBchunk_size\fP (const T *p)"
+.br
+.ti -1c
+.RI "T * \fBend\fP ()"
+.br
+.ti -1c
+.RI "int \fBoffset_from_ptr\fP (const T *p)"
+.br
+.ti -1c
+.RI "T * \fBptr_from_offset\fP (int off)"
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBImChunkStream\fP< T > &rhs)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< char > \fBBuf\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename T> T * \fBImChunkStream\fP< T >::alloc_chunk (size_t sz)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImChunkStream\fP< T >::begin ()\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImChunkStream\fP< T >::chunk_size (const T * p)\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImChunkStream\fP< T >::clear ()\fR [inline]\fP"
+
+.SS "template<typename T> bool \fBImChunkStream\fP< T >::empty () const\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImChunkStream\fP< T >::end ()\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImChunkStream\fP< T >::next_chunk (T * p)\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImChunkStream\fP< T >::offset_from_ptr (const T * p)\fR [inline]\fP"
+
+.SS "template<typename T> T * \fBImChunkStream\fP< T >::ptr_from_offset (int off)\fR [inline]\fP"
+
+.SS "template<typename T> int \fBImChunkStream\fP< T >::size () const\fR [inline]\fP"
+
+.SS "template<typename T> void \fBImChunkStream\fP< T >::swap (\fBImChunkStream\fP< T > & rhs)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<typename T> \fBImVector\fP<char> \fBImChunkStream\fP< T >::Buf"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

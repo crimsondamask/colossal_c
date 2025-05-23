@@ -1,0 +1,64 @@
+.TH "ImGuiStyleMod" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiStyleMod
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiStyleMod\fP (\fBImGuiStyleVar\fP idx, int v)"
+.br
+.ti -1c
+.RI "\fBImGuiStyleMod\fP (\fBImGuiStyleVar\fP idx, float v)"
+.br
+.ti -1c
+.RI "\fBImGuiStyleMod\fP (\fBImGuiStyleVar\fP idx, \fBImVec2\fP v)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiStyleVar\fP \fBVarIdx\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBBackupInt\fP [2]"
+.br
+.ti -1c
+.RI "   float \fBBackupFloat\fP [2]"
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiStyleMod::ImGuiStyleMod (\fBImGuiStyleVar\fP idx, int v)\fR [inline]\fP"
+
+.SS "ImGuiStyleMod::ImGuiStyleMod (\fBImGuiStyleVar\fP idx, float v)\fR [inline]\fP"
+
+.SS "ImGuiStyleMod::ImGuiStyleMod (\fBImGuiStyleVar\fP idx, \fBImVec2\fP v)\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "union  { \&.\&.\&. }  \fBImGuiStyleMod\fP"
+
+.SS "float ImGuiStyleMod::BackupFloat[2]"
+
+.SS "int ImGuiStyleMod::BackupInt[2]"
+
+.SS "\fBImGuiStyleVar\fP ImGuiStyleMod::VarIdx"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

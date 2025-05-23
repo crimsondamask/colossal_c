@@ -1,0 +1,302 @@
+.TH "colossal_cpp/imgui/imgui.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imgui.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include 'imgui_internal\&.h'\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdint\&.h>\fP
+.br
+\fR#include <sys/wait\&.h>\fP
+.br
+\fR#include <unistd\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImGuiResizeGripDef\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiResizeBorderDef\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBImGui\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIMGUI_DEFINE_MATH_OPERATORS\fP"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_NAV_SCORING\fP   0"
+.br
+.ti -1c
+.RI "#define \fBIMGUI_DEBUG_NAV_RECTS\fP   0"
+.br
+.ti -1c
+.RI "#define \fBva_copy\fP(dest,  src)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBImBezierCubicClosestPoint\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, const \fBImVec2\fP &p, int num_segments)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBImBezierCubicClosestPointCasteljau\fP (const \fBImVec2\fP &p1, const \fBImVec2\fP &p2, const \fBImVec2\fP &p3, const \fBImVec2\fP &p4, const \fBImVec2\fP &p, float tess_tol)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBImLineClosestPoint\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "bool \fBImTriangleContainsPoint\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "void \fBImTriangleBarycentricCoords\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &p, float &out_u, float &out_v, float &out_w)"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBImTriangleClosestPoint\fP (const \fBImVec2\fP &a, const \fBImVec2\fP &b, const \fBImVec2\fP &c, const \fBImVec2\fP &p)"
+.br
+.ti -1c
+.RI "int \fBImStricmp\fP (const char *str1, const char *str2)"
+.br
+.ti -1c
+.RI "int \fBImStrnicmp\fP (const char *str1, const char *str2, size_t count)"
+.br
+.ti -1c
+.RI "void \fBImStrncpy\fP (char *dst, const char *src, size_t count)"
+.br
+.ti -1c
+.RI "char * \fBImStrdup\fP (const char *str)"
+.br
+.ti -1c
+.RI "char * \fBImStrdupcpy\fP (char *dst, size_t *p_dst_size, const char *src)"
+.br
+.ti -1c
+.RI "const char * \fBImStrchrRange\fP (const char *str, const char *str_end, char c)"
+.br
+.ti -1c
+.RI "int \fBImStrlenW\fP (const \fBImWchar\fP *str)"
+.br
+.ti -1c
+.RI "const char * \fBImStreolRange\fP (const char *str, const char *str_end)"
+.br
+.ti -1c
+.RI "const char * \fBImStrbol\fP (const char *buf_mid_line, const char *buf_begin)"
+.br
+.ti -1c
+.RI "const char * \fBImStristr\fP (const char *haystack, const char *haystack_end, const char *needle, const char *needle_end)"
+.br
+.ti -1c
+.RI "void \fBImStrTrimBlanks\fP (char *buf)"
+.br
+.ti -1c
+.RI "const char * \fBImStrSkipBlank\fP (const char *str)"
+.br
+.ti -1c
+.RI "int \fBImFormatString\fP (char *buf, size_t buf_size, const char *fmt,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "int \fBImFormatStringV\fP (char *buf, size_t buf_size, const char *fmt, va_list args)"
+.br
+.ti -1c
+.RI "void \fBImFormatStringToTempBuffer\fP (const char **out_buf, const char **out_buf_end, const char *fmt,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "void \fBImFormatStringToTempBufferV\fP (const char **out_buf, const char **out_buf_end, const char *fmt, va_list args)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBImHashData\fP (const void *data_p, size_t data_size, \fBImGuiID\fP seed)"
+.br
+.ti -1c
+.RI "\fBImGuiID\fP \fBImHashStr\fP (const char *data_p, size_t data_size, \fBImGuiID\fP seed)"
+.br
+.ti -1c
+.RI "\fBImFileHandle\fP \fBImFileOpen\fP (const char *filename, const char *mode)"
+.br
+.ti -1c
+.RI "bool \fBImFileClose\fP (\fBImFileHandle\fP f)"
+.br
+.ti -1c
+.RI "\fBImU64\fP \fBImFileGetSize\fP (\fBImFileHandle\fP f)"
+.br
+.ti -1c
+.RI "\fBImU64\fP \fBImFileRead\fP (void *data, \fBImU64\fP sz, \fBImU64\fP count, \fBImFileHandle\fP f)"
+.br
+.ti -1c
+.RI "\fBImU64\fP \fBImFileWrite\fP (const void *data, \fBImU64\fP sz, \fBImU64\fP count, \fBImFileHandle\fP f)"
+.br
+.ti -1c
+.RI "void * \fBImFileLoadToMemory\fP (const char *filename, const char *mode, size_t *out_file_size, int padding_bytes)"
+.br
+.ti -1c
+.RI "\fBIM_MSVC_RUNTIME_CHECKS_OFF\fP int \fBImTextCharFromUtf8\fP (unsigned int *out_char, const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "int \fBImTextStrFromUtf8\fP (\fBImWchar\fP *buf, int buf_size, const char *in_text, const char *in_text_end, const char **in_text_remaining)"
+.br
+.ti -1c
+.RI "int \fBImTextCountCharsFromUtf8\fP (const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "const char * \fBImTextCharToUtf8\fP (char out_buf[5], unsigned int c)"
+.br
+.ti -1c
+.RI "int \fBImTextCountUtf8BytesFromChar\fP (const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "int \fBImTextStrToUtf8\fP (char *out_buf, int out_buf_size, const \fBImWchar\fP *in_text, const \fBImWchar\fP *in_text_end)"
+.br
+.ti -1c
+.RI "int \fBImTextCountUtf8BytesFromStr\fP (const \fBImWchar\fP *in_text, const \fBImWchar\fP *in_text_end)"
+.br
+.ti -1c
+.RI "const char * \fBImTextFindPreviousUtf8Codepoint\fP (const char *in_text_start, const char *in_text_curr)"
+.br
+.ti -1c
+.RI "int \fBImTextCountLines\fP (const char *in_text, const char *in_text_end)"
+.br
+.ti -1c
+.RI "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP \fBIMGUI_API\fP \fBImU32\fP \fBImAlphaBlendColors\fP (\fBImU32\fP col_a, \fBImU32\fP col_b)"
+.br
+.ti -1c
+.RI "\fBImGuiStoragePair\fP * \fBImLowerBound\fP (\fBImGuiStoragePair\fP *in_begin, \fBImGuiStoragePair\fP *in_end, \fBImGuiID\fP key)"
+.br
+.ti -1c
+.RI "\fBIM_STATIC_ASSERT\fP (\fBImGuiKey_NamedKey_COUNT\fP==\fBIM_ARRAYSIZE\fP(GKeyNames))"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const \fBImGuiID\fP \fBImGui::IMGUI_VIEWPORT_DEFAULT_ID\fP = 0x11111111"
+.br
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBGImGui\fP = NULL"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define IMGUI_DEBUG_NAV_RECTS   0"
+
+.SS "#define IMGUI_DEBUG_NAV_SCORING   0"
+
+.SS "#define IMGUI_DEFINE_MATH_OPERATORS"
+
+.SS "#define va_copy( dest,  src)"
+\fBValue:\fP
+.nf
+(dest = src)
+.PP
+.fi
+
+.SH "Function Documentation"
+.PP 
+.SS "IM_STATIC_ASSERT (\fBImGuiKey_NamedKey_COUNT\fP  = \fR=\fBIM_ARRAYSIZE\fP(GKeyNames)\fP)"
+
+.SS "\fBIM_MSVC_RUNTIME_CHECKS_RESTORE\fP \fBIMGUI_API\fP \fBImU32\fP ImAlphaBlendColors (\fBImU32\fP col_a, \fBImU32\fP col_b)"
+
+.SS "\fBImVec2\fP ImBezierCubicClosestPoint (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, const \fBImVec2\fP & p, int num_segments)"
+
+.SS "\fBImVec2\fP ImBezierCubicClosestPointCasteljau (const \fBImVec2\fP & p1, const \fBImVec2\fP & p2, const \fBImVec2\fP & p3, const \fBImVec2\fP & p4, const \fBImVec2\fP & p, float tess_tol)"
+
+.SS "bool ImFileClose (\fBImFileHandle\fP f)"
+
+.SS "\fBImU64\fP ImFileGetSize (\fBImFileHandle\fP f)"
+
+.SS "void * ImFileLoadToMemory (const char * filename, const char * mode, size_t * out_file_size, int padding_bytes)"
+
+.SS "\fBImFileHandle\fP ImFileOpen (const char * filename, const char * mode)"
+
+.SS "\fBImU64\fP ImFileRead (void * data, \fBImU64\fP sz, \fBImU64\fP count, \fBImFileHandle\fP f)"
+
+.SS "\fBImU64\fP ImFileWrite (const void * data, \fBImU64\fP sz, \fBImU64\fP count, \fBImFileHandle\fP f)"
+
+.SS "int ImFormatString (char * buf, size_t buf_size, const char * fmt,  \&.\&.\&.)"
+
+.SS "void ImFormatStringToTempBuffer (const char ** out_buf, const char ** out_buf_end, const char * fmt,  \&.\&.\&.)"
+
+.SS "void ImFormatStringToTempBufferV (const char ** out_buf, const char ** out_buf_end, const char * fmt, va_list args)"
+
+.SS "int ImFormatStringV (char * buf, size_t buf_size, const char * fmt, va_list args)"
+
+.SS "\fBImGuiID\fP ImHashData (const void * data_p, size_t data_size, \fBImGuiID\fP seed)"
+
+.SS "\fBImGuiID\fP ImHashStr (const char * data_p, size_t data_size, \fBImGuiID\fP seed)"
+
+.SS "\fBImVec2\fP ImLineClosestPoint (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & p)"
+
+.SS "\fBImGuiStoragePair\fP * ImLowerBound (\fBImGuiStoragePair\fP * in_begin, \fBImGuiStoragePair\fP * in_end, \fBImGuiID\fP key)"
+
+.SS "const char * ImStrbol (const char * buf_mid_line, const char * buf_begin)"
+
+.SS "const char * ImStrchrRange (const char * str, const char * str_end, char c)"
+
+.SS "char * ImStrdup (const char * str)"
+
+.SS "char * ImStrdupcpy (char * dst, size_t * p_dst_size, const char * src)"
+
+.SS "const char * ImStreolRange (const char * str, const char * str_end)"
+
+.SS "int ImStricmp (const char * str1, const char * str2)"
+
+.SS "const char * ImStristr (const char * haystack, const char * haystack_end, const char * needle, const char * needle_end)"
+
+.SS "int ImStrlenW (const \fBImWchar\fP * str)"
+
+.SS "void ImStrncpy (char * dst, const char * src, size_t count)"
+
+.SS "int ImStrnicmp (const char * str1, const char * str2, size_t count)"
+
+.SS "const char * ImStrSkipBlank (const char * str)"
+
+.SS "void ImStrTrimBlanks (char * buf)"
+
+.SS "\fBIM_MSVC_RUNTIME_CHECKS_OFF\fP int ImTextCharFromUtf8 (unsigned int * out_char, const char * in_text, const char * in_text_end)"
+
+.SS "const char * ImTextCharToUtf8 (char out_buf[5], unsigned int c)"
+
+.SS "int ImTextCountCharsFromUtf8 (const char * in_text, const char * in_text_end)"
+
+.SS "int ImTextCountLines (const char * in_text, const char * in_text_end)"
+
+.SS "int ImTextCountUtf8BytesFromChar (const char * in_text, const char * in_text_end)"
+
+.SS "int ImTextCountUtf8BytesFromStr (const \fBImWchar\fP * in_text, const \fBImWchar\fP * in_text_end)"
+
+.SS "const char * ImTextFindPreviousUtf8Codepoint (const char * in_text_start, const char * in_text_curr)"
+
+.SS "int ImTextStrFromUtf8 (\fBImWchar\fP * buf, int buf_size, const char * in_text, const char * in_text_end, const char ** in_text_remaining)"
+
+.SS "int ImTextStrToUtf8 (char * out_buf, int out_buf_size, const \fBImWchar\fP * in_text, const \fBImWchar\fP * in_text_end)"
+
+.SS "void ImTriangleBarycentricCoords (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & p, float & out_u, float & out_v, float & out_w)"
+
+.SS "\fBImVec2\fP ImTriangleClosestPoint (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & p)"
+
+.SS "bool ImTriangleContainsPoint (const \fBImVec2\fP & a, const \fBImVec2\fP & b, const \fBImVec2\fP & c, const \fBImVec2\fP & p)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "\fBImGuiContext\fP* GImGui = NULL"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['serial_0',['Serial',['../mb__device_8h.html#ad0ddd716bf02bf8eef65d434a8da28f8aab27270f353006b03c91367e05e44b94',1,'mb_device.h']]]
+  ['real_0',['Real',['../mb__device_8h.html#ac422a6eb35ee65f43bfae5d07dbf857bae47767a8fd75c3f527962d1c194cc19c',1,'mb_device.h']]]
 ];

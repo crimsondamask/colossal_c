@@ -1,0 +1,61 @@
+.TH "ImGuiTextIndex" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTextIndex
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "int \fBsize\fP ()"
+.br
+.ti -1c
+.RI "const char * \fBget_line_begin\fP (const char *base, int n)"
+.br
+.ti -1c
+.RI "const char * \fBget_line_end\fP (const char *base, int n)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (const char *base, int old_size, int new_size)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< int > \fBLineOffsets\fP"
+.br
+.ti -1c
+.RI "int \fBEndOffset\fP = 0"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void ImGuiTextIndex::append (const char * base, int old_size, int new_size)"
+
+.SS "void ImGuiTextIndex::clear ()\fR [inline]\fP"
+
+.SS "const char * ImGuiTextIndex::get_line_begin (const char * base, int n)\fR [inline]\fP"
+
+.SS "const char * ImGuiTextIndex::get_line_end (const char * base, int n)\fR [inline]\fP"
+
+.SS "int ImGuiTextIndex::size ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "int ImGuiTextIndex::EndOffset = 0"
+
+.SS "\fBImVector\fP<int> ImGuiTextIndex::LineOffsets"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

@@ -1,0 +1,117 @@
+.TH "colossal_cpp/imgui/imstb_rectpack.h" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/imstb_rectpack.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBstbrp_rect\fP"
+.br
+.ti -1c
+.RI "struct \fBstbrp_node\fP"
+.br
+.ti -1c
+.RI "struct \fBstbrp_context\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSTB_RECT_PACK_VERSION\fP   1"
+.br
+.ti -1c
+.RI "#define \fBSTBRP_DEF\fP   extern"
+.br
+.ti -1c
+.RI "#define \fBSTBRP__MAXVAL\fP   0x7fffffff"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct stbrp_context \fBstbrp_context\fP"
+.br
+.ti -1c
+.RI "typedef struct stbrp_node \fBstbrp_node\fP"
+.br
+.ti -1c
+.RI "typedef struct stbrp_rect \fBstbrp_rect\fP"
+.br
+.ti -1c
+.RI "typedef int \fBstbrp_coord\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBSTBRP_HEURISTIC_Skyline_default\fP =0, \fBSTBRP_HEURISTIC_Skyline_BL_sortHeight\fP = STBRP_HEURISTIC_Skyline_default, \fBSTBRP_HEURISTIC_Skyline_BF_sortHeight\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSTBRP_DEF\fP int \fBstbrp_pack_rects\fP (\fBstbrp_context\fP *context, \fBstbrp_rect\fP *rects, int num_rects)"
+.br
+.ti -1c
+.RI "\fBSTBRP_DEF\fP void \fBstbrp_init_target\fP (\fBstbrp_context\fP *context, int width, int height, \fBstbrp_node\fP *nodes, int num_nodes)"
+.br
+.ti -1c
+.RI "\fBSTBRP_DEF\fP void \fBstbrp_setup_allow_out_of_mem\fP (\fBstbrp_context\fP *context, int allow_out_of_mem)"
+.br
+.ti -1c
+.RI "\fBSTBRP_DEF\fP void \fBstbrp_setup_heuristic\fP (\fBstbrp_context\fP *context, int heuristic)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define STB_RECT_PACK_VERSION   1"
+
+.SS "#define STBRP__MAXVAL   0x7fffffff"
+
+.SS "#define STBRP_DEF   extern"
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct stbrp_context stbrp_context"
+
+.SS "typedef int \fBstbrp_coord\fP"
+
+.SS "typedef struct stbrp_node stbrp_node"
+
+.SS "typedef struct stbrp_rect stbrp_rect"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISTBRP_HEURISTIC_Skyline_default \fP
+.TP
+\f(BISTBRP_HEURISTIC_Skyline_BL_sortHeight \fP
+.TP
+\f(BISTBRP_HEURISTIC_Skyline_BF_sortHeight \fP
+.SH "Function Documentation"
+.PP 
+.SS "\fBSTBRP_DEF\fP void stbrp_init_target (\fBstbrp_context\fP * context, int width, int height, \fBstbrp_node\fP * nodes, int num_nodes)"
+
+.SS "\fBSTBRP_DEF\fP int stbrp_pack_rects (\fBstbrp_context\fP * context, \fBstbrp_rect\fP * rects, int num_rects)"
+
+.SS "\fBSTBRP_DEF\fP void stbrp_setup_allow_out_of_mem (\fBstbrp_context\fP * context, int allow_out_of_mem)"
+
+.SS "\fBSTBRP_DEF\fP void stbrp_setup_heuristic (\fBstbrp_context\fP * context, int heuristic)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

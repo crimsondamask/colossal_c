@@ -1,0 +1,104 @@
+\doxysection{Im\+Gui\+Platform\+IO Struct Reference}
+\hypertarget{struct_im_gui_platform_i_o}{}\label{struct_im_gui_platform_i_o}\index{ImGuiPlatformIO@{ImGuiPlatformIO}}
+
+
+{\ttfamily \#include $<$imgui.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{imgui_8h_a43829975e84e45d1149597467a14bbf5}{IMGUI\+\_\+\+API}} \mbox{\hyperlink{struct_im_gui_platform_i_o_aa29907ad114cd7750bb6132e9cf1baa6}{Im\+Gui\+Platform\+IO}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a6c34b11ddd0ea1af17d977a8e4ca1fe9}{Platform\+\_\+\+Get\+Clipboard\+Text\+Fn}} )(\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a7be8d467826f932f43108b5307eb1de0}{Platform\+\_\+\+Set\+Clipboard\+Text\+Fn}} )(\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}text)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a9ad7642f273fbf9064f962db7c8b4bea}{Platform\+\_\+\+Clipboard\+User\+Data}}
+\item 
+bool(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a313428d84d960e679c7a3f99c04fc02e}{Platform\+\_\+\+Open\+In\+Shell\+Fn}} )(\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}path)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_ae04842e3ae1a031f57880fa9f828c608}{Platform\+\_\+\+Open\+In\+Shell\+User\+Data}}
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a60792c11695a25c8f880e08d5f7734f6}{Platform\+\_\+\+Set\+Ime\+Data\+Fn}} )(\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx, \mbox{\hyperlink{struct_im_gui_viewport}{Im\+Gui\+Viewport}} \texorpdfstring{$\ast$}{*}viewport, \mbox{\hyperlink{struct_im_gui_platform_ime_data}{Im\+Gui\+Platform\+Ime\+Data}} \texorpdfstring{$\ast$}{*}data)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a047de9249f9752678e52add94abb561f}{Platform\+\_\+\+Ime\+User\+Data}}
+\item 
+\mbox{\hyperlink{imgui_8h_a1ecb49ee827c39a982f1e1467910d020}{Im\+Wchar}} \mbox{\hyperlink{struct_im_gui_platform_i_o_a6a2fd847368c38ad5b1f39ba9d2175ef}{Platform\+\_\+\+Locale\+Decimal\+Point}}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_im_gui_platform_i_o_a9b3404100e81ba5986d85dd12226bdd1}{Renderer\+\_\+\+Render\+State}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_im_gui_platform_i_o_aa29907ad114cd7750bb6132e9cf1baa6}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\index{ImGuiPlatformIO@{ImGuiPlatformIO}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{ImGuiPlatformIO()}{ImGuiPlatformIO()}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_aa29907ad114cd7750bb6132e9cf1baa6} 
+Im\+Gui\+Platform\+IO\+::\+Im\+Gui\+Platform\+IO (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_im_gui_platform_i_o_a9ad7642f273fbf9064f962db7c8b4bea}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_ClipboardUserData@{Platform\_ClipboardUserData}}
+\index{Platform\_ClipboardUserData@{Platform\_ClipboardUserData}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_ClipboardUserData}{Platform\_ClipboardUserData}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a9ad7642f273fbf9064f962db7c8b4bea} 
+void\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Clipboard\+User\+Data}
+
+\Hypertarget{struct_im_gui_platform_i_o_a6c34b11ddd0ea1af17d977a8e4ca1fe9}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_GetClipboardTextFn@{Platform\_GetClipboardTextFn}}
+\index{Platform\_GetClipboardTextFn@{Platform\_GetClipboardTextFn}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_GetClipboardTextFn}{Platform\_GetClipboardTextFn}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a6c34b11ddd0ea1af17d977a8e4ca1fe9} 
+const char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Get\+Clipboard\+Text\+Fn) (\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx)}
+
+\Hypertarget{struct_im_gui_platform_i_o_a047de9249f9752678e52add94abb561f}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_ImeUserData@{Platform\_ImeUserData}}
+\index{Platform\_ImeUserData@{Platform\_ImeUserData}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_ImeUserData}{Platform\_ImeUserData}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a047de9249f9752678e52add94abb561f} 
+void\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Ime\+User\+Data}
+
+\Hypertarget{struct_im_gui_platform_i_o_a6a2fd847368c38ad5b1f39ba9d2175ef}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_LocaleDecimalPoint@{Platform\_LocaleDecimalPoint}}
+\index{Platform\_LocaleDecimalPoint@{Platform\_LocaleDecimalPoint}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_LocaleDecimalPoint}{Platform\_LocaleDecimalPoint}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a6a2fd847368c38ad5b1f39ba9d2175ef} 
+\mbox{\hyperlink{imgui_8h_a1ecb49ee827c39a982f1e1467910d020}{Im\+Wchar}} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Locale\+Decimal\+Point}
+
+\Hypertarget{struct_im_gui_platform_i_o_a313428d84d960e679c7a3f99c04fc02e}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_OpenInShellFn@{Platform\_OpenInShellFn}}
+\index{Platform\_OpenInShellFn@{Platform\_OpenInShellFn}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_OpenInShellFn}{Platform\_OpenInShellFn}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a313428d84d960e679c7a3f99c04fc02e} 
+bool(\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Open\+In\+Shell\+Fn) (\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}path)}
+
+\Hypertarget{struct_im_gui_platform_i_o_ae04842e3ae1a031f57880fa9f828c608}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_OpenInShellUserData@{Platform\_OpenInShellUserData}}
+\index{Platform\_OpenInShellUserData@{Platform\_OpenInShellUserData}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_OpenInShellUserData}{Platform\_OpenInShellUserData}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_ae04842e3ae1a031f57880fa9f828c608} 
+void\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Open\+In\+Shell\+User\+Data}
+
+\Hypertarget{struct_im_gui_platform_i_o_a7be8d467826f932f43108b5307eb1de0}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_SetClipboardTextFn@{Platform\_SetClipboardTextFn}}
+\index{Platform\_SetClipboardTextFn@{Platform\_SetClipboardTextFn}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_SetClipboardTextFn}{Platform\_SetClipboardTextFn}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a7be8d467826f932f43108b5307eb1de0} 
+void(\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Set\+Clipboard\+Text\+Fn) (\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}text)}
+
+\Hypertarget{struct_im_gui_platform_i_o_a60792c11695a25c8f880e08d5f7734f6}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Platform\_SetImeDataFn@{Platform\_SetImeDataFn}}
+\index{Platform\_SetImeDataFn@{Platform\_SetImeDataFn}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Platform\_SetImeDataFn}{Platform\_SetImeDataFn}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a60792c11695a25c8f880e08d5f7734f6} 
+void(\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Platform\+\_\+\+Set\+Ime\+Data\+Fn) (\mbox{\hyperlink{struct_im_gui_context}{Im\+Gui\+Context}} \texorpdfstring{$\ast$}{*}ctx, \mbox{\hyperlink{struct_im_gui_viewport}{Im\+Gui\+Viewport}} \texorpdfstring{$\ast$}{*}viewport, \mbox{\hyperlink{struct_im_gui_platform_ime_data}{Im\+Gui\+Platform\+Ime\+Data}} \texorpdfstring{$\ast$}{*}data)}
+
+\Hypertarget{struct_im_gui_platform_i_o_a9b3404100e81ba5986d85dd12226bdd1}\index{ImGuiPlatformIO@{ImGuiPlatformIO}!Renderer\_RenderState@{Renderer\_RenderState}}
+\index{Renderer\_RenderState@{Renderer\_RenderState}!ImGuiPlatformIO@{ImGuiPlatformIO}}
+\doxysubsubsection{\texorpdfstring{Renderer\_RenderState}{Renderer\_RenderState}}
+{\footnotesize\ttfamily \label{struct_im_gui_platform_i_o_a9b3404100e81ba5986d85dd12226bdd1} 
+void\texorpdfstring{$\ast$}{*} Im\+Gui\+Platform\+IO\+::\+Renderer\+\_\+\+Render\+State}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+colossal\+\_\+cpp/imgui/\mbox{\hyperlink{imgui_8h}{imgui.\+h}}\item 
+colossal\+\_\+cpp/imgui/\mbox{\hyperlink{imgui_8cpp}{imgui.\+cpp}}\end{DoxyCompactItemize}

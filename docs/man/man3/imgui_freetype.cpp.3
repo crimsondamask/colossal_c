@@ -1,0 +1,99 @@
+.TH "colossal_cpp/imgui/freetype/imgui_freetype.cpp" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+colossal_cpp/imgui/freetype/imgui_freetype.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include 'imgui_freetype\&.h'\fP
+.br
+\fR#include 'imgui_internal\&.h'\fP
+.br
+\fR#include <stdint\&.h>\fP
+.br
+\fR#include <ft2build\&.h>\fP
+.br
+\fR#include 'imstb_rectpack\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBImFontBuildSrcGlyphFT\fP"
+.br
+.ti -1c
+.RI "struct \fBImFontBuildSrcDataFT\fP"
+.br
+.ti -1c
+.RI "struct \fBImFontBuildDstDataFT\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBFT_CEIL\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBFT_SCALEFACTOR\fP   64\&.0f"
+.br
+.ti -1c
+.RI "#define \fBDE_MULTIPLY\fP(color,  alpha)"
+.br
+.ti -1c
+.RI "#define \fBSTBRP_ASSERT\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBSTBRP_STATIC\fP"
+.br
+.ti -1c
+.RI "#define \fBSTB_RECT_PACK_IMPLEMENTATION\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBImFontAtlasBuildWithFreeTypeEx\fP (FT_Library ft_library, \fBImFontAtlas\fP *atlas, unsigned int extra_flags)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define DE_MULTIPLY( color,  alpha)"
+\fBValue:\fP
+.nf
+ImMin((ImU32)(255\&.0f * (float)color / (float)(alpha + FLT_MIN) + 0\&.5f), 255u)
+.PP
+.fi
+
+.SS "#define FT_CEIL( X)"
+\fBValue:\fP
+.nf
+(((X + 63) & \-64) / 64)
+.PP
+.fi
+
+.SS "#define FT_SCALEFACTOR   64\&.0f"
+
+.SS "#define STB_RECT_PACK_IMPLEMENTATION"
+
+.SS "#define STBRP_ASSERT( x)"
+\fBValue:\fP
+.nf
+do { IM_ASSERT(x); } while (0)
+.PP
+.fi
+
+.SS "#define STBRP_STATIC"
+
+.SH "Function Documentation"
+.PP 
+.SS "bool ImFontAtlasBuildWithFreeTypeEx (FT_Library ft_library, \fBImFontAtlas\fP * atlas, unsigned int extra_flags)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.

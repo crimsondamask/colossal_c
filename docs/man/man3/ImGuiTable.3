@@ -1,0 +1,601 @@
+.TH "ImGuiTable" 3 "Version 0.1.0" "Colossal" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTable
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <imgui_internal\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiTable\fP ()"
+.br
+.ti -1c
+.RI "\fB~ImGuiTable\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiID\fP \fBID\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableFlags\fP \fBFlags\fP"
+.br
+.ti -1c
+.RI "void * \fBRawData\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableTempData\fP * \fBTempData\fP"
+.br
+.ti -1c
+.RI "\fBImSpan\fP< \fBImGuiTableColumn\fP > \fBColumns\fP"
+.br
+.ti -1c
+.RI "\fBImSpan\fP< \fBImGuiTableColumnIdx\fP > \fBDisplayOrderToIndex\fP"
+.br
+.ti -1c
+.RI "\fBImSpan\fP< \fBImGuiTableCellData\fP > \fBRowCellData\fP"
+.br
+.ti -1c
+.RI "\fBImBitArrayPtr\fP \fBEnabledMaskByDisplayOrder\fP"
+.br
+.ti -1c
+.RI "\fBImBitArrayPtr\fP \fBEnabledMaskByIndex\fP"
+.br
+.ti -1c
+.RI "\fBImBitArrayPtr\fP \fBVisibleMaskByIndex\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableFlags\fP \fBSettingsLoadedFlags\fP"
+.br
+.ti -1c
+.RI "int \fBSettingsOffset\fP"
+.br
+.ti -1c
+.RI "int \fBLastFrameActive\fP"
+.br
+.ti -1c
+.RI "int \fBColumnsCount\fP"
+.br
+.ti -1c
+.RI "int \fBCurrentRow\fP"
+.br
+.ti -1c
+.RI "int \fBCurrentColumn\fP"
+.br
+.ti -1c
+.RI "\fBImS16\fP \fBInstanceCurrent\fP"
+.br
+.ti -1c
+.RI "\fBImS16\fP \fBInstanceInteracted\fP"
+.br
+.ti -1c
+.RI "float \fBRowPosY1\fP"
+.br
+.ti -1c
+.RI "float \fBRowPosY2\fP"
+.br
+.ti -1c
+.RI "float \fBRowMinHeight\fP"
+.br
+.ti -1c
+.RI "float \fBRowCellPaddingY\fP"
+.br
+.ti -1c
+.RI "float \fBRowTextBaseline\fP"
+.br
+.ti -1c
+.RI "float \fBRowIndentOffsetX\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableRowFlags\fP \fBRowFlags\fP: 16"
+.br
+.ti -1c
+.RI "\fBImGuiTableRowFlags\fP \fBLastRowFlags\fP: 16"
+.br
+.ti -1c
+.RI "int \fBRowBgColorCounter\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBRowBgColor\fP [2]"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBBorderColorStrong\fP"
+.br
+.ti -1c
+.RI "\fBImU32\fP \fBBorderColorLight\fP"
+.br
+.ti -1c
+.RI "float \fBBorderX1\fP"
+.br
+.ti -1c
+.RI "float \fBBorderX2\fP"
+.br
+.ti -1c
+.RI "float \fBHostIndentX\fP"
+.br
+.ti -1c
+.RI "float \fBMinColumnWidth\fP"
+.br
+.ti -1c
+.RI "float \fBOuterPaddingX\fP"
+.br
+.ti -1c
+.RI "float \fBCellPaddingX\fP"
+.br
+.ti -1c
+.RI "float \fBCellSpacingX1\fP"
+.br
+.ti -1c
+.RI "float \fBCellSpacingX2\fP"
+.br
+.ti -1c
+.RI "float \fBInnerWidth\fP"
+.br
+.ti -1c
+.RI "float \fBColumnsGivenWidth\fP"
+.br
+.ti -1c
+.RI "float \fBColumnsAutoFitWidth\fP"
+.br
+.ti -1c
+.RI "float \fBColumnsStretchSumWeights\fP"
+.br
+.ti -1c
+.RI "float \fBResizedColumnNextWidth\fP"
+.br
+.ti -1c
+.RI "float \fBResizeLockMinContentsX2\fP"
+.br
+.ti -1c
+.RI "float \fBRefScale\fP"
+.br
+.ti -1c
+.RI "float \fBAngledHeadersHeight\fP"
+.br
+.ti -1c
+.RI "float \fBAngledHeadersSlope\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBOuterRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBInnerRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBWorkRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBInnerClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBBgClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBBg0ClipRectForDrawCmd\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBBg2ClipRectForDrawCmd\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBHostClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBHostBackupInnerClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBOuterWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBInnerWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBColumnsNames\fP"
+.br
+.ti -1c
+.RI "\fBImDrawListSplitter\fP * \fBDrawSplitter\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableInstanceData\fP \fBInstanceDataFirst\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiTableInstanceData\fP > \fBInstanceDataExtra\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnSortSpecs\fP \fBSortSpecsSingle\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiTableColumnSortSpecs\fP > \fBSortSpecsMulti\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableSortSpecs\fP \fBSortSpecs\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBSortSpecsCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBColumnsEnabledCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBColumnsEnabledFixedCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBDeclColumnsCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBAngledHeadersCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBHoveredColumnBody\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBHoveredColumnBorder\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBHighlightColumnHeader\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBAutoFitSingleColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBResizedColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBLastResizedColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBHeldHeaderColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBReorderColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBReorderColumnDir\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBLeftMostEnabledColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBRightMostEnabledColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBLeftMostStretchedColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBRightMostStretchedColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBContextPopupColumn\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBFreezeRowsRequest\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBFreezeRowsCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBFreezeColumnsRequest\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBFreezeColumnsCount\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableColumnIdx\fP \fBRowCellDataCurrent\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableDrawChannelIdx\fP \fBDummyDrawChannel\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableDrawChannelIdx\fP \fBBg2DrawChannelCurrent\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTableDrawChannelIdx\fP \fBBg2DrawChannelUnfrozen\fP"
+.br
+.ti -1c
+.RI "\fBImS8\fP \fBNavLayer\fP"
+.br
+.ti -1c
+.RI "bool \fBIsLayoutLocked\fP"
+.br
+.ti -1c
+.RI "bool \fBIsInsideRow\fP"
+.br
+.ti -1c
+.RI "bool \fBIsInitializing\fP"
+.br
+.ti -1c
+.RI "bool \fBIsSortSpecsDirty\fP"
+.br
+.ti -1c
+.RI "bool \fBIsUsingHeaders\fP"
+.br
+.ti -1c
+.RI "bool \fBIsContextPopupOpen\fP"
+.br
+.ti -1c
+.RI "bool \fBDisableDefaultContextMenu\fP"
+.br
+.ti -1c
+.RI "bool \fBIsSettingsRequestLoad\fP"
+.br
+.ti -1c
+.RI "bool \fBIsSettingsDirty\fP"
+.br
+.ti -1c
+.RI "bool \fBIsDefaultDisplayOrder\fP"
+.br
+.ti -1c
+.RI "bool \fBIsResetAllRequest\fP"
+.br
+.ti -1c
+.RI "bool \fBIsResetDisplayOrderRequest\fP"
+.br
+.ti -1c
+.RI "bool \fBIsUnfrozenRows\fP"
+.br
+.ti -1c
+.RI "bool \fBIsDefaultSizingPolicy\fP"
+.br
+.ti -1c
+.RI "bool \fBIsActiveIdAliveBeforeTable\fP"
+.br
+.ti -1c
+.RI "bool \fBIsActiveIdInTable\fP"
+.br
+.ti -1c
+.RI "bool \fBHasScrollbarYCurr\fP"
+.br
+.ti -1c
+.RI "bool \fBHasScrollbarYPrev\fP"
+.br
+.ti -1c
+.RI "bool \fBMemoryCompacted\fP"
+.br
+.ti -1c
+.RI "bool \fBHostSkipItems\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ImGuiTable::ImGuiTable ()\fR [inline]\fP"
+
+.SS "ImGuiTable::~ImGuiTable ()\fR [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::AngledHeadersCount"
+
+.SS "float ImGuiTable::AngledHeadersHeight"
+
+.SS "float ImGuiTable::AngledHeadersSlope"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::AutoFitSingleColumn"
+
+.SS "\fBImRect\fP ImGuiTable::Bg0ClipRectForDrawCmd"
+
+.SS "\fBImRect\fP ImGuiTable::Bg2ClipRectForDrawCmd"
+
+.SS "\fBImGuiTableDrawChannelIdx\fP ImGuiTable::Bg2DrawChannelCurrent"
+
+.SS "\fBImGuiTableDrawChannelIdx\fP ImGuiTable::Bg2DrawChannelUnfrozen"
+
+.SS "\fBImRect\fP ImGuiTable::BgClipRect"
+
+.SS "\fBImU32\fP ImGuiTable::BorderColorLight"
+
+.SS "\fBImU32\fP ImGuiTable::BorderColorStrong"
+
+.SS "float ImGuiTable::BorderX1"
+
+.SS "float ImGuiTable::BorderX2"
+
+.SS "float ImGuiTable::CellPaddingX"
+
+.SS "float ImGuiTable::CellSpacingX1"
+
+.SS "float ImGuiTable::CellSpacingX2"
+
+.SS "\fBImSpan\fP<\fBImGuiTableColumn\fP> ImGuiTable::Columns"
+
+.SS "float ImGuiTable::ColumnsAutoFitWidth"
+
+.SS "int ImGuiTable::ColumnsCount"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::ColumnsEnabledCount"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::ColumnsEnabledFixedCount"
+
+.SS "float ImGuiTable::ColumnsGivenWidth"
+
+.SS "\fBImGuiTextBuffer\fP ImGuiTable::ColumnsNames"
+
+.SS "float ImGuiTable::ColumnsStretchSumWeights"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::ContextPopupColumn"
+
+.SS "int ImGuiTable::CurrentColumn"
+
+.SS "int ImGuiTable::CurrentRow"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::DeclColumnsCount"
+
+.SS "bool ImGuiTable::DisableDefaultContextMenu"
+
+.SS "\fBImSpan\fP<\fBImGuiTableColumnIdx\fP> ImGuiTable::DisplayOrderToIndex"
+
+.SS "\fBImDrawListSplitter\fP* ImGuiTable::DrawSplitter"
+
+.SS "\fBImGuiTableDrawChannelIdx\fP ImGuiTable::DummyDrawChannel"
+
+.SS "\fBImBitArrayPtr\fP ImGuiTable::EnabledMaskByDisplayOrder"
+
+.SS "\fBImBitArrayPtr\fP ImGuiTable::EnabledMaskByIndex"
+
+.SS "\fBImGuiTableFlags\fP ImGuiTable::Flags"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::FreezeColumnsCount"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::FreezeColumnsRequest"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::FreezeRowsCount"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::FreezeRowsRequest"
+
+.SS "bool ImGuiTable::HasScrollbarYCurr"
+
+.SS "bool ImGuiTable::HasScrollbarYPrev"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::HeldHeaderColumn"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::HighlightColumnHeader"
+
+.SS "\fBImRect\fP ImGuiTable::HostBackupInnerClipRect"
+
+.SS "\fBImRect\fP ImGuiTable::HostClipRect"
+
+.SS "float ImGuiTable::HostIndentX"
+
+.SS "bool ImGuiTable::HostSkipItems"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::HoveredColumnBody"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::HoveredColumnBorder"
+
+.SS "\fBImGuiID\fP ImGuiTable::ID"
+
+.SS "\fBImRect\fP ImGuiTable::InnerClipRect"
+
+.SS "\fBImRect\fP ImGuiTable::InnerRect"
+
+.SS "float ImGuiTable::InnerWidth"
+
+.SS "\fBImGuiWindow\fP* ImGuiTable::InnerWindow"
+
+.SS "\fBImS16\fP ImGuiTable::InstanceCurrent"
+
+.SS "\fBImVector\fP<\fBImGuiTableInstanceData\fP> ImGuiTable::InstanceDataExtra"
+
+.SS "\fBImGuiTableInstanceData\fP ImGuiTable::InstanceDataFirst"
+
+.SS "\fBImS16\fP ImGuiTable::InstanceInteracted"
+
+.SS "bool ImGuiTable::IsActiveIdAliveBeforeTable"
+
+.SS "bool ImGuiTable::IsActiveIdInTable"
+
+.SS "bool ImGuiTable::IsContextPopupOpen"
+
+.SS "bool ImGuiTable::IsDefaultDisplayOrder"
+
+.SS "bool ImGuiTable::IsDefaultSizingPolicy"
+
+.SS "bool ImGuiTable::IsInitializing"
+
+.SS "bool ImGuiTable::IsInsideRow"
+
+.SS "bool ImGuiTable::IsLayoutLocked"
+
+.SS "bool ImGuiTable::IsResetAllRequest"
+
+.SS "bool ImGuiTable::IsResetDisplayOrderRequest"
+
+.SS "bool ImGuiTable::IsSettingsDirty"
+
+.SS "bool ImGuiTable::IsSettingsRequestLoad"
+
+.SS "bool ImGuiTable::IsSortSpecsDirty"
+
+.SS "bool ImGuiTable::IsUnfrozenRows"
+
+.SS "bool ImGuiTable::IsUsingHeaders"
+
+.SS "int ImGuiTable::LastFrameActive"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::LastResizedColumn"
+
+.SS "\fBImGuiTableRowFlags\fP ImGuiTable::LastRowFlags"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::LeftMostEnabledColumn"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::LeftMostStretchedColumn"
+
+.SS "bool ImGuiTable::MemoryCompacted"
+
+.SS "float ImGuiTable::MinColumnWidth"
+
+.SS "\fBImS8\fP ImGuiTable::NavLayer"
+
+.SS "float ImGuiTable::OuterPaddingX"
+
+.SS "\fBImRect\fP ImGuiTable::OuterRect"
+
+.SS "\fBImGuiWindow\fP* ImGuiTable::OuterWindow"
+
+.SS "void* ImGuiTable::RawData"
+
+.SS "float ImGuiTable::RefScale"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::ReorderColumn"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::ReorderColumnDir"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::ResizedColumn"
+
+.SS "float ImGuiTable::ResizedColumnNextWidth"
+
+.SS "float ImGuiTable::ResizeLockMinContentsX2"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::RightMostEnabledColumn"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::RightMostStretchedColumn"
+
+.SS "\fBImU32\fP ImGuiTable::RowBgColor[2]"
+
+.SS "int ImGuiTable::RowBgColorCounter"
+
+.SS "\fBImSpan\fP<\fBImGuiTableCellData\fP> ImGuiTable::RowCellData"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::RowCellDataCurrent"
+
+.SS "float ImGuiTable::RowCellPaddingY"
+
+.SS "\fBImGuiTableRowFlags\fP ImGuiTable::RowFlags"
+
+.SS "float ImGuiTable::RowIndentOffsetX"
+
+.SS "float ImGuiTable::RowMinHeight"
+
+.SS "float ImGuiTable::RowPosY1"
+
+.SS "float ImGuiTable::RowPosY2"
+
+.SS "float ImGuiTable::RowTextBaseline"
+
+.SS "\fBImGuiTableFlags\fP ImGuiTable::SettingsLoadedFlags"
+
+.SS "int ImGuiTable::SettingsOffset"
+
+.SS "\fBImGuiTableSortSpecs\fP ImGuiTable::SortSpecs"
+
+.SS "\fBImGuiTableColumnIdx\fP ImGuiTable::SortSpecsCount"
+
+.SS "\fBImVector\fP<\fBImGuiTableColumnSortSpecs\fP> ImGuiTable::SortSpecsMulti"
+
+.SS "\fBImGuiTableColumnSortSpecs\fP ImGuiTable::SortSpecsSingle"
+
+.SS "\fBImGuiTableTempData\fP* ImGuiTable::TempData"
+
+.SS "\fBImBitArrayPtr\fP ImGuiTable::VisibleMaskByIndex"
+
+.SS "\fBImRect\fP ImGuiTable::WorkRect"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Colossal from the source code\&.
