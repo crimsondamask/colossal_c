@@ -47,6 +47,8 @@ MbDevice cl_device_init_tcp(char const *name, int id,
         strcpy_s(device.channels[i].unit, "-");
         device.channels[i].address = i * 2;
         device.channels[i].channel_type = 2;
+        device.channels[i].enabled = true;
+        device.channels[i].enabled = true;
         device.channels[i].value_type = MbChannelType::Real;
         device.channels[i].value = (float)i;
         device.channel_count++;

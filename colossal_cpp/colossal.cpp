@@ -117,7 +117,7 @@ int main(int, char **)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
     // Light mode style
-    ImGui::StyleColorsLight();
+    ImGui::StyleColorsDark();
 
     ImGuiStyle &style = ImGui::GetStyle();
 
@@ -132,6 +132,11 @@ int main(int, char **)
         style.ScrollbarRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
+
+    // style.Colors[ImGuiCol_TitleBg] = ImVec4(0.0f, 0.36f, 0.6f, 1.0f);
+    // style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.0f, 0.36f, 0.6f, 1.0f);
+    // style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.0f, 0.36f, 0.6f, 1.0f);
+    // style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.0f, 0.36f, 0.6f, 1.0f);
 
     // Setup renderer
 
@@ -169,6 +174,8 @@ int main(int, char **)
     int selected_device_index = 0;
     int selected_channel_index = 0;
 
+    bool glfw_close_window_pending = false;
+    bool glfw_close_window_confirmed = false;
     // Initialize each buffer for 10 products.
     // Can only keep 10 products at a time.
     // This is enough as the main thread will
@@ -213,6 +220,8 @@ int main(int, char **)
         // Main event loop.
         // Poll and handle events.
         glfwPollEvents();
+
+        glfw_close_window_pending = glfwWindowShouldClose(window);
 
         if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0)
         {
@@ -298,19 +307,19 @@ int main(int, char **)
                 if (ImGui::InputText("API Token", ui_device_buffer->token, IM_ARRAYSIZE(ui_device_buffer->token),
                                      ImGuiInputTextFlags_CharsNoBlank))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    config_edit_flags[logger_selected_device] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
 
                 if (ImGui::InputText("Database URL", ui_device_buffer->url, IM_ARRAYSIZE(ui_device_buffer->url),
                                      ImGuiInputTextFlags_CharsNoBlank))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    config_edit_flags[logger_selected_device] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
                 const char *logging_method[] = {"LOCAL", "REMOTE"};
                 if (ImGui::Combo("Logging Method", &ui_device_buffer->logging_type, logging_method,
                                  IM_ARRAYSIZE(logging_method)))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    config_edit_flags[logger_selected_device] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
                 ImGui::Text("Logging Count: %lu", mb_devices[logger_selected_device].log_count);
             }
@@ -322,6 +331,8 @@ int main(int, char **)
             {
 
                 MbDevice *ui_device_buffer = &ui_device_buffers[selected_device_index];
+
+                ImGui::BeginDisabled(!ui_device_buffer->channels[selected_channel_index].enabled);
 
                 ImGui::Text("%s:%s Details", mb_devices[selected_device_index].name,
                             mb_devices[selected_device_index].channels[selected_channel_index].tag);
@@ -355,6 +366,19 @@ int main(int, char **)
                 {
                     config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
                 }
+
+                ImGui::EndDisabled();
+
+                if (ImGui::Checkbox("Enabled", &ui_device_buffer->channels[selected_channel_index].enabled))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+
+                ImGui::SameLine();
+                if (ImGui::Checkbox("Logged", &ui_device_buffer->channels[selected_channel_index].logged))
+                {
+                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
             }
             ImGui::End();
         }
@@ -381,11 +405,11 @@ int main(int, char **)
                 char collapsing_header_title[32];
                 if (config_edit_flags[i])
                 {
-                    sprintf_s(collapsing_header_title, "Device Config *");
+                    sprintf_s(collapsing_header_title, "%s Config *", device->name);
                 }
                 else
                 {
-                    sprintf_s(collapsing_header_title, "Device Config");
+                    sprintf_s(collapsing_header_title, "%s Config", device->name);
                 }
 
                 if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
@@ -462,6 +486,7 @@ int main(int, char **)
                             }
                             // ImGui::Text("CH%d", device->channels[j].id);
                             ImGui::TableNextColumn();
+                            ImGui::BeginDisabled(!device->channels[j].enabled);
                             ImGui::Text("%0.3f", device->channels[j].value);
                             ImGui::TableNextColumn();
                             ImGui::Text("%s", device->channels[j].unit);
@@ -481,6 +506,7 @@ int main(int, char **)
                             ImGui::Text("%d", device->channels[j].address);
                             ImGui::TableNextColumn();
                             ImGui::Text("%s", device->channels[j].description);
+                            ImGui::EndDisabled();
                         }
                         ImGui::EndTable();
                     }
@@ -514,6 +540,7 @@ int main(int, char **)
         glfwSwapBuffers(window);
     }
 
+    printf("Closing\n");
     // Cleanup
 
     ImGui_ImplOpenGL3_Shutdown();
@@ -602,6 +629,11 @@ int polling_thread(void *arg)
 
             for (int i = 0; i < device.channel_count; i++)
             {
+                if (!device.channels[i].enabled)
+                {
+                    // Skip the channel if disabled
+                    continue;
+                }
                 char tag_str[TAGDATA_BUF_STRLEN] = {};
 
                 uint16_t read_buf[2] = {};
@@ -632,6 +664,11 @@ int polling_thread(void *arg)
                     break;
                 }
 
+                if (!device.channels[i].logged)
+                {
+                    // Do not concat this channel value to the POST data if it is not logged.
+                    continue;
+                }
                 if (i + 1 == device.channel_count)
                 {
                     if (sprintf_s(tag_str, "%s=%0.3f %lu", device.channels[i].tag, device.channels[i].value,
@@ -668,6 +705,7 @@ int polling_thread(void *arg)
                 case 1: {
                     sprintf_s(token_header, "Authorization: Token %s", device.token);
                     headers = curl_slist_append(headers, "Content-Type: text/plain; charset=utf-8");
+                    // headers = curl_slist_append(headers, "Content-Type: application/json");
                     break;
                 }
                 default: {
