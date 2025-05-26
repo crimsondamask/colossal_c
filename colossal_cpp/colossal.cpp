@@ -21,6 +21,7 @@
 #include <time.h>
 #include <windows.h>
 
+#define TEST 4
 #define N_CHANNELS 15
 #define N_DEVICES 3
 #define N_FRAMES_UNTIL_CONS 60
