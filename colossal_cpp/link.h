@@ -54,15 +54,9 @@ typedef enum BaudRate
 
 typedef enum LoggingType
 {
-    CL_LOCAL_LOGGING,
-    CL_REMOTE_LOGGING,
+    CL_LOCAL_LOGGING = 0,
+    CL_REMOTE_LOGGING = 1,
 } LoggingType;
-// typedef enum Parity
-// {
-//     P_NONE = 0,
-//     P_ODD = 1,
-//     P_EVEN = 2,
-// } Parity;
 
 typedef struct MbTcpConfig
 {
@@ -140,7 +134,7 @@ typedef struct Link
     Tag *tags;
     // 0 for Local logging and 1 for remote
     // TODO an enum would be better but int works more easily with GUI Combobox
-    LoggingType logging_type;
+    int logging_type;
     char url[URL_BUF_LEN];
     char token[TOKEN_BUF_LEN];
     unsigned long log_count;

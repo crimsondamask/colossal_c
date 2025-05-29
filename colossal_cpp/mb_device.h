@@ -3,8 +3,6 @@
 #define CONFIG_EDIT_DEVICE_CONFIG 1
 #define CONFIG_EDIT_CHANNEL_CONFIG 2
 
-#include "device.h"
-
 enum ClDeviceError
 {
     MbSocketError,

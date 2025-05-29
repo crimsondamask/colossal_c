@@ -49,6 +49,9 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
     link->need_to_reconnect = true;
     link->active = true;
     link->timestamp = 0;
+    link->logging_type = CL_REMOTE_LOGGING;
+    strcpy_s(link->url, "https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/write?bucket=mydb&precision=s");
+    strcpy_s(link->token, "z2nNGctKjM3B8q7v5ZkAzwY2A8G7oJgO4nTTZQacUhhfOi_6eAqQN91tcmu5H_5TlrDiqxSyILBqwcrAc6vhXA==");
     link->tags = (Tag *)malloc(tag_count * sizeof(Tag));
 
     for (size_t i = 0; i < tag_count; i++)
