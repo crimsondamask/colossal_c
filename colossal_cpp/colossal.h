@@ -1,6 +1,7 @@
 #pragma once
 #include "data_buffer.h"
 #include "imgui/imgui.h"
+#include "link.h"
 #include "mb_device.h"
 #include <stdbool.h>
 
@@ -17,6 +18,7 @@ typedef struct ThreadArg
 {
     int id;
     Buffer *buf_ptr;
+    Link link;
     ConfigUpdate *config_update_ptr;
 } ThreadArg;
 

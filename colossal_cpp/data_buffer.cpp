@@ -1,5 +1,5 @@
 #include "data_buffer.h"
-#include "mb_device.h"
+#include "link.h"
 #include <ctime>
 #include <stdlib.h>
 #include <threads.h>
@@ -9,7 +9,7 @@
 bool buf_init(Buffer *buf_ptr, size_t size)
 {
 
-    if ((buf_ptr->device_data = (MbDevice *)malloc(size * sizeof(MbDevice))) == nullptr)
+    if ((buf_ptr->link = (Link *)malloc(size * sizeof(Link))) == nullptr)
     {
         return false;
     }
@@ -29,11 +29,11 @@ void buf_destroy(Buffer *buf_ptr)
 
     mtx_destroy(&buf_ptr->mtx);
 
-    free(buf_ptr->device_data);
+    free(buf_ptr->link);
 }
 
 /// Insert a new product into the buffer.
-bool buf_put(Buffer *buf_ptr, MbDevice data)
+bool buf_put(Buffer *buf_ptr, Link data)
 {
     mtx_lock(&buf_ptr->mtx);
 
@@ -47,7 +47,7 @@ bool buf_put(Buffer *buf_ptr, MbDevice data)
         }
     }
     // Insert new product at tip.
-    buf_ptr->device_data[buf_ptr->tip] = data;
+    buf_ptr->link[buf_ptr->tip] = data;
 
     // Update tip. If tip is > size, wrap back to start.
     buf_ptr->tip = (buf_ptr->tip + 1) % buf_ptr->size;
@@ -62,7 +62,7 @@ bool buf_put(Buffer *buf_ptr, MbDevice data)
 
 /// Get product from the ring buffer and remove it.
 /// If the buffer is empty, wait sec * seconds.
-bool buf_get(Buffer *buf_ptr, MbDevice *data_ptr, int sec)
+bool buf_get(Buffer *buf_ptr, Link *data_ptr, int sec)
 {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC); // current time.
@@ -79,7 +79,7 @@ bool buf_get(Buffer *buf_ptr, MbDevice *data_ptr, int sec)
         return false;
     }
 
-    *data_ptr = buf_ptr->device_data[buf_ptr->tail];
+    *data_ptr = buf_ptr->link[buf_ptr->tail];
     buf_ptr->tail = (buf_ptr->tail + 1) % buf_ptr->size;
     --buf_ptr->count;
 
@@ -98,7 +98,7 @@ bool config_update_init(ConfigUpdate *config_update)
 
 /// Get the new device config (including channels config) from GUI (main)
 /// and put it in ConfigUpdate pointer to be read from the thread.
-bool config_update_put(ConfigUpdate *config_update_ptr, MbDevice *config_src, bool reconnect_required)
+bool config_update_put(ConfigUpdate *config_update_ptr, Link *config_src, bool reconnect_required)
 {
     mtx_lock(&config_update_ptr->mtx);
 
@@ -107,7 +107,7 @@ bool config_update_put(ConfigUpdate *config_update_ptr, MbDevice *config_src, bo
         mtx_unlock(&config_update_ptr->mtx);
         return false;
     }
-    config_update_ptr->new_device_config = config_src;
+    config_update_ptr->new_link_update = config_src;
 
     // Indication that there is a configuration update
     // otherwise the thread can't know when to update the config.
@@ -122,7 +122,7 @@ bool config_update_put(ConfigUpdate *config_update_ptr, MbDevice *config_src, bo
     return true;
 }
 
-bool config_update_get(ConfigUpdate *config_update_ptr, MbDevice *config_dst, bool *reconnect_required)
+bool config_update_get(ConfigUpdate *config_update_ptr, Link *config_dst, bool *reconnect_required)
 {
     mtx_lock(&config_update_ptr->mtx);
 
@@ -132,7 +132,7 @@ bool config_update_get(ConfigUpdate *config_update_ptr, MbDevice *config_dst, bo
         return false;
     }
 
-    *config_dst = *config_update_ptr->new_device_config;
+    *config_dst = *config_update_ptr->new_link_update;
     // Reset the flag
     config_update_ptr->pending_update = false;
 

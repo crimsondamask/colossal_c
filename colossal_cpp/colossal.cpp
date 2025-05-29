@@ -9,19 +9,16 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
-#include "libmodbus/modbus.h"
-#include "mb_device.h"
-#include <cstdint>
+#include "link.h"
 #include <cstring>
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <threads.h>
 #include <time.h>
+#include <wincrypt.h>
 #include <windows.h>
 
-#define TEST 4
 #define N_CHANNELS 15
 #define N_DEVICES 3
 #define N_FRAMES_UNTIL_CONS 60
@@ -118,7 +115,7 @@ int main(int, char **)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
     // Light mode style
-    ImGui::StyleColorsDark();
+    ImGui::StyleColorsLight();
 
     ImGuiStyle &style = ImGui::GetStyle();
 
@@ -159,9 +156,10 @@ int main(int, char **)
     // Arguments to pass to each thread.
     ThreadArg thread_arg[N_DEVICES];
     // Device list
-    MbDevice mb_devices[N_DEVICES];
+    Link links[N_DEVICES];
+
     // UI buffers to hold the GUI data
-    MbDevice ui_device_buffers[N_DEVICES];
+    Link ui_link_buffers[N_DEVICES];
 
     UiMenuState menu_state = {};
     // We use this so we don't lock the mutex each frame.
@@ -171,9 +169,9 @@ int main(int, char **)
     bool selected_channel[N_DEVICES][N_CHANNELS] = {};
     int config_edit_flags[N_DEVICES] = {};
 
-    int logger_selected_device = 0;
-    int selected_device_index = 0;
-    int selected_channel_index = 0;
+    int logger_selected_link = 0;
+    int selected_link_index = 0;
+    int selected_tag_index = 0;
 
     bool glfw_close_window_pending = false;
     bool glfw_close_window_confirmed = false;
@@ -184,26 +182,51 @@ int main(int, char **)
     // If the products are not consumed and the buffer is full,
     // the polling thread will stop polling the device.
     // This will probably change once we implement the logging functionality.
+    // TODO =======================================================================
+    // Add the ability to check for config files in the file system and create Links
+    // accordingly.
     for (int i = 0; i < N_DEVICES; i++)
     {
         // Initialize all the devices.
         // This is needed to allocate the required memory for channels
         // so that the GUI can access them.
-        mb_devices[i] = cl_device_init_tcp("PLC", i + 1, N_CHANNELS);
+        char link_name_buf[32];
+        sprintf_s(link_name_buf, "LINK_%d", i);
 
-        ui_device_buffers[i] = cl_device_init_tcp("PLC", i + 1, N_CHANNELS);
+        MbTcpConfig mb_tcp_config;
+        sprintf_s(mb_tcp_config.ip, "127.0.0.1");
+        mb_tcp_config.port = 5502;
+
+        MbSerialConfig mb_serial_config;
+        sprintf_s(mb_serial_config.com_port, "COM3");
+        mb_serial_config.baudrate = BR_9600;
+        mb_serial_config.parity = CL_SERIAL_PARITY_NONE;
+
+        LinkConfig link_config;
+        link_config.mb_tcp_config = mb_tcp_config;
+        link_config.mb_serial_config = mb_serial_config;
+
+        Link link = {};
+        link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS);
+        links[i] = link;
+
+        // Link data copy used as a buffer for the UI widgets to write to.
+        ui_link_buffers[i] = link;
+
         // Initialize the buffers
         buf_init(&buf[i], 10);
         // and the config update so we can send updates to the threads.
         config_update_init(&config_update[i]);
-    }
 
-    for (int i = 0; i < N_DEVICES; i++)
-    {
+        // Spawn the threads.
 
         thread_arg[i].id = i + 1;
         thread_arg[i].buf_ptr = &buf[i];
         thread_arg[i].config_update_ptr = &config_update[i];
+
+        // the thread argument holds the firstly created link.
+        // This is used as the initial values for the thread to try and poll...etc
+        thread_arg[i].link = link;
 
         if (thrd_create(&th[i], polling_thread, (void *)&thread_arg[i]) != thrd_success)
         {
@@ -244,7 +267,7 @@ int main(int, char **)
             {
                 // Get the device data from the threads buffers and put it in the
                 // mb_devices[] for display
-                while (buf_get(&buf[i], &mb_devices[i], 1))
+                while (buf_get(&buf[i], &links[i], 1))
                 {
                     // do something
                 }
@@ -253,6 +276,7 @@ int main(int, char **)
 
             frame_count = 0;
         }
+
         if (ImGui::BeginMainMenuBar())
         {
             if (ImGui::BeginMenu("File"))
@@ -291,38 +315,51 @@ int main(int, char **)
             if (ImGui::Begin("Logging Config"))
             {
 
-                MbDevice *ui_device_buffer = &ui_device_buffers[logger_selected_device];
-                const char *device_names[N_DEVICES] = {};
+                Link *ui_buffer = &ui_link_buffers[logger_selected_link];
+                const char *link_names[N_DEVICES] = {};
 
                 // Populate the combobox values with device names.
                 for (int i = 0; i < N_DEVICES; i++)
                 {
-                    device_names[i] = mb_devices[i].name;
+                    link_names[i] = links[i].name;
                 }
 
-                if (ImGui::Combo("Device", &logger_selected_device, device_names, IM_ARRAYSIZE(device_names)))
+                if (ImGui::Combo("Link", &logger_selected_link, link_names, IM_ARRAYSIZE(link_names)))
                 {
                 }
-                ImGui::Text("%s Logging Details", mb_devices[logger_selected_device].name);
+                ImGui::Text("%s Logging Details", links[logger_selected_link].name);
 
-                if (ImGui::InputText("API Token", ui_device_buffer->token, IM_ARRAYSIZE(ui_device_buffer->token),
+                if (ImGui::InputText("API Token", ui_buffer->token, IM_ARRAYSIZE(ui_buffer->token),
                                      ImGuiInputTextFlags_CharsNoBlank))
                 {
-                    config_edit_flags[logger_selected_device] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
 
-                if (ImGui::InputText("Database URL", ui_device_buffer->url, IM_ARRAYSIZE(ui_device_buffer->url),
+                if (ImGui::InputText("Database URL", ui_buffer->url, IM_ARRAYSIZE(ui_buffer->url),
                                      ImGuiInputTextFlags_CharsNoBlank))
                 {
-                    config_edit_flags[logger_selected_device] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
-                const char *logging_method[] = {"LOCAL", "REMOTE"};
-                if (ImGui::Combo("Logging Method", &ui_device_buffer->logging_type, logging_method,
-                                 IM_ARRAYSIZE(logging_method)))
+                const char *logging_methods[] = {"LOCAL", "REMOTE"};
+                static int logging_method = 0;
+                if (ImGui::Combo("Logging Method", &logging_method, logging_methods, IM_ARRAYSIZE(logging_methods)))
                 {
-                    config_edit_flags[logger_selected_device] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
+
+                    switch (logging_method)
+                    {
+                    case 0:
+                        ui_buffer->logging_type = CL_LOCAL_LOGGING;
+                        break;
+                    case 1:
+                        ui_buffer->logging_type = CL_REMOTE_LOGGING;
+                        break;
+                    default:
+                        ui_buffer->logging_type = CL_LOCAL_LOGGING;
+                        break;
+                    }
                 }
-                ImGui::Text("Logging Count: %lu", mb_devices[logger_selected_device].log_count);
+                ImGui::Text("Logging Count: %lu", links[logger_selected_link].log_count);
             }
             ImGui::End();
         }
@@ -331,192 +368,325 @@ int main(int, char **)
             if (ImGui::Begin("Properties"))
             {
 
-                MbDevice *ui_device_buffer = &ui_device_buffers[selected_device_index];
+                Link *ui_buffer = &ui_link_buffers[selected_link_index];
 
-                ImGui::BeginDisabled(!ui_device_buffer->channels[selected_channel_index].enabled);
+                ImGui::BeginDisabled(!ui_buffer->tags[selected_tag_index].enabled);
 
-                ImGui::Text("%s:%s Details", mb_devices[selected_device_index].name,
-                            mb_devices[selected_device_index].channels[selected_channel_index].tag);
+                ImGui::Text("%s:%s Details", links[selected_link_index].name,
+                            links[selected_link_index].tags[selected_tag_index].name);
 
-                if (ImGui::InputText("Tag", ui_device_buffer->channels[selected_channel_index].tag,
-                                     IM_ARRAYSIZE(ui_device_buffer->channels[selected_channel_index].tag),
+                if (ImGui::InputText("Tag", ui_buffer->tags[selected_tag_index].name,
+                                     IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].name),
                                      ImGuiInputTextFlags_CharsNoBlank))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
                 }
 
-                if (ImGui::InputText("Description", ui_device_buffer->channels[selected_channel_index].description,
-                                     IM_ARRAYSIZE(ui_device_buffer->channels[selected_channel_index].description)))
+                if (ImGui::InputText("Description", ui_buffer->tags[selected_tag_index].description,
+                                     IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].description)))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
                 }
-                if (ImGui::InputText("Unit", ui_device_buffer->channels[selected_channel_index].unit,
-                                     IM_ARRAYSIZE(ui_device_buffer->channels[selected_channel_index].unit)))
+                if (ImGui::InputText("Unit", ui_buffer->tags[selected_tag_index].unit,
+                                     IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].unit)))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-
-                const char *value_types[] = {"COIL", "INT", "REAL - Uses 2 registers"};
-                static int value_type = 0;
-                if (ImGui::Combo("Value Type", &ui_device_buffer->channels[selected_channel_index].channel_type,
-                                 value_types, IM_ARRAYSIZE(value_types)))
-                {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-                if (ImGui::InputInt("Address", &ui_device_buffer->channels[selected_channel_index].address))
-                {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
                 }
 
+                // Show the tag value options and address depending on the protocol.
+                switch (ui_buffer->protocol)
+                {
+                case MB_SERIAL: {
+                    // MB_SERIAL and MB_TCP use the same protocol.
+                    // We let it leak into the next case
+                }
+                case MB_TCP: {
+                    const char *value_types[] = {"INT", "REAL - Uses 2 registers", "COIL"};
+                    if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
+                                     IM_ARRAYSIZE(value_types)))
+                    {
+                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    }
+                    if (ImGui::InputInt("Address", &ui_buffer->tags[selected_tag_index].tag_addr.mb_addr))
+                    {
+                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    }
+                    break;
+                }
+                default: {
+                    break;
+                }
+                }
                 ImGui::EndDisabled();
 
-                if (ImGui::Checkbox("Enabled", &ui_device_buffer->channels[selected_channel_index].enabled))
+                if (ImGui::Checkbox("Enabled", &ui_buffer->tags[selected_tag_index].enabled))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
                 }
 
                 ImGui::SameLine();
-                if (ImGui::Checkbox("Logged", &ui_device_buffer->channels[selected_channel_index].logged))
+                if (ImGui::Checkbox("Logged", &ui_buffer->tags[selected_tag_index].logged))
                 {
-                    config_edit_flags[selected_device_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                }
+            }
+            ImGui::End();
+
+            if (ImGui::Begin("Devices"))
+            {
+                ImGui::Checkbox("Show Demo", &app.show_demo_window);
+
+                // ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
+
+                for (int i = 0; i < IM_ARRAYSIZE(links); i++)
+                {
+
+                    ImGui::PushID(i);
+
+                    Link *link = &links[i];
+                    // Used to hold UI data and persist it across frames.
+                    // The use of pointers here is important as we don't want
+                    // to just copy the buffer. We want to mutate the buffer state outside of
+                    // the event loop.
+                    Link *ui_buffer = &ui_link_buffers[i];
+
+                    // A little hack to show an asterics when the config is edited.
+                    char collapsing_header_title[32];
+                    if (config_edit_flags[i])
+                    {
+                        sprintf_s(collapsing_header_title, "%s Config *", link->name);
+                    }
+                    else
+                    {
+                        sprintf_s(collapsing_header_title, "%s Config", link->name);
+                    }
+
+                    if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
+                    {
+                        if (ImGui::InputText("Name", ui_buffer->name, IM_ARRAYSIZE(ui_link_buffers->name),
+                                             ImGuiInputTextFlags_CharsNoBlank)
+
+                        )
+                        {
+                            config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                        }
+
+                        const char *link_types[] = {"MODBUS TCP", "MODBUS SERIAL", "ALLEN BRADLEY EIP", "SIEMENS S7",
+                                                    "IEC61850"};
+
+                        if (ImGui::Combo("Link Protocol", &ui_buffer->protocol, link_types, IM_ARRAYSIZE(link_types)))
+                        {
+                            config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+
+                            for (int tag_i = 0; tag_i < ui_buffer->tag_count; tag_i++)
+                            {
+                                ui_buffer->tags[tag_i].protocol = ui_buffer->protocol;
+                            }
+                        }
+
+                        switch (ui_buffer->protocol)
+                        {
+                        case MB_TCP: {
+
+                            if (ImGui::InputText("IP Address", ui_buffer->link_config.mb_tcp_config.ip,
+                                                 IM_ARRAYSIZE(ui_buffer->link_config.mb_tcp_config.ip)))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                            }
+
+                            if (ImGui::InputInt("Port", &ui_buffer->link_config.mb_tcp_config.port))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                            }
+                            break;
+                        }
+                        case MB_SERIAL: {
+
+                            if (ImGui::InputText("Serial Port", ui_buffer->link_config.mb_serial_config.com_port,
+                                                 IM_ARRAYSIZE(ui_buffer->link_config.mb_serial_config.com_port)))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                            }
+
+                            const char *baudrates[] = {"9600", "19200", "38400", "115200"};
+                            static int baudrate = 0;
+                            if (ImGui::Combo("Baudrate", &baudrate, baudrates, IM_ARRAYSIZE(baudrates)))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                                switch (baudrate)
+                                {
+                                case 0:
+                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_9600;
+                                    break;
+                                case 1:
+                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_19200;
+                                    break;
+                                case 2:
+                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_38400;
+                                    break;
+                                case 3:
+                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_115200;
+                                    break;
+
+                                default:
+                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_9600;
+                                    break;
+                                }
+                            }
+                            const char *parities[] = {"NONE", "EVEN", "ODD"};
+                            static int parity = 0;
+                            if (ImGui::Combo("Parity", &parity, parities, IM_ARRAYSIZE(parities)))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                                switch (parity)
+                                {
+                                case 0:
+                                    ui_buffer->link_config.mb_serial_config.parity = 'N';
+                                    break;
+                                case 1:
+                                    ui_buffer->link_config.mb_serial_config.parity = 'E';
+                                    break;
+                                case 2:
+                                    ui_buffer->link_config.mb_serial_config.parity = 'O';
+                                    break;
+
+                                default:
+                                    ui_buffer->link_config.mb_serial_config.parity = 'N';
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case S7: {
+                            break;
+                        }
+                        case EIP: {
+                            break;
+                        }
+                        case IEC_61850: {
+                            break;
+                        }
+                        default:
+                            break;
+                        }
+                    }
+                    // Button to send config update to the threads
+                    if (ImGui::Button("Reconfigure"))
+                    {
+                        link = ui_buffer;
+                        if (config_update_put(&config_update[i], link, true))
+                        {
+                            // Reset the config change indication flags.
+                            config_edit_flags[i] = 0;
+                        }
+                    }
+
+                    if (link->is_error)
+                    {
+                        ImGui::Text("Link ID: %d. ERROR: %s", link->id, link->err_msg);
+                    }
+                    else
+                    {
+                        ImVec2 outer_size = ImVec2(0.0f, 200.0f);
+                        if (ImGui::BeginTable("Tag Data", 6,
+                                              ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders |
+                                                  ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollX |
+                                                  ImGuiTableFlags_RowBg,
+                                              outer_size))
+
+                        {
+
+                            ImGui::TableSetupColumn("Tag");
+                            ImGui::TableSetupColumn("Value");
+                            ImGui::TableSetupColumn("Unit");
+                            ImGui::TableSetupColumn("Type");
+                            ImGui::TableSetupColumn("Address");
+                            ImGui::TableSetupColumn("Description");
+                            ImGui::TableSetupScrollFreeze(0, 1);
+                            ImGui::TableHeadersRow();
+                            for (int j = 0; j < link->tag_count; j++)
+                            {
+                                char selectable_label[32];
+                                bool set_selected = false;
+                                sprintf_s(selectable_label, "%s", link->tags[j].name);
+                                ImGui::TableNextRow();
+                                ImGui::TableNextColumn();
+
+                                if (selected_link_index == i && selected_tag_index == j)
+                                {
+                                    set_selected = true;
+                                }
+                                else
+                                {
+                                    set_selected = false;
+                                }
+                                if (ImGui::Selectable(selectable_label, set_selected,
+                                                      ImGuiSelectableFlags_SpanAllColumns))
+                                {
+                                    selected_link_index = i;
+                                    selected_tag_index = j;
+                                }
+                                // ImGui::Text("CH%d", device->channels[j].id);
+                                ImGui::TableNextColumn();
+                                ImGui::BeginDisabled(!link->tags[j].enabled);
+
+                                switch (link->tags[j].value_type)
+                                {
+                                case VALUE_REAL:
+                                    ImGui::Text("%0.3f", link->tags[j].tag_value.real_value);
+                                    break;
+                                case VALUE_INT:
+                                    ImGui::Text("%d", link->tags[j].tag_value.int_value);
+                                    break;
+                                case VALUE_BOOL:
+                                    ImGui::Text("%d", link->tags[j].tag_value.bool_value);
+                                    break;
+                                }
+                                ImGui::TableNextColumn();
+                                ImGui::Text("%s", link->tags[j].unit);
+                                ImGui::TableNextColumn();
+
+                                switch (link->tags[j].value_type)
+                                {
+                                case VALUE_REAL:
+                                    ImGui::Text("REAL");
+                                    break;
+                                case VALUE_INT:
+                                    ImGui::Text("INT");
+                                    break;
+                                case VALUE_BOOL:
+                                    ImGui::Text("BOOL");
+                                    break;
+                                default:
+                                    ImGui::Text("INT");
+                                    break;
+                                }
+                                ImGui::TableNextColumn();
+                                switch (link->tags[j].protocol)
+                                {
+                                case MB_TCP:
+                                case MB_SERIAL:
+                                    ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
+                                    break;
+                                case EIP:
+                                    ImGui::Text("%s", link->tags[j].tag_addr.eip_tag_addr);
+                                    break;
+                                default:
+                                    ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
+                                    break;
+                                }
+                                ImGui::TableNextColumn();
+                                ImGui::Text("%s", link->tags[j].description);
+                                ImGui::EndDisabled();
+                            }
+                            ImGui::EndTable();
+                        }
+                    }
+                    ImGui::PopID();
                 }
             }
             ImGui::End();
         }
-
-        if (ImGui::Begin("Devices"))
-        {
-            ImGui::Checkbox("Show Demo", &app.show_demo_window);
-
-            // ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
-
-            for (int i = 0; i < IM_ARRAYSIZE(mb_devices); i++)
-            {
-
-                ImGui::PushID(i);
-
-                MbDevice *device = &mb_devices[i];
-                // Used to hold UI data and persist it across frames.
-                // The use of pointers here is important as we don't want
-                // to just copy the buffer. We want to mutate the buffer state outside of
-                // the event loop.
-                MbDevice *ui_device_buffer = &ui_device_buffers[i];
-
-                // A little hack to show an asterics when the config is edited.
-                char collapsing_header_title[32];
-                if (config_edit_flags[i])
-                {
-                    sprintf_s(collapsing_header_title, "%s Config *", device->name);
-                }
-                else
-                {
-                    sprintf_s(collapsing_header_title, "%s Config", device->name);
-                }
-
-                if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
-                {
-                    if (ImGui::InputText("Name", ui_device_buffer->name, IM_ARRAYSIZE(ui_device_buffer->ip),
-                                         ImGuiInputTextFlags_CharsNoBlank)
-
-                    )
-                    {
-                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                    }
-                    if (ImGui::InputText("IP Address", ui_device_buffer->ip, IM_ARRAYSIZE(ui_device_buffer->ip)))
-                    {
-                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                    }
-
-                    if (ImGui::InputInt("Port", &ui_device_buffer->port))
-                    {
-                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                    }
-                }
-                // Button to send config update to the threads
-                if (ImGui::Button("Reconfigure"))
-                {
-                    device = ui_device_buffer;
-                    if (config_update_put(&config_update[i], device, true))
-                    {
-                        // Reset the config change indication flags.
-                        config_edit_flags[i] = 0;
-                    }
-                }
-                if (device->is_error)
-                {
-                    ImGui::Text("Device ID: %d. ERROR: %s", device->id, device->error_msg);
-                }
-                else
-                {
-                    ImVec2 outer_size = ImVec2(0.0f, 200.0f);
-                    if (ImGui::BeginTable("Device Data", 6,
-                                          ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders |
-                                              ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollX | ImGuiTableFlags_RowBg,
-                                          outer_size))
-
-                    {
-
-                        ImGui::TableSetupColumn("Tag");
-                        ImGui::TableSetupColumn("Value");
-                        ImGui::TableSetupColumn("Unit");
-                        ImGui::TableSetupColumn("Type");
-                        ImGui::TableSetupColumn("Address");
-                        ImGui::TableSetupColumn("Description");
-                        ImGui::TableSetupScrollFreeze(0, 1);
-                        ImGui::TableHeadersRow();
-                        for (int j = 0; j < device->channel_count; j++)
-                        {
-                            char selectable_label[32];
-                            bool set_selected = false;
-                            sprintf_s(selectable_label, "%s", device->channels[j].tag);
-                            ImGui::TableNextRow();
-                            ImGui::TableNextColumn();
-
-                            if (selected_device_index == i && selected_channel_index == j)
-                            {
-                                set_selected = true;
-                            }
-                            else
-                            {
-                                set_selected = false;
-                            }
-                            if (ImGui::Selectable(selectable_label, set_selected, ImGuiSelectableFlags_SpanAllColumns))
-                            {
-                                selected_device_index = i;
-                                selected_channel_index = j;
-                            }
-                            // ImGui::Text("CH%d", device->channels[j].id);
-                            ImGui::TableNextColumn();
-                            ImGui::BeginDisabled(!device->channels[j].enabled);
-                            ImGui::Text("%0.3f", device->channels[j].value);
-                            ImGui::TableNextColumn();
-                            ImGui::Text("%s", device->channels[j].unit);
-                            ImGui::TableNextColumn();
-                            switch (device->channels[j].channel_type)
-                            {
-                            case 1:
-                                ImGui::Text("INT");
-                                break;
-                            case 2:
-                                ImGui::Text("REAL");
-                                break;
-                            default:
-                                ImGui::Text("INT");
-                            }
-                            ImGui::TableNextColumn();
-                            ImGui::Text("%d", device->channels[j].address);
-                            ImGui::TableNextColumn();
-                            ImGui::Text("%s", device->channels[j].description);
-                            ImGui::EndDisabled();
-                        }
-                        ImGui::EndTable();
-                    }
-                }
-
-                ImGui::PopID();
-            }
-        }
-        ImGui::End();
 
         ImGui::Render();
 
@@ -540,7 +710,6 @@ int main(int, char **)
         glfwMakeContextCurrent(window);
         glfwSwapBuffers(window);
     }
-
     printf("Closing\n");
     // Cleanup
 
@@ -570,12 +739,14 @@ int polling_thread(void *arg)
     }
     ThreadArg *arg_ptr = (ThreadArg *)arg;
     Buffer *buf_ptr = arg_ptr->buf_ptr;
+    // Get a first copy of the link data.
+    Link link = arg_ptr->link;
     ConfigUpdate *config_update_ptr = arg_ptr->config_update_ptr;
     unsigned long timestamp = (unsigned long)time(nullptr);
     int rc;
 
-    modbus_t *ctx;
-    MbDevice device = cl_device_init_tcp("PLC_1", arg_ptr->id, N_CHANNELS);
+    // modbus_t *ctx;
+    // MbDevice device = cl_device_init_tcp("PLC_1", arg_ptr->id, N_CHANNELS);
 
     CURL *curl;
     CURLcode curl_res;
@@ -583,18 +754,17 @@ int polling_thread(void *arg)
     char post_data[POSTDATA_BUF_STRLEN];
     curl = curl_easy_init();
 
-    float test_value = 0.0;
     bool reconnect_flag = false;
 
     for (;;)
     {
         timestamp = (unsigned long)time(nullptr);
-        if (config_update_get(config_update_ptr, &device, &reconnect_flag))
+        if (config_update_get(config_update_ptr, &link, &reconnect_flag))
         {
             printf("Config updated: Device %d\n", arg_ptr->id);
         }
-        ctx = modbus_new_tcp(device.ip, device.port);
-        if (modbus_connect(ctx) == -1)
+        // ctx = modbus_new_tcp(device.ip, device.port);
+        if (cl_connect_link(&link) == -1)
         {
 
             // Hack to get Windows error message.
@@ -604,12 +774,12 @@ int polling_thread(void *arg)
                            NULL, WSAGetLastError(), MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_UK), (LPWSTR)&s, 0, NULL);
             fprintf(stderr, "Connection failed: %S\n", s);
 
-            device.timestamp = timestamp;
-            device.is_error = true;
-            sprintf_s(err_buffer, "Error while trying to connect to device: %S", s);
-            device.error_msg = err_buffer;
+            link.timestamp = timestamp;
+            link.is_error = true;
+            sprintf_s(link.err_msg, "Error while trying to connect to device: %S", s);
+
             // Make sure to put the data in the buffer so that main can get the error message.
-            if (buf_put(buf_ptr, device))
+            if (buf_put(buf_ptr, link))
             {
                 // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
             }
@@ -617,75 +787,59 @@ int polling_thread(void *arg)
             continue; // Restart
         }
         reconnect_flag = false;
-        device.is_error = false;
+        link.is_error = false;
         for (;;) // Loop until error
         {
             char tag_data_str_buf[TAGSDATA_BUF_STRLEN] = {};
             timestamp = (unsigned long)time(nullptr);
             // Check if there is a configuration update and if we need to reconnect the device.
-            if (config_update_get(config_update_ptr, &device, &reconnect_flag))
+            if (config_update_get(config_update_ptr, &link, &reconnect_flag))
             {
                 printf("Config updated: Device %d\n", arg_ptr->id);
+                break;
             }
 
-            for (int i = 0; i < device.channel_count; i++)
+            for (int i = 0; i < link.tag_count; i++)
             {
-                if (!device.channels[i].enabled)
+                if (!link.tags[i].enabled)
                 {
                     // Skip the channel if disabled
                     continue;
                 }
+
+                // Read the tag.
+                if (cl_read_tag(&link, i) == -1)
+                {
+                    // indicate the an error happened.
+                    // note that each tag holds its own error flag. So, this is redundant.
+                }
                 char tag_str[TAGDATA_BUF_STRLEN] = {};
 
-                uint16_t read_buf[2] = {};
-                int read_rc;
-                switch (device.channels[i].channel_type)
-                {
-                case 2:
-                    read_rc = modbus_read_registers(ctx, device.channels[i].address, 2, read_buf);
-                    device.channels[i].value = modbus_get_float_abcd(read_buf);
-                    break;
-                case 1:
-                    read_rc = modbus_read_registers(ctx, device.channels[i].address, 1, read_buf);
-                    device.channels[i].value = (read_buf[0]);
-                    break;
-                default:
-                    read_rc = modbus_read_registers(ctx, device.channels[i].address, 1, read_buf);
-                    device.channels[i].value = (read_buf[0]);
-                    break;
-                }
-                if (read_rc == -1)
-                {
-                    fprintf(stderr, "Read failed: %s\n", modbus_strerror(errno));
-                    // Try to reconnect.
-                    // Temporary. TODO: we should check errno and only try to reconnect if it is a socket error.
-                    reconnect_flag = true;
-                    device.is_error = true;
-                    device.error_msg = modbus_strerror(errno);
-                    break;
-                }
-
-                if (!device.channels[i].logged)
+                if (!link.tags[i].logged)
                 {
                     // Do not concat this channel value to the POST data if it is not logged.
                     continue;
                 }
-                if (i + 1 == device.channel_count)
+                if (i + 1 == link.tag_count)
                 {
-                    if (sprintf_s(tag_str, "%s=%0.3f %lu", device.channels[i].tag, device.channels[i].value,
+                    // TODO
+                    // check if the tags has float or int value
+                    if (sprintf_s(tag_str, "%s=%0.3f %lu", link.tags[i].name, link.tags[i].tag_value.real_value,
                                   timestamp) == -1)
                     {
                     }
                 }
                 else
                 {
-                    sprintf_s(tag_str, "%s=%0.3f,", device.channels[i].tag, device.channels[i].value);
+                    // TODO
+                    // check if the tags has float or int value
+                    sprintf_s(tag_str, "%s=%0.3f,", link.tags[i].name, link.tags[i].tag_value.real_value);
                 }
                 strcat_s(tag_data_str_buf, tag_str);
             }
-            device.timestamp = timestamp;
+            link.timestamp = timestamp;
 
-            sprintf_s(post_data, "%s %s", device.name, tag_data_str_buf);
+            sprintf_s(post_data, "%s %s", link.name, tag_data_str_buf);
 
             if (curl)
             {
@@ -696,21 +850,21 @@ int polling_thread(void *arg)
                 struct curl_slist *headers = NULL;
                 char token_header[256];
 
-                switch (device.logging_type)
+                switch (link.logging_type)
                 {
                 case 0: {
-                    sprintf_s(token_header, "Authorization: Bearer %s", device.token);
+                    sprintf_s(token_header, "Authorization: Bearer %s", link.token);
                     headers = curl_slist_append(headers, "Content-Type: application/json");
                     break;
                 }
                 case 1: {
-                    sprintf_s(token_header, "Authorization: Token %s", device.token);
+                    sprintf_s(token_header, "Authorization: Token %s", link.token);
                     headers = curl_slist_append(headers, "Content-Type: text/plain; charset=utf-8");
                     // headers = curl_slist_append(headers, "Content-Type: application/json");
                     break;
                 }
                 default: {
-                    sprintf_s(token_header, "Authorization: Bearer %s", device.token);
+                    sprintf_s(token_header, "Authorization: Bearer %s", link.token);
                     headers = curl_slist_append(headers, "Content-Type: application/json");
                     break;
                 }
@@ -718,7 +872,7 @@ int polling_thread(void *arg)
 
                 headers = curl_slist_append(headers, token_header);
 
-                curl_easy_setopt(curl, CURLOPT_URL, device.url);
+                curl_easy_setopt(curl, CURLOPT_URL, link.url);
                 curl_easy_setopt(curl, CURLOPT_POST, 1L);
                 curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
                 curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
@@ -739,14 +893,14 @@ int polling_thread(void *arg)
                     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
                     if (http_code == 204)
                     {
-                        device.log_count++;
+                        link.log_count++;
                     }
                     printf("HTTP Status Code: %ld\n", http_code);
                 }
                 free(chunk.memory);
             }
 
-            if (buf_put(buf_ptr, device))
+            if (buf_put(buf_ptr, link))
             {
                 // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
             }
@@ -762,9 +916,9 @@ int polling_thread(void *arg)
         }
     }
 
+    // TODO
+    // Should clean the links and tags.
     curl_easy_cleanup(curl);
     curl_global_cleanup();
-    modbus_free(ctx);
-    cl_device_destroy(&device);
     return EXIT_SUCCESS;
 }
