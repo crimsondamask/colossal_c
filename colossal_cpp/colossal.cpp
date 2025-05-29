@@ -10,6 +10,7 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "link.h"
+#include "snap7/snap7.h"
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
@@ -162,6 +163,7 @@ int main(int, char **)
     Link ui_link_buffers[N_DEVICES];
 
     UiMenuState menu_state = {};
+    menu_state.devices_menu = true;
     // We use this so we don't lock the mutex each frame.
     bool frames_exceeded = false;
     size_t frame_count = 0;
@@ -202,9 +204,16 @@ int main(int, char **)
         mb_serial_config.baudrate = BR_9600;
         mb_serial_config.parity = CL_SERIAL_PARITY_NONE;
 
+        S7Config s7_config;
+
+        sprintf_s(s7_config.ip, "192.168.0.1");
+        s7_config.rack = 0;
+        s7_config.slot = 2;
+
         LinkConfig link_config;
         link_config.mb_tcp_config = mb_tcp_config;
         link_config.mb_serial_config = mb_serial_config;
+        link_config.s7_config = s7_config;
 
         Link link = {};
         link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS);
@@ -291,6 +300,7 @@ int main(int, char **)
             }
             if (ImGui::BeginMenu("Devices"))
             {
+                ImGui::MenuItem("Device Details", NULL, &menu_state.devices_menu);
                 ImGui::EndMenu();
             }
             if (ImGui::BeginMenu("Logging"))
@@ -312,7 +322,7 @@ int main(int, char **)
 
         if (menu_state.logging_menu)
         {
-            if (ImGui::Begin("Logging Config"))
+            if (ImGui::Begin("Logging Config", &menu_state.logging_menu))
             {
 
                 Link *ui_buffer = &ui_link_buffers[logger_selected_link];
@@ -341,23 +351,10 @@ int main(int, char **)
                     config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
                 const char *logging_methods[] = {"LOCAL", "REMOTE"};
-                static int logging_method = 0;
-                if (ImGui::Combo("Logging Method", &logging_method, logging_methods, IM_ARRAYSIZE(logging_methods)))
+                if (ImGui::Combo("Logging Method", &ui_buffer->logging_type, logging_methods,
+                                 IM_ARRAYSIZE(logging_methods)))
                 {
                     config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
-
-                    switch (logging_method)
-                    {
-                    case 0:
-                        ui_buffer->logging_type = CL_LOCAL_LOGGING;
-                        break;
-                    case 1:
-                        ui_buffer->logging_type = CL_REMOTE_LOGGING;
-                        break;
-                    default:
-                        ui_buffer->logging_type = CL_LOCAL_LOGGING;
-                        break;
-                    }
                 }
                 ImGui::Text("Logging Count: %lu", links[logger_selected_link].log_count);
             }
@@ -365,7 +362,7 @@ int main(int, char **)
         }
         if (menu_state.tag_menu)
         {
-            if (ImGui::Begin("Properties"))
+            if (ImGui::Begin("Properties", &menu_state.tag_menu))
             {
 
                 Link *ui_buffer = &ui_link_buffers[selected_link_index];
@@ -413,6 +410,28 @@ int main(int, char **)
                     }
                     break;
                 }
+                case SIEMENS_S7: {
+
+                    const char *value_types[] = {"INT (16bit)", "REAL (32bit)", "BIT"};
+                    if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
+                                     IM_ARRAYSIZE(value_types)))
+                    {
+                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    }
+                    if (ImGui::InputInt("DB", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.db_number))
+                    {
+                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    }
+                    if (ImGui::InputInt("Offset", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.start))
+                    {
+                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    }
+                    if (ImGui::InputInt("Bit", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.start_bit))
+                    {
+                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+                    }
+                    break;
+                }
                 default: {
                     break;
                 }
@@ -431,8 +450,11 @@ int main(int, char **)
                 }
             }
             ImGui::End();
+        }
 
-            if (ImGui::Begin("Devices"))
+        if (menu_state.devices_menu)
+        {
+            if (ImGui::Begin("Devices"), &menu_state.devices_menu)
             {
                 ImGui::Checkbox("Show Demo", &app.show_demo_window);
 
@@ -451,14 +473,34 @@ int main(int, char **)
                     Link *ui_buffer = &ui_link_buffers[i];
 
                     // A little hack to show an asterics when the config is edited.
-                    char collapsing_header_title[32];
+                    char collapsing_header_title[2048];
                     if (config_edit_flags[i])
                     {
-                        sprintf_s(collapsing_header_title, "%s Config *", link->name);
+                        if (link->protocol == SIEMENS_S7)
+                        {
+
+                            sprintf_s(collapsing_header_title, "%s %s %s Config *", link->name,
+                                      link->link_config.s7_config.cpu_info.ModuleTypeName,
+                                      link->link_config.s7_config.cpu_info.SerialNumber);
+                        }
+                        else
+                        {
+                            sprintf_s(collapsing_header_title, "%s Config *", link->name);
+                        }
                     }
                     else
                     {
-                        sprintf_s(collapsing_header_title, "%s Config", link->name);
+                        if (link->protocol == SIEMENS_S7)
+                        {
+
+                            sprintf_s(collapsing_header_title, "%s %s %s Config", link->name,
+                                      link->link_config.s7_config.cpu_info.ModuleTypeName,
+                                      link->link_config.s7_config.cpu_info.ModuleName);
+                        }
+                        else
+                        {
+                            sprintf_s(collapsing_header_title, "%s Config", link->name);
+                        }
                     }
 
                     if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
@@ -557,7 +599,21 @@ int main(int, char **)
                             }
                             break;
                         }
-                        case S7: {
+                        case SIEMENS_S7: {
+                            if (ImGui::InputText("IP Address", ui_buffer->link_config.s7_config.ip,
+                                                 IM_ARRAYSIZE(ui_buffer->link_config.s7_config.ip)))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                            }
+
+                            if (ImGui::InputInt("Rack", &ui_buffer->link_config.s7_config.rack))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                            }
+                            if (ImGui::InputInt("Slot", &ui_buffer->link_config.s7_config.slot))
+                            {
+                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                            }
                             break;
                         }
                         case EIP: {
@@ -587,7 +643,7 @@ int main(int, char **)
                     }
                     else
                     {
-                        ImVec2 outer_size = ImVec2(0.0f, 200.0f);
+                        ImVec2 outer_size = ImVec2(0.0f, 250.0f);
                         if (ImGui::BeginTable("Tag Data", 6,
                                               ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders |
                                                   ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollX |
@@ -671,6 +727,12 @@ int main(int, char **)
                                 case EIP:
                                     ImGui::Text("%s", link->tags[j].tag_addr.eip_tag_addr);
                                     break;
+                                case SIEMENS_S7:
+                                    ImGui::Text("DB%d:%d.%d", link->tags[j].tag_addr.s7_tag_addr.db_number,
+                                                link->tags[j].tag_addr.s7_tag_addr.start,
+                                                link->tags[j].tag_addr.s7_tag_addr.start_bit);
+                                    break;
+
                                 default:
                                     ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
                                     break;
@@ -776,7 +838,7 @@ int polling_thread(void *arg)
 
             link.timestamp = timestamp;
             link.is_error = true;
-            sprintf_s(link.err_msg, "Error while trying to connect to device: %S", s);
+            // sprintf_s(link.err_msg, "Error while trying to connect to device: %S", s);
 
             // Make sure to put the data in the buffer so that main can get the error message.
             if (buf_put(buf_ptr, link))

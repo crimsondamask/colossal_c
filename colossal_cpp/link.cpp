@@ -1,6 +1,7 @@
 #pragma once
 #include "libmodbus/modbus.h"
 #include "link.h"
+#include "snap7/snap7.h"
 #include <cstddef>
 #include <cstdint>
 #include <stdio.h>
@@ -59,30 +60,34 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
         char name_buf[TAG_NAME_BUF_LEN];
         sprintf_s(name_buf, "TAG%d", i);
 
+        // Address initialization with default values.
+        TagAddress tag_addr = {};
+        tag_addr.mb_addr = (int)i * 2;
+        sprintf_s(tag_addr.eip_tag_addr, "Tag%d", i);
+        tag_addr.s7_tag_addr.s7_area = S7AreaDB;
+        tag_addr.s7_tag_addr.length = S7WLWord;
+        tag_addr.s7_tag_addr.db_number = 1;
+        tag_addr.s7_tag_addr.start = i * 2;
+        tag_addr.s7_tag_addr.start_bit = 0;
+        tag_addr.s7_tag_addr.amount = 1;
+        int value_type = VALUE_REAL;
+
         switch (link->protocol)
         {
         case MB_TCP: {
-            TagAddress tag_addr = {};
-            tag_addr.mb_addr = (int)i * 2;
-            sprintf_s(tag_addr.eip_tag_addr, "Tag%d", i);
-            int value_type = VALUE_REAL;
             cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_TCP);
             break;
         }
         case MB_SERIAL: {
-            TagAddress tag_addr = {};
-            tag_addr.mb_addr = (int)i * 2;
-            sprintf_s(tag_addr.eip_tag_addr, "Tag%d", i);
-            int value_type = VALUE_REAL;
             cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_SERIAL);
+            break;
+        }
+        case SIEMENS_S7: {
+            cl_new_tag(link, name_buf, i, tag_addr, value_type, SIEMENS_S7);
             break;
         }
         // TODO: switch to the other protocols as well.
         default: {
-            TagAddress tag_addr = {};
-            tag_addr.mb_addr = (int)i * 2;
-            sprintf_s(tag_addr.eip_tag_addr, "Tag%d", i);
-            int value_type = VALUE_REAL;
             cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_TCP);
             break;
         }
@@ -133,6 +138,33 @@ int cl_connect_link(Link *link)
 
         // Reset the error flag.
         link->is_error = false;
+        break;
+    }
+    case SIEMENS_S7: {
+
+        int res = {};
+
+        S7Object client = Cli_Create();
+
+        link->link_config.s7_config.client = client;
+        res = Cli_ConnectTo(link->link_config.s7_config.client, link->link_config.s7_config.ip,
+                            link->link_config.s7_config.rack, link->link_config.s7_config.slot);
+        if (res < 0)
+        {
+            char error_text_buf[1024];
+            link->is_error = true;
+            Cli_ErrorText(res, error_text_buf, 1024);
+            sprintf_s(link->err_msg, "Could not connect to S7 controller: %s", error_text_buf);
+            return -1;
+        }
+
+        // Reset the error flag.
+        link->is_error = false;
+
+        int cpu_info_res = {};
+
+        cpu_info_res = Cli_GetCpuInfo(link->link_config.s7_config.client, &link->link_config.s7_config.cpu_info);
+
         break;
     }
     default: {
@@ -227,6 +259,85 @@ int cl_read_tag(Link *link, int tag_id)
             tag->tag_value.int_value = (int)read_buf[0];
             break;
         }
+        }
+        break;
+    }
+    // SIEMENS S7
+    // ====================================================================
+    case SIEMENS_S7: {
+
+        switch (tag->value_type)
+        {
+        case VALUE_REAL: {
+            float data_buf[1] = {};
+            int res;
+
+            res = Cli_ReadArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
+                               tag->tag_addr.s7_tag_addr.start, 1, S7WLReal, data_buf);
+
+            if (res < 0)
+            {
+                char error_text_buf[SIEMENS_ERR_BUF_LEN];
+                tag->is_error = true;
+                Cli_ErrorText(res, error_text_buf, SIEMENS_ERR_BUF_LEN);
+                sprintf_s(tag->err_msg, "Could not read tag: %s", error_text_buf);
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            tag->tag_value.real_value = data_buf[0];
+            break;
+        }
+        case VALUE_INT: {
+
+            int data_buf[1] = {};
+            int res;
+
+            res = Cli_ReadArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
+                               tag->tag_addr.s7_tag_addr.start, 1, S7WLWord, data_buf);
+
+            if (res < 0)
+            {
+                char error_text_buf[SIEMENS_ERR_BUF_LEN];
+                tag->is_error = true;
+                Cli_ErrorText(res, error_text_buf, SIEMENS_ERR_BUF_LEN);
+                sprintf_s(tag->err_msg, "Could not read tag: %s", error_text_buf);
+                return -1;
+            }
+
+            tag->is_error = false;
+            tag->tag_value.int_value = data_buf[0];
+            break;
+        }
+        case VALUE_BOOL: {
+
+            byte data_buf[1] = {};
+            int res;
+
+            res = Cli_ReadArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
+                               // Offset must be expressed in number of bits (start * 8) + offset_bits.
+                               (tag->tag_addr.s7_tag_addr.start * 8) + tag->tag_addr.s7_tag_addr.start_bit, 1, S7WLBit,
+                               data_buf);
+
+            if (res < 0)
+            {
+                char error_text_buf[SIEMENS_ERR_BUF_LEN];
+                tag->is_error = true;
+                Cli_ErrorText(res, error_text_buf, SIEMENS_ERR_BUF_LEN);
+                sprintf_s(tag->err_msg, "Could not read tag: %s", error_text_buf);
+                return -1;
+            }
+
+            tag->is_error = false;
+            // TODO
+            // Get the actual bit
+            // This is a hack.
+            tag->tag_value.bool_value = data_buf[0];
+            break;
+        }
+        default:
+            break;
         }
         break;
     }

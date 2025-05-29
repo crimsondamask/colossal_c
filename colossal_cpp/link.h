@@ -1,16 +1,18 @@
 #pragma once
 #include "libmodbus/modbus.h"
+#include "snap7/snap7.h"
 
 #include <cstddef>
 #include <cstdint>
 
 #define TAG_NAME_BUF_LEN 16
+#define SIEMENS_ERR_BUF_LEN 1024
 #define TAG_DESC_BUF_LEN 64
 #define TAG_UNIT_BUF_LEN 8
-#define LINK_NAME_BUF_LEN 16
+#define LINK_NAME_BUF_LEN 1024
 #define COM_PORT_BUF_LEN 16
 #define IP_BUF_LEN 32
-#define ERR_MSG_BUF_LEN 64
+#define ERR_MSG_BUF_LEN 1024
 #define URL_BUF_LEN 256
 #define TOKEN_BUF_LEN 256
 
@@ -26,7 +28,7 @@ typedef enum LinkProtocol
     MB_TCP = 0,
     MB_SERIAL,
     EIP,
-    S7,
+    SIEMENS_S7,
     IEC_61850,
 } LinkProtocol;
 
@@ -75,24 +77,44 @@ typedef struct MbSerialConfig
 
 } MbSerialConfig;
 
+typedef struct S7Config
+{
+    char ip[IP_BUF_LEN];
+    TS7CpuInfo cpu_info;
+    int rack;
+    int slot;
+    S7Object client; // This is just an int value used for the negotiated handle.
+} S7Config;
+
 typedef struct LinkConfig
 {
     MbTcpConfig mb_tcp_config;
     MbSerialConfig mb_serial_config;
+    S7Config s7_config;
 
 } LinkConfig;
 
-typedef struct MbAddress
-{
-    uint16_t mb_addr;
+// typedef struct MbAddress
+// {
+//     uint16_t mb_addr;
 
-} MbAddress;
+// } MbAddress;
+
+typedef struct S7TagAddress
+{
+    int s7_area;
+    int db_number;
+    int start;
+    int start_bit;
+    int length;
+    int amount;
+} S7TagAddress;
 
 typedef struct TagAddress
 {
     int mb_addr;
     char eip_tag_addr[TAG_NAME_BUF_LEN];
-
+    S7TagAddress s7_tag_addr;
 } TagAddress;
 
 typedef struct TagValue
