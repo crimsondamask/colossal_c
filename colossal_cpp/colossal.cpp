@@ -11,6 +11,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "link.h"
 #include "snap7/snap7.h"
+#include <cstddef>
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +29,433 @@
 #define TAGSDATA_BUF_STRLEN 1024
 #define TAGDATA_BUF_STRLEN 128
 
-int polling_thread(void *arg);
+static int polling_thread(void *arg);
+
+static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buffers[], bool *menu_state,
+                              int *logger_selected_link, int config_edit_flags[])
+{
+    Link *ui_buffer = &ui_link_buffers[*logger_selected_link];
+    const char *link_names[N_DEVICES] = {};
+
+    if (ImGui::Begin("Logging Config", menu_state))
+    {
+        // Populate the combobox values with device names.
+        for (int i = 0; i < N_DEVICES; i++)
+        {
+            link_names[i] = links[i].name;
+        }
+
+        if (ImGui::Combo("Link", logger_selected_link, link_names, IM_ARRAYSIZE(link_names)))
+        {
+        }
+        ImGui::Text("%s Logging Details", links[*logger_selected_link].name);
+
+        if (ImGui::InputText("API Token", ui_buffer->token, IM_ARRAYSIZE(ui_buffer->token),
+                             ImGuiInputTextFlags_CharsNoBlank))
+        {
+            config_edit_flags[*logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
+        }
+
+        if (ImGui::InputText("Database URL", ui_buffer->url, IM_ARRAYSIZE(ui_buffer->url),
+                             ImGuiInputTextFlags_CharsNoBlank))
+        {
+            config_edit_flags[*logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
+        }
+        const char *logging_methods[] = {"LOCAL", "REMOTE"};
+        if (ImGui::Combo("Logging Method", &ui_buffer->logging_type, logging_methods, IM_ARRAYSIZE(logging_methods)))
+        {
+            config_edit_flags[*logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
+        }
+        ImGui::Text("Logging Count: %lu", links[*logger_selected_link].log_count);
+    }
+    ImGui::End();
+}
+static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[], bool *menu_state,
+                          int selected_link_index, int selected_tag_index, int config_edit_flags[])
+{
+    Link *ui_buffer = &ui_link_buffers[selected_link_index];
+    if (ImGui::Begin("Properties", menu_state))
+    {
+
+        ImGui::BeginDisabled(!ui_buffer->tags[selected_tag_index].enabled);
+
+        ImGui::Text("%s:%s Details", links[selected_link_index].name,
+                    links[selected_link_index].tags[selected_tag_index].name);
+
+        if (ImGui::InputText("Tag", ui_buffer->tags[selected_tag_index].name,
+                             IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].name), ImGuiInputTextFlags_CharsNoBlank))
+        {
+            config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
+
+        if (ImGui::InputText("Description", ui_buffer->tags[selected_tag_index].description,
+                             IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].description)))
+        {
+            config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
+        if (ImGui::InputText("Unit", ui_buffer->tags[selected_tag_index].unit,
+                             IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].unit)))
+        {
+            config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
+
+        // Show the tag value options and address depending on the protocol.
+        switch (ui_buffer->protocol)
+        {
+        case MB_SERIAL: {
+            // MB_SERIAL and MB_TCP use the same protocol.
+            // We let it leak into the next case
+        }
+        case MB_TCP: {
+            const char *value_types[] = {"INT", "REAL - Uses 2 registers", "COIL"};
+            if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
+                             IM_ARRAYSIZE(value_types)))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            if (ImGui::InputInt("Address", &ui_buffer->tags[selected_tag_index].tag_addr.mb_addr))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        }
+        case SIEMENS_S7: {
+
+            const char *value_types[] = {"INT (16bit)", "REAL (32bit)", "BIT"};
+            if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
+                             IM_ARRAYSIZE(value_types)))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            if (ImGui::InputInt("DB", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.db_number))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            if (ImGui::InputInt("Offset", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.start))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            if (ImGui::InputInt("Bit", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.start_bit))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+        ImGui::EndDisabled();
+
+        if (ImGui::Checkbox("Enabled", &ui_buffer->tags[selected_tag_index].enabled))
+        {
+            config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Checkbox("Logged", &ui_buffer->tags[selected_tag_index].logged))
+        {
+            config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
+    }
+    ImGui::End();
+}
+
+static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffers[], ConfigUpdate config_update[],
+                            bool *menu_state, int *selected_link_index, int *selected_tag_index,
+                            int config_edit_flags[])
+
+{
+    if (ImGui::Begin("Devices"), &menu_state)
+    {
+        for (int i = 0; i < link_count; i++)
+        {
+
+            ImGui::PushID(i);
+
+            Link *link = &links[i];
+            // Used to hold UI data and persist it across frames.
+            // The use of pointers here is important as we don't want
+            // to just copy the buffer. We want to mutate the buffer state outside of
+            // the event loop.
+            Link *ui_buffer = &ui_link_buffers[i];
+
+            // A little hack to show an asterics when the config is edited.
+            char collapsing_header_title[2048];
+            if (config_edit_flags[i])
+            {
+
+                if (link->protocol == SIEMENS_S7)
+                {
+
+                    sprintf_s(collapsing_header_title, "%s %s %s Config *", link->name,
+                              link->link_config.s7_config.cpu_info.ModuleTypeName,
+                              link->link_config.s7_config.cpu_info.SerialNumber);
+                }
+                else
+                {
+                    sprintf_s(collapsing_header_title, "%s Config *", link->name);
+                }
+            }
+            else
+            {
+                if (link->protocol == SIEMENS_S7)
+                {
+
+                    sprintf_s(collapsing_header_title, "%s %s %s Config", link->name,
+                              link->link_config.s7_config.cpu_info.ModuleTypeName,
+                              link->link_config.s7_config.cpu_info.ModuleName);
+                }
+                else
+                {
+                    sprintf_s(collapsing_header_title, "%s Config", link->name);
+                }
+            }
+
+            if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
+            {
+                if (ImGui::InputText("Name", ui_buffer->name, IM_ARRAYSIZE(ui_link_buffers->name),
+                                     ImGuiInputTextFlags_CharsNoBlank)
+
+                )
+                {
+                    config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                }
+
+                const char *link_types[] = {"MODBUS TCP", "MODBUS SERIAL", "ALLEN BRADLEY EIP", "SIEMENS S7",
+                                            "IEC61850"};
+
+                if (ImGui::Combo("Link Protocol", &ui_buffer->protocol, link_types, IM_ARRAYSIZE(link_types)))
+                {
+                    config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+
+                    for (int tag_i = 0; tag_i < ui_buffer->tag_count; tag_i++)
+                    {
+                        ui_buffer->tags[tag_i].protocol = ui_buffer->protocol;
+                    }
+                }
+
+                switch (ui_buffer->protocol)
+                {
+                case MB_TCP: {
+
+                    if (ImGui::InputText("IP Address", ui_buffer->link_config.mb_tcp_config.ip,
+                                         IM_ARRAYSIZE(ui_buffer->link_config.mb_tcp_config.ip)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+
+                    if (ImGui::InputInt("Port", &ui_buffer->link_config.mb_tcp_config.port))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+                    break;
+                }
+                case MB_SERIAL: {
+
+                    if (ImGui::InputText("Serial Port", ui_buffer->link_config.mb_serial_config.com_port,
+                                         IM_ARRAYSIZE(ui_buffer->link_config.mb_serial_config.com_port)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+
+                    const char *baudrates[] = {"9600", "19200", "38400", "115200"};
+                    static int baudrate = 0;
+                    if (ImGui::Combo("Baudrate", &baudrate, baudrates, IM_ARRAYSIZE(baudrates)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                        switch (baudrate)
+                        {
+                        case 0:
+                            ui_buffer->link_config.mb_serial_config.baudrate = BR_9600;
+                            break;
+                        case 1:
+                            ui_buffer->link_config.mb_serial_config.baudrate = BR_19200;
+                            break;
+                        case 2:
+                            ui_buffer->link_config.mb_serial_config.baudrate = BR_38400;
+                            break;
+                        case 3:
+                            ui_buffer->link_config.mb_serial_config.baudrate = BR_115200;
+                            break;
+
+                        default:
+                            ui_buffer->link_config.mb_serial_config.baudrate = BR_9600;
+                            break;
+                        }
+                    }
+                    const char *parities[] = {"NONE", "EVEN", "ODD"};
+                    static int parity = 0;
+                    if (ImGui::Combo("Parity", &parity, parities, IM_ARRAYSIZE(parities)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                        switch (parity)
+                        {
+                        case 0:
+                            ui_buffer->link_config.mb_serial_config.parity = 'N';
+                            break;
+                        case 1:
+                            ui_buffer->link_config.mb_serial_config.parity = 'E';
+                            break;
+                        case 2:
+                            ui_buffer->link_config.mb_serial_config.parity = 'O';
+                            break;
+
+                        default:
+                            ui_buffer->link_config.mb_serial_config.parity = 'N';
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case SIEMENS_S7: {
+                    if (ImGui::InputText("IP Address", ui_buffer->link_config.s7_config.ip,
+                                         IM_ARRAYSIZE(ui_buffer->link_config.s7_config.ip)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+
+                    if (ImGui::InputInt("Rack", &ui_buffer->link_config.s7_config.rack))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+                    if (ImGui::InputInt("Slot", &ui_buffer->link_config.s7_config.slot))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
+                    break;
+                }
+                case EIP: {
+                    break;
+                }
+                case IEC_61850: {
+                    break;
+                }
+                default:
+                    break;
+                }
+            }
+            // Button to send config update to the threads
+            if (ImGui::Button("Reconfigure"))
+            {
+                link = ui_buffer;
+                if (config_update_put(&config_update[i], link, true))
+                {
+                    // Reset the config change indication flags.
+                    config_edit_flags[i] = 0;
+                }
+            }
+
+            if (link->is_error)
+            {
+                ImGui::Text("Link ID: %d. ERROR: %s", link->id, link->err_msg);
+            }
+            else
+            {
+                ImVec2 outer_size = ImVec2(0.0f, 250.0f);
+                if (ImGui::BeginTable("Tag Data", 6,
+                                      ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_ScrollY |
+                                          ImGuiTableFlags_ScrollX | ImGuiTableFlags_RowBg,
+                                      outer_size))
+
+                {
+
+                    ImGui::TableSetupColumn("Tag");
+                    ImGui::TableSetupColumn("Value");
+                    ImGui::TableSetupColumn("Unit");
+                    ImGui::TableSetupColumn("Type");
+                    ImGui::TableSetupColumn("Address");
+                    ImGui::TableSetupColumn("Description");
+                    ImGui::TableSetupScrollFreeze(0, 1);
+                    ImGui::TableHeadersRow();
+                    for (int j = 0; j < link->tag_count; j++)
+                    {
+                        char selectable_label[32];
+                        bool set_selected = false;
+                        sprintf_s(selectable_label, "%s", link->tags[j].name);
+                        ImGui::TableNextRow();
+                        ImGui::TableNextColumn();
+
+                        if (*selected_link_index == i && *selected_tag_index == j)
+                        {
+                            set_selected = true;
+                        }
+                        else
+                        {
+                            set_selected = false;
+                        }
+                        if (ImGui::Selectable(selectable_label, set_selected, ImGuiSelectableFlags_SpanAllColumns))
+                        {
+                            *selected_link_index = i;
+                            *selected_tag_index = j;
+                        }
+                        // ImGui::Text("CH%d", device->channels[j].id);
+                        ImGui::TableNextColumn();
+                        ImGui::BeginDisabled(!link->tags[j].enabled);
+
+                        switch (link->tags[j].value_type)
+                        {
+                        case VALUE_REAL:
+                            ImGui::Text("%0.3f", link->tags[j].tag_value.real_value);
+                            break;
+                        case VALUE_INT:
+                            ImGui::Text("%d", link->tags[j].tag_value.int_value);
+                            break;
+                        case VALUE_BOOL:
+                            ImGui::Text("%d", link->tags[j].tag_value.bool_value);
+                            break;
+                        }
+                        ImGui::TableNextColumn();
+                        ImGui::Text("%s", link->tags[j].unit);
+                        ImGui::TableNextColumn();
+
+                        switch (link->tags[j].value_type)
+                        {
+                        case VALUE_REAL:
+                            ImGui::Text("REAL");
+                            break;
+                        case VALUE_INT:
+                            ImGui::Text("INT");
+                            break;
+                        case VALUE_BOOL:
+                            ImGui::Text("BOOL");
+                            break;
+                        default:
+                            ImGui::Text("INT");
+                            break;
+                        }
+                        ImGui::TableNextColumn();
+                        switch (link->tags[j].protocol)
+                        {
+                        case MB_TCP:
+                        case MB_SERIAL:
+                            ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
+                            break;
+                        case EIP:
+                            ImGui::Text("%s", link->tags[j].tag_addr.eip_tag_addr);
+                            break;
+                        case SIEMENS_S7:
+                            ImGui::Text("DB%d:%d.%d", link->tags[j].tag_addr.s7_tag_addr.db_number,
+                                        link->tags[j].tag_addr.s7_tag_addr.start,
+                                        link->tags[j].tag_addr.s7_tag_addr.start_bit);
+                            break;
+
+                        default:
+                            ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
+                            break;
+                        }
+                        ImGui::TableNextColumn();
+                        ImGui::Text("%s", link->tags[j].description);
+                        ImGui::EndDisabled();
+                    }
+                    ImGui::EndTable();
+                }
+            }
+            ImGui::PopID();
+        }
+    }
+    ImGui::End();
+}
 static void glfw_error_callback(int error, const char *description);
 
 struct CurlMemoryStruct
@@ -53,6 +480,7 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     mem->memory[mem->size] = 0;
     return realsize;
 }
+// int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 
 int main(int, char **)
 {
@@ -267,6 +695,13 @@ int main(int, char **)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        // const ImGuiViewport *viewport = ImGui::GetMainViewport();
+        //
+        ImGuiID dock_id = ImGui::GetID("MyDockSpace");
+        ImGuiDockNodeFlags dock_flags = 0;
+        dock_flags |= ImGuiDockNodeFlags_PassthruCentralNode;
+        ImGui::DockSpaceOverViewport(dock_id, ImGui::GetMainViewport(), dock_flags);
+
         ++frame_count;
 
         // Consume the data in the buffer each N_FRAMES...
@@ -320,434 +755,24 @@ int main(int, char **)
             ImGui::ShowDemoWindow(&app.show_demo_window);
         }
 
+        // Logger options window
         if (menu_state.logging_menu)
         {
-            if (ImGui::Begin("Logging Config", &menu_state.logging_menu))
-            {
-
-                Link *ui_buffer = &ui_link_buffers[logger_selected_link];
-                const char *link_names[N_DEVICES] = {};
-
-                // Populate the combobox values with device names.
-                for (int i = 0; i < N_DEVICES; i++)
-                {
-                    link_names[i] = links[i].name;
-                }
-
-                if (ImGui::Combo("Link", &logger_selected_link, link_names, IM_ARRAYSIZE(link_names)))
-                {
-                }
-                ImGui::Text("%s Logging Details", links[logger_selected_link].name);
-
-                if (ImGui::InputText("API Token", ui_buffer->token, IM_ARRAYSIZE(ui_buffer->token),
-                                     ImGuiInputTextFlags_CharsNoBlank))
-                {
-                    config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
-                }
-
-                if (ImGui::InputText("Database URL", ui_buffer->url, IM_ARRAYSIZE(ui_buffer->url),
-                                     ImGuiInputTextFlags_CharsNoBlank))
-                {
-                    config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
-                }
-                const char *logging_methods[] = {"LOCAL", "REMOTE"};
-                if (ImGui::Combo("Logging Method", &ui_buffer->logging_type, logging_methods,
-                                 IM_ARRAYSIZE(logging_methods)))
-                {
-                    config_edit_flags[logger_selected_link] |= CONFIG_EDIT_DEVICE_CONFIG;
-                }
-                ImGui::Text("Logging Count: %lu", links[logger_selected_link].log_count);
-            }
-            ImGui::End();
+            ui_loggers_window(N_DEVICES, links, ui_link_buffers, &menu_state.logging_menu, &logger_selected_link,
+                              config_edit_flags);
         }
+        // Tag options window. Tag selection is done through the links window table.
         if (menu_state.tag_menu)
         {
-            if (ImGui::Begin("Properties", &menu_state.tag_menu))
-            {
-
-                Link *ui_buffer = &ui_link_buffers[selected_link_index];
-
-                ImGui::BeginDisabled(!ui_buffer->tags[selected_tag_index].enabled);
-
-                ImGui::Text("%s:%s Details", links[selected_link_index].name,
-                            links[selected_link_index].tags[selected_tag_index].name);
-
-                if (ImGui::InputText("Tag", ui_buffer->tags[selected_tag_index].name,
-                                     IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].name),
-                                     ImGuiInputTextFlags_CharsNoBlank))
-                {
-                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-
-                if (ImGui::InputText("Description", ui_buffer->tags[selected_tag_index].description,
-                                     IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].description)))
-                {
-                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-                if (ImGui::InputText("Unit", ui_buffer->tags[selected_tag_index].unit,
-                                     IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].unit)))
-                {
-                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-
-                // Show the tag value options and address depending on the protocol.
-                switch (ui_buffer->protocol)
-                {
-                case MB_SERIAL: {
-                    // MB_SERIAL and MB_TCP use the same protocol.
-                    // We let it leak into the next case
-                }
-                case MB_TCP: {
-                    const char *value_types[] = {"INT", "REAL - Uses 2 registers", "COIL"};
-                    if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
-                                     IM_ARRAYSIZE(value_types)))
-                    {
-                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                    }
-                    if (ImGui::InputInt("Address", &ui_buffer->tags[selected_tag_index].tag_addr.mb_addr))
-                    {
-                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                    }
-                    break;
-                }
-                case SIEMENS_S7: {
-
-                    const char *value_types[] = {"INT (16bit)", "REAL (32bit)", "BIT"};
-                    if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
-                                     IM_ARRAYSIZE(value_types)))
-                    {
-                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                    }
-                    if (ImGui::InputInt("DB", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.db_number))
-                    {
-                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                    }
-                    if (ImGui::InputInt("Offset", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.start))
-                    {
-                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                    }
-                    if (ImGui::InputInt("Bit", &ui_buffer->tags[selected_tag_index].tag_addr.s7_tag_addr.start_bit))
-                    {
-                        config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                    }
-                    break;
-                }
-                default: {
-                    break;
-                }
-                }
-                ImGui::EndDisabled();
-
-                if (ImGui::Checkbox("Enabled", &ui_buffer->tags[selected_tag_index].enabled))
-                {
-                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-
-                ImGui::SameLine();
-                if (ImGui::Checkbox("Logged", &ui_buffer->tags[selected_tag_index].logged))
-                {
-                    config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
-                }
-            }
-            ImGui::End();
+            ui_tag_window(N_DEVICES, links, ui_link_buffers, &menu_state.tag_menu, selected_link_index,
+                          selected_tag_index, config_edit_flags);
         }
 
+        // Window containing the different links configs and their associated tags values.
         if (menu_state.devices_menu)
         {
-            if (ImGui::Begin("Devices"), &menu_state.devices_menu)
-            {
-                ImGui::Checkbox("Show Demo", &app.show_demo_window);
-
-                // ImGui::ColorEdit3("Clear Color", (float *)&app.clear_color);
-
-                for (int i = 0; i < IM_ARRAYSIZE(links); i++)
-                {
-
-                    ImGui::PushID(i);
-
-                    Link *link = &links[i];
-                    // Used to hold UI data and persist it across frames.
-                    // The use of pointers here is important as we don't want
-                    // to just copy the buffer. We want to mutate the buffer state outside of
-                    // the event loop.
-                    Link *ui_buffer = &ui_link_buffers[i];
-
-                    // A little hack to show an asterics when the config is edited.
-                    char collapsing_header_title[2048];
-                    if (config_edit_flags[i])
-                    {
-                        if (link->protocol == SIEMENS_S7)
-                        {
-
-                            sprintf_s(collapsing_header_title, "%s %s %s Config *", link->name,
-                                      link->link_config.s7_config.cpu_info.ModuleTypeName,
-                                      link->link_config.s7_config.cpu_info.SerialNumber);
-                        }
-                        else
-                        {
-                            sprintf_s(collapsing_header_title, "%s Config *", link->name);
-                        }
-                    }
-                    else
-                    {
-                        if (link->protocol == SIEMENS_S7)
-                        {
-
-                            sprintf_s(collapsing_header_title, "%s %s %s Config", link->name,
-                                      link->link_config.s7_config.cpu_info.ModuleTypeName,
-                                      link->link_config.s7_config.cpu_info.ModuleName);
-                        }
-                        else
-                        {
-                            sprintf_s(collapsing_header_title, "%s Config", link->name);
-                        }
-                    }
-
-                    if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
-                    {
-                        if (ImGui::InputText("Name", ui_buffer->name, IM_ARRAYSIZE(ui_link_buffers->name),
-                                             ImGuiInputTextFlags_CharsNoBlank)
-
-                        )
-                        {
-                            config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                        }
-
-                        const char *link_types[] = {"MODBUS TCP", "MODBUS SERIAL", "ALLEN BRADLEY EIP", "SIEMENS S7",
-                                                    "IEC61850"};
-
-                        if (ImGui::Combo("Link Protocol", &ui_buffer->protocol, link_types, IM_ARRAYSIZE(link_types)))
-                        {
-                            config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-
-                            for (int tag_i = 0; tag_i < ui_buffer->tag_count; tag_i++)
-                            {
-                                ui_buffer->tags[tag_i].protocol = ui_buffer->protocol;
-                            }
-                        }
-
-                        switch (ui_buffer->protocol)
-                        {
-                        case MB_TCP: {
-
-                            if (ImGui::InputText("IP Address", ui_buffer->link_config.mb_tcp_config.ip,
-                                                 IM_ARRAYSIZE(ui_buffer->link_config.mb_tcp_config.ip)))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                            }
-
-                            if (ImGui::InputInt("Port", &ui_buffer->link_config.mb_tcp_config.port))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                            }
-                            break;
-                        }
-                        case MB_SERIAL: {
-
-                            if (ImGui::InputText("Serial Port", ui_buffer->link_config.mb_serial_config.com_port,
-                                                 IM_ARRAYSIZE(ui_buffer->link_config.mb_serial_config.com_port)))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                            }
-
-                            const char *baudrates[] = {"9600", "19200", "38400", "115200"};
-                            static int baudrate = 0;
-                            if (ImGui::Combo("Baudrate", &baudrate, baudrates, IM_ARRAYSIZE(baudrates)))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                                switch (baudrate)
-                                {
-                                case 0:
-                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_9600;
-                                    break;
-                                case 1:
-                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_19200;
-                                    break;
-                                case 2:
-                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_38400;
-                                    break;
-                                case 3:
-                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_115200;
-                                    break;
-
-                                default:
-                                    ui_buffer->link_config.mb_serial_config.baudrate = BR_9600;
-                                    break;
-                                }
-                            }
-                            const char *parities[] = {"NONE", "EVEN", "ODD"};
-                            static int parity = 0;
-                            if (ImGui::Combo("Parity", &parity, parities, IM_ARRAYSIZE(parities)))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                                switch (parity)
-                                {
-                                case 0:
-                                    ui_buffer->link_config.mb_serial_config.parity = 'N';
-                                    break;
-                                case 1:
-                                    ui_buffer->link_config.mb_serial_config.parity = 'E';
-                                    break;
-                                case 2:
-                                    ui_buffer->link_config.mb_serial_config.parity = 'O';
-                                    break;
-
-                                default:
-                                    ui_buffer->link_config.mb_serial_config.parity = 'N';
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                        case SIEMENS_S7: {
-                            if (ImGui::InputText("IP Address", ui_buffer->link_config.s7_config.ip,
-                                                 IM_ARRAYSIZE(ui_buffer->link_config.s7_config.ip)))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                            }
-
-                            if (ImGui::InputInt("Rack", &ui_buffer->link_config.s7_config.rack))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                            }
-                            if (ImGui::InputInt("Slot", &ui_buffer->link_config.s7_config.slot))
-                            {
-                                config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
-                            }
-                            break;
-                        }
-                        case EIP: {
-                            break;
-                        }
-                        case IEC_61850: {
-                            break;
-                        }
-                        default:
-                            break;
-                        }
-                    }
-                    // Button to send config update to the threads
-                    if (ImGui::Button("Reconfigure"))
-                    {
-                        link = ui_buffer;
-                        if (config_update_put(&config_update[i], link, true))
-                        {
-                            // Reset the config change indication flags.
-                            config_edit_flags[i] = 0;
-                        }
-                    }
-
-                    if (link->is_error)
-                    {
-                        ImGui::Text("Link ID: %d. ERROR: %s", link->id, link->err_msg);
-                    }
-                    else
-                    {
-                        ImVec2 outer_size = ImVec2(0.0f, 250.0f);
-                        if (ImGui::BeginTable("Tag Data", 6,
-                                              ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders |
-                                                  ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollX |
-                                                  ImGuiTableFlags_RowBg,
-                                              outer_size))
-
-                        {
-
-                            ImGui::TableSetupColumn("Tag");
-                            ImGui::TableSetupColumn("Value");
-                            ImGui::TableSetupColumn("Unit");
-                            ImGui::TableSetupColumn("Type");
-                            ImGui::TableSetupColumn("Address");
-                            ImGui::TableSetupColumn("Description");
-                            ImGui::TableSetupScrollFreeze(0, 1);
-                            ImGui::TableHeadersRow();
-                            for (int j = 0; j < link->tag_count; j++)
-                            {
-                                char selectable_label[32];
-                                bool set_selected = false;
-                                sprintf_s(selectable_label, "%s", link->tags[j].name);
-                                ImGui::TableNextRow();
-                                ImGui::TableNextColumn();
-
-                                if (selected_link_index == i && selected_tag_index == j)
-                                {
-                                    set_selected = true;
-                                }
-                                else
-                                {
-                                    set_selected = false;
-                                }
-                                if (ImGui::Selectable(selectable_label, set_selected,
-                                                      ImGuiSelectableFlags_SpanAllColumns))
-                                {
-                                    selected_link_index = i;
-                                    selected_tag_index = j;
-                                }
-                                // ImGui::Text("CH%d", device->channels[j].id);
-                                ImGui::TableNextColumn();
-                                ImGui::BeginDisabled(!link->tags[j].enabled);
-
-                                switch (link->tags[j].value_type)
-                                {
-                                case VALUE_REAL:
-                                    ImGui::Text("%0.3f", link->tags[j].tag_value.real_value);
-                                    break;
-                                case VALUE_INT:
-                                    ImGui::Text("%d", link->tags[j].tag_value.int_value);
-                                    break;
-                                case VALUE_BOOL:
-                                    ImGui::Text("%d", link->tags[j].tag_value.bool_value);
-                                    break;
-                                }
-                                ImGui::TableNextColumn();
-                                ImGui::Text("%s", link->tags[j].unit);
-                                ImGui::TableNextColumn();
-
-                                switch (link->tags[j].value_type)
-                                {
-                                case VALUE_REAL:
-                                    ImGui::Text("REAL");
-                                    break;
-                                case VALUE_INT:
-                                    ImGui::Text("INT");
-                                    break;
-                                case VALUE_BOOL:
-                                    ImGui::Text("BOOL");
-                                    break;
-                                default:
-                                    ImGui::Text("INT");
-                                    break;
-                                }
-                                ImGui::TableNextColumn();
-                                switch (link->tags[j].protocol)
-                                {
-                                case MB_TCP:
-                                case MB_SERIAL:
-                                    ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
-                                    break;
-                                case EIP:
-                                    ImGui::Text("%s", link->tags[j].tag_addr.eip_tag_addr);
-                                    break;
-                                case SIEMENS_S7:
-                                    ImGui::Text("DB%d:%d.%d", link->tags[j].tag_addr.s7_tag_addr.db_number,
-                                                link->tags[j].tag_addr.s7_tag_addr.start,
-                                                link->tags[j].tag_addr.s7_tag_addr.start_bit);
-                                    break;
-
-                                default:
-                                    ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
-                                    break;
-                                }
-                                ImGui::TableNextColumn();
-                                ImGui::Text("%s", link->tags[j].description);
-                                ImGui::EndDisabled();
-                            }
-                            ImGui::EndTable();
-                        }
-                    }
-                    ImGui::PopID();
-                }
-            }
-            ImGui::End();
+            ui_links_window(N_DEVICES, links, ui_link_buffers, config_update, &menu_state.devices_menu,
+                            &selected_link_index, &selected_tag_index, config_edit_flags);
         }
 
         ImGui::Render();
@@ -755,8 +780,7 @@ int main(int, char **)
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
-        glClearColor(app.clear_color.x * app.clear_color.w, app.clear_color.y * app.clear_color.w,
-                     app.clear_color.z * app.clear_color.w, app.clear_color.w);
+        glClearColor(0.5, 0.5, 0.5, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -872,7 +896,7 @@ int polling_thread(void *arg)
                 // Read the tag.
                 if (cl_read_tag(&link, i) == -1)
                 {
-                    // indicate the an error happened.
+                    // indicate that an error happened.
                     // note that each tag holds its own error flag. So, this is redundant.
                 }
                 char tag_str[TAGDATA_BUF_STRLEN] = {};
@@ -882,7 +906,7 @@ int polling_thread(void *arg)
                     // Do not concat this channel value to the POST data if it is not logged.
                     continue;
                 }
-                if (i + 1 == link.tag_count)
+                if (i + 1 == link.tag_count) // We append the timestamp right after the last tag.
                 {
                     switch (link.tags[i].value_type)
                     {
