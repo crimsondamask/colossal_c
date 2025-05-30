@@ -26,7 +26,7 @@
 
 #define POSTDATA_BUF_STRLEN 2048
 #define TAGSDATA_BUF_STRLEN 1024
-#define TAGDATA_BUF_STRLEN 64
+#define TAGDATA_BUF_STRLEN 128
 
 int polling_thread(void *arg);
 static void glfw_error_callback(int error, const char *description);
@@ -884,18 +884,35 @@ int polling_thread(void *arg)
                 }
                 if (i + 1 == link.tag_count)
                 {
-                    // TODO
-                    // check if the tags has float or int value
-                    if (sprintf_s(tag_str, "%s=%0.3f %lu", link.tags[i].name, link.tags[i].tag_value.real_value,
-                                  timestamp) == -1)
+                    switch (link.tags[i].value_type)
                     {
+                    case VALUE_REAL:
+                        sprintf_s(tag_str, "%s=%0.3f %lu", link.tags[i].name, link.tags[i].tag_value.real_value,
+                                  timestamp);
+                        break;
+                    case VALUE_INT:
+                        sprintf_s(tag_str, "%s=%d %lu", link.tags[i].name, link.tags[i].tag_value.int_value, timestamp);
+                        break;
+                    case VALUE_BOOL:
+                        sprintf_s(tag_str, "%s=%d %lu", link.tags[i].name, link.tags[i].tag_value.bool_value,
+                                  timestamp);
+                        break;
                     }
                 }
                 else
                 {
-                    // TODO
-                    // check if the tags has float or int value
-                    sprintf_s(tag_str, "%s=%0.3f,", link.tags[i].name, link.tags[i].tag_value.real_value);
+                    switch (link.tags[i].value_type)
+                    {
+                    case VALUE_REAL:
+                        sprintf_s(tag_str, "%s=%0.3f,", link.tags[i].name, link.tags[i].tag_value.real_value);
+                        break;
+                    case VALUE_INT:
+                        sprintf_s(tag_str, "%s=%d,", link.tags[i].name, link.tags[i].tag_value.int_value);
+                        break;
+                    case VALUE_BOOL:
+                        sprintf_s(tag_str, "%s=%d,", link.tags[i].name, link.tags[i].tag_value.bool_value);
+                        break;
+                    }
                 }
                 strcat_s(tag_data_str_buf, tag_str);
             }
