@@ -2,6 +2,8 @@
 // begins and ends there.
 /// @file colossal.cpp
 
+#include <cstdint>
+#define _CRT_SECURE_NO_WARNINGS
 #include "colossal.h"
 #include "curl/curl.h"
 #include "curl/easy.h"
@@ -13,6 +15,7 @@
 #include "snap7/snap7.h"
 #include <cstddef>
 #include <cstring>
+#include <gl/gl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,6 +23,9 @@
 #include <time.h>
 #include <wincrypt.h>
 #include <windows.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 #define N_CHANNELS 15
 #define N_DEVICES 3
@@ -31,14 +37,70 @@
 
 static int polling_thread(void *arg);
 
+bool load_texture_from_memory(const void *data, size_t data_size, GLuint *out_texture, int *out_width, int *out_height)
+{
+    int image_width = 0;
+    int image_height = 0;
+
+    unsigned char *image_data =
+        stbi_load_from_memory((const unsigned char *)data, (int)data_size, &image_width, &image_height, NULL, 4);
+
+    if (image_data == NULL)
+    {
+        return false;
+    }
+
+    GLuint image_texture;
+    glGenTextures(1, &image_texture);
+    glBindTexture(GL_TEXTURE_2D, image_texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+    stbi_image_free(image_data);
+
+    *out_texture = image_texture;
+    *out_width = image_width;
+    *out_height = image_height;
+
+    return true;
+}
+
+bool load_texture_from_file(const char *file_name, GLuint *out_texture, int *out_width, int *out_height)
+{
+    FILE *f = fopen(file_name, "rb");
+    if (f == NULL)
+        return false;
+
+    fseek(f, 0, SEEK_END);
+    size_t file_size = (size_t)ftell(f);
+    if (file_size == -1)
+        return false;
+    fseek(f, 0, SEEK_SET);
+    void *file_data = IM_ALLOC(file_size);
+    fread(file_data, 1, file_size, f);
+    fclose(f);
+
+    bool ret = load_texture_from_memory(file_data, file_size, out_texture, out_width, out_height);
+    IM_FREE(file_data);
+
+    return ret;
+}
+
 static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buffers[], bool *menu_state,
                               int *logger_selected_link, int config_edit_flags[])
 {
     Link *ui_buffer = &ui_link_buffers[*logger_selected_link];
     const char *link_names[N_DEVICES] = {};
 
+    ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
+
     if (ImGui::Begin("Logging Config", menu_state))
     {
+        ImGui::PopStyleColor();
+
         // Populate the combobox values with device names.
         for (int i = 0; i < N_DEVICES; i++)
         {
@@ -68,14 +130,20 @@ static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buff
         }
         ImGui::Text("Logging Count: %lu", links[*logger_selected_link].log_count);
     }
+    else
+    {
+        ImGui::PopStyleColor();
+    }
     ImGui::End();
 }
 static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[], bool *menu_state,
                           int selected_link_index, int selected_tag_index, int config_edit_flags[])
 {
     Link *ui_buffer = &ui_link_buffers[selected_link_index];
+    ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
     if (ImGui::Begin("Properties", menu_state))
     {
+        ImGui::PopStyleColor();
 
         ImGui::BeginDisabled(!ui_buffer->tags[selected_tag_index].enabled);
 
@@ -158,6 +226,11 @@ static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[
             config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
         }
     }
+    else
+    {
+
+        ImGui::PopStyleColor();
+    }
     ImGui::End();
 }
 
@@ -166,8 +239,10 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                             int config_edit_flags[])
 
 {
+    ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
     if (ImGui::Begin("Devices"), &menu_state)
     {
+        ImGui::PopStyleColor();
         for (int i = 0; i < link_count; i++)
         {
 
@@ -212,8 +287,10 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                 }
             }
 
+            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
             if (ImGui::CollapsingHeader(collapsing_header_title, ImGuiTreeNodeFlags_Bullet))
             {
+                ImGui::PopStyleColor();
                 if (ImGui::InputText("Name", ui_buffer->name, IM_ARRAYSIZE(ui_link_buffers->name),
                                      ImGuiInputTextFlags_CharsNoBlank)
 
@@ -335,6 +412,11 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                     break;
                 }
             }
+            else
+            {
+
+                ImGui::PopStyleColor();
+            }
             // Button to send config update to the threads
             if (ImGui::Button("Reconfigure"))
             {
@@ -454,6 +536,11 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
             ImGui::PopID();
         }
     }
+    else
+    {
+
+        ImGui::PopStyleColor();
+    }
     ImGui::End();
 }
 static void glfw_error_callback(int error, const char *description);
@@ -520,7 +607,25 @@ int main(int, char **)
 #endif
 
     // Create window with graphics context.
-    GLFWwindow *window = glfwCreateWindow(1280, 720, "Colossal 0.1", nullptr, nullptr);
+
+    // Font scaling depending on monitor resolution
+
+    float font_scale_factor = 1.0;
+
+    GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+    int monitor_xscale, monitor_yscale;
+
+    glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+    monitor_xscale = mode->width;
+    monitor_yscale = mode->height;
+
+    printf("%d, %d\n", monitor_xscale, monitor_yscale);
+    GLFWwindow *window = glfwCreateWindow(mode->width, mode->height, "Colossal 1.0", nullptr, nullptr);
 
     if (window == nullptr)
     {
@@ -557,7 +662,76 @@ int main(int, char **)
         style.TabRounding = 0.0f;
         style.PopupRounding = 0.0f;
         style.ScrollbarRounding = 0.0f;
-        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+
+        style.Colors[ImGuiCol_TitleBg].x = 0.7f;
+        style.Colors[ImGuiCol_TitleBg].y = 0.7f;
+        style.Colors[ImGuiCol_TitleBg].z = 0.7f;
+        style.Colors[ImGuiCol_TitleBg].w = 1.0f;
+
+        // style.Colors[ImGuiCol_Header].x = 0.7f;
+        // style.Colors[ImGuiCol_Header].y = 0.7f;
+        // style.Colors[ImGuiCol_Header].z = 0.7f;
+        // style.Colors[ImGuiCol_Header].w = 1.0f;
+
+        style.Colors[ImGuiCol_Button].x = 0.8f;
+        style.Colors[ImGuiCol_Button].y = 0.8f;
+        style.Colors[ImGuiCol_Button].z = 0.8f;
+        style.Colors[ImGuiCol_Button].w = 1.0f;
+
+        style.Colors[ImGuiCol_TableHeaderBg].x = 0.8f;
+        style.Colors[ImGuiCol_TableHeaderBg].y = 0.8f;
+        style.Colors[ImGuiCol_TableHeaderBg].z = 0.8f;
+        style.Colors[ImGuiCol_TableHeaderBg].w = 1.0f;
+
+        style.Colors[ImGuiCol_TitleBg].x = 0.7f;
+        style.Colors[ImGuiCol_TitleBg].y = 0.7f;
+        style.Colors[ImGuiCol_TitleBg].z = 0.7f;
+        style.Colors[ImGuiCol_TitleBg].w = 1.0f;
+
+        style.Colors[ImGuiCol_TabDimmed].x = 0.7f;
+        style.Colors[ImGuiCol_TabDimmed].y = 0.7f;
+        style.Colors[ImGuiCol_TabDimmed].z = 0.7f;
+        style.Colors[ImGuiCol_TabDimmed].w = 1.0f;
+
+        style.Colors[ImGuiCol_TabDimmedSelected].x = 0.7f;
+        style.Colors[ImGuiCol_TabDimmedSelected].y = 0.7f;
+        style.Colors[ImGuiCol_TabDimmedSelected].z = 0.7f;
+        style.Colors[ImGuiCol_TabDimmedSelected].w = 1.0f;
+
+        style.Colors[ImGuiCol_TabUnfocused].x = 0.7f;
+        style.Colors[ImGuiCol_TabUnfocused].y = 0.7f;
+        style.Colors[ImGuiCol_TabUnfocused].z = 0.7f;
+        style.Colors[ImGuiCol_TabUnfocused].w = 1.0f;
+
+        style.Colors[ImGuiCol_TitleBgActive].x = 0.14f;
+        style.Colors[ImGuiCol_TitleBgActive].y = 0.28f;
+        style.Colors[ImGuiCol_TitleBgActive].z = 0.56f;
+        style.Colors[ImGuiCol_TitleBgActive].w = 1.0f;
+
+        style.Colors[ImGuiCol_HeaderHovered].x = 0.36f;
+        style.Colors[ImGuiCol_HeaderHovered].y = 0.52;
+        style.Colors[ImGuiCol_HeaderHovered].z = 0.84f;
+        style.Colors[ImGuiCol_HeaderHovered].w = 1.0f;
+
+        style.Colors[ImGuiCol_Header].x = 0.36f;
+        style.Colors[ImGuiCol_Header].y = 0.52;
+        style.Colors[ImGuiCol_Header].z = 0.84f;
+        style.Colors[ImGuiCol_Header].w = 1.0f;
+
+        style.Colors[ImGuiCol_TabHovered].x = 0.14f;
+        style.Colors[ImGuiCol_TabHovered].y = 0.28f;
+        style.Colors[ImGuiCol_TabHovered].z = 0.56f;
+        style.Colors[ImGuiCol_TabHovered].w = 1.0f;
+
+        style.Colors[ImGuiCol_TabSelectedOverline].x = 0.14f;
+        style.Colors[ImGuiCol_TabSelectedOverline].y = 0.28f;
+        style.Colors[ImGuiCol_TabSelectedOverline].z = 0.56f;
+        style.Colors[ImGuiCol_TabSelectedOverline].w = 1.0f;
+
+        style.Colors[ImGuiCol_TabSelected].x = 0.14f;
+        style.Colors[ImGuiCol_TabSelected].y = 0.28f;
+        style.Colors[ImGuiCol_TabSelected].z = 0.56f;
+        style.Colors[ImGuiCol_TabSelected].w = 1.0f;
     }
 
     // style.Colors[ImGuiCol_TitleBg] = ImVec4(0.0f, 0.36f, 0.6f, 1.0f);
@@ -571,7 +745,7 @@ int main(int, char **)
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load system font.
-    io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 24.0f);
+    io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 20.0f);
 
     // Our state:
     Colossal app;
@@ -675,6 +849,11 @@ int main(int, char **)
         thrd_detach(th[i]);
     }
 
+    int image_width = 0;
+    int image_height = 0;
+    GLuint image_texture = 0;
+    bool ret = load_texture_from_file("colossal.png", &image_texture, &image_width, &image_height);
+
     // The main loop
     while (!glfwWindowShouldClose(window))
     {
@@ -723,6 +902,12 @@ int main(int, char **)
 
         if (ImGui::BeginMainMenuBar())
         {
+            // Load our images
+            image_width = ImGui::GetContentRegionAvail().x;
+            image_height = ImGui::GetContentRegionAvail().y;
+
+            ImGui::Image((ImTextureID)(intptr_t)image_texture, ImVec2(110.0f, image_height + 8.0f));
+
             if (ImGui::BeginMenu("File"))
             {
                 ImGui::EndMenu();
@@ -896,6 +1081,8 @@ int polling_thread(void *arg)
                 // Read the tag.
                 if (cl_read_tag(&link, i) == -1)
                 {
+                    link.is_error = true;
+                    reconnect_flag = true;
                     // indicate that an error happened.
                     // note that each tag holds its own error flag. So, this is redundant.
                 }
