@@ -209,6 +209,23 @@ static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[
             }
             break;
         }
+        case EIP: {
+
+            const char *value_types[] = {"INT (16bit)", "REAL (32bit)", "BIT"};
+            if (ImGui::Combo("Value Type", &ui_buffer->tags[selected_tag_index].value_type, value_types,
+                             IM_ARRAYSIZE(value_types)))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            if (ImGui::InputText("PLC Tag", ui_buffer->tags[selected_tag_index].tag_addr.eip_tag_addr.tag_name,
+                                 IM_ARRAYSIZE(ui_buffer->tags[selected_tag_index].tag_addr.eip_tag_addr.tag_name),
+                                 ImGuiInputTextFlags_CharsNoBlank))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        }
+
         default: {
             break;
         }
@@ -403,6 +420,11 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                     break;
                 }
                 case EIP: {
+                    if (ImGui::InputText("IP Address", ui_buffer->link_config.eip_config.ip,
+                                         IM_ARRAYSIZE(ui_buffer->link_config.eip_config.ip)))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
                     break;
                 }
                 case IEC_61850: {
@@ -514,7 +536,7 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                             ImGui::Text("%d", link->tags[j].tag_addr.mb_addr);
                             break;
                         case EIP:
-                            ImGui::Text("%s", link->tags[j].tag_addr.eip_tag_addr);
+                            ImGui::Text("%s", link->tags[j].tag_addr.eip_tag_addr.tag_name);
                             break;
                         case SIEMENS_S7:
                             ImGui::Text("DB%d:%d.%d", link->tags[j].tag_addr.s7_tag_addr.db_number,
@@ -812,10 +834,14 @@ int main(int, char **)
         s7_config.rack = 0;
         s7_config.slot = 2;
 
+        EipConfig eip_config;
+        sprintf_s(eip_config.ip, "192.168.1.10");
+
         LinkConfig link_config;
         link_config.mb_tcp_config = mb_tcp_config;
         link_config.mb_serial_config = mb_serial_config;
         link_config.s7_config = s7_config;
+        link_config.eip_config = eip_config;
 
         Link link = {};
         link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS);
@@ -1070,6 +1096,7 @@ int polling_thread(void *arg)
                 break;
             }
 
+            bool is_first_tag = true;
             for (int i = 0; i < link.tag_count; i++)
             {
                 if (!link.tags[i].enabled)
@@ -1093,35 +1120,36 @@ int polling_thread(void *arg)
                     // Do not concat this channel value to the POST data if it is not logged.
                     continue;
                 }
-                if (i + 1 == link.tag_count) // We append the timestamp right after the last tag.
+
+                if (is_first_tag)
                 {
                     switch (link.tags[i].value_type)
                     {
                     case VALUE_REAL:
-                        sprintf_s(tag_str, "%s=%0.3f %lu", link.tags[i].name, link.tags[i].tag_value.real_value,
-                                  timestamp);
+                        sprintf_s(tag_str, "%s=%0.3f", link.tags[i].name, link.tags[i].tag_value.real_value);
                         break;
                     case VALUE_INT:
-                        sprintf_s(tag_str, "%s=%d %lu", link.tags[i].name, link.tags[i].tag_value.int_value, timestamp);
+                        sprintf_s(tag_str, "%s=%d", link.tags[i].name, link.tags[i].tag_value.int_value);
                         break;
                     case VALUE_BOOL:
-                        sprintf_s(tag_str, "%s=%d %lu", link.tags[i].name, link.tags[i].tag_value.bool_value,
-                                  timestamp);
+                        sprintf_s(tag_str, "%s=%d", link.tags[i].name, link.tags[i].tag_value.bool_value);
                         break;
                     }
+
+                    is_first_tag = false;
                 }
                 else
                 {
                     switch (link.tags[i].value_type)
                     {
                     case VALUE_REAL:
-                        sprintf_s(tag_str, "%s=%0.3f,", link.tags[i].name, link.tags[i].tag_value.real_value);
+                        sprintf_s(tag_str, ",%s=%0.3f", link.tags[i].name, link.tags[i].tag_value.real_value);
                         break;
                     case VALUE_INT:
-                        sprintf_s(tag_str, "%s=%d,", link.tags[i].name, link.tags[i].tag_value.int_value);
+                        sprintf_s(tag_str, ",%s=%d", link.tags[i].name, link.tags[i].tag_value.int_value);
                         break;
                     case VALUE_BOOL:
-                        sprintf_s(tag_str, "%s=%d,", link.tags[i].name, link.tags[i].tag_value.bool_value);
+                        sprintf_s(tag_str, ",%s=%d", link.tags[i].name, link.tags[i].tag_value.bool_value);
                         break;
                     }
                 }
@@ -1129,7 +1157,9 @@ int polling_thread(void *arg)
             }
             link.timestamp = timestamp;
 
-            sprintf_s(post_data, "%s %s", link.name, tag_data_str_buf);
+            sprintf_s(post_data, "%s %s %lu", link.name, tag_data_str_buf, timestamp);
+
+            is_first_tag = true;
 
             if (curl)
             {

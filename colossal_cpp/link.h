@@ -1,11 +1,12 @@
 #pragma once
 #include "libmodbus/modbus.h"
+#include "libplctag/libplctag.h"
 #include "snap7/snap7.h"
 
 #include <cstddef>
 #include <cstdint>
 
-#define TAG_NAME_BUF_LEN 16
+#define TAG_NAME_BUF_LEN 128
 #define SIEMENS_ERR_BUF_LEN 1024
 #define TAG_DESC_BUF_LEN 64
 #define TAG_UNIT_BUF_LEN 8
@@ -77,6 +78,11 @@ typedef struct MbSerialConfig
 
 } MbSerialConfig;
 
+typedef struct EipConfig
+{
+    char ip[IP_BUF_LEN];
+} EipConfig;
+
 typedef struct S7Config
 {
     char ip[IP_BUF_LEN];
@@ -91,14 +97,9 @@ typedef struct LinkConfig
     MbTcpConfig mb_tcp_config;
     MbSerialConfig mb_serial_config;
     S7Config s7_config;
+    EipConfig eip_config;
 
 } LinkConfig;
-
-// typedef struct MbAddress
-// {
-//     uint16_t mb_addr;
-
-// } MbAddress;
 
 typedef struct S7TagAddress
 {
@@ -110,10 +111,16 @@ typedef struct S7TagAddress
     int amount;
 } S7TagAddress;
 
+typedef struct EipTagAddress
+{
+    char eip_path[TAG_NAME_BUF_LEN];
+    char tag_name[TAG_NAME_BUF_LEN];
+    int32_t *eip_tag_ptr;
+} EipTagAddress;
 typedef struct TagAddress
 {
     int mb_addr;
-    char eip_tag_addr[TAG_NAME_BUF_LEN];
+    EipTagAddress eip_tag_addr;
     S7TagAddress s7_tag_addr;
 } TagAddress;
 
@@ -166,6 +173,6 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
 int cl_connect_link(Link *link);
 void cl_destroy_link(Link *link);
 
-int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int value_type, int protocol);
+int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int value_type, int protocol, bool enabled);
 int cl_read_tag(Link *link, int tag_id);
 int cl_write_tag(Link *link, Tag *tag);

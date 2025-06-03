@@ -1,5 +1,6 @@
 #pragma once
 #include "libmodbus/modbus.h"
+#include "libplctag/libplctag.h"
 #include "link.h"
 #include "snap7/snap7.h"
 #include <cstddef>
@@ -8,7 +9,7 @@
 #include <string.h>
 #include <winnls.h>
 
-int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int value_type, int protocol)
+int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int value_type, int protocol, bool enabled)
 {
 
     if (!link)
@@ -24,7 +25,7 @@ int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int va
     link->tags[id].protocol = protocol;
     link->tags[id].tag_addr = tag_addr;
     link->tags[id].is_error = false;
-    link->tags[id].enabled = true;
+    link->tags[id].enabled = enabled;
     link->tags[id].logged = true;
     link->tags[id].value_type = value_type;
     link->tags[id].tag_value.real_value = 0.0;
@@ -63,7 +64,11 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
         // Address initialization with default values.
         TagAddress tag_addr = {};
         tag_addr.mb_addr = (int)i * 2;
-        sprintf_s(tag_addr.eip_tag_addr, "Tag%d", i);
+        sprintf_s(tag_addr.eip_tag_addr.tag_name, "Tag%d", i);
+        sprintf_s(tag_addr.eip_tag_addr.eip_path,
+                  "protocol=ab_eip&gateway=%s&path=1,0&plc=controllogix&elem_count=1&name=%s",
+                  link->link_config.eip_config.ip, tag_addr.eip_tag_addr.tag_name);
+        tag_addr.eip_tag_addr.eip_tag_ptr = NULL;
         tag_addr.s7_tag_addr.s7_area = S7AreaDB;
         tag_addr.s7_tag_addr.length = S7WLWord;
         tag_addr.s7_tag_addr.db_number = 1;
@@ -75,20 +80,26 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
         switch (link->protocol)
         {
         case MB_TCP: {
-            cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_TCP);
+            cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_TCP, false);
             break;
         }
         case MB_SERIAL: {
-            cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_SERIAL);
+            cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_SERIAL, false);
             break;
         }
         case SIEMENS_S7: {
-            cl_new_tag(link, name_buf, i, tag_addr, value_type, SIEMENS_S7);
+            cl_new_tag(link, name_buf, i, tag_addr, value_type, SIEMENS_S7, false);
+            break;
+        }
+        case EIP: {
+
+            link->tags[i].enabled = false;
+            cl_new_tag(link, name_buf, i, tag_addr, value_type, EIP, false);
             break;
         }
         // TODO: switch to the other protocols as well.
         default: {
-            cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_TCP);
+            cl_new_tag(link, name_buf, i, tag_addr, value_type, MB_TCP, false);
             break;
         }
         }
@@ -165,6 +176,38 @@ int cl_connect_link(Link *link)
 
         cpu_info_res = Cli_GetCpuInfo(link->link_config.s7_config.client, &link->link_config.s7_config.cpu_info);
 
+        break;
+    }
+    case EIP: {
+        // EIP has no notion of a global PLC. It only has the notion of a Tag.
+        // The connect_link function should iterate over the link Tags and create them.
+
+        for (int i = 0; i < link->tag_count; i++)
+        {
+            int32_t eip_tag = 0;
+            int rc;
+
+            if (link->tags[i].enabled)
+            {
+                eip_tag = plc_tag_create(link->tags[i].tag_addr.eip_tag_addr.eip_path, 5000);
+                if (eip_tag < 0)
+                {
+                    link->is_error = true;
+                    sprintf_s(link->err_msg, "Could not create EIP tag %d: %s", i, plc_tag_decode_error(eip_tag));
+                    return -1;
+                }
+
+                if ((rc = plc_tag_status(eip_tag)) != PLCTAG_STATUS_OK)
+                {
+                    link->is_error = true;
+                    sprintf_s(link->err_msg, "Could not setup EIP tag %d: %s", i, plc_tag_decode_error(rc));
+                    return -1;
+                }
+                // If successful update our eip_tag_ptr to be used for reading the tag later.
+                link->tags[i].tag_addr.eip_tag_addr.eip_tag_ptr = &eip_tag;
+            }
+        }
+        link->is_error = false;
         break;
     }
     default: {
@@ -334,6 +377,70 @@ int cl_read_tag(Link *link, int tag_id)
             // Get the actual bit
             // This is a hack.
             tag->tag_value.bool_value = data_buf[0];
+            break;
+        }
+        default:
+            break;
+        }
+        break;
+    }
+    // Allen Bradley EIP
+    // ====================================================================
+    case EIP: {
+
+        if (tag->tag_addr.eip_tag_addr.eip_tag_ptr == NULL)
+        {
+            tag->is_error = true;
+            sprintf_s(tag->err_msg, "Could not read tag: The EIP tag has not been properly created.");
+            return -1;
+        }
+
+        int rc;
+        switch (tag->value_type)
+        {
+        case VALUE_REAL: {
+            rc = plc_tag_read(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not read tag: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            tag->tag_value.real_value = plc_tag_get_float32(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
+            break;
+        }
+        case VALUE_INT: {
+            rc = plc_tag_read(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not read tag: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            tag->tag_value.int_value = plc_tag_get_int16(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
+            break;
+        }
+        case VALUE_BOOL: {
+            rc = plc_tag_read(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not read tag: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            tag->tag_value.bool_value = plc_tag_get_bit(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
             break;
         }
         default:
