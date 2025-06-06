@@ -2,6 +2,10 @@
 #include "libmodbus/modbus.h"
 #include "libplctag/libplctag.h"
 #include "snap7/snap7.h"
+#include <open62541/client_config_default.h>
+#include <open62541/client_highlevel.h>
+#include <open62541/client_subscriptions.h>
+#include <open62541/plugin/log_stdout.h>
 
 #include <cstddef>
 #include <cstdint>
@@ -17,6 +21,8 @@
 #define URL_BUF_LEN 256
 #define TOKEN_BUF_LEN 256
 
+#define EIP_TAG_TEMPLATE "protocol=ab_eip&gateway=%s&path=1,0&cpu=LGX&elem_count=1&name=%s"
+
 #define CL_SERIAL_PARITY_NONE 'N'
 #define CL_SERIAL_PARITY_EVEN 'E'
 #define CL_SERIAL_PARITY_ODD 'O'
@@ -30,7 +36,7 @@ typedef enum LinkProtocol
     MB_SERIAL,
     EIP,
     SIEMENS_S7,
-    IEC_61850,
+    OPCUA,
 } LinkProtocol;
 
 typedef enum MbFunction
@@ -81,6 +87,7 @@ typedef struct MbSerialConfig
 typedef struct EipConfig
 {
     char ip[IP_BUF_LEN];
+    char path[16];
 } EipConfig;
 
 typedef struct S7Config
@@ -92,12 +99,19 @@ typedef struct S7Config
     S7Object client; // This is just an int value used for the negotiated handle.
 } S7Config;
 
+typedef struct OpcUaConfig
+{
+    char url[IP_BUF_LEN];
+    UA_Client *client;
+} OpcUaConfig;
+
 typedef struct LinkConfig
 {
     MbTcpConfig mb_tcp_config;
     MbSerialConfig mb_serial_config;
     S7Config s7_config;
     EipConfig eip_config;
+    OpcUaConfig opcua_config;
 
 } LinkConfig;
 
@@ -115,7 +129,7 @@ typedef struct EipTagAddress
 {
     char eip_path[TAG_NAME_BUF_LEN];
     char tag_name[TAG_NAME_BUF_LEN];
-    int32_t *eip_tag_ptr;
+    int32_t eip_tag_ptr;
 } EipTagAddress;
 typedef struct TagAddress
 {
@@ -169,7 +183,7 @@ typedef struct Link
     unsigned long log_count;
 } Link;
 
-Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, size_t tag_count);
+Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, size_t tag_count, bool active);
 int cl_connect_link(Link *link);
 void cl_destroy_link(Link *link);
 

@@ -9,6 +9,32 @@
 #include <string.h>
 #include <winnls.h>
 
+static uint32_t get_udint_s7(byte buffer[], int pos)
+{
+    uint32_t res;
+    res = buffer[pos];
+    res <<= 8;
+    res |= buffer[pos + 1];
+    res <<= 8;
+    res |= buffer[pos + 2];
+    res <<= 8;
+    res |= buffer[pos + 3];
+    return res;
+}
+
+static float get_real_s7(byte buffer[], int pos)
+{
+    uint32_t pack = get_udint_s7(buffer, pos);
+    float res = {};
+    memcpy(&res, &pack, 4);
+    return res;
+}
+
+static int16_t get_int_s7(byte buffer[], int pos)
+{
+    return (int16_t)((buffer[pos] << 8) | buffer[pos + 1]);
+}
+
 int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int value_type, int protocol, bool enabled)
 {
 
@@ -35,13 +61,14 @@ int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int va
     return 0;
 }
 
-Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, size_t tag_count)
+Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, size_t tag_count, bool active)
 {
     Link link_init = {};
 
     Link *link = &link_init;
 
     link->id = id;
+    link->active = active;
     strcpy_s(link->name, name);
     link->protocol = protocol;
     link->link_config = config;
@@ -49,11 +76,11 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
     link->is_error = true;
     strcpy_s(link->err_msg, "The link is disconnected.");
     link->need_to_reconnect = true;
-    link->active = true;
     link->timestamp = 0;
     link->logging_type = CL_REMOTE_LOGGING;
     strcpy_s(link->url, "https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/write?bucket=mydb&precision=s");
     strcpy_s(link->token, "z2nNGctKjM3B8q7v5ZkAzwY2A8G7oJgO4nTTZQacUhhfOi_6eAqQN91tcmu5H_5TlrDiqxSyILBqwcrAc6vhXA==");
+
     link->tags = (Tag *)malloc(tag_count * sizeof(Tag));
 
     for (size_t i = 0; i < tag_count; i++)
@@ -65,9 +92,8 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
         TagAddress tag_addr = {};
         tag_addr.mb_addr = (int)i * 2;
         sprintf_s(tag_addr.eip_tag_addr.tag_name, "Tag%d", i);
-        sprintf_s(tag_addr.eip_tag_addr.eip_path,
-                  "protocol=ab_eip&gateway=%s&path=1,0&plc=controllogix&elem_count=1&name=%s",
-                  link->link_config.eip_config.ip, tag_addr.eip_tag_addr.tag_name);
+        sprintf_s(tag_addr.eip_tag_addr.eip_path, EIP_TAG_TEMPLATE, link->link_config.eip_config.ip,
+                  tag_addr.eip_tag_addr.tag_name);
         tag_addr.eip_tag_addr.eip_tag_ptr = NULL;
         tag_addr.s7_tag_addr.s7_area = S7AreaDB;
         tag_addr.s7_tag_addr.length = S7WLWord;
@@ -111,6 +137,7 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
 // TODO
 /// Connect a link and get a connection context for the protocols that support it (e.g Modbus)
 /// This function must be called after cl_link_new.
+//
 int cl_connect_link(Link *link)
 {
     // Make sure the link is initialized.
@@ -204,11 +231,15 @@ int cl_connect_link(Link *link)
                     return -1;
                 }
                 // If successful update our eip_tag_ptr to be used for reading the tag later.
-                link->tags[i].tag_addr.eip_tag_addr.eip_tag_ptr = &eip_tag;
+                link->tags[i].tag_addr.eip_tag_addr.eip_tag_ptr = eip_tag;
             }
         }
         link->is_error = false;
         break;
+    }
+    case OPCUA: {
+        UA_Client *client = UA_Client_new();
+        link->link_config.opcua_config.client = client;
     }
     default: {
         return -1;
@@ -312,11 +343,11 @@ int cl_read_tag(Link *link, int tag_id)
         switch (tag->value_type)
         {
         case VALUE_REAL: {
-            float data_buf[1] = {};
-            int res;
+            byte data_buf[4] = {};
+            int res = {};
 
             res = Cli_ReadArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
-                               tag->tag_addr.s7_tag_addr.start, 1, S7WLReal, data_buf);
+                               tag->tag_addr.s7_tag_addr.start, 4, S7WLByte, data_buf);
 
             if (res < 0)
             {
@@ -329,16 +360,16 @@ int cl_read_tag(Link *link, int tag_id)
 
             // Reset the error flag.
             tag->is_error = false;
-            tag->tag_value.real_value = data_buf[0];
+            tag->tag_value.real_value = get_real_s7(data_buf, 0);
             break;
         }
         case VALUE_INT: {
 
-            int data_buf[1] = {};
+            byte data_buf[2] = {};
             int res;
 
             res = Cli_ReadArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
-                               tag->tag_addr.s7_tag_addr.start, 1, S7WLWord, data_buf);
+                               tag->tag_addr.s7_tag_addr.start, 2, S7WLByte, data_buf);
 
             if (res < 0)
             {
@@ -350,13 +381,13 @@ int cl_read_tag(Link *link, int tag_id)
             }
 
             tag->is_error = false;
-            tag->tag_value.int_value = data_buf[0];
+            tag->tag_value.int_value = get_int_s7(data_buf, 0);
             break;
         }
         case VALUE_BOOL: {
 
             byte data_buf[1] = {};
-            int res;
+            int res = {};
 
             res = Cli_ReadArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
                                // Offset must be expressed in number of bits (start * 8) + offset_bits.
@@ -398,8 +429,10 @@ int cl_read_tag(Link *link, int tag_id)
         int rc;
         switch (tag->value_type)
         {
+
         case VALUE_REAL: {
-            rc = plc_tag_read(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            rc = plc_tag_read(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
 
             if (rc != PLCTAG_STATUS_OK)
             {
@@ -410,11 +443,11 @@ int cl_read_tag(Link *link, int tag_id)
 
             // Reset the error flag.
             tag->is_error = false;
-            tag->tag_value.real_value = plc_tag_get_float32(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
+            tag->tag_value.real_value = plc_tag_get_float32(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
             break;
         }
         case VALUE_INT: {
-            rc = plc_tag_read(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+            rc = plc_tag_read(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
 
             if (rc != PLCTAG_STATUS_OK)
             {
@@ -425,11 +458,11 @@ int cl_read_tag(Link *link, int tag_id)
 
             // Reset the error flag.
             tag->is_error = false;
-            tag->tag_value.int_value = plc_tag_get_int16(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
+            tag->tag_value.int_value = plc_tag_get_int16(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
             break;
         }
         case VALUE_BOOL: {
-            rc = plc_tag_read(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+            rc = plc_tag_read(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
 
             if (rc != PLCTAG_STATUS_OK)
             {
@@ -440,7 +473,7 @@ int cl_read_tag(Link *link, int tag_id)
 
             // Reset the error flag.
             tag->is_error = false;
-            tag->tag_value.bool_value = plc_tag_get_bit(*tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
+            tag->tag_value.bool_value = plc_tag_get_bit(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0);
             break;
         }
         default:
