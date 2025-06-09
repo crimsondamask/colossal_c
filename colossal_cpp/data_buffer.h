@@ -10,6 +10,8 @@ typedef struct Buffer
 {
     /// A pointer to the link data.
     Link *link;
+    /// A pointer array to the tags data
+    Tag **tags_ptrs;
     /// Maximum and current number of elements.
     size_t size, count;
     size_t tip, tail; /// Index of the next free spot.

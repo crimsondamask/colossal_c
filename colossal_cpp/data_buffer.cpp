@@ -9,6 +9,17 @@
 bool buf_init(Buffer *buf_ptr, size_t size)
 {
 
+    if (!(buf_ptr->tags_ptrs = (Tag **)malloc(size * sizeof(Tag *))))
+    {
+        return false;
+    }
+    for (size_t i = 0; i < size; i++)
+    {
+        if (!(buf_ptr->tags_ptrs[i] = (Tag *)malloc(N_CHANNELS * sizeof(Tag))))
+        {
+            return false;
+        }
+    }
     if ((buf_ptr->link = (Link *)malloc(size * sizeof(Link))) == nullptr)
     {
         return false;
@@ -47,7 +58,15 @@ bool buf_put(Buffer *buf_ptr, Link data)
         }
     }
     // Insert new product at tip.
+    // Save the tags value to the respective allocated space.
+    for (size_t i = 0; i < N_CHANNELS; i++)
+    {
+        buf_ptr->tags_ptrs[buf_ptr->tip][i] = data.tags[i];
+    }
+    // Update the buffer link at index (tip).
     buf_ptr->link[buf_ptr->tip] = data;
+    // Assign the link tags array to the respective allocated space.
+    buf_ptr->link[buf_ptr->tip].tags = buf_ptr->tags_ptrs[buf_ptr->tip];
 
     // Update tip. If tip is > size, wrap back to start.
     buf_ptr->tip = (buf_ptr->tip + 1) % buf_ptr->size;

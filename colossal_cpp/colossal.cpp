@@ -8,9 +8,11 @@
 #include "curl/curl.h"
 #include "curl/easy.h"
 #include "imgui/GLFW/glfw3.h"
+#include "imgui/IconsFontAwesome4.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include "imgui/implot/implot.h"
 #include "link.h"
 #include "snap7/snap7.h"
 #include <cstddef>
@@ -26,10 +28,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
-#define N_CHANNELS 15
-#define N_DEVICES 3
-#define N_FRAMES_UNTIL_CONS 60
 
 #define POSTDATA_BUF_STRLEN 2048
 #define TAGSDATA_BUF_STRLEN 1024
@@ -89,6 +87,81 @@ bool load_texture_from_file(const char *file_name, GLuint *out_texture, int *out
     return ret;
 }
 
+static void ui_plot_window(size_t link_count, Buffer buf[], bool *menu_state, int selected_link_index,
+                           int selected_tag_index)
+{
+    Buffer buffer = buf[selected_link_index];
+
+    ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
+    char plot_window_title[32];
+    sprintf_s(plot_window_title, "%s Tags Plot", ICON_FA_AREA_CHART);
+
+    if (ImGui::Begin(plot_window_title, menu_state))
+    {
+        ImGui::PopStyleColor();
+
+        if (ImPlot::BeginPlot("##Tags", ImVec2(-1, 0)))
+        {
+
+            double t_min = 0;
+            double t_max = 0;
+            double *tag_time_data = (double *)malloc(buffer.tip * sizeof(double));
+            double *tag_value_data = (double *)malloc(buffer.tip * sizeof(double));
+            // TODO:
+            // Check for errors
+
+            if (buffer.tip > 0)
+            {
+                t_min = (double)buffer.link[0].timestamp;
+                t_max = (double)buffer.link[buffer.tip - 1].timestamp;
+            }
+            for (size_t i = 0; i < buffer.tip; i++)
+            {
+                Tag tag = buffer.link[i].tags[selected_tag_index];
+
+                double time = (double)buffer.link[i].timestamp;
+
+                tag_time_data[i] = time;
+
+                switch (tag.value_type)
+                {
+                case VALUE_REAL:
+                    tag_value_data[i] = tag.tag_value.real_value;
+                    break;
+
+                case VALUE_INT:
+                    tag_value_data[i] = (double)tag.tag_value.int_value;
+                    break;
+                case VALUE_BOOL:
+                    tag_value_data[i] = (double)tag.tag_value.bool_value;
+                    break;
+                default:
+                    tag_value_data[i] = tag.tag_value.real_value;
+                    break;
+                }
+            }
+            ImPlot::GetStyle().UseLocalTime = true;
+            ImPlot::GetStyle().Use24HourClock = true;
+            ImPlot::GetStyle().LineWeight = 2.0f;
+            ImPlot::GetStyle().Colormap = ImPlotColormap_Pastel;
+            ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
+
+            int plot_flags = 0;
+            plot_flags |= ImPlotShadedFlags_None;
+            ImPlot::PlotLine("Tag_Plot", tag_time_data, tag_value_data, buffer.tip - 1, plot_flags, 0, sizeof(double));
+
+            ImPlot::EndPlot();
+
+            free(tag_time_data);
+            free(tag_value_data);
+        }
+    }
+    else
+    {
+        ImGui::PopStyleColor();
+    }
+    ImGui::End();
+}
 static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buffers[], bool *menu_state,
                               int *logger_selected_link, int config_edit_flags[])
 {
@@ -96,8 +169,10 @@ static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buff
     const char *link_names[N_DEVICES] = {};
 
     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
+    char logger_window_title[32];
+    sprintf_s(logger_window_title, "%s Logging", ICON_FA_DOWNLOAD);
 
-    if (ImGui::Begin("Logging Config", menu_state))
+    if (ImGui::Begin(logger_window_title, menu_state))
     {
         ImGui::PopStyleColor();
 
@@ -141,7 +216,9 @@ static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[
 {
     Link *ui_buffer = &ui_link_buffers[selected_link_index];
     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
-    if (ImGui::Begin("Properties", menu_state))
+    char tag_window_title[32];
+    sprintf_s(tag_window_title, "%s Properties", ICON_FA_TABLE);
+    if (ImGui::Begin(tag_window_title, menu_state))
     {
         ImGui::PopStyleColor();
 
@@ -265,7 +342,10 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
 
 {
     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
-    if (ImGui::Begin("Devices"), &menu_state)
+
+    char links_window_title_buf[32];
+    sprintf_s(links_window_title_buf, "%s Links", ICON_FA_LINK);
+    if (ImGui::Begin(links_window_title_buf), &menu_state)
     {
         ImGui::PopStyleColor();
         for (int i = 0; i < link_count; i++)
@@ -452,7 +532,9 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                 ImGui::PopStyleColor();
             }
             // Button to send config update to the threads
-            if (ImGui::Button("Reconfigure"))
+            char reconfig_button_buf[32];
+            sprintf_s(reconfig_button_buf, "%s Reconfigure", ICON_FA_ARROW_CIRCLE_DOWN);
+            if (ImGui::Button(reconfig_button_buf))
             {
                 link = ui_buffer;
                 if (config_update_put(&config_update[i], link, true))
@@ -670,6 +752,7 @@ int main(int, char **)
     // Setup dear imgui context.
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    ImPlot::CreateContext();
 
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
@@ -776,8 +859,28 @@ int main(int, char **)
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load system font.
-    io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 20.0);
+    // ==================================================
+    // float baseFontSize = 13.0f; // 13.0f is the size of the default font. Change to the font size you use.
+    // float iconFontSize =
+    //     baseFontSize * 2.0f /
+    //     3.0f; // FontAwesome fonts need to have their sizes reduced by 2.0f/3.0f in order to align correctly
 
+    // // merge in icons from Font Awesome
+    static const ImWchar icons_ranges[] = {ICON_MIN_FA, ICON_MAX_16_FA, 0};
+    float baseFontSize = 20.0f; // 13.0f is the size of the default font. Change to the font size you use.
+    float iconFontSize =
+        baseFontSize * 2.6f /
+        3.0f; // FontAwesome fonts need to have their sizes reduced by 2.0f/3.0f in order to align correctly
+    ImFontConfig icons_config;
+    icons_config.MergeMode = true;
+    icons_config.PixelSnapH = true;
+    icons_config.GlyphMinAdvanceX = iconFontSize;
+    // io.Fonts->AddFontFromFileTTF("./fontawesome.ttf", iconFontSize, &icons_config, icons_ranges);
+    io.Fonts->AddFontFromFileTTF("./fontawesome.ttf", iconFontSize, &icons_config, icons_ranges);
+    // // use FONT_ICON_FILE_NAME_FAR if you want regular instead of solid
+
+    // ==================================================
     // Our state:
     Colossal app;
     // app.device_data.device = cl_device_init_tcp("PLC_1", N_CHANNELS);
@@ -785,6 +888,7 @@ int main(int, char **)
     thrd_t th[N_DEVICES];
     // Ring buffer for each device.
     Buffer buf[N_DEVICES];
+    Buffer data_retention_buf[N_DEVICES];
     // Config update buffer
     ConfigUpdate config_update[N_DEVICES];
     // Arguments to pass to each thread.
@@ -861,7 +965,7 @@ int main(int, char **)
         ui_link_buffers[i] = link;
 
         // Initialize the buffers
-        buf_init(&buf[i], 10);
+        buf_init(&buf[i], 1000);
         // and the config update so we can send updates to the threads.
         config_update_init(&config_update[i]);
 
@@ -926,8 +1030,9 @@ int main(int, char **)
             {
                 // Get the device data from the threads buffers and put it in the
                 // mb_devices[] for display
-                while (buf_get(&buf[i], &links[i], 1))
+                if (buf_get(&buf[i], &links[i], 1))
                 {
+                    // TODO
                     // do something
                 }
                 frames_exceeded = true;
@@ -964,6 +1069,11 @@ int main(int, char **)
                 ImGui::MenuItem("Logger Config", NULL, &menu_state.logging_menu);
                 ImGui::EndMenu();
             }
+            if (ImGui::BeginMenu("Plots"))
+            {
+                ImGui::MenuItem("Tag Plot", NULL, &menu_state.plot_menu);
+                ImGui::EndMenu();
+            }
             if (ImGui::BeginMenu("Help"))
             {
                 ImGui::EndMenu();
@@ -976,6 +1086,13 @@ int main(int, char **)
             ImGui::ShowDemoWindow(&app.show_demo_window);
         }
 
+        // ImPlot::ShowDemoWindow();
+
+        // Plot menu
+        if (menu_state.plot_menu)
+        {
+            ui_plot_window(N_DEVICES, buf, &menu_state.plot_menu, selected_link_index, selected_tag_index);
+        }
         // Logger options window
         if (menu_state.logging_menu)
         {
@@ -1022,6 +1139,7 @@ int main(int, char **)
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
+    ImPlot::DestroyContext();
     ImGui::DestroyContext();
 
     glfwDestroyWindow(window);

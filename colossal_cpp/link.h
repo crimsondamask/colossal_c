@@ -21,6 +21,9 @@
 #define URL_BUF_LEN 256
 #define TOKEN_BUF_LEN 256
 
+#define N_CHANNELS 15
+#define N_DEVICES 3
+#define N_FRAMES_UNTIL_CONS 120
 #define EIP_TAG_TEMPLATE "protocol=ab_eip&gateway=%s&path=1,0&cpu=LGX&elem_count=1&name=%s"
 
 #define CL_SERIAL_PARITY_NONE 'N'

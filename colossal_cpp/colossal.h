@@ -42,6 +42,7 @@ typedef struct UiMenuState
     bool tag_menu;
     bool help_menu;
     bool logging_menu;
+    bool plot_menu;
 } UiMenuState;
 
 // typedef struct UiMbDeviceBuffer
