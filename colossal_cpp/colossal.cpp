@@ -13,6 +13,7 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/implot/implot.h"
+#include "jansson/jansson.h"
 #include "link.h"
 #include "snap7/snap7.h"
 #include <cstddef>
@@ -27,6 +28,7 @@
 #include <windows.h>
 
 #define STB_IMAGE_IMPLEMENTATION
+#define OPENSSL_API_1_0
 #include "stb_image.h"
 
 #define POSTDATA_BUF_STRLEN 2048
@@ -34,6 +36,81 @@
 #define TAGDATA_BUF_STRLEN 128
 
 static int polling_thread(void *arg);
+
+static Link *load_config()
+{
+
+    json_t *root;
+
+    json_error_t *json_error = NULL;
+
+    root = json_load_file("config.json", 0, json_error);
+
+    if (!root)
+    {
+        return NULL;
+    }
+
+    if (!json_is_array(root))
+    {
+        json_decref(root);
+        return NULL;
+    }
+
+    if (json_array_size(root) != N_DEVICES)
+    {
+        json_decref(root);
+        return NULL;
+    }
+
+    for (size_t i = 0; i < N_DEVICES; i++)
+    {
+        json_t *link, *link_name, *protocol, *link_config, *tags;
+
+        link = json_array_get(root, i);
+
+        if (!json_is_object(link))
+        {
+            json_decref(root);
+            return NULL;
+        }
+
+        link_name = json_object_get(link, "name");
+
+        if (!json_is_string(link_name))
+        {
+            json_decref(root);
+            return NULL;
+        }
+
+        protocol = json_object_get(link, "protocol");
+
+        if (!json_is_integer(protocol))
+        {
+            json_decref(root);
+            return NULL;
+        }
+
+        link_config = json_object_get(link, "link_config");
+
+        if (!json_is_object(link_config))
+        {
+            json_decref(root);
+            return NULL;
+        }
+
+        if (!json_is_array(tags))
+        {
+            json_decref(root);
+            return NULL;
+        }
+
+        for (size_t j = 0; j < N_CHANNELS; j++)
+        {
+            json_t *tag, *tag_name;
+        }
+    }
+}
 
 bool load_texture_from_memory(const void *data, size_t data_size, GLuint *out_texture, int *out_width, int *out_height)
 {
@@ -100,9 +177,13 @@ static void ui_plot_window(size_t link_count, Buffer buf[], bool *menu_state, in
     {
         ImGui::PopStyleColor();
 
-        if (ImPlot::BeginPlot("##Tags", ImVec2(-1, 0)))
-        {
+        ImVec2 win_size = ImGui::GetWindowSize();
+        ImVec2 plot_size = {};
 
+        plot_size.x = win_size.x;
+        plot_size.y = 0.95 * win_size.y;
+        if (ImPlot::BeginPlot("##Tags", plot_size))
+        {
             double t_min = 0;
             double t_max = 0;
             double *tag_time_data = (double *)malloc(buffer.tip * sizeof(double));
@@ -140,10 +221,11 @@ static void ui_plot_window(size_t link_count, Buffer buf[], bool *menu_state, in
                     break;
                 }
             }
+            ImPlot::GetStyle().Colormap = ImPlotColormap_Dark;
             ImPlot::GetStyle().UseLocalTime = true;
             ImPlot::GetStyle().Use24HourClock = true;
             ImPlot::GetStyle().LineWeight = 2.0f;
-            ImPlot::GetStyle().Colormap = ImPlotColormap_Pastel;
+            // ImPlot::GetStyle().Colormap = ImPlotColormap_Pastel;
             ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
 
             int plot_flags = 0;
@@ -345,7 +427,7 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
 
     char links_window_title_buf[32];
     sprintf_s(links_window_title_buf, "%s Links", ICON_FA_LINK);
-    if (ImGui::Begin(links_window_title_buf), &menu_state)
+    if (ImGui::Begin(links_window_title_buf, menu_state))
     {
         ImGui::PopStyleColor();
         for (int i = 0; i < link_count; i++)
@@ -734,11 +816,12 @@ int main(int, char **)
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
+    glfwWindowHint(GLFW_DECORATED, false);
     monitor_xscale = mode->width;
     monitor_yscale = mode->height;
 
     printf("%d, %d\n", monitor_xscale, monitor_yscale);
-    GLFWwindow *window = glfwCreateWindow(mode->width, mode->height, "Colossal 1.0", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(mode->width, mode->height - 60, "Colossal 1.0", nullptr, nullptr);
 
     if (window == nullptr)
     {
@@ -866,6 +949,8 @@ int main(int, char **)
     //     baseFontSize * 2.0f /
     //     3.0f; // FontAwesome fonts need to have their sizes reduced by 2.0f/3.0f in order to align correctly
 
+    // JSON config loading
+
     // // merge in icons from Font Awesome
     static const ImWchar icons_ranges[] = {ICON_MIN_FA, ICON_MAX_16_FA, 0};
     float baseFontSize = 20.0f; // 13.0f is the size of the default font. Change to the font size you use.
@@ -965,7 +1050,7 @@ int main(int, char **)
         ui_link_buffers[i] = link;
 
         // Initialize the buffers
-        buf_init(&buf[i], 1000);
+        buf_init(&buf[i], 86400);
         // and the config update so we can send updates to the threads.
         config_update_init(&config_update[i]);
 
@@ -1035,6 +1120,11 @@ int main(int, char **)
                     // TODO
                     // do something
                 }
+                if (buf_peek_last(&buf[i], &links[i]))
+                {
+                    // TODO
+                    // do something
+                }
                 frames_exceeded = true;
             }
 
@@ -1077,6 +1167,20 @@ int main(int, char **)
             if (ImGui::BeginMenu("Help"))
             {
                 ImGui::EndMenu();
+            }
+            ImGui::SameLine(ImGui::GetWindowWidth() - 70.0);
+
+            char minimize_main_window_buf[8];
+            sprintf_s(minimize_main_window_buf, "%s", ICON_FA_WINDOW_MINIMIZE);
+            if (ImGui::Button(minimize_main_window_buf))
+            {
+                glfwIconifyWindow(window);
+            }
+            char close_main_window_buf[8];
+            sprintf_s(close_main_window_buf, "%s", ICON_FA_WINDOW_CLOSE);
+            if (ImGui::Button(close_main_window_buf))
+            {
+                glfwSetWindowShouldClose(window, true);
             }
             ImGui::EndMainMenuBar();
         }
@@ -1308,7 +1412,8 @@ int polling_thread(void *arg)
                 {
                 case 0: {
                     sprintf_s(token_header, "Authorization: Bearer %s", link.token);
-                    headers = curl_slist_append(headers, "Content-Type: application/json");
+                    headers = curl_slist_append(headers, "Content-Type: text/plain; charset=utf-8");
+                    // headers = curl_slist_append(headers, "Content-Type: application/json");
                     break;
                 }
                 case 1: {

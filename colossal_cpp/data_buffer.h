@@ -40,3 +40,4 @@ bool buf_init(Buffer *buf_ptr, size_t size);
 void buf_destroy(Buffer *buf_ptr);
 bool buf_put(Buffer *buf_ptr, Link data);
 bool buf_get(Buffer *but_ptr, Link *data_ptr, int sec);
+bool buf_peek_last(Buffer *but_ptr, Link *data_ptr);

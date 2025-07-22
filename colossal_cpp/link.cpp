@@ -77,9 +77,10 @@ Link *cl_new_link(char const *name, int id, int protocol, LinkConfig config, siz
     strcpy_s(link->err_msg, "The link is disconnected.");
     link->need_to_reconnect = true;
     link->timestamp = 0;
-    link->logging_type = CL_REMOTE_LOGGING;
-    strcpy_s(link->url, "https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/write?bucket=mydb&precision=s");
-    strcpy_s(link->token, "z2nNGctKjM3B8q7v5ZkAzwY2A8G7oJgO4nTTZQacUhhfOi_6eAqQN91tcmu5H_5TlrDiqxSyILBqwcrAc6vhXA==");
+    link->logging_type = CL_LOCAL_LOGGING;
+    strcpy_s(link->url, "http://127.0.0.1:8181/api/v3/write_lp?db=colossal&precision=second");
+    strcpy_s(link->token,
+             "apiv3_VJSoTa7OaIRjYXweq0kNJY2gA2UlVcqh-knb8oOJoSpuU3QFfqrtlZk5NvJ-xviVJz8Pp0bSkjntbdBqGHFUKQ");
 
     link->tags = (Tag *)malloc(tag_count * sizeof(Tag));
 
@@ -238,8 +239,6 @@ int cl_connect_link(Link *link)
         break;
     }
     case OPCUA: {
-        UA_Client *client = UA_Client_new();
-        link->link_config.opcua_config.client = client;
     }
     default: {
         return -1;

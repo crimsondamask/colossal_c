@@ -2,10 +2,10 @@
 #include "libmodbus/modbus.h"
 #include "libplctag/libplctag.h"
 #include "snap7/snap7.h"
-#include <open62541/client_config_default.h>
-#include <open62541/client_highlevel.h>
-#include <open62541/client_subscriptions.h>
-#include <open62541/plugin/log_stdout.h>
+// #include <open62541/client_config_default.h>
+// #include <open62541/client_highlevel.h>
+// #include <open62541/client_subscriptions.h>
+// #include <open62541/plugin/log_stdout.h>
 
 #include <cstddef>
 #include <cstdint>
@@ -22,8 +22,8 @@
 #define TOKEN_BUF_LEN 256
 
 #define N_CHANNELS 15
-#define N_DEVICES 3
-#define N_FRAMES_UNTIL_CONS 120
+#define N_DEVICES 1
+#define N_FRAMES_UNTIL_CONS 60
 #define EIP_TAG_TEMPLATE "protocol=ab_eip&gateway=%s&path=1,0&cpu=LGX&elem_count=1&name=%s"
 
 #define CL_SERIAL_PARITY_NONE 'N'
@@ -105,7 +105,7 @@ typedef struct S7Config
 typedef struct OpcUaConfig
 {
     char url[IP_BUF_LEN];
-    UA_Client *client;
+    // UA_Client *client;
 } OpcUaConfig;
 
 typedef struct LinkConfig

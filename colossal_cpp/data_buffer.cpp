@@ -51,11 +51,8 @@ bool buf_put(Buffer *buf_ptr, Link data)
     // If the buffer is full wait for cnd.
     while (buf_ptr->count == buf_ptr->size)
     {
-        if (cnd_wait(&buf_ptr->cnd_put, &buf_ptr->mtx) != thrd_success)
-        {
-            mtx_unlock(&buf_ptr->mtx);
-            return false;
-        }
+        mtx_unlock(&buf_ptr->mtx);
+        return false;
     }
     // Insert new product at tip.
     // Save the tags value to the respective allocated space.
@@ -104,6 +101,25 @@ bool buf_get(Buffer *buf_ptr, Link *data_ptr, int sec)
 
     mtx_unlock(&buf_ptr->mtx);
     cnd_signal(&buf_ptr->cnd_put);
+
+    return true;
+}
+
+/// Get last product from the ring buffer.
+bool buf_peek_last(Buffer *buf_ptr, Link *data_ptr)
+{
+
+    mtx_lock(&buf_ptr->mtx);
+
+    while (buf_ptr->count == 0)
+    {
+        mtx_unlock(&buf_ptr->mtx);
+        return false;
+    }
+
+    *data_ptr = buf_ptr->link[buf_ptr->tip - 1];
+
+    mtx_unlock(&buf_ptr->mtx);
 
     return true;
 }
