@@ -37,9 +37,8 @@
 
 static int polling_thread(void *arg);
 
-static Link *load_config()
+static bool load_config(Link links[])
 {
-
     json_t *root;
 
     json_error_t *json_error = NULL;
@@ -48,61 +47,116 @@ static Link *load_config()
 
     if (!root)
     {
-        return NULL;
+        return false;
     }
 
     if (!json_is_array(root))
     {
         json_decref(root);
-        return NULL;
+        return false;
     }
 
     if (json_array_size(root) != N_DEVICES)
     {
         json_decref(root);
-        return NULL;
+        return false;
     }
 
     for (size_t i = 0; i < N_DEVICES; i++)
     {
-        json_t *link, *link_name, *protocol, *link_config, *tags;
+        json_t *link_json, *link_name_json, *protocol_json, *link_config_json, *mb_tcp_config_json, *ip_json,
+            *tags_json;
 
-        link = json_array_get(root, i);
+        tags_json = {};
+        link_json = json_array_get(root, i);
 
-        if (!json_is_object(link))
+        char link_name_buf[32];
+        sprintf_s(link_name_buf, "LINK_%d", i);
+
+        MbTcpConfig mb_tcp_config;
+        sprintf_s(mb_tcp_config.ip, "127.0.0.1");
+        mb_tcp_config.port = 5502;
+
+        MbSerialConfig mb_serial_config;
+        sprintf_s(mb_serial_config.com_port, "COM3");
+        mb_serial_config.baudrate = BR_9600;
+        mb_serial_config.parity = CL_SERIAL_PARITY_NONE;
+
+        S7Config s7_config;
+
+        sprintf_s(s7_config.ip, "192.168.0.1");
+        s7_config.rack = 0;
+        s7_config.slot = 2;
+
+        EipConfig eip_config;
+        sprintf_s(eip_config.ip, "192.168.1.10");
+        sprintf_s(eip_config.path, "1.0");
+
+        LinkConfig link_config;
+        link_config.mb_tcp_config = mb_tcp_config;
+        link_config.mb_serial_config = mb_serial_config;
+        link_config.s7_config = s7_config;
+        link_config.eip_config = eip_config;
+
+        Link link = {};
+        link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS, false);
+        links[i] = link;
+
+        if (!json_is_object(link_json))
         {
             json_decref(root);
-            return NULL;
+            return false;
         }
 
-        link_name = json_object_get(link, "name");
+        link_name_json = json_object_get(link_json, "name");
 
-        if (!json_is_string(link_name))
+        if (!json_is_string(link_name_json))
         {
             json_decref(root);
-            return NULL;
+            return false;
         }
 
-        protocol = json_object_get(link, "protocol");
+        sprintf_s(links[i].name, "%s", json_string_value(link_name_json));
 
-        if (!json_is_integer(protocol))
+        protocol_json = json_object_get(link_json, "protocol");
+
+        if (!json_is_integer(protocol_json))
         {
             json_decref(root);
-            return NULL;
+            return false;
         }
 
-        link_config = json_object_get(link, "link_config");
+        link_config_json = json_object_get(link_json, "link_config");
 
-        if (!json_is_object(link_config))
+        if (!json_is_object(link_config_json))
         {
             json_decref(root);
-            return NULL;
+            return false;
         }
 
-        if (!json_is_array(tags))
+        mb_tcp_config_json = json_object_get(link_config_json, "mb_tcp_config");
+
+        if (!json_is_object(mb_tcp_config_json))
         {
             json_decref(root);
-            return NULL;
+            return false;
+        }
+
+        ip_json = json_object_get(mb_tcp_config_json, "ip");
+
+        if (!json_is_string(ip_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        sprintf_s(links[i].link_config.mb_tcp_config.ip, "%s", json_string_value(ip_json));
+
+        tags_json = json_object_get(link_json, "tags");
+        if (!json_is_array(tags_json))
+        {
+            json_decref(root);
+            return false;
         }
 
         for (size_t j = 0; j < N_CHANNELS; j++)
@@ -110,6 +164,8 @@ static Link *load_config()
             json_t *tag, *tag_name;
         }
     }
+
+    return true;
 }
 
 bool load_texture_from_memory(const void *data, size_t data_size, GLuint *out_texture, int *out_width, int *out_height)
@@ -980,6 +1036,10 @@ int main(int, char **)
     ThreadArg thread_arg[N_DEVICES];
     // Device list
     Link links[N_DEVICES];
+    // Config file links
+    Link config_links[N_DEVICES];
+
+    bool is_config_loaded = load_config(config_links);
 
     // UI buffers to hold the GUI data
     Link ui_link_buffers[N_DEVICES];
@@ -1044,10 +1104,18 @@ int main(int, char **)
 
         Link link = {};
         link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS, false);
-        links[i] = link;
 
-        // Link data copy used as a buffer for the UI widgets to write to.
-        ui_link_buffers[i] = link;
+        if (is_config_loaded)
+        {
+            links[i] = config_links[i];
+            // Link data copy used as a buffer for the UI widgets to write to.
+            ui_link_buffers[i] = config_links[i];
+        }
+        else
+        {
+            links[i] = link;
+            ui_link_buffers[i] = link;
+        }
 
         // Initialize the buffers
         buf_init(&buf[i], 86400);
