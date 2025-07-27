@@ -64,8 +64,10 @@ static bool load_config(Link links[])
 
     for (size_t i = 0; i < N_DEVICES; i++)
     {
-        json_t *link_json, *link_name_json, *protocol_json, *link_config_json, *mb_tcp_config_json, *ip_json,
-            *tags_json;
+        json_t *link_json, *link_name_json, *protocol_json, *link_config_json, *mb_tcp_config_json, *ip_json, *url_json,
+            *token_json, *tags_json, *logging_json, *tcp_port_json, *mb_serial_config_json, *serial_port_json,
+            *serial_baudrate_json, *serial_parity_json, *eip_config_json, *eip_ip_json, *s7_config_json, *s7_ip_json,
+            *s7_rack_json, *s7_slot_json;
 
         tags_json = {};
         link_json = json_array_get(root, i);
@@ -126,6 +128,40 @@ static bool load_config(Link links[])
             return false;
         }
 
+        links[i].protocol = json_integer_value(protocol_json);
+
+        url_json = json_object_get(link_json, "url");
+
+        if (!json_is_string(url_json))
+
+        {
+            json_decref(root);
+            return false;
+        }
+
+        sprintf_s(links[i].url, "%s", json_string_value(url_json));
+
+        token_json = json_object_get(link_json, "token");
+
+        if (!json_is_string(token_json))
+
+        {
+            json_decref(root);
+            return false;
+        }
+
+        sprintf_s(links[i].token, "%s", json_string_value(token_json));
+
+        logging_json = json_object_get(link_json, "logging");
+
+        if (!json_is_integer(logging_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        links[i].logging_type = json_integer_value(logging_json);
+
         link_config_json = json_object_get(link_json, "link_config");
 
         if (!json_is_object(link_config_json))
@@ -152,7 +188,120 @@ static bool load_config(Link links[])
 
         sprintf_s(links[i].link_config.mb_tcp_config.ip, "%s", json_string_value(ip_json));
 
+        tcp_port_json = json_object_get(mb_tcp_config_json, "port");
+
+        if (!json_is_integer(tcp_port_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        links[i].link_config.mb_tcp_config.port = json_integer_value(tcp_port_json);
+
+        mb_serial_config_json = json_object_get(link_config_json, "mb_serial_config");
+
+        if (!json_is_object(mb_serial_config_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        serial_port_json = json_object_get(mb_serial_config_json, "serial_port");
+
+        if (!json_is_string(serial_port_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        sprintf_s(links[i].link_config.mb_serial_config.com_port, "%s", json_string_value(serial_port_json));
+
+        serial_baudrate_json = json_object_get(mb_serial_config_json, "baudrate");
+
+        if (!json_is_integer(serial_baudrate_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        links[i].link_config.mb_serial_config.baudrate = json_integer_value(serial_baudrate_json);
+
+        serial_parity_json = json_object_get(mb_serial_config_json, "parity");
+
+        if (!json_is_string(serial_parity_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        if (json_string_length(serial_parity_json) > 0)
+        {
+            links[i].link_config.mb_serial_config.parity = json_string_value(serial_parity_json)[0];
+        }
+        else
+        {
+            json_decref(root);
+            return false;
+        }
+
+        eip_config_json = json_object_get(link_config_json, "eip_config");
+
+        if (!json_is_object(eip_config_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        eip_ip_json = json_object_get(eip_config_json, "ip");
+
+        if (!json_is_string(eip_ip_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        sprintf_s(links[i].link_config.eip_config.ip, "%s", json_string_value(eip_ip_json));
+
+        s7_config_json = json_object_get(link_config_json, "s7_config");
+
+        if (!json_is_object(s7_config_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        s7_ip_json = json_object_get(s7_config_json, "ip");
+
+        if (!json_is_string(s7_ip_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        sprintf_s(links[i].link_config.s7_config.ip, "%s", json_string_value(s7_ip_json));
+
+        s7_rack_json = json_object_get(s7_config_json, "rack");
+
+        if (!json_is_integer(s7_rack_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        links[i].link_config.s7_config.rack = json_integer_value(s7_rack_json);
+
+        s7_slot_json = json_object_get(s7_config_json, "slot");
+
+        if (!json_is_integer(s7_slot_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        links[i].link_config.s7_config.slot = json_integer_value(s7_slot_json);
+
         tags_json = json_object_get(link_json, "tags");
+
         if (!json_is_array(tags_json))
         {
             json_decref(root);
@@ -161,7 +310,10 @@ static bool load_config(Link links[])
 
         for (size_t j = 0; j < N_CHANNELS; j++)
         {
-            json_t *tag, *tag_name;
+            json_t *tag_json, *tag_name_json, *tag_description_json, *tag_unit_json, *tag_enabled_json,
+                *tag_logged_json, *tag_address_json, *mb_addr_json, *eip_addr_json, *eip_tag_name_json;
+
+            tag_json = json_array_get(tags_json, j);
         }
     }
 
@@ -585,6 +737,25 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
 
                     const char *baudrates[] = {"9600", "19200", "38400", "115200"};
                     static int baudrate = 0;
+
+                    switch (ui_buffer->link_config.mb_serial_config.baudrate)
+                    {
+                    case 9600:
+                        baudrate = 0;
+                        break;
+                    case 19200:
+                        baudrate = 1;
+                        break;
+                    case 38400:
+                        baudrate = 2;
+                        break;
+                    case 115200:
+                        baudrate = 3;
+                        break;
+                    default:
+                        baudrate = 0;
+                        break;
+                    }
                     if (ImGui::Combo("Baudrate", &baudrate, baudrates, IM_ARRAYSIZE(baudrates)))
                     {
                         config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
@@ -608,8 +779,26 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                             break;
                         }
                     }
+
                     const char *parities[] = {"NONE", "EVEN", "ODD"};
+
                     static int parity = 0;
+
+                    switch (ui_buffer->link_config.mb_serial_config.parity)
+                    {
+                    case 'N':
+                        parity = 0;
+                        break;
+                    case 'E':
+                        parity = 1;
+                        break;
+                    case 'O':
+                        parity = 2;
+                        break;
+                    default:
+                        parity = 0;
+                        break;
+                    }
                     if (ImGui::Combo("Parity", &parity, parities, IM_ARRAYSIZE(parities)))
                     {
                         config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
