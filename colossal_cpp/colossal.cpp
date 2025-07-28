@@ -308,12 +308,154 @@ static bool load_config(Link links[])
             return false;
         }
 
-        for (size_t j = 0; j < N_CHANNELS; j++)
+        if (json_array_size(tags_json) >= N_CHANNELS)
+        {
+            json_decref(root);
+            return false;
+        }
+
+        for (size_t j = 0; j < json_array_size(tags_json); j++)
         {
             json_t *tag_json, *tag_name_json, *tag_description_json, *tag_unit_json, *tag_enabled_json,
-                *tag_logged_json, *tag_address_json, *mb_addr_json, *eip_addr_json, *eip_tag_name_json;
+                *tag_logged_json, *value_type_json, *tag_address_json, *mb_addr_json, *eip_addr_json,
+                *eip_tag_name_json, *s7_addr_json, *s7_db, *s7_start, *s7_start_bit;
 
             tag_json = json_array_get(tags_json, j);
+
+            if (!json_is_object(tag_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            tag_name_json = json_object_get(tag_json, "name");
+
+            if (!json_is_string(tag_name_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            sprintf_s(links[i].tags[j].name, "%s", json_string_value(tag_name_json));
+
+            tag_description_json = json_object_get(tag_json, "description");
+
+            if (!json_is_string(tag_description_json))
+            {
+                json_decref(root);
+                return false;
+            }
+            sprintf_s(links[i].tags[j].description, "%s", json_string_value(tag_description_json));
+
+            tag_unit_json = json_object_get(tag_json, "unit");
+
+            if (!json_is_string(tag_unit_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            sprintf_s(links[i].tags[j].unit, "%s", json_string_value(tag_unit_json));
+
+            tag_enabled_json = json_object_get(tag_json, "enabled");
+
+            if (!json_is_integer(tag_enabled_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].enabled = (bool)json_integer_value(tag_enabled_json);
+            tag_logged_json = json_object_get(tag_json, "logged");
+
+            if (!json_is_integer(tag_logged_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].logged = (bool)json_integer_value(tag_logged_json);
+            value_type_json = json_object_get(tag_json, "value_type");
+
+            if (!json_is_integer(value_type_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].value_type = json_integer_value(value_type_json);
+
+            tag_address_json = json_object_get(tag_json, "tag_address");
+
+            if (!json_is_object(tag_address_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            mb_addr_json = json_object_get(tag_address_json, "mb_address");
+
+            if (!json_is_integer(mb_addr_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].tag_addr.mb_addr = json_integer_value(mb_addr_json);
+
+            eip_addr_json = json_object_get(tag_address_json, "ab_address");
+
+            if (!json_is_object(eip_addr_json))
+            {
+                json_decref(root);
+                return false;
+            }
+            eip_tag_name_json = json_object_get(eip_addr_json, "tag");
+
+            if (!json_is_string(eip_tag_name_json))
+            {
+                json_decref(root);
+                return false;
+            }
+            sprintf_s(links[i].tags[j].tag_addr.eip_tag_addr.tag_name, "%s", json_string_value(eip_tag_name_json));
+
+            s7_addr_json = json_object_get(tag_address_json, "s7_address");
+
+            if (!json_is_object(s7_addr_json))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            s7_db = json_object_get(s7_addr_json, "db");
+
+            if (!json_is_integer(s7_db))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].tag_addr.s7_tag_addr.db_number = json_integer_value(s7_db);
+
+            s7_start = json_object_get(s7_addr_json, "start");
+
+            if (!json_is_integer(s7_start))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].tag_addr.s7_tag_addr.start = json_integer_value(s7_start);
+
+            s7_start_bit = json_object_get(s7_addr_json, "start_bit");
+
+            if (!json_is_integer(s7_start_bit))
+            {
+                json_decref(root);
+                return false;
+            }
+
+            links[i].tags[j].tag_addr.s7_tag_addr.start_bit = json_integer_value(s7_start_bit);
         }
     }
 
