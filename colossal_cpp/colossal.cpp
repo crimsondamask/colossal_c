@@ -56,13 +56,15 @@ static bool load_config(Link links[])
         return false;
     }
 
-    if (json_array_size(root) != N_DEVICES)
+    size_t array_size = json_array_size(root);
+
+    if (array_size != N_DEVICES)
     {
         json_decref(root);
         return false;
     }
 
-    for (size_t i = 0; i < N_DEVICES; i++)
+    for (size_t i = 0; i < array_size; i++)
     {
         json_t *link_json, *link_name_json, *protocol_json, *link_config_json, *mb_tcp_config_json, *ip_json, *url_json,
             *token_json, *tags_json, *logging_json, *tcp_port_json, *mb_serial_config_json, *serial_port_json,
@@ -1149,9 +1151,9 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     mem->memory[mem->size] = 0;
     return realsize;
 }
-// int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
+int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 
-int main(int, char **)
+// int main(int, char **)
 {
 
     glfwSetErrorCallback(glfw_error_callback);
@@ -1449,7 +1451,7 @@ int main(int, char **)
         }
 
         // Initialize the buffers
-        buf_init(&buf[i], 86400);
+        buf_init(&buf[i], 7200);
         // and the config update so we can send updates to the threads.
         config_update_init(&config_update[i]);
 
