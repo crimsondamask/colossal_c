@@ -7,4 +7,8 @@ C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\imgui_impl_glfw.cpp;
 C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\imgui_impl_opengl3.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\imgui_impl_opengl3.obj
 C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\imgui_tables.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\imgui_tables.obj
 C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\imgui_widgets.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\imgui_widgets.obj
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\mb_device.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\mb_device.obj
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\implot\implot.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\implot.obj
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\implot\implot_demo.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\implot_demo.obj
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\imgui\implot\implot_items.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\implot_items.obj
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\link.obj
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\snap7\snap7.cpp;C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\colossaal_app\x64\Debug\snap7.obj

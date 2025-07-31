@@ -1,0 +1,211 @@
+[
+  {
+    "name": "LINK_1",
+    "protocol": 0,
+    "url": "http://127.0.0.1:8181/api/v3/write_lp?db=colossal&precision=second",
+    "token": "apiv3_VJSoTa7OaIRjYXweq0kNJY2gA2UlVcqh-knb8oOJoSpuU3QFfqrtlZk5NvJ-xviVJz8Pp0bSkjntbdBqGHFUKQ",
+    "logging": 0,
+    "link_config": {
+      "mb_tcp_config": {
+        "ip": "127.0.0.1",
+        "port": 5502
+      },
+      "mb_serial_config": {
+        "serial_port": "COM3",
+        "baudrate": 9600,
+        "parity": "N"
+      },
+      "eip_config": {
+        "ip": "192.168.1.10"
+      },
+      "s7_config": {
+        "ip": "192.168.0.1",
+        "rack": 0,
+        "slot": 1
+      }
+    },
+    "tags": [
+      {
+        "name": "TAG-0",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 0,
+        "tag_address": {
+          "mb_address": 8,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      },
+      {
+        "name": "TAG-1",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 1,
+        "tag_address": {
+          "mb_address": 10,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      },
+      {
+        "name": "TAG-2",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 1,
+        "tag_address": {
+          "mb_address": 12,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      },
+      {
+        "name": "TAG-3",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 1,
+        "tag_address": {
+          "mb_address": 13,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      }
+    ]
+  },
+  {
+ "name": "LINK_2",
+    "protocol": 0,
+    "url": "http://127.0.0.1:8181/api/v3/write_lp?db=colossal&precision=second",
+    "token": "apiv3_VJSoTa7OaIRjYXweq0kNJY2gA2UlVcqh-knb8oOJoSpuU3QFfqrtlZk5NvJ-xviVJz8Pp0bSkjntbdBqGHFUKQ",
+    "logging": 0,
+    "link_config": {
+      "mb_tcp_config": {
+        "ip": "127.0.0.1",
+        "port": 5502
+      },
+      "mb_serial_config": {
+        "serial_port": "COM3",
+        "baudrate": 9600,
+        "parity": "N"
+      },
+      "eip_config": {
+        "ip": "192.168.1.10"
+      },
+      "s7_config": {
+        "ip": "192.168.0.1",
+        "rack": 0,
+        "slot": 1
+      }
+    },
+    "tags": [
+      {
+        "name": "TAG-0",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 0,
+        "tag_address": {
+          "mb_address": 8,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      },
+      {
+        "name": "TAG-1",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 1,
+        "tag_address": {
+          "mb_address": 10,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      },
+      {
+        "name": "TAG-2",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 1,
+        "tag_address": {
+          "mb_address": 12,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      },
+      {
+        "name": "TAG-3",
+        "description": "Configured tag.",
+        "unit": "N/A",
+        "enabled": 0,
+        "logged": 1,
+        "value_type": 1,
+        "tag_address": {
+          "mb_address": 13,
+          "ab_address": {
+            "tag": "AB_TAG"
+          },
+          "s7_address": {
+            "db": 5,
+            "start": 12,
+            "start_bit": 0
+          }
+        }
+      }
+    ]    
+  }
+]
+

@@ -1,0 +1,11 @@
+{
+  [
+    {
+      name: "LINK_JSON",
+      protocol: 1,
+      link_config: {
+          ip: "127.0.0.1"
+        }
+    }
+  ]
+}
