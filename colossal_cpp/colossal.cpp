@@ -621,6 +621,10 @@ static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buff
         }
         ImGui::Text("%s Logging Details", links[*logger_selected_link].name);
 
+        if (ImGui::Checkbox("Enable Logging", &links[*logger_selected_link].logging_enabled))
+        {
+            config_edit_flags[*logger_selected_link] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
         if (ImGui::InputText("API Token", ui_buffer->token, IM_ARRAYSIZE(ui_buffer->token),
                              ImGuiInputTextFlags_CharsNoBlank))
         {
@@ -851,6 +855,11 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                 }
 
                 if (ImGui::Checkbox("Active", &ui_buffer->active))
+                {
+                    config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                }
+
+                if (ImGui::InputInt("Poll Delay (ms)", &ui_buffer->poll_delay, 10))
                 {
                     config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
                 }
@@ -1151,9 +1160,9 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     mem->memory[mem->size] = 0;
     return realsize;
 }
-// int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
+int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 
-int main(int, char **)
+// int main(int, char **)
 {
 
     glfwSetErrorCallback(glfw_error_callback);
@@ -1800,6 +1809,19 @@ int polling_thread(void *arg)
 
             is_first_tag = true;
 
+            if (!link.logging_enabled)
+            {
+                // Logging is disabled for this link.
+                //
+                if (buf_put(buf_ptr, link))
+                {
+                    // printf("Producer N. %d produced data. timestamp: %lu\n", id, timestamp);
+                }
+
+                Sleep(link.poll_delay);
+
+                continue;
+            }
             if (curl)
             {
                 struct CurlMemoryStruct chunk;
@@ -1872,7 +1894,7 @@ int polling_thread(void *arg)
                 break;
             }
 
-            Sleep(1000);
+            Sleep(link.poll_delay);
         }
     }
 

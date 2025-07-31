@@ -181,6 +181,8 @@ typedef struct Link
     // 0 for Local logging and 1 for remote
     // TODO an enum would be better but int works more easily with GUI Combobox
     int logging_type;
+    bool logging_enabled;
+    int poll_delay;
     char url[URL_BUF_LEN];
     char token[TOKEN_BUF_LEN];
     unsigned long log_count;
