@@ -1,17 +1,2 @@
-﻿  link.cpp
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(92,29): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
-      C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(92,29):
-      consider using '%zd' in the format string
-  
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(97,51): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
-      C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(97,51):
-      consider using '%zd' in the format string
-  
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(104,40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(112,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(116,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(120,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(126,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(131,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(137,1): warning C4172: returning address of local variable or temporary : link_init
+﻿  data_buffer.cpp
   colossaal_app.vcxproj -> C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\x64\Debug\colossaal_app.exe

@@ -161,6 +161,9 @@ bool config_update_get(ConfigUpdate *config_update_ptr, Link *config_dst, bool *
 {
     mtx_lock(&config_update_ptr->mtx);
 
+    // Temporary variable to hold the link data.
+    Link tmp = *config_dst;
+
     if (!config_update_ptr->pending_update || config_dst == NULL)
     {
         mtx_unlock(&config_update_ptr->mtx);
@@ -168,6 +171,14 @@ bool config_update_get(ConfigUpdate *config_update_ptr, Link *config_dst, bool *
     }
 
     *config_dst = *config_update_ptr->new_link_update;
+    config_dst->tags = tmp.tags;
+
+    // We clone the tags values. Assigning them directly will only copy the tag array pointer
+    //
+    for (size_t i = 0; i < N_CHANNELS; i++)
+    {
+        config_dst->tags[i] = config_update_ptr->new_link_update->tags[i];
+    }
     // Reset the flag
     config_update_ptr->pending_update = false;
 

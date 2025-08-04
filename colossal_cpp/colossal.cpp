@@ -1457,7 +1457,10 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
         link_config.eip_config = eip_config;
 
         Link link = {};
+        Link thread_link = {};
+
         link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS, false);
+        thread_link = *cl_new_link(link_name_buf, i, MB_TCP, link_config, N_CHANNELS, false);
 
         if (is_config_loaded)
         {
@@ -1484,7 +1487,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
 
         // the thread argument holds the firstly created link.
         // This is used as the initial values for the thread to try and poll...etc
-        thread_arg[i].link = link;
+        thread_arg[i].link = thread_link;
 
         if (thrd_create(&th[i], polling_thread, (void *)&thread_arg[i]) != thrd_success)
         {
