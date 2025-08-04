@@ -166,11 +166,18 @@ int cl_connect_link(Link *link)
         break;
     }
     case MB_SERIAL: {
-        link->link_config.mb_tcp_config.ctx =
+        link->link_config.mb_serial_config.ctx =
             modbus_new_rtu(link->link_config.mb_serial_config.com_port, link->link_config.mb_serial_config.baudrate,
                            link->link_config.mb_serial_config.parity, 8, 1);
 
-        if (modbus_connect(link->link_config.mb_tcp_config.ctx) == -1)
+        if (modbus_set_slave(link->link_config.mb_serial_config.ctx, link->link_config.mb_serial_config.slave) == -1)
+        {
+            link->is_error = true;
+            sprintf_s(link->err_msg, "Could not connect to device.");
+            return -1;
+        }
+
+        if (modbus_connect(link->link_config.mb_serial_config.ctx) == -1)
         {
             link->is_error = true;
             sprintf_s(link->err_msg, "Could not connect to device.");
@@ -268,9 +275,68 @@ int cl_read_tag(Link *link, int tag_id)
     {
     // Modbus Serial ================================================================
     case MB_SERIAL:
-        // We do not break to jump to the next case (MB_TCP) as both MB_TCP and MB_SERIAL
-        // share the same read functions.
 
+        if ((tag->protocol != MB_TCP) && (tag->protocol != MB_SERIAL))
+        {
+            tag->is_error = true;
+            sprintf_s(tag->err_msg, "The Tag protocol doesn't match the Link protocol");
+            return -1;
+        }
+
+        int rc;
+
+        switch (tag->value_type)
+        {
+        case VALUE_REAL: {
+            uint16_t read_buf[2] = {};
+            rc = modbus_read_registers(link->link_config.mb_serial_config.ctx, tag->tag_addr.mb_addr, 2, read_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            tag->tag_value.real_value = modbus_get_float_abcd(read_buf);
+            break;
+        }
+        case VALUE_INT: {
+            uint16_t read_buf[2] = {};
+            rc = modbus_read_registers(link->link_config.mb_serial_config.ctx, tag->tag_addr.mb_addr, 1, read_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            tag->tag_value.int_value = (int)read_buf[0];
+            break;
+        }
+        // TODO
+        // Add the ability to get the value of singular bits.
+        case VALUE_BOOL: {
+            uint8_t read_buf[1] = {};
+            rc = modbus_read_bits(link->link_config.mb_serial_config.ctx, tag->tag_addr.mb_addr, 1, read_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            // We get an int value with the first 8 bits representing 8 coils.
+            tag->tag_value.int_value = (int)read_buf[0];
+            break;
+        }
+        }
+        break;
     // Modbus TCP
     // ====================================================================
     case MB_TCP: {

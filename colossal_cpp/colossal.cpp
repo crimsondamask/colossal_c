@@ -68,8 +68,8 @@ static bool load_config(Link links[])
     {
         json_t *link_json, *link_name_json, *protocol_json, *link_config_json, *mb_tcp_config_json, *ip_json, *url_json,
             *token_json, *tags_json, *logging_json, *tcp_port_json, *mb_serial_config_json, *serial_port_json,
-            *serial_baudrate_json, *serial_parity_json, *eip_config_json, *eip_ip_json, *s7_config_json, *s7_ip_json,
-            *s7_rack_json, *s7_slot_json;
+            *serial_slave_json, *serial_baudrate_json, *serial_parity_json, *eip_config_json, *eip_ip_json,
+            *s7_config_json, *s7_ip_json, *s7_rack_json, *s7_slot_json;
 
         tags_json = {};
         link_json = json_array_get(root, i);
@@ -215,8 +215,15 @@ static bool load_config(Link links[])
             json_decref(root);
             return false;
         }
+        serial_slave_json = json_object_get(mb_serial_config_json, "slave");
 
-        sprintf_s(links[i].link_config.mb_serial_config.com_port, "%s", json_string_value(serial_port_json));
+        if (!json_is_integer(serial_slave_json))
+        {
+            json_decref(root);
+            return false;
+        }
+
+        links[i].link_config.mb_serial_config.slave = json_integer_value(serial_slave_json);
 
         serial_baudrate_json = json_object_get(mb_serial_config_json, "baudrate");
 
@@ -882,6 +889,10 @@ static void ui_links_window(size_t link_count, Link links[], Link ui_link_buffer
                 }
                 case MB_SERIAL: {
 
+                    if (ImGui::InputInt("Slave", &ui_buffer->link_config.mb_serial_config.slave))
+                    {
+                        config_edit_flags[i] |= CONFIG_EDIT_DEVICE_CONFIG;
+                    }
                     if (ImGui::InputText("Serial Port", ui_buffer->link_config.mb_serial_config.com_port,
                                          IM_ARRAYSIZE(ui_buffer->link_config.mb_serial_config.com_port)))
                     {
@@ -1425,6 +1436,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
 
         MbSerialConfig mb_serial_config;
         sprintf_s(mb_serial_config.com_port, "COM3");
+        mb_serial_config.slave = 1;
         mb_serial_config.baudrate = BR_9600;
         mb_serial_config.parity = CL_SERIAL_PARITY_NONE;
 

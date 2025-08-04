@@ -12,6 +12,7 @@
       },
       "mb_serial_config": {
         "serial_port": "COM3",
+	"slave": 1,
         "baudrate": 9600,
         "parity": "N"
       },
@@ -116,6 +117,7 @@
       },
       "mb_serial_config": {
         "serial_port": "COM3",
+	"slave": 2,
         "baudrate": 9600,
         "parity": "N"
       },

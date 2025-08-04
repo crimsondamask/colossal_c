@@ -11,28 +11,44 @@ C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(106,44): warn
 C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(133,47): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(165,51): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(201,69): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(229,76): warning C4244: '=': conversion from '__int64' to 'long', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(293,65): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(303,65): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(388,61): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(406,67): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(440,81): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(450,77): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(460,81): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(536,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(585,84): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1307,50): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1312,43): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1547,57): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1548,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1581,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1374,12): warning C4101: 'data_retention_buf': unreferenced local variable
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1687,9): warning C4101: 'rc': unreferenced local variable
-C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1718,18): warning C4101: 'err_buffer': unreferenced local variable
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(226,73): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(236,76): warning C4244: '=': conversion from '__int64' to 'long', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(300,65): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(310,65): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(395,61): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(413,67): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(447,81): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(457,77): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(467,81): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(543,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(592,84): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1318,50): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1323,43): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1559,57): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1560,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1593,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1385,12): warning C4101: 'data_retention_buf': unreferenced local variable
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1699,9): warning C4101: 'rc': unreferenced local variable
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\colossal.cpp(1730,18): warning C4101: 'err_buffer': unreferenced local variable
+  link.cpp
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(92,29): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+      C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(92,29):
+      consider using '%zd' in the format string
+  
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(97,51): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+      C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(97,51):
+      consider using '%zd' in the format string
+  
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(104,40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(112,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(116,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(120,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(126,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(131,40): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  2 of 3491 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    137 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+C:\Users\Admin\Desktop\code\colossal_cpp\colossal_cpp\link.cpp(137): warning C4172: returning address of local variable or temporary : link_init
+  All 3491 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   colossaal_app.vcxproj -> C:\Users\Admin\Desktop\code\colossal_cpp\colossaal_app\x64\Release\colossaal_app.exe
