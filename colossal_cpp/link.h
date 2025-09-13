@@ -157,10 +157,12 @@ typedef struct Tag
     int id;
     bool enabled;
     bool logged;
+    bool write_flag;
     TagAddress tag_addr;
     int value_type;
     int protocol;
     TagValue tag_value;
+    TagValue value_to_write;
     bool is_error;
     char err_msg[ERR_MSG_BUF_LEN];
 
@@ -195,4 +197,4 @@ void cl_destroy_link(Link *link);
 
 int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int value_type, int protocol, bool enabled);
 int cl_read_tag(Link *link, int tag_id);
-int cl_write_tag(Link *link, Tag *tag);
+int cl_write_tag(Link *link, int tag_id);

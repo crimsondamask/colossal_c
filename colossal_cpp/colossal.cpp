@@ -656,8 +656,8 @@ static void ui_loggers_window(size_t link_count, Link links[], Link ui_link_buff
     }
     ImGui::End();
 }
-static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[], bool *menu_state,
-                          int selected_link_index, int selected_tag_index, int config_edit_flags[])
+static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[], ConfigUpdate config_update[],
+                          bool *menu_state, int selected_link_index, int selected_tag_index, int config_edit_flags[])
 {
     Link *ui_buffer = &ui_link_buffers[selected_link_index];
     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
@@ -771,6 +771,46 @@ static void ui_tag_window(size_t link_count, Link links[], Link ui_link_buffers[
         if (ImGui::Checkbox("Logged", &ui_buffer->tags[selected_tag_index].logged))
         {
             config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+        }
+
+        switch (ui_buffer->tags[selected_tag_index].value_type)
+        {
+        case VALUE_REAL:
+            if (ImGui::InputFloat("Value to Write", &ui_buffer->tags[selected_tag_index].value_to_write.real_value))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        case VALUE_INT:
+            if (ImGui::InputInt("Value to Write", &ui_buffer->tags[selected_tag_index].value_to_write.int_value))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        case VALUE_BOOL:
+            if (ImGui::Checkbox("Value to Write", &ui_buffer->tags[selected_tag_index].value_to_write.bool_value))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        default:
+            if (ImGui::InputFloat("Value to Write", &ui_buffer->tags[selected_tag_index].value_to_write.real_value))
+            {
+                config_edit_flags[selected_link_index] |= CONFIG_EDIT_CHANNEL_CONFIG;
+            }
+            break;
+        }
+
+        if (ImGui::Button("Write"))
+        {
+
+            ui_buffer->tags[selected_tag_index].write_flag = true;
+            if (config_update_put(&config_update[selected_link_index], ui_buffer, false))
+            {
+                // ui_buffer->tags[selected_tag_index].write_flag = false;
+
+                // Reset the config change indication flags.
+            }
         }
     }
     else
@@ -1171,9 +1211,9 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     mem->memory[mem->size] = 0;
     return realsize;
 }
-int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
+// int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 
-// int main(int, char **)
+int main(int, char **)
 {
 
     glfwSetErrorCallback(glfw_error_callback);
@@ -1631,7 +1671,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
         // Tag options window. Tag selection is done through the links window table.
         if (menu_state.tag_menu)
         {
-            ui_tag_window(N_DEVICES, links, ui_link_buffers, &menu_state.tag_menu, selected_link_index,
+            ui_tag_window(N_DEVICES, links, ui_link_buffers, config_update, &menu_state.tag_menu, selected_link_index,
                           selected_tag_index, config_edit_flags);
         }
 
@@ -1766,6 +1806,22 @@ int polling_thread(void *arg)
                 {
                     // Skip the channel if disabled
                     continue;
+                }
+
+                if (link.tags[i].write_flag)
+                {
+                    if (cl_write_tag(&link, i) == -1)
+                    {
+
+                        link.is_error = true;
+                        reconnect_flag = true;
+                        // indicate that an error happened.
+                        // note that each tag holds its own error flag. So, this is redundant.
+                    }
+                    else
+                    {
+                        link.tags[i].write_flag = false;
+                    }
                 }
 
                 // Read the tag.

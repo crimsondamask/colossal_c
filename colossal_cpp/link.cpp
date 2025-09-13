@@ -5,9 +5,16 @@
 #include "snap7/snap7.h"
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <stdio.h>
 #include <string.h>
 #include <winnls.h>
+
+static void set_int_s7(byte buffer[], int pos, int16_t value)
+{
+    buffer[pos] = (byte)(value >> 8);
+    buffer[pos + 1] = (byte)(value & 0x00FF);
+}
 
 static uint32_t get_udint_s7(byte buffer[], int pos)
 {
@@ -22,12 +29,27 @@ static uint32_t get_udint_s7(byte buffer[], int pos)
     return res;
 }
 
+static void set_udint_s7(byte buffer[], int pos, uint32_t value)
+{
+    buffer[pos + 3] = (byte)(value & 0xFF);
+    buffer[pos + 2] = (byte)((value >> 8) & 0xFF);
+    buffer[pos + 1] = (byte)((value >> 16) & 0xFF);
+    buffer[pos] = (byte)((value >> 24) & 0xFF);
+}
+
 static float get_real_s7(byte buffer[], int pos)
 {
     uint32_t pack = get_udint_s7(buffer, pos);
     float res = {};
     memcpy(&res, &pack, 4);
     return res;
+}
+
+static void set_real_s7(byte buffer[], int pos, float value)
+{
+    uint32_t pack = {};
+    memcpy(&pack, &value, 4);
+    set_udint_s7(buffer, pos, pack);
 }
 
 static int16_t get_int_s7(byte buffer[], int pos)
@@ -52,11 +74,16 @@ int cl_new_tag(Link *link, char const *name, int id, TagAddress tag_addr, int va
     link->tags[id].tag_addr = tag_addr;
     link->tags[id].is_error = false;
     link->tags[id].enabled = enabled;
+    link->tags[id].write_flag = false;
+
     link->tags[id].logged = true;
     link->tags[id].value_type = value_type;
     link->tags[id].tag_value.real_value = 0.0;
     link->tags[id].tag_value.int_value = 0;
     link->tags[id].tag_value.bool_value = 0;
+    link->tags[id].value_to_write.real_value = 0.0;
+    link->tags[id].value_to_write.int_value = 0;
+    link->tags[id].value_to_write.bool_value = 0;
 
     return 0;
 }
@@ -255,6 +282,339 @@ int cl_connect_link(Link *link)
     }
 
     return 0;
+}
+
+int cl_write_tag(Link *link, int tag_id)
+{
+    if (!link || (tag_id >= link->tag_count))
+    {
+        return -1;
+    }
+    Tag *tag = &link->tags[tag_id];
+
+    if (!tag->enabled)
+    {
+        return -1;
+    }
+
+    switch (link->protocol)
+    {
+    // Modbus Serial ================================================================
+    case MB_SERIAL:
+
+        if ((tag->protocol != MB_TCP) && (tag->protocol != MB_SERIAL))
+        {
+            tag->is_error = true;
+            sprintf_s(tag->err_msg, "The Tag protocol doesn't match the Link protocol");
+            return -1;
+        }
+
+        int rc;
+
+        switch (tag->value_type)
+        {
+        case VALUE_REAL: {
+            uint16_t write_buf[2] = {};
+
+            modbus_set_float_abcd(tag->value_to_write.real_value, write_buf);
+
+            rc = modbus_write_registers(link->link_config.mb_serial_config.ctx, tag->tag_addr.mb_addr, 2, write_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            break;
+        }
+        case VALUE_INT: {
+            uint16_t write_buf[1] = {};
+
+            write_buf[0] = tag->value_to_write.int_value;
+
+            rc = modbus_write_registers(link->link_config.mb_serial_config.ctx, tag->tag_addr.mb_addr, 1, write_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            break;
+        }
+        // TODO
+        // Add the ability to get the value of singular bits.
+        case VALUE_BOOL: {
+            uint8_t write_buf[1] = {};
+
+            write_buf[0] = tag->value_to_write.bool_value;
+            rc = modbus_write_bits(link->link_config.mb_serial_config.ctx, tag->tag_addr.mb_addr, 1, write_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            // We get an int value with the first 8 bits representing 8 coils.
+            break;
+        }
+        }
+        break;
+    // Modbus TCP
+    // ====================================================================
+    case MB_TCP: {
+
+        if ((tag->protocol != MB_TCP) && (tag->protocol != MB_SERIAL))
+        {
+            tag->is_error = true;
+            sprintf_s(tag->err_msg, "The Tag protocol doesn't match the Link protocol");
+            return -1;
+        }
+
+        int rc;
+
+        switch (tag->value_type)
+        {
+        case VALUE_REAL: {
+            uint16_t write_buf[2] = {};
+
+            modbus_set_float_abcd(tag->value_to_write.real_value, write_buf);
+
+            rc = modbus_write_registers(link->link_config.mb_tcp_config.ctx, tag->tag_addr.mb_addr, 2, write_buf);
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            break;
+        }
+        case VALUE_INT: {
+            uint16_t write_buf[1] = {};
+
+            write_buf[0] = tag->value_to_write.int_value;
+            rc = modbus_write_registers(link->link_config.mb_tcp_config.ctx, tag->tag_addr.mb_addr, 1, write_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            break;
+        }
+        // TODO
+        // Add the ability to get the value of singular bits.
+        case VALUE_BOOL: {
+            uint8_t write_buf[1] = {};
+
+            write_buf[0] = tag->value_to_write.bool_value;
+            rc = modbus_write_bits(link->link_config.mb_tcp_config.ctx, tag->tag_addr.mb_addr, 1, write_buf);
+
+            if (rc == -1)
+            {
+                tag->is_error = true;
+                sprintf_s(tag->err_msg, "Could not read tag.");
+                return -1;
+            }
+
+            tag->is_error = false;
+            // We get an int value with the first 8 bits representing 8 coils.
+            break;
+        }
+        }
+        break;
+    }
+    // SIEMENS S7
+    // ====================================================================
+    case SIEMENS_S7: {
+
+        switch (tag->value_type)
+        {
+        case VALUE_REAL: {
+            byte data_buf[4] = {};
+
+            set_real_s7(data_buf, 0, tag->value_to_write.real_value);
+
+            int res = {};
+
+            res = Cli_WriteArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
+                                tag->tag_addr.s7_tag_addr.start, 4, S7WLByte, data_buf);
+
+            if (res < 0)
+            {
+                char error_text_buf[SIEMENS_ERR_BUF_LEN];
+                tag->is_error = true;
+                Cli_ErrorText(res, error_text_buf, SIEMENS_ERR_BUF_LEN);
+                sprintf_s(tag->err_msg, "Could not read tag: %s", error_text_buf);
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            break;
+        }
+        case VALUE_INT: {
+
+            byte data_buf[2] = {};
+            int res;
+
+            set_int_s7(data_buf, 0, tag->value_to_write.int_value);
+
+            res = Cli_WriteArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
+                                tag->tag_addr.s7_tag_addr.start, 2, S7WLByte, data_buf);
+
+            if (res < 0)
+            {
+                char error_text_buf[SIEMENS_ERR_BUF_LEN];
+                tag->is_error = true;
+                Cli_ErrorText(res, error_text_buf, SIEMENS_ERR_BUF_LEN);
+                sprintf_s(tag->err_msg, "Could not read tag: %s", error_text_buf);
+                return -1;
+            }
+
+            tag->is_error = false;
+            break;
+        }
+        case VALUE_BOOL: {
+
+            byte data_buf[1] = {};
+
+            data_buf[0] = tag->value_to_write.bool_value;
+
+            int res = {};
+
+            res = Cli_WriteArea(link->link_config.s7_config.client, S7AreaDB, tag->tag_addr.s7_tag_addr.db_number,
+                                // Offset must be expressed in number of bits (start * 8) + offset_bits.
+                                (tag->tag_addr.s7_tag_addr.start * 8) + tag->tag_addr.s7_tag_addr.start_bit, 1, S7WLBit,
+                                data_buf);
+
+            if (res < 0)
+            {
+                char error_text_buf[SIEMENS_ERR_BUF_LEN];
+                tag->is_error = true;
+                Cli_ErrorText(res, error_text_buf, SIEMENS_ERR_BUF_LEN);
+                sprintf_s(tag->err_msg, "Could not read tag: %s", error_text_buf);
+                return -1;
+            }
+
+            tag->is_error = false;
+            break;
+        }
+        default:
+            break;
+        }
+        break;
+    }
+    // Allen Bradley EIP
+    // ====================================================================
+    case EIP: {
+
+        if (tag->tag_addr.eip_tag_addr.eip_tag_ptr == NULL)
+        {
+            tag->is_error = true;
+            sprintf_s(tag->err_msg, "Could not read tag: The EIP tag has not been properly created.");
+            return -1;
+        }
+
+        int rc;
+        switch (tag->value_type)
+        {
+
+        case VALUE_REAL: {
+
+            rc = plc_tag_set_float32(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0, tag->value_to_write.real_value);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not set tag value: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            rc = plc_tag_write(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not write tag: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            break;
+        }
+        case VALUE_INT: {
+
+            rc = plc_tag_set_int16(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0, tag->value_to_write.int_value);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not set tag value: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            rc = plc_tag_write(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not write tag: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            break;
+        }
+        case VALUE_BOOL: {
+
+            rc = plc_tag_set_bit(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 0, tag->value_to_write.bool_value);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not set tag value: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            rc = plc_tag_read(tag->tag_addr.eip_tag_addr.eip_tag_ptr, 5000);
+
+            if (rc != PLCTAG_STATUS_OK)
+            {
+                sprintf_s(tag->err_msg, "Could not write tag: %s", plc_tag_decode_error(rc));
+                tag->is_error = true;
+                return -1;
+            }
+
+            // Reset the error flag.
+            tag->is_error = false;
+            break;
+        }
+        default:
+            break;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+
+    return EXIT_SUCCESS;
 }
 
 int cl_read_tag(Link *link, int tag_id)
